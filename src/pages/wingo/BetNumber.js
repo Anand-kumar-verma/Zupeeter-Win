@@ -12,11 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import zero from "../../assets/images/n0-30bd92d1.png";
 import one from "../../assets/images/n1-dfccbff5.png";
@@ -32,16 +30,15 @@ import { endpoint } from "../../services/urls";
 import FalseCheck from "../../shared/check/FalseCheck";
 import SuccessCheck from "../../shared/check/SuccessCheck";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
+import { deCryptData } from "../../shared/secret";
 import theme from "../../utils/theme";
 import Howtoplay from "./component/Howtoplay";
-import { deCryptData } from "../../shared/secret";
 
-const BetNumber = ({ timing, gid }) => {
+const BetNumber = ({ random, gid }) => {
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const [opend, setOpend] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectNumber, setSelectNumber] = useState("");
-  const [random, setRandomNumber] = useState();
   const [loding, setLoding] = useState(false);
   const client = useQueryClient();
 
@@ -376,7 +373,7 @@ const BetNumber = ({ timing, gid }) => {
                       onClick={() => {
                         handleClickValue(i);
                       }}
-                        className={` !cursor-pointer !text-black bg-gray-200
+                        className={` !cursor-pointer !text-white bg-gray-200 px-2
                           ${
                             (selectNumber === "green" ||
                               selectNumber === "1" ||
