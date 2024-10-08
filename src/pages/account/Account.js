@@ -27,6 +27,7 @@ import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import ImageSelectorModal from "./ImageSelectorModal";
 import CustomDate from "../../shared/CustomiztionDate/CustomDate";
 import { deCryptData } from "../../shared/secret";
+import { apiConnectorGet } from "../../services/apiconnector";
 
 function Account() {
   const or_m_user_type = deCryptData(localStorage.getItem("or_m_user_type"))
@@ -51,12 +52,11 @@ function Account() {
     retryOnMount:false,
     refetchOnWindowFocus:false
   });
-  const profile = data?.data?.earning || [];
+  const profile = data?.data?.data || [];
 
-  const [balance, setBalance] = useState("");
   const { data: wallet_amount } = useQuery(
     ["wallet_amount_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -65,19 +65,8 @@ function Account() {
       refetchOnWindowFocus:false
     }
   );
-  const wallet_amount_data = wallet_amount?.data?.earning || 0;
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-  const { data: update_pic } = useQuery(
-    ["Update_pic", selectedImages],
-    () => Update_ProfileFn(selectedImages, client),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
-    }
-  );
 
   async function sendUrlCallBackToBackend(transactionId) {
     try {
@@ -119,9 +108,10 @@ return (
       >
         <Box className="flex justify-start items-center gap-1 ">
           <Typography className=" !mt-10 !mr-1"
-            onClick={() => setOpend(true)}>
-            <img src={profile?.rec?.User_image} alt="" className='!rounded-full  w-[72px] h-[72px]' />
-            <BorderColor fontSize="small" className="!text-white !-mt-10 !ml-10 !rounded-full !bg-gray-400  " />
+            // onClick={() => setOpend(true)}
+            >
+            <img src={"https://mui.com/static/images/avatar/2.jpg"} alt="" className='!rounded-full  w-[72px] h-[72px]' />
+            {/* <BorderColor fontSize="small" className="!text-white !-mt-10 !ml-10 !rounded-full !bg-gray-400  " /> */}
           </Typography>
           <ImageSelectorModal
             setOpend={setOpend}
@@ -131,28 +121,27 @@ return (
             images={images} />
           <Box className="flex flex-col gap-1">
             <Box className="flex justify-start items-center">
-              <Typography className="!mt-5 !font-bold text-white">{profile?.rec?.Associate_Name}</Typography>
+              <Typography className="!mt-5 !font-bold text-white">{profile?.full_name}</Typography>
               <Typography>
                 <img src={vip} alt="" className=" w-10 mt-6" />
               </Typography>
             </Box>
-            <Box className="bg-gray-600 w-40 h-6 rounded-full p-1   realtive !left-40 flex gap-3 justify-center">
+            <Box className="bg-gray-600 !w-fit h-6 rounded-full p-1   realtive !left-40 flex gap-3 justify-center">
               <Typography className="text-white !text-xs">UID </Typography>
               <Typography className="text-white !text-xs">| </Typography>
-              <Typography className="text-white !text-xs">{profile?.rec?.Login_Id} <CopyAll fontSize="small" /> </Typography>
+              <Typography className="text-white !text-xs">{profile?.custid} <CopyAll fontSize="small" /> </Typography>
             </Box>
           
-            {profile?.rec?.Club !== 0 &&
-              <Box className="  realtive !left-36 flex gap-3 justify-center">
-                <Typography className="text-white !text-sm">Rank: </Typography>
-                <Typography className="text-white !text-sm">{showRank(profile?.rec?.Club)}</Typography>
-              </Box>}
-              <CustomDate/>
           </Box>
         </Box>
         <Box className="bg-white shadow-xl rounded-lg py-5 relative top-8">
           <Typography className="!text-gray-500 px-3">Total Balance</Typography>
-          <Typography className="!font-bold px-3"> ₹ {Number(wallet_amount_data || 0)?.toFixed(2)}
+          <Typography className="!font-bold px-3">   ₹
+                {(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
           </Typography>
           <Box className="flex justify-center gap-8 pt-5">
             <NavLink to="/wallet">

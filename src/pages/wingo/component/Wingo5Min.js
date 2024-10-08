@@ -32,6 +32,7 @@ import axios from "axios";
 import { endpoint } from "../../../services/urls";
 import toast from "react-hot-toast";
 import { My_All_HistoryFn } from "../../../services/apiCallings";
+import { apiConnectorGet } from "../../../services/apiconnector";
 
 
 
@@ -137,7 +138,7 @@ function Wingo5Min() {
 
   const { data: my_history } = useQuery(
     ["myAllhistory_3"],
-    () => My_All_HistoryFn(3),
+   async () => apiConnectorGet(`${endpoint.my_history}?limit=0&gameid=3`),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -145,9 +146,9 @@ function Wingo5Min() {
     }
   );
 
-  const { isLoading, data: game_history } = useQuery(
+  const { data: game_history } = useQuery(
     ["gamehistory_3min"],
-    () => GameHistoryFn("3"),
+    async () => await apiConnectorGet(`${endpoint.game_history}?limit=500&offset=0&gameid=3`),
     { 
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -156,18 +157,6 @@ function Wingo5Min() {
       refetchOnWindowFocus:false
     }
   );
-
-  const GameHistoryFn = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.game_history}?limit=500&offset=0&gameid=3`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
 
   React.useEffect(() => {
     dispatch(

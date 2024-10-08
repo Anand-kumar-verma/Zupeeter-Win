@@ -33,7 +33,6 @@ const MyHistory = ({ gid}) => {
     rowsPerPage,
     my_history
     ]);
-  // console.log(visibleRows);
    
   return (
     <Box mt={2}>
@@ -54,31 +53,35 @@ const MyHistory = ({ gid}) => {
                   sx={{ color: "white" }}
                 >
                   <div className="!w-full !flex !justify-between">
-                    <p className="!text-black ">{i?.tr_transid}</p>
+                    <p className="!text-black ">{i?.gamesno}</p>
                     <p
                       className={`${
-                        i?.tr_status === "Loss"
+                        i?.status === "2"
                           ? "!text-red-600"
-                          : i?.tr_status === "Win"
+                          : i?.status === "1"
                           ? "!text-green-600"
                           : "!text-red-600"
                       } !font-bold`}
                     >
-                      {i?.tr_status}
+                     {i?.status === "0"
+                          ? "Pending"
+                          : i?.status === "1"
+                          ? "Win"
+                          : "Loss"}
                     </p>
                     <span
                       style={{ mr: 1 }}
                       className={`${
-                        i?.tr_status === "Loss"
+                        i?.status === "2"
                           ? "!text-red-600"
-                          : i?.tr_status === "Win"
+                          : i?.status === "1"
                           ? "!text-green-600"
                           : "!text-red-600"
                       }`}
                     >
                       {" "}
                       {rupees}{" "}
-                      {i?.tr_status === "Win" ? i?.tr_income : i?.tr_pv}
+                      {i?.win ? "₹" + i?.win : "-" + i?.amount}
                     </span>
                   </div>
                 </AccordionSummary>
@@ -91,13 +94,13 @@ const MyHistory = ({ gid}) => {
                       Period
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                      {i?.tr_transid}
+                      {i?.gamesno}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Contract Money
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                      {Number(i?.tr_final_amt || 0).toFixed(2)}
+                    {Number(i?.amount || 0).toFixed(2)}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Contract Count
@@ -109,74 +112,69 @@ const MyHistory = ({ gid}) => {
                       Delivery
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                      {Number(i?.tr_pv || 0).toFixed(2)}
+                    {Number(i?.totalamount || 0).toFixed(2)}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Fee
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                      {(
-                        Number(i?.tr_final_amt || 0) - Number(i?.tr_pv || 0)
-                      ).toFixed(2)}
+                    {Number(i?.commission || 0).toFixed(2)}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Open Price
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                      {i?.tr_transid}
+                      {i?.gamesno}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Result
                     </span>
 
-                    {i?.tr_status !== "Pending" ? (
+                    {i?.status !== "0" ? (
                       <div className="flex gap-2 items-center bg-white !bg-opacity-10 py-1 px-2">
-                        <span>{`${i?.tr_win_slot - 1}`}</span>
+                        <span>{`${i?.result}`}</span>
                         <span
                           className={`
-  ${
-    ((i?.tr_win_slot - 1)?.toString() === "0" &&
-      "bg-gradient-to-t from-red-400 to-violet-400") ||
-    ((i?.tr_win_slot - 1)?.toString() === "5" &&
-      "bg-gradient-to-t from-violet-400 to-green-400") ||
-    (((i?.tr_win_slot - 1)?.toString() === "1" ||
-      (i?.tr_win_slot - 1)?.toString() === "3" ||
-      (i?.tr_win_slot - 1)?.toString() === "7" ||
-      (i?.tr_win_slot - 1)?.toString() === "9" ||
-      (i?.tr_win_slot - 1)?.toString() === "11") &&
-      "bg-gradient-to-t from-green-400 to-green-900") ||
-    (((i?.tr_win_slot - 1)?.toString() === "2" ||
-      (i?.tr_win_slot - 1)?.toString() === "4" ||
-      (i?.tr_win_slot - 1)?.toString() === "6" ||
-      (i?.tr_win_slot - 1)?.toString() === "8" ||
-      (i?.tr_win_slot - 1)?.toString() === "13") &&
-      "bg-gradient-to-tl from-red-400 to-red-900") ||
-    ((i?.tr_win_slot - 1)?.toString() === "15" && "bg-[#6DA7F4]") ||
-    ((i?.tr_win_slot - 1)?.toString() === "14" && "bg-[#F48901]") ||
-    ((i?.tr_win_slot - 1)?.toString() === "12" && "bg-[#eb2feb]")
-  }
-  transparentColor font-bold text-xl
-`}
+                  ${
+                    (i?.result === "0" &&
+                      "!bg-gradient-to-t from-red-400 to-violet-400") ||
+                    (i?.result === "5" &&
+                      "!bg-gradient-to-t from-violet-400 to-green-400") ||
+                    ((i?.result === "1" ||
+                      i?.result === "3" ||
+                      i?.result === "7" ||
+                      i?.result === "9" ||
+                      i?.result === "10") &&
+                      "bg-gradient-to-t from-green-400 to-green-900") ||
+                    ((i?.result === "2" ||
+                      i?.result === "4" ||
+                      i?.result === "6" ||
+                      i?.result === "8" ||
+                      i?.result === "30") &&
+                      "bg-gradient-to-tl from-red-400 to-red-900") ||
+                    (i?.result === "50" && "bg-[#3183ee]") ||
+                    (i?.result === "40" && "bg-[#f1be24]") ||
+                    (i?.result === "20" && "bg-[#eb2feb]")
+                  }
+                  transparentColor font-bold text-xl
+                  `}
                         >
-                          {((i?.tr_win_slot - 1)?.toString() === "0" &&
-                            "Red Voilet") ||
-                            ((i?.tr_win_slot - 1)?.toString() === "5" &&
-                              "Green Voilet") ||
-                            (((i?.tr_win_slot - 1)?.toString() === "1" ||
-                              (i?.tr_win_slot - 1)?.toString() === "3" ||
-                              (i?.tr_win_slot - 1)?.toString() === "7" ||
-                              (i?.tr_win_slot - 1)?.toString() === "9" ||
-                              i?.tr_win_slot?.toString() === "11") &&
-                              "Green") ||
-                            (((i?.tr_win_slot - 1)?.toString() === "2" ||
-                              (i?.tr_win_slot - 1)?.toString() === "4" ||
-                              (i?.tr_win_slot - 1)?.toString() === "6" ||
-                              (i?.tr_win_slot - 1)?.toString() === "8" ||
-                              i?.tr_win_slot?.toString() === "13") &&
-                              "Red") ||
-                            (i?.tr_win_slot?.toString() === "12" && "Red")}
+                          {i?.result === "0"
+                            ? "Red Voilet"
+                            : i?.result === "1" ||
+                              i?.result === "3" ||
+                              i?.result === "7" ||
+                              i?.result === "9"
+                            ? "Green"
+                            : i?.result === "5"
+                            ? "Voilet Green"
+                            : (i?.result === "2" ||
+                                i?.result === "4" ||
+                                i?.result === "6" ||
+                                i?.result === "8") &&
+                              "Red"}
                         </span>
-                        <span>{i?.tr_win_slot - 1 <= 4 ? "Small" : "Big"}</span>
+                        <span>{i?.result <= 4 ? "Small" : "Big"}</span>
                       </div>
                     ) : (
                       <div></div>
@@ -185,44 +183,44 @@ const MyHistory = ({ gid}) => {
                       Select
                     </span>
                     <div className="!bg-white !bg-opacity-10 py-1 px-2">
-                      <span
+                    <span
                         className={`
                   ${
-                    ((i?.tr_package - 1)?.toString() === "0" &&
+                    (i?.number === "0" &&
                       "!bg-gradient-to-t from-red-400 to-violet-400") ||
-                    ((i?.tr_package - 1)?.toString() === "5" &&
+                    (i?.number === "5" &&
                       "!bg-gradient-to-t from-violet-400 to-green-400") ||
-                    (((i?.tr_package - 1)?.toString() === "1" ||
-                      (i?.tr_package - 1)?.toString() === "3" ||
-                      (i?.tr_package - 1)?.toString() === "7" ||
-                      (i?.tr_package - 1)?.toString() === "9" ||
-                      i?.tr_package?.toString() === "11") &&
+                    ((i?.number === "1" ||
+                      i?.number === "3" ||
+                      i?.number === "7" ||
+                      i?.number === "9" ||
+                      i?.number === "10") &&
                       "bg-gradient-to-t from-green-400 to-green-900") ||
-                    (((i?.tr_package - 1)?.toString() === "2" ||
-                      (i?.tr_package - 1)?.toString() === "4" ||
-                      (i?.tr_package - 1)?.toString() === "6" ||
-                      (i?.tr_package - 1)?.toString() === "8" ||
-                      i?.tr_package?.toString() === "13") &&
+                    ((i?.number === "2" ||
+                      i?.number === "4" ||
+                      i?.number === "6" ||
+                      i?.number === "8" ||
+                      i?.number === "30") &&
                       "bg-gradient-to-tl from-red-400 to-red-900") ||
-                    (i?.tr_package?.toString() === "15" && "bg-[#6DA7F4]") ||
-                    (i?.tr_package?.toString() === "14" && "bg-[#F48901]") ||
-                    (i?.tr_package?.toString() === "12" && "bg-[#eb2feb]")
+                    (i?.number === "50" && "bg-[#3183ee]") ||
+                    (i?.number === "40" && "bg-[#f1be24]") ||
+                    (i?.number === "20" && "bg-[#eb2feb]")
                   }
                   transparentColor font-bold text-xl 
 
                   `}
                       >
-                        {i?.tr_package?.toString() === "11"
+                        {i?.number === "10"
                           ? "Green"
-                          : i?.tr_package?.toString() === "14"
+                          : i?.number === "50"
                           ? "Small"
-                          : i?.tr_package?.toString() === "15"
+                          : i?.number === "40"
                           ? "Big"
-                          : i?.tr_package?.toString() === "13"
+                          : i?.number === "30"
                           ? "Red"
-                          : i?.tr_package?.toString() === "12"
+                          : i?.number === "20"
                           ? "Voilet"
-                          : i?.tr_package - 1}
+                          : i?.number}
                       </span>
                     </div>
                     <span className="bg-white !bg-opacity-10 py-1 px-2">
@@ -230,14 +228,18 @@ const MyHistory = ({ gid}) => {
                     </span>
                     <span
                       className={`${
-                        i?.tr_status === "Loss"
+                        i?.status === "2"
                           ? "!text-red-400"
-                          : i?.tr_status === "Win"
+                          : i?.status === "1"
                           ? "!text-green-400"
                           : "!text-red-400"
                       } bg-white !bg-opacity-10 py-1 px-2`}
                     >
-                      {i?.tr_status}
+                      {i?.status === "0"
+                        ? "Pending"
+                        : i?.status === "1"
+                        ? "Win"
+                        : "Loss"}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2">
                       Amount
@@ -246,14 +248,14 @@ const MyHistory = ({ gid}) => {
                       className={`!text-green-400 bg-white !bg-opacity-10 py-1 px-2`}
                     >
                       {" "}
-                      {rupees} {i?.tr_income || 0}
+                      {rupees} {i?.win || 0}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2">
                       Create Time
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2">
-                      {moment(i?.tr_date)?.format("DD-MM-YYYY")}{" "}
-                      {moment(i?.tr_date)?.format("HH:mm:ss")}
+                      {moment(i?.datetime)?.format("DD-MM-YYYY")}{" "}
+                      {moment(i?.datetime)?.format("HH:mm:ss")}
                     </span>
                   </div>
                 </AccordionDetails>

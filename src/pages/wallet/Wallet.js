@@ -12,12 +12,12 @@ import {
   ProfileDataFunction,
   checkTokenValidity,
   depositHistoryFunction,
-  getBalanceFunction,
   showRank,
 } from "../../services/apiCallings";
-import { rupees } from "../../services/urls";
+import { endpoint, rupees } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
+import { apiConnectorGet } from "../../services/apiconnector";
 
 function Wallet() {
   const [balance, setBalance] = useState("");
@@ -25,7 +25,7 @@ function Wallet() {
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -35,9 +35,9 @@ function Wallet() {
     }
   );
   const navigate = useNavigate();
-  const wallet_amount_data = wallet_amount?.data?.earning || 0;
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-  const { isLoading: profileLoding, data: user } = useQuery(
+  const { data: user } = useQuery(
     ["profile"],
     () => ProfileDataFunction(),
     {
@@ -48,7 +48,7 @@ function Wallet() {
       refetchOnWindowFocus:false
     }
   );
-  const profile = user?.data?.earning || [];
+  const profile = user?.data?.data || [];
 
   const { isLoading: total_deposit, data } = useQuery(
     ["deposit_history"],
@@ -121,7 +121,7 @@ function Wallet() {
             color="initial"
             sx={{ fontSize: "14px", fontWeight: "500", color: "white" }}
           >
-           {profile?.rec?.Login_Id} / {profile?.rec?.Associate_Name}  
+           {profile?.custid} / {profile?.full_name}  
           </Typography>
         
         </Stack>
@@ -145,18 +145,14 @@ function Wallet() {
             color="initial"
             sx={{ fontSize: "18px", fontWeight: "500", color: "white" }}
           >
-            ₹{Number(wallet_amount_data || 0)?.toFixed(2)}
+            ₹
+                {(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
           </Typography>
-          {profile?.rec?.Club !==0 && 
-             <Typography
-             variant="body1"
-             color="initial"
-             className="!text-white"
-           >
-            Rank : {showRank(profile?.rec?.Club)}
-            
-           </Typography>
-            }
+      
         </Stack>
       </Box>
       <CustomCircularProgress isLoading={isLoading || total_deposit} />
@@ -172,7 +168,11 @@ function Wallet() {
               color="initial"
               sx={{ fontSize: "20px", fontWeight: "500", color: "white" }}
             >
-              ₹{Number(wallet_amount_data || 0)?.toFixed(2)}
+          ₹{(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
             </Typography>
             <Typography
               variant="body1"
@@ -237,7 +237,11 @@ function Wallet() {
                 }}
               >
                 <Typography variant="body1" color="initial">
-                ₹ {wallet_amount_data}
+                ₹
+                {(
+                   Number(wallet_amount_data?.wallet || 0)
+                  ) 
+                ?.toFixed(2)}{" "}
                 </Typography>
                 <Typography variant="body1" color="initial">
                   Main wallet

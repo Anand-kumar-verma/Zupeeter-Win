@@ -12,7 +12,7 @@ const MyHistory = ({ gid }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const my_history_data = useSelector(
-    (state) => state.aviator.myHistory_trx_one_minFn
+    (state) => state.aviator.myHistory_trx_one_min
   );
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -237,18 +237,22 @@ const MyHistory = ({ gid }) => {
                     <p className="!text-white ">{i?.gamesno}</p>
                     <p
                       className={`${
-                        i?.status === "0"
+                        i?.status === "2"
                           ? "!text-red-600"
                           : i?.status === "1"
                           ? "!text-green-600"
                           : "!text-red-600"
                       } !font-bold`}
                     >
-                      {i?.status}
+                   {i?.status === "0"
+                          ? "Pending"
+                          : i?.status === "1"
+                          ? "Win"
+                          : "Loss"}
                     </p>
                     <span
                       className={`${
-                        i?.status === "0"
+                        i?.status === "2"
                           ? "!text-red-600"
                           : i?.status === "1"
                           ? "!text-green-600"
@@ -395,7 +399,7 @@ const MyHistory = ({ gid }) => {
                     </span>
                     <span
                       className={`${
-                        i?.tr_status === "0"
+                        i?.tr_status === "2"
                           ? "!text-red-400"
                           : i?.tr_status === "1"
                           ? "!text-green-400"

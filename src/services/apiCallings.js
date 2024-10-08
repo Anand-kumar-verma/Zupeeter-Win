@@ -2,6 +2,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { dummy_aviator, endpoint } from "./urls";
 import { deCryptData } from "../shared/secret";
+import CryptoJS from "crypto-js";
+import { apiConnectorGet } from "./apiconnector";
+
 
 export const storeCookies = () => {
   let expirationDate = new Date();
@@ -9,7 +12,17 @@ export const storeCookies = () => {
   // expirationDate.setTime(expirationDate.getTime() + 60*1000); // 2 hours in milliseconds
   document.cookie = `token=anandtoken; expires=${expirationDate.toUTCString()}; path=/`;
 };
-
+const login_data =
+  (localStorage.getItem("user_id") &&
+    CryptoJS.AES.decrypt(
+      localStorage.getItem("user_id"),
+      "anand"
+    )?.toString(CryptoJS.enc.Utf8)) ||
+  null;
+// const login_data_ = localStorage.getItem("aviator_data");
+// const first_rechange =
+//   aviator_login_data && JSON.parse(aviator_login_data)?.first_recharge;
+const user_id = login_data && JSON.parse(login_data)?.UserID;
 export function checkTokenValidity() {
   const cookies = document.cookie.split("; ");
   for (let i = 0; i < cookies.length; i++) {
@@ -53,7 +66,7 @@ export const MyHistoryFn = async (gid) => {
 export const getBalanceFunction = async (setBalance) => {
   try {
     const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
+      userid: localStorage.getItem("user_id"),
     };
     const response = await axios.post(`${endpoint.get_balance}`, reqBody);
     setBalance(response?.data?.earning);
@@ -81,44 +94,17 @@ export const getBetFunction = async (setBet) => {
   }
 };
 
-export const My_All_HistoryFn = async (gid) => {
-  const id = deCryptData(localStorage.getItem("user_id"));
-  try {
-    const response = await axios.get(`${endpoint.my_history}?userid=${id}&limit=0&gameid=${gid}`);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
+// export const My_All_HistoryFn = async (gid) => {
+//   const id = deCryptData(localStorage.getItem("user_id"));
+//   try {
+//     const response = await axios.get(`${endpoint.my_history}?userid=${id}&limit=0&gameid=${gid}`);
+//     return response;
+//   } catch (e) {
+//     toast(e?.message);
+//     console.log(e);
+//   }
+// };
 
-export const My_All_TRX_HistoryFn = async (gid) => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-      gameid: gid,
-    };
-    const response = await axios.post(`${endpoint.trx_my_history}`, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
-export const My_All_TRX_HistoryFn_new = async (gid) => {
-  const id = deCryptData(localStorage.getItem("user_id"));
-  try {
-    const response = await axios.get(
-      `${endpoint.trx_my_history_new}?userid=${id}&limit=0&gameid=${gid}`
-    );
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
-
-// /; INCOME
 export const MyTeamLevel = async () => {
   try {
     const reqBody = {
@@ -230,25 +216,9 @@ export const TokenLaunch = async () => {
     console.log(e);
   }
 };
-export const TopWinner = async () => {
-  try {
-    const response = await axios.get(endpoint.win_list_top);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
 
-export const LastTrade = async () => {
-  try {
-    const response = await axios.get(endpoint.win_list_last);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
+
+
 export const withdrawlHistoryFunction = async () => {
   try {
     const reqBody = {
@@ -363,9 +333,10 @@ export const TeamDatafunction = async () => {
 export const ProfileDataFunction = async () => {
   try {
     const reqBody = {
-      user_id: deCryptData(localStorage.getItem("user_id")),
+      user_id: localStorage.getItem("user_id"),
     };
-    const response = await axios.post(endpoint.profile_function, reqBody);
+    const response = await apiConnectorGet(endpoint.profile_function,  reqBody
+    );
     return response;
   } catch (e) {
     toast(e?.message);

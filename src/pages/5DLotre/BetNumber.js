@@ -16,7 +16,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
-import { getBalanceFunction } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
 import SuccessCheck from "../../shared/check/SuccessCheck";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
@@ -43,9 +42,6 @@ const BetNumber = ({ gid }) => {
   const handleClosed = () => {
     setOpend(false);
   }; 
-  useEffect(() => {
-    getBalanceFunction(setBalance);
-  }, []);
 
   const fk = useFormik({
     initialValues: initialValue,

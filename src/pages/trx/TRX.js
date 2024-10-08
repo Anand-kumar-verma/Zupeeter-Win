@@ -19,7 +19,6 @@ import music from "../../assets/images/music.png";
 import musicoff from "../../assets/images/musicoff.png";
 import refresh from "../../assets/images/refresh.png";
 import time from "../../assets/images/time.png";
-import { getBalanceFunction } from "../../services/apiCallings";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 import WinLossPopup from "./WinLossPopup";
@@ -28,12 +27,13 @@ import Wingo1Min from "./component/Wingo1Min";
 import Wingo3Min from "./component/Wingo3Min";
 import Wingo5Min from "./component/Wingo5Min";
 import { byTimeIsEnableSound, wallet_real_balanceFn } from "../../redux/slices/counterSlice";
+import { endpoint } from "../../services/urls";
+import { apiConnectorGet } from "../../services/apiconnector";
 
 function TRX () {
 
   const [musicicon, setmusicicon] = useState(true);
   const [value, setValue] = useState(1);
-  const [getBalance, setBalance] = useState(0);
   const dispatch = useDispatch();
   const [opendialogbox, setOpenDialogBox] = useState(false);
   const isAppliedbet = localStorage.getItem("betApplied");
@@ -74,17 +74,6 @@ function TRX () {
     localStorage.removeItem("anand_re");
   }, []);
 
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     if (isAppliedbet?.split("_")?.[1] === String(true)) {
-  //      setOpenDialogBox(true);
-  //       // setTimeout(() => {
-  //       //   setOpenDialogBox(false);
-  //       //   localStorage.setItem("betApplied", false);
-  //       // }, 5000);
-  //     }
-  //   }, 1000);
-  // }, [dummycounter]);
   React.useEffect(() => {
     if (isAppliedbet?.split("_")?.[1] === String(true)) {
       setOpenDialogBox(true);
@@ -92,7 +81,7 @@ function TRX () {
   }, [dummycounter]);
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -103,8 +92,8 @@ function TRX () {
   );
 
   React.useEffect(() => {
-    dispatch(wallet_real_balanceFn(wallet_amount?.data?.earning || 0));
-  }, [wallet_amount?.data?.earning]);
+    dispatch(wallet_real_balanceFn(wallet_amount?.data?.data));
+  }, [Number(wallet_amount?.data?.data?.wallet), Number(wallet_amount?.data?.data?.winning)]);
 
   function refreshFunctionForRotation() {
     client.refetchQueries("wallet_amount");
@@ -186,7 +175,12 @@ function TRX () {
               fontSize="18px"
               fontWeight={700}
             >
-              ₹ {wallet_amount_data}{" "}
+               {(
+                Number(
+                  Number(wallet_amount?.data?.data?.winning || 0) +
+                  Number(wallet_amount?.data?.data?. wallet || 0)
+                ) || 0
+              )?.toFixed(0)}
             </Typography>
             <div className="mx-1 rotate_refresh_image" id="refresh_button">
               <img

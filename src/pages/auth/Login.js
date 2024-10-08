@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import CryptoJS from "crypto-js";
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -34,6 +35,7 @@ import phoneaa from "../../assets/images/phoneaa.png";
 import { storeCookies } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
 import { deCryptData, enCryptData } from "../../shared/secret";
+
 function Login() {
   const [value, setValue] = useState("one");
   const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -41,6 +43,7 @@ function Login() {
   const [country, setCountry] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [loding, setloding] = useState(false);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -57,40 +60,57 @@ function Login() {
     email: "",
     password: "",
     mobile: "",
+
   };
 
   const fk = useFormik({
     initialValues: initialValue,
     onSubmit: () => {
       const reqBody = {
-        email: value === "one" ? String(fk.values.mobile) : fk.values.email,
+        username: value === "one" ? String(fk.values.mobile) : fk.values.email,
         password: fk.values.password,
+        ipAddress: ""
       };
-      if (!reqBody.password || !reqBody.email)
+      if (!reqBody.password || !reqBody.username)
         return toast("Plese enter all fields");
-      loginSubmit(reqBody);
+      loginFunction(reqBody);
     },
   });
 
-  async function loginSubmit(reqBody) {
+  const loginFunction = async (reqbody) => {
+    setloding(true);
     try {
-      const res = await axios.post(endpoint.newlogin, reqBody);
-      console.log(res);
-      if (res?.data?.success === "200") {
+      const response = await axios.post(endpoint?.login, reqbody, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      toast.success(response?.data?.msg);
+      if (response?.data?.msg === "Login Successfully") {
+        const value = response?.data?.token;
+        localStorage.setItem(
+          "user_id",
+          CryptoJS.AES.encrypt(
+            JSON.stringify({ UserID: response?.data?.UserID }),
+            "anand"
+          )?.toString()
+        );
+        localStorage.setItem("token",value)
+        sessionStorage.setItem("isAvailableUser", true);
+        sessionStorage.setItem("isAvailableCricketUser", true);
+        setloding(false);
         storeCookies();
-        toast(res?.data?.message);
-        localStorage.setItem("user_id", enCryptData(res?.data?.data?.or_user_id));
-        localStorage.setItem("or_m_user_type", enCryptData(res?.data?.data?.or_m_user_type));
-        // navigate("/dashboard");
-        window.location.reload();
         navigate("/before-login");
-      } else {
-        toast(res?.data?.msg);
+        window.location.reload();
       }
     } catch (e) {
-      toast(e?.response?.data?.message);
+      toast.error(e?.message);
+      console.error(e);
     }
-  }
+    setloding(false);
+  };
 
   useEffect(() => {
     user_id && 

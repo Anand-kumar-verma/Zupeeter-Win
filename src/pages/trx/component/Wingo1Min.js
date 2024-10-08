@@ -6,10 +6,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -20,18 +18,14 @@ import timerbg2 from "../../../assets/images/timerbg2.png";
 import trxbg from "../../../assets/images/trxbg.png";
 import {
   dummycounterFun,
+  gameHistory_trx_one_minFn,
   myHistory_trx_one_minFn,
   trx_game_image_index_function,
-  updateNextCounter,
-  byTimeIsEnableMusic,
-  byTimeIsEnableSound,
-  gameHistory_trx_one_minFn,
+  updateNextCounter
 } from "../../../redux/slices/counterSlice";
-import {
-  My_All_TRX_HistoryFn,
-  My_All_TRX_HistoryFn_new,
-} from "../../../services/apiCallings";
+import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { useSocket } from "../../../shared/socket/SocketContext";
 import BetNumber from "../BetNumber";
 import Chart from "../history/Chart";
@@ -39,7 +33,6 @@ import GameHistory from "../history/GameHistory";
 import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 ////
 function Wingo1Min() {
 
@@ -53,8 +46,7 @@ function Wingo1Min() {
   const audioRefMusiclast = React.useRef(null);
   const client = useQueryClient();
   const next_step = useSelector((state) => state.aviator.next_step);
-  const byTimeEnablingSound = useSelector((state) => state.aviator.byTimeEnablingSound);
-//  console.log(typeof(byTimeEnablingSound))
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -76,9 +68,8 @@ function Wingo1Min() {
 
     const handleOneMin = (onemin) => {
       setOne_min_time(onemin);
-      // fk.setFieldValue("show_this_one_min_time", onemin);
       if (onemin === 1) handlePlaySoundLast();
-      if ([ 5, 4, 3, 2].includes(onemin)) {
+      if ([5, 4, 3, 2].includes(onemin)) {
         handlePlaySound();
       }
 
@@ -88,7 +79,6 @@ function Wingo1Min() {
         fk.setFieldValue("openTimerDialog", false);
       }
       if (onemin === 59) {
-        // dispatch(dummycounterFun());
         fk.setFieldValue("openTimerDialog", false);
       }
 
@@ -96,17 +86,12 @@ function Wingo1Min() {
         client.refetchQueries("wallet_amount");
         client.refetchQueries("myAll_trx_history_new");
       }
-      // if(onemin === 56){
-      //   client.refetchQueries("myAll_trx_history_new");
-      // }
       if (onemin === 0) {
-        // client.refetchQueries("trx_gamehistory_chart");
         client.refetchQueries("trx_gamehistory");
       }
     };
     const handleOneMinResult = (result) => {
       localStorage.setItem("anand_re", result);
-      // dispatch(dummycounterFun());
     };
     socket.on("onemintrx", handleOneMin);
     socket.on("result", handleOneMinResult);
@@ -118,7 +103,9 @@ function Wingo1Min() {
 
   const { isLoading, data: game_history } = useQuery(
     ["trx_gamehistory"],
-    () => GameHistoryFn("1"),
+    async () => await apiConnectorGet(
+      `${endpoint.trx_game_history}?gameid=1&limit=500`
+    ),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -127,18 +114,7 @@ function Wingo1Min() {
       refetchOnWindowFocus: false,
     }
   );
-  const GameHistoryFn = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.trx_game_history}?gameid=1&limit=500`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
- React.useEffect(() => {
+  React.useEffect(() => {
     dispatch(
       updateNextCounter(
         game_history?.data?.result
@@ -172,56 +148,26 @@ function Wingo1Min() {
       console.error("Error during play:", error);
     }
   };
- 
-  const { isLoading: myhistory_loding_all, data: my_history_all } = useQuery(
-    ["myAll_trx_history"],
-    () => My_All_TRX_HistoryFn("1"),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      // retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const { isLoading: myhistory_loding_all_new, data: my_history_all_new } =
-    useQuery(["myAll_trx_history_new"], () => My_All_TRX_HistoryFn_new("1"), {
+
+  const {isLoading: myhistory_loding_all, data:my_history_all_new } = useQuery(
+    ["myAll_trx_history_new"],
+    async () => await apiConnectorGet(
+      `${endpoint.trx_my_history_new}?gameid=1&limit=500`
+    ), {
       refetchOnMount: false,
       refetchOnReconnect: false,
       // retry: false,
       retryOnMount: false,
       refetchOnWindowFocus: false,
     });
-
-  React.useEffect(() => {
-    const allEarnings = my_history_all?.data?.earning;
-    const newEarnings = my_history_all_new?.data?.earning;
-
-    // console.log("allEarnings:", allEarnings);
-    // console.log("newEarnings:", newEarnings);
-
-    if (Array.isArray(newEarnings) && newEarnings.length > 0) {
-      if (Array.isArray(allEarnings)) {
-        dispatch(myHistory_trx_one_minFn([...newEarnings, ...allEarnings]));
-      } else {
-        dispatch(myHistory_trx_one_minFn(newEarnings));
-      }
-    } else if (Array.isArray(allEarnings)) {
-      dispatch(myHistory_trx_one_minFn(allEarnings));
-    }
-
-    if (newEarnings?.[0]?.tr_status !== "Pending") {
-      dispatch(dummycounterFun());
-    }
-  }, [my_history_all?.data?.earning, my_history_all_new?.data?.earning]);
-
-
-
-
+    
+    React.useEffect(() => {
+      dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
+    }, [my_history_all_new?.data?.data]);
 
   const handlePlaySound = async () => {
     try {
-      if (audioRefMusic?.current?.pause && true ) {
+      if (audioRefMusic?.current?.pause && true) {
         await audioRefMusic?.current?.play();
       } else {
         await audioRefMusic?.current?.pause();

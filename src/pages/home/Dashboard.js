@@ -55,6 +55,7 @@ import { endpoint } from "../../services/urls";
 import toast from "react-hot-toast";
 import ava from "../../assets/images/aviator.jpg";
 import { deCryptData, enCryptData } from "../../shared/secret";
+import { apiConnectorGet } from "../../services/apiconnector";
 
 function Dashboard() {
   const progressCircle = useRef(null);
@@ -68,7 +69,7 @@ function Dashboard() {
   const handleChange = (newValue) => {
     setValue(newValue);
   };
-  const { isLoading, data } = useQuery(["top_winner"], () => TopWinner(), {
+  const { isLoading, data } = useQuery(["top_winner"], () => apiConnectorGet(endpoint.win_list_top), {
     refetchOnMount: false,
     refetchOnReconnect: false,
     retry: false,
@@ -77,25 +78,6 @@ function Dashboard() {
   });
 
   const res = data?.data?.earning || [];
-
-  const { data: Trade } = useQuery(["last_trade"], () => LastTrade(), {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    retryOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-  const trade = Trade?.data?.earning || [];
-
-  const TopWinner = async () => {
-    try {
-      const response = await axios.get(endpoint.win_list_top);
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
     if (!checkTokenValidity()) {
@@ -111,18 +93,6 @@ function Dashboard() {
     console.log(deCryptData(data));
   }, []);
 
-  const { isLoading: profileLoding, data: user } = useQuery(
-    ["profile"],
-    () => ProfileDataFunction(),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const profile = user?.data?.earning || [];
   const imageSources = [
     "https://mui.com/static/images/avatar/2.jpg",
     "https://mui.com/static/images/avatar/3.jpg",
@@ -632,72 +602,7 @@ function Dashboard() {
             );
           })}
         </Box>
-        <Box sx={{ mt: 5 }}>
-          <Typography
-            variant="body1"
-            color="initial"
-            sx={{ fontSize: "18px", fontWeight: 700, ml: 1 }}
-          >
-            Last Trade Top Winner
-          </Typography>
-          {trade?.slice(0, 5)?.map((i, index) => {
-            return (
-              <Stack key={index} direction="row" sx={style.winnerslider}>
-                <div className="-mt-5">
-                  <Box
-                    width={20}
-                    height={20}
-                    component={"img"}
-                    src={crown3}
-                    className="!relative top-3 right-2"
-                  ></Box>
-                  <Box
-                    component={"img"}
-                    src={imageSources[index]}
-                    alt={`Profile ${index + 1}`}
-                    width={30}
-                    height={30}
-                    sx={style.winnerprofile}
-                  ></Box>
-                </div>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={style.winnername}
-                >
-                  <p className="!flex !flex-col">
-                    <span>{i?.or_m_user_id}</span>
-                    <span>{i?.or_m_name}</span>
-                  </p>
-                </Typography>
-                <Box sx={style.winnerbannerouter}>
-                  <Box
-                    height={45}
-                    component={"img"}
-                    src={winerbanner1}
-                    sx={style.winnerbannerinner}
-                  ></Box>
-                </Box>
-                <Box>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    sx={style.winneramout || 0}
-                  >
-                    Receive ₹{i?.max_tr_pv}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    sx={style.winnertitle}
-                  >
-                    Winning amount
-                  </Typography>
-                </Box>
-              </Stack>
-            );
-          })}
-        </Box>
+   
       </Box>
     </Layout>
   );

@@ -16,22 +16,20 @@ import win3 from "../../../assets/images/win3.png";
 import win4 from "../../../assets/images/win4.png";
 import axios from "axios";
 import { endpoint } from "../../../services/urls";
+import { apiConnectorGet } from "../../../services/apiconnector";
+import { useQuery } from "react-query";
 
 function Lottery() {
-  const [status, setStatus] = useState(false);
 
-  const getStatus = async () => {
-    try {
-      const res = await axios.get(endpoint.withdrawl_status);
-      setStatus(res?.data?.earning);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { data} = useQuery(["status"] ,
+    ()=> apiConnectorGet(endpoint.status) ,{
+    refetchOnMount :false,
+    refetchOnWindowFocus:false,
+    refetchOnReconnect :false
+  })
+const status = data?.data?.data
 
-  useEffect(() => {
-    getStatus();
-  }, []);
+console.log(data?.data?.data)
 
   return (
     <Box sx={{ padding: "15px" }}>

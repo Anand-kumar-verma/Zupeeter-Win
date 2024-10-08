@@ -45,6 +45,7 @@ import { gameHistory_trx_one_minFn } from "../../../redux/slices/counterSlice";
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
 import { My_All_HistoryFn } from "../../../services/apiCallings";
+import { apiConnectorGet } from "../../../services/apiconnector";
 
 function Wingo1Min() {
 
@@ -119,7 +120,7 @@ function Wingo1Min() {
 
   const { data: my_history } = useQuery(
     ["myAllhistory_1"],
-    () => My_All_HistoryFn(1),
+   async () => apiConnectorGet(`${endpoint.my_history}?limit=0&offset=0&gameid=1`),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -127,9 +128,9 @@ function Wingo1Min() {
     }
   );
 
-  const { isLoading, data: game_history } = useQuery(
+  const { data: game_history } = useQuery(
     ["gamehistory"],
-    () => GameHistoryFn("1"),
+    async () => await apiConnectorGet(`${endpoint.game_history}?limit=500&offset=0&gameid=1`),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -139,17 +140,6 @@ function Wingo1Min() {
     }
   );
 
-  const GameHistoryFn = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.game_history}?limit=500&offset=0&gameid=1`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
   React.useEffect(() => {
     dispatch(
       updateNextCounter(

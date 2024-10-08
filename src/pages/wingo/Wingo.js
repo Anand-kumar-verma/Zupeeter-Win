@@ -29,6 +29,8 @@ import Wingo5Min from "./component/Wingo5Min";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { useDispatch } from "react-redux";
 import { wallet_real_balanceFn } from "../../redux/slices/counterSlice";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 function Wingo() {
   const [musicicon, setmusicicon] = useState(true);
   const [value, setValue] = useState(1);
@@ -57,7 +59,7 @@ function Wingo() {
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => getBalanceFunction(setBalance),
+      () => apiConnectorGet(endpoint.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -66,12 +68,10 @@ function Wingo() {
       refetchOnWindowFocus:false
     }
   );
-
-  // const wallet_amount_data = wallet_amount?.data?.earning || 0;
-
+ const balance = wallet_amount?.data?.data
   React.useEffect(() => {
-    dispatch(wallet_real_balanceFn(wallet_amount?.data?.earning || 0));
-  }, [wallet_amount?.data?.earning]);
+    dispatch(wallet_real_balanceFn(wallet_amount?.data?.data || 0));
+  }, [Number(balance?.winning) , Number(balance?.wallet)]);
 
   function refreshFunctionForRotation() {
     client.refetchQueries("wallet_amount");
@@ -152,7 +152,12 @@ function Wingo() {
               fontSize="15px"
               fontWeight={600}
             >
-              ₹ {wallet_amount_data}{" "}
+                ₹
+                {(
+                  Number(
+                    Number(balance?.winning || 0) + Number(balance?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
             </Typography>
             <div className="mx-1 rotate_refresh_image" id="refresh_button">
               <img

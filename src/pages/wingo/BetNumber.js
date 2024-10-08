@@ -33,6 +33,7 @@ import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { deCryptData } from "../../shared/secret";
 import theme from "../../utils/theme";
 import Howtoplay from "./component/Howtoplay";
+import { apiConnectorPost } from "../../services/apiconnector";
 
 const BetNumber = ({ random, gid }) => {
   const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -54,7 +55,6 @@ const BetNumber = ({ random, gid }) => {
   async function betFunctionStart() {
     setLoding(true);
     const reqBody = {
-      userid: user_id,
       amount: value | 0,
       number:
         (selectNumber === "green" && 10) ||
@@ -66,9 +66,9 @@ const BetNumber = ({ random, gid }) => {
       gameid: Number(gid),
     }
     try {
-      const response = await axios.post(`${endpoint.bet_placed}`, reqBody);
+      const response = await apiConnectorPost(`${endpoint.bet_placed}`, reqBody);
       if (response?.data?.error === "200") {
-        if (response?.data?.msg === "Bid Placed Successfully.") {
+        if (response?.data?.msg === "Bid placed Successfully1") {
           const toastID =   toast(
             <SuccessCheck
               message={<span className="!text-sm">{response?.data?.msg}</span>}
