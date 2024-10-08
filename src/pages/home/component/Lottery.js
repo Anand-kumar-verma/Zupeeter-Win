@@ -29,8 +29,6 @@ function Lottery() {
   })
 const status = data?.data?.data
 
-console.log(data?.data?.data)
-
   return (
     <Box sx={{ padding: "15px" }}>
       <Stack direction="row" sx={{ alignItems: "center", mb: 2 }}>
