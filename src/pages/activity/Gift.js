@@ -98,11 +98,12 @@ function Gift() {
         <Box sx={styles.emp} component='img' src={"gift"}></Box>
       </Box> */}
       <Box sx={{ minHeight: '100vh', padding: '16px', }}>
-        <Card sx={{ backgroundColor: 'orange', color: '#fff', borderRadius: '8px', marginBottom: '16px', }}>
+        <Card sx={{ backgroundColor: '#6fa0ff', color: '#fff', borderRadius: '8px', marginBottom: '16px', }}>
           <CardContent><Typography className='w f15 fw500'>Hi</Typography>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>We have a gift for you</Typography>
             <Typography variant="body2">Please enter the gift code below</Typography>
-            <TextField fullWidth variant="outlined" placeholder="Please enter gift code"
+            <input fullWidth variant="outlined" placeholder="Please enter gift code"
+            className='p-2 rounded w-full my-2'
               id="t_id"
               name="t_id"
               value={fk.values.t_id}
@@ -136,8 +137,8 @@ function Gift() {
                  
                     <Box className="!flex !flex-col gap-5 !justify-between">
                       <div className='!flex !justify-between !font-bold gap-2'>
-                        <p className='!text-yellow-800'>You have Achieved Gift Amount</p>
-                        <p>₹ {item?.is_screached}</p>
+                        <p className='!text-white'>You have Achieved Gift Amount</p>
+                        <p>₹ {item?.is_screached ||0}</p>
                       </div>
                     </Box>
                 
@@ -165,15 +166,3 @@ function Gift() {
 }
 
 export default Gift
-
-
-const styles = {
-  emp: {
-    width: '100%',
-  },
-  emp1: {
-    width: '250px',
-    margin: 'auto',
-    filter: 'brightness(0.5)',
-  },
-};

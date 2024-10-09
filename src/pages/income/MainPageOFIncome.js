@@ -48,16 +48,16 @@ function MainPageOFIncome() {
         />
       ),
     },
-    // {
-    //   to: "/account/income-main/team-salary-bonus",
-    //   name: "Team Salary Bonus",
-    //   logo: (
-    //     <AccountBalanceIcon
-    //       className="!w-[40px] !h-[40px] !text-[#F48901]"
-    //       color="#8f5206"
-    //     />
-    //   ),
-    // },
+    {
+      to: "/account/income-main/team-salary-bonus",
+      name: "Scrached Coupon",
+      logo: (
+        <AccountBalanceIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
     {
       to: "/account/income-main/royality-bonus",
       name: "Deposit Bonus",

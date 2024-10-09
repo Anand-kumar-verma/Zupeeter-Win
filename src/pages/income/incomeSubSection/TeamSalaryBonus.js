@@ -1,7 +1,13 @@
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import {
   Box,
-  Container
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow
 } from "@mui/material";
 import moment from "moment";
 import * as React from "react";
@@ -12,27 +18,47 @@ import Layout from "../../../component/layout/Layout";
 
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { registrationBonusFn } from "../../../services/apiCallings";
+import { apiConnectorGet } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
 const zubgback = "#F48901"
 const zubgmid = "#F48901"
 const zubgbackgrad = "#F48901"
 function TeamSalaryBonus() {
+  const [visibleRows, setVisibleRows] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
 
   const { isLoading, data } = useQuery(
-    ["team_salary_bonus"],
-    () => registrationBonusFn("8"),
+    ["weekly_salary_bonus"],
+    () => apiConnectorGet(endpoint?.get_card),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus: false
     }
   );
-  const res = data?.data?.earning?.rid;
+  const res = data?.data?.data;
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  React.useEffect(() => {
+    setVisibleRows(
+      res?.slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage
+      )
+    );
+  }, [page, rowsPerPage, res]);
   if (!isLoading && !res)
   return (
     <Layout>
@@ -74,31 +100,48 @@ function TeamSalaryBonus() {
           </Box>
           <p>Team Salary Bonus</p>
         </Box>
-        <div className="no-scrollbar !mb-10 px-2">
-          {res?.map((i) => {
-            return (
-              <div className="!w-full !flex !flex-col  !bg-[#F48901]  !p-2 !rounded-lg !mt-2">
-                <div className="!w-full !flex !justify-between">
-                  <span className="!text-white">{i?.LEDGER_DESC}</span>
-                  <span className="!text-green-400 !text-lg">
-                    {i?.LEDGER_CR}
-                  </span>
-                </div>
-                <div className="!w-full !flex !justify-between">
-                  <span className="!text-white">{i?.LEDGER_TRANSID}</span>
-                  <span className="!text-white  !text-[12px]">
-                    {moment(i?.LEDGER_DATE)?.format("DD-MM-YYYY")}{" "}
-                    {moment(i?.LEDGER_DATE)?.format("HH:mm:ss")}
-                  </span>
-                </div>
-                <div className="!w-full !flex !justify-between">
-                  <span className="!text-white !text-[12px]">
-                    {i?.LEDGER_LEDGERID}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+        <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
+          <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>
+            <TableHead>
+            <TableRow >
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r  !text-center !border-b !border-white" id="tablepadding">S.No</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Date/Time</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Amount</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Transaction Type</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {visibleRows?.map((i, index) => (
+                <TableRow key={i?.id}>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center !mt-5  !border-b !border-white">{index + 1}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">
+                    {moment(i?.l01_date).format("DD-MM-YYYY HH:mm:ss")}
+                  </TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">{i?.l01_amount}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center !border-b !border-white">{i?.l01_transection_type}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <Box className="paginationTable ">
+            <TablePagination
+              sx={{
+                background: "#F48901",
+                color: "white",
+                borderRadius: "10px",
+                marginTop: "10px",
+                mb: 10,
+              }}
+              rowsPerPageOptions={[10, 15, 25, 35]}
+              component="div"
+              count={res?.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              labelRowsPerPage="Rows"
+            />
+          </Box>
         </div>
       </Container>
     </Layout>
