@@ -8,6 +8,8 @@ import nodatafoundimage from "../../assets/images/nodatafoundimage.png";
 import Layout from "../../component/layout/Layout";
 import { MyTeamLevel, registrationBonusFn } from "../../services/apiCallings";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 
 const zubgback = "#F48901";
 const zubgmid = "#F48901";
@@ -18,16 +20,18 @@ function AllLevelOfTeam() {
     navigate(-1);
   };
 
-  const { isLoading, data } = useQuery(["team_level"], () => MyTeamLevel(),   {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    retry:false,
-    retryOnMount:false,
-    refetchOnWindowFocus:false
-  });
-  const res = data?.data?.earning?.rec;
+  const { isLoading, data } = useQuery(
+    ["get_level"],
+    () => apiConnectorGet(endpoint?.get_level),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false
+    }
+  );
+  const result = data?.data?.data;
 
-  if (!isLoading && !res)
+  if (!isLoading && !result)
     return (
       <Layout>
         <Container
@@ -42,7 +46,7 @@ function AllLevelOfTeam() {
             <Box component={NavLink} onClick={goBack}>
               <KeyboardArrowLeftOutlinedIcon />
             </Box>
-            <p>My Team</p>
+            <p> Subordinate data</p>
           </Box>
           <div>
             <img className="" src={nodatafoundimage} />
@@ -66,34 +70,48 @@ function AllLevelOfTeam() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>My Team</p>
+          <p className="!font-bold !text-xl"> Subordinate Data</p>
         </Box>
-        <div className="no-scrollbar !mb-10 px-2">
-          {res?.map((i, index) => {
-            return (
-              <div
-                onClick={() =>
-                  navigate("/account/income-main/my-team/levels", {
-                    state: {
-                      member_id: i?.level_id,
-                    },
-                  })
-                }
-                key={index}
-                className="!w-full !flex !flex-col  !bg-[#F48901]  !p-2 !rounded-lg !mt-2"
-              >
-                <div className="!w-full !flex !justify-between !text-lg !py-3 !cursor-pointer">
-                  <span className="!text-white">
-                    {"Level"} {index + 1}
-                  </span>
-                  <span className="font-bold !text-white">
-                    Total Team: {String(i?.no)?.padStart(2, "0")}
-                  </span>
+        <Box >
+          <Box
+            className="!mb-10"
+            sx={{
+              background: "white",
+              boxShadow: "#fff",
+
+              padding: "20px 16px",
+              "&>div": { mb: 1 },
+              "&>div>div:nth-child(1)": {
+                borderRight: "1px solid black",
+                width: "50%",
+                textAlign: "center",
+              },
+              "&>div>div:nth-child(2)": { width: "50%", textAlign: "center" },
+              "&>div>div>p": {
+                color: "white",
+                fontSize: "14px",
+                fontWeight: 500,
+              },
+            }}
+          >
+            <div style={{ paddingTop: '16px', color: "white", background: "#F48901", padding: '10px', borderRadius: '5px' }} className="!grid !grid-cols-6   !place-items-center ">
+              <span>S.No.</span>
+              {/* <span>User Id</span> */}
+              <span className="!col-span-2">Name</span>
+              <span className="!col-span-2">Mobile No</span>
+            </div>
+            {result?.filter((j) => j?.LEVEL === 1)?.map((i, index) => {
+              return (
+                <div style={{ color: 'white', background: "#F48901", color: 'white', borderRadius: '5px', padding: '10px 20px', }} className="!grid !grid-cols-6   !place-items-center">
+                  <span >{index + 1}</span>
+                  {/* <span>{i?.username}</span> */}
+                  <span className="!text-center !col-span-2">{i?.full_name || "No data found"}</span>
+                  <span className="!col-span-2">{i?.mobile || "987654210"}</span>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </Box>
+        </Box>
       </Container>
     </Layout>
   );

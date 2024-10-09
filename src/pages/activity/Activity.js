@@ -1,12 +1,14 @@
 import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
+import banner1 from "../../assets/images/actbanner3.jpg";
 import actbanner2 from "../../assets/images/actbanner2.jpg";
 import actbanner5 from "../../assets/images/actbanner5.jpg";
 import Layout from "../../component/layout/Layout";
 import { checkTokenValidity } from "../../services/apiCallings";
 import theme from "../../utils/theme";
 import ava from "../../assets/images/aviator.jpg";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   root: {
@@ -49,6 +51,8 @@ const style = {
   },
 };
 function Activity() {
+
+  const naviagte = useNavigate()
   useEffect(() => {
     if (!checkTokenValidity()) {
       localStorage.clear();
@@ -69,8 +73,7 @@ function Activity() {
           We will launch user feedback activities from time to time
         </Typography>
       </Box>
-      {/* <Stack direction="row" sx={style.act}>
-       <Box sx={style.actimg}>
+       {/* <Box sx={style.actimg}>
           <Box component="img" sx={{ width: "100%" }} src={banner1}></Box>
           <Typography variant="body1" color="initial">
             Gifts
@@ -78,7 +81,8 @@ function Activity() {
           <Typography variant="body1" color="initial">
             Enter the redemption code to receive gift rewards
           </Typography>
-        </Box> 
+        </Box>  */}
+        {/* <Stack direction="row" sx={style.act}>
         <Box sx={style.actimg}>
           <Box component="img" sx={{ width: "100%" }} src={banner2}></Box>
          <Typography variant="body1" color="initial">
@@ -131,7 +135,7 @@ function Activity() {
             DAILY BONUS UNTIL 1 CRORE
           </Typography>
         </Box> */}
-        <Box sx={style.actimg2}>
+        <Box sx={style.actimg2} onClick={()=>naviagte("/gift")}>
           <Box
             component="img"
             sx={{ width: "100%", borderRadius: "10px 10px 0px 0px" }}

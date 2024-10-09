@@ -5,8 +5,11 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
   IconButton,
+  MenuItem,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
@@ -42,70 +45,59 @@ import LockIcon from "@mui/icons-material/Lock";
 import { deCryptData } from "../../../shared/secret";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { History } from "@mui/icons-material";
+import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 function USDTWithdrawlRequest() {
   const client = useQueryClient();
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const audioRefMusic = React.useRef(null);
   const [isAllValue, setIsAllValue] = useState(false);
   const [visibleData, setvisibleData] = useState([]);
-  const [balance, setBalance] = useState("");
-  const [bet, setBet] = useState("");
   const navigate = useNavigate();
   const [loding, setloding] = useState(false);
-  const [status, setStatus] = useState({});
-  const initialValue = {
-    amount: "",
-    t_password: "",
+  const initialValues = {
+    request_amount: "",
+    req_type: "",
   };
 
   const fk = useFormik({
-    initialValues: initialValue,
     enableReinitialize: true,
+    initialValues: initialValues,
     onSubmit: () => {
-      if (Number(fk.values.amount) < 500)
-        return toast("Amount should be grater than 500.");
-      const reqBody = {
-        userid: user_id,
-        txtamount: fk.values.amount,
-        pwd: fk.values.t_password,
-        txttype: "2",
+      const reqbody = {
+        req_type: fk.values.req_type === "USDT.BEP20" ? "1" : "2",
+        request_amount: fk.values.request_amount,
       };
-      // console.log(reqBody);
-      if (!reqBody.txtamount) return toast("Plese enter all data");
-      if (status?.withdrawal_status === "0")
-        return toast(
-          <span className=" !text-red-600 rounded-lg p-2">
-            We are currently working on ZP token integration, leading to the
-            temporary suspension of our payment gateway services. We apologize
-            for any inconvenience caused. Please bear with us until the next
-            update. Thank you for your understanding.
-          </span>
-        );
-      withdraolFunction(reqBody);
+      // console.log(reqbody)
+      withdraw_payment_Function(reqbody);
     },
   });
-
-  async function withdraolFunction(reqBody) {
+  const withdraw_payment_Function = async (reqbody) => {
     setloding(true);
     try {
-      const res = await axios.post(endpoint?.usdt_withdrawl, reqBody);
-      toast(res?.data?.earning?.msg);
-      client.refetchQueries("wallet_amount");
-      client.refetchQueries("withdrawl_history");
-      client.refetchQueries("wallet_amount_amount");
-      client.refetchQueries("profile");
+      const response = await apiConnectorPost(
+        `${endpoint.withdrawal_request_usdt}`,
+        reqbody
+      );
+      if (response?.data?.msg === "Request Accepted successfully, Your account will be credited within 24 Hrs.") {
+        fk.handleReset();
+        client.refetchQueries("wallet_amount_amount");
+        client.refetchQueries("withdrawl_history");
+      } else {
+        toast(response?.data?.msg)
+        fk.handleReset()
+      }
     } catch (e) {
+      toast(e?.message);
       console.log(e);
     }
     setloding(false);
-  }
-
+  };
   const goBack = () => {
     navigate(-1);
   };
   const { isLoading: getbalance, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint?.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -114,24 +106,11 @@ function USDTWithdrawlRequest() {
       refetchOnWindowFocus: false,
     }
   );
-  const wallet_amount_data = wallet_amount?.data?.earning || 0;
-
-  const { data: total_bet_amount } = useQuery(
-    ["bet_amount"],
-    () => getBetFunction(setBet),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const total_bet = total_bet_amount?.data?.earning || 0;
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
 
   const { isLoading, data } = useQuery(
     ["withdrawl_history"],
-    () => withdrawlHistoryFunction(),
+    () => apiConnectorGet(endpoint?.withdrawl_usdt_history),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -141,11 +120,11 @@ function USDTWithdrawlRequest() {
     }
   );
 
-  const res = data?.data?.earning?.info || [];
+  const res = data?.data?.data || [];
 
-  const { isLoading: usdtAddressLoding, data: game_history } = useQuery(
+  const {  data: game_history } = useQuery(
     ["usdt_address_details"],
-    () => USDTAddress(),
+    () => apiConnectorGet(endpoint.get_address_list),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -154,6 +133,8 @@ function USDTWithdrawlRequest() {
       refetchOnWindowFocus: false,
     }
   );
+
+  const result = game_history?.data?.data
 
   useEffect(() => {
     isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
@@ -184,18 +165,6 @@ function USDTWithdrawlRequest() {
     );
   }, []);
 
-  useEffect(() => {
-    getStatus();
-  }, []);
-
-  const getStatus = async () => {
-    try {
-      const res = await axios.get(endpoint.withdrawl_status);
-      setStatus(res?.data?.earning);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <Container sx={{ background: "#F7F8FF" }}>
@@ -261,7 +230,11 @@ function USDTWithdrawlRequest() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              ₹ {wallet_amount_data || 0}
+              ₹  {(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
             </Typography>
             <Box
               component="img"
@@ -279,7 +252,7 @@ function USDTWithdrawlRequest() {
 
       <Box sx={{ mt: 2, px: 2 }}>
         <Stack direction="row">
-          {/* <Stack
+          <Stack
             className={"!cursor-pointer"}
             onClick={() => navigate("/withdraw")}
             sx={{
@@ -310,7 +283,7 @@ function USDTWithdrawlRequest() {
             >
               BANK CARD
             </Typography>
-          </Stack> */}
+          </Stack>
           <Stack
             sx={{
               background:
@@ -337,12 +310,12 @@ function USDTWithdrawlRequest() {
                 mt: 1,
               }}
             >
-              ZP
+              USDT
             </Typography>
           </Stack>
         </Stack>
       </Box>
-
+      
       <Box
         sx={{
           width: "92%",
@@ -364,14 +337,23 @@ function USDTWithdrawlRequest() {
             color="initial"
             sx={{ fontSize: "15px", fontWeight: "500", mt: 1 }}
           >
-            {game_history?.data?.data[0]?.or_m_wallet_address?.substring(
+            {/* {game_history?.data?.data[0]?.or_m_wallet_address?.substring(
               0,
               20
-            ) + "****"}
+            ) + "****"} */}
           </Typography>
         </Box>
       </Box>
-
+      <div className="  my-2 mb-4">
+                <p
+                  style={{ color: theme.palette.primary.main }}
+                  className="!text-center !p-4  w-[87%] ml-6 cursor-pointer  border border-dashed border-gray-400"
+                  onClick={() => navigate("/usdtaddress")}
+                >
+                  {" "}
+                  + Add Address
+                </p>
+              </div>
       <Box
         sx={{
           width: "92%",
@@ -381,84 +363,93 @@ function USDTWithdrawlRequest() {
           padding: "10px",
         }}
       >
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            background: "#F2F2F2",
-            borderRadius: "20px",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
-          <IconButton sx={{ p: "10px" }} aria-label="menu">
-            <p className="!text-[#F48901] !text-sm !font-bold">INR</p>
-          </IconButton>
-          <InputBase
-            id="amount"
-            name="amount"
-            onChange={fk.handleChange}
-            value={fk.values.amount}
-            sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-            placeholder="Please enter the amount"
-            inputProps={{ "aria-label": "search google maps" }}
-          />
-        </Paper>
-        <div className="!mt-2">
-          <Paper
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-              background: "#F2F2F2",
-              borderRadius: "20px",
-              border: "none",
-              boxShadow: "none",
-            }}
-          >
-            <IconButton sx={{ p: "10px" }} aria-label="menu">
-              <p className="!text-[#F48901] !text-sm !font-bold">ZP</p>
-            </IconButton>
-            <InputBase
-              id="amount"
-              name="amount"
-              value={Number(Number(fk.values.amount || 0) / 5.2)?.toFixed(4)}
-              sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-              placeholder="Please enter the amount"
-              inputProps={{ "aria-label": "search google maps" }}
-            />
-          </Paper>
-        </div>
-        <Paper
-          component="form"
-          sx={{
-            marginTop: "3px",
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            background: "#F2F2F2",
-            borderRadius: "20px",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
-          <IconButton sx={{ p: "10px" }} aria-label="menu">
-            <LockIcon sx={{ color: theme.palette.primary.main }} />
-          </IconButton>
-          <InputBase
-            id="t_password"
-            name="t_password"
-            type="password"
-            onChange={fk.handleChange}
-            value={fk.values.t_password}
-            sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-            placeholder="Transaction Password"
-            inputProps={{ "aria-label": "search google maps" }}
-          />
-        </Paper>
+       <FormControl fullWidth sx={{ mt: "10px" }}>
+                <Stack direction="row" className="loginlabel">
+                  <Typography variant="" sx={{ color: "black" }} className="!text-lg !font-bold">
+                    Select Address{" "}
+                 
+                  </Typography>
+                </Stack>
+                <TextField
+                  select
+                  size="small"
+                  id="req_type"
+                  name="req_type"
+                  value={fk.values.req_type}
+                  onChange={fk.handleChange}
+                  className="withdrawalfield2"
+                  placeholder="Select address / Network"
+                  sx={{
+                    background: "white",
+                    border: "none",
+                
+                    padding: "0px",
+                  }}
+                  InputProps={{
+                    style: {
+                      borderWidth: "1px",
+                      color: "black",
+                     
+                      border: "none",
+                      padding: "1px !important",
+                      "&>div": { padding: "0px !important" },
+                    },
+                  }}
+                >
+                  <MenuItem value={"Select Address"}>Select Address</MenuItem>
+                  {result?.map((i, index) => {
+                    return (
+                      <MenuItem key={index} value={i?.usdt_type}>
+                        {i?.usdt_address}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
+              </FormControl>
+              <FormControl fullWidth sx={{ mt: "10px" }}  className="!p-1">
+                <Stack direction="row" className="">
+                  <Typography variant="" sx={{ color: "black" }} className="!text-lg !font-bold">
+                    Enter USDT 
+                  </Typography>
+                </Stack>
+                <TextField
+                  id="request_amount"
+                  name="request_amount"
+                  type="number"
+                  value={fk.values.request_amount}
+                  onChange={fk.handleChange}
+                  placeholder="Enter amount *"
+                 
+                />
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mt: "10px" }}>
+                <Stack direction="row" className="loginlabel">
+                  <Typography variant="" sx={{ color: "black" }} className="!text-lg !font-bold">
+                    INR
+                  </Typography>
+                </Stack>
+                <TextField
+                  type="number"
+                  value={Number(Number(fk.values.request_amount) * 92)?.toFixed(
+                    4
+                  )}
+                  placeholder=" 00000 "
+                  className=""
+                />
+              </FormControl>
+              
+              <Button
+              className="!bg-[#F39E2A]"
+                sx={style.wdbtn}
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  fk.handleSubmit();
+                }}
+              >
+                Withdrawal{" "}
+              </Button>
         <Stack
           direction="row"
           alignItems="center"
@@ -482,7 +473,11 @@ function USDTWithdrawlRequest() {
                 ml: 1,
               }}
             >
-              ₹{wallet_amount_data || 0}
+               {(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
             </Typography>
           </Stack>
 
@@ -525,7 +520,7 @@ function USDTWithdrawlRequest() {
           </Typography>
         </Stack>
 
-        <Button
+        {/* <Button
           sx={style.wdbtn}
           className={`${
             fk.values.amount || fk.values.t_password
@@ -535,7 +530,7 @@ function USDTWithdrawlRequest() {
           onClick={fk.handleSubmit}
         >
           Withdrawal
-        </Button>
+        </Button> */}
         <Box mt={3}>
           <Stack direction="row" alignItems="center" mt={1}>
             <Box
@@ -564,7 +559,7 @@ function USDTWithdrawlRequest() {
               }}
             >
               {" "}
-              ₹ {total_bet?.total_amt || 0}
+              {/* ₹ {total_bet?.total_amt || 0} */}
             </Typography>
             <Typography
               variant="body1"

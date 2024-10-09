@@ -1,9 +1,10 @@
+import { DashboardRounded } from "@mui/icons-material";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 import Groups2OutlinedIcon from "@mui/icons-material/Groups2Outlined";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import copy from "clipboard-copy";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
@@ -12,55 +13,36 @@ import copyinvitationcode from "../../assets/images/copyinvitationcode.png";
 import subcordinatedata from "../../assets/images/subcordinatedata.png";
 import Layout from "../../component/layout/Layout";
 import {
-  ProfileDataFunction,
-  Promotionfunction,
-  TeamsubFunction,
-  checkTokenValidity,
-  showRank,
+  checkTokenValidity
 } from "../../services/apiCallings";
-import { front_end_domain } from "../../services/urls";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint, front_end_domain } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 
 function Promotion() {
-  const { data } = useQuery(["get_info"], () => Promotionfunction(),  {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    retry:false,
-    retryOnMount:false,
-    refetchOnWindowFocus:false
-  });
-  const or_m_user_type = localStorage.getItem("or_m_user_type");
-  const prim = data?.data?.earning || [];
 
-  const { isLoading, data: count } = useQuery(
-    ["team_count"],
-    () => TeamsubFunction(),
+  const { data } = useQuery(
+    ["yesterday_income"],
+    () => apiConnectorGet(endpoint?.yesterday_income),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus: false,
     }
   );
-  const Counting = count?.data?.earning || [];
+  const result = data?.data?.data || [];
 
-  const { isLoading: profileLoding, data: user } = useQuery(
-    ["profile"],
-    () => ProfileDataFunction(),
+  const { isLoading, data: level } = useQuery(
+    ["get_level_general"],
+    () => apiConnectorGet(endpoint?.get_level_general),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus: false,
     }
   );
-  const profile = user?.data?.earning || [];
-  const profilerec = user?.data?.earning?.rec || [];
-
-  const [copied, setCopied] = useState(false);
+  const get = level?.data?.data?.[0] || [];
   const functionTOCopy = (value) => {
     copy(value);
     toast.success("Copied to clipboard!");
@@ -76,7 +58,7 @@ function Promotion() {
   return (
     <Layout header={false}>
       <Container>
-        <CustomCircularProgress isLoading={isLoading || profileLoding} />
+        <CustomCircularProgress isLoading={isLoading} />
         <Box sx={style.header}>
           <Typography variant="body1" color="initial"></Typography>
           <Typography variant="body1" color="initial" className="!text-white">
@@ -95,23 +77,23 @@ function Promotion() {
               pb: 3,
             }}
           >
-            <Box sx={style.commitionbox}>
+        <Box sx={style.commitionbox}>
               <Typography
                 variant="body1"
                 color="initial"
                 className="!text-white !text-sm !py-2"
               >
-                User ID :{profile?.rec?.Login_Id}
+             {Number(result?.yesterday_income || 0)?.toFixed(4)}
               </Typography>
-              {profile?.rec?.Club !== 0 && (
+           
                 <Typography
                   variant="body1"
                   color="initial"
                   className="!text-white"
                 >
-                  Rank : {showRank(profilerec?.Club)}
+                  yesterday Income
                 </Typography>
-              )}
+            
             </Box>
           </Box>
           <Box sx={style.subcordinateBox}>
@@ -145,7 +127,7 @@ function Promotion() {
                     color="initial"
                     className="!text-orange-500"
                   >
-                    {prim?.number_of_register || "0"}
+                   {result?.direct_reg || 0}
                   </Typography>
 
                   <Typography
@@ -162,14 +144,14 @@ function Promotion() {
                     color="initial"
                     className="!text-green-400"
                   >
-                    {prim?.number_of_active_direct || "0"}
+                  {result?.direct_depo_mem || 0}
                   </Typography>
                   <Typography
                     variant="body1"
                     color="initial"
                     className="!text-black"
                   >
-                    Total Active Direct
+                    Number of Deposit Members
                   </Typography>
                 </Box>
 
@@ -179,14 +161,31 @@ function Promotion() {
                     color="initial"
                     className="!text-orange-400"
                   >
-                    {prim?.total_amt || "0"}
+                     {Number(result?.direct_yest_depo || 0)?.toFixed(2)}
                   </Typography>
                   <Typography
                     variant="body1"
                     color="initial"
                     className="!text-black"
                   >
-                    Total Amount
+                    Deposit Amount
+                  </Typography>
+                </Box>
+                <Box sx={style.subcordinatelist}>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-green-400"
+                  >
+                 {result?.no_of_direct_people_making_first_depo || 0}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-black"
+                  >
+                    {" "}
+                    No of people making first deposit
                   </Typography>
                 </Box>
               </Box>
@@ -198,7 +197,7 @@ function Promotion() {
                     color="initial"
                     className="!text-orange-400"
                   >
-                    {Counting?.number_of_register || "0"}
+                    {result?.team_reg || 0}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -209,6 +208,24 @@ function Promotion() {
                     Number of Registers
                   </Typography>
                 </Box>
+               
+                <Box sx={style.subcordinatelist}>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-orange-400"
+                  >
+                   {result?.team_depo_mem || 0}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-black"
+                  >
+                    Number of Deposit Members
+                  </Typography>
+                  
+                </Box>
 
                 <Box sx={style.subcordinatelist}>
                   <Typography
@@ -216,7 +233,7 @@ function Promotion() {
                     color="initial"
                     className="!text-green-400"
                   >
-                    {Counting?.number_of_active_direct || "0"}
+                    {Number(result?.team_yest_depo || 0)?.toFixed(2)}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -224,17 +241,16 @@ function Promotion() {
                     className="!text-black"
                   >
                     {" "}
-                    Total Active Team
+                    Deposit Amount
                   </Typography>
                 </Box>
-
                 <Box sx={style.subcordinatelist}>
                   <Typography
                     variant="body1"
                     color="initial"
-                    className="!text-red-400"
+                    className="!text-orange-400"
                   >
-                    {Counting?.total_amt || "0"}
+                 {result?.no_of_team_people_making_first_depo || 0}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -242,21 +258,83 @@ function Promotion() {
                     className="!text-black"
                   >
                     {" "}
-                    Total Amount
+                    No of people making first deposit
                   </Typography>
                 </Box>
               </Box>
             </Box>
+            <Box sx={style.subcordinateBox}>
+          <Stack direction="row" sx={{ width: "100%" , mt:2}}>
+            <Box sx={style.subordinatesleft}>
+              <EmojiPeopleOutlinedIcon />
+              <Typography variant="body1">Total commission</Typography>
+            </Box>
+          </Stack>
+          <Box sx={style.boxStyles}>
+            <Box sx={style.innerBoxStyles}>
+              
+              <Box sx={style.subcordinatelist} >
+                <Typography
+                  variant="body1"
+                  className=""
 
+                >
+                 {Number(get?.daily_salary_today || 0)?.toFixed(2)}
+
+                </Typography>
+                <Typography
+                  variant="body1"
+
+                >
+                  Today salary
+                </Typography>
+              </Box>
+              <Box sx={style.subcordinatelist}>
+                <Typography
+                  variant="body1"
+                  className=""
+
+                >
+                  {Number(get?.daily_salary_total || 0)?.toFixed(2)}
+                </Typography>
+                <Typography
+                  variant="body1" >
+                  Total salary
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box sx={style.innerBoxStylestwo}>
+             
+              <Box sx={style.subcordinatelist}>
+                <Typography variant="body1"
+                  className="" >
+                 {Number(get?.today_withdrawal || 0)?.toFixed(2)}
+                </Typography>
+                <Typography variant="body1">Today withdrawal</Typography>
+              </Box>
+              <Box sx={style.subcordinatelist}>
+                <Typography
+                  variant="body1"
+                  className=""
+
+                >
+                  {Number(get?.total_withdrawal || 0)?.toFixed(2)}
+                  
+                </Typography>
+                <Typography variant="body1">Total withdrawal</Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
             <Box sx={style.invitebtn}>
               <NavLink>
                 <Typography
                   sx={{}}
                   onClick={() => {
-                    or_m_user_type === "Dummy User"
-                      ? toast("Dummy User")
-                      : functionTOCopy(
-                          `${front_end_domain}/register/?inviteid=${profile?.rec?.Login_Id}`
+                  
+                       functionTOCopy(
+                          `${front_end_domain}/register/?inviteid=${result?.custid}`
                         );
                   }}
                 >
@@ -272,12 +350,11 @@ function Promotion() {
           >
             <Box sx={style.invitbox} className={"!cursor-pointer"}
              onClick={() => {
-              or_m_user_type === "Dummy User"
-                ? toast("Dummy User")
-                : functionTOCopy(
-                    `${front_end_domain}/register/?inviteid=${profile?.rec?.Login_Id}`
+          functionTOCopy(
+                    `${front_end_domain}/register/?inviteid=${result?.custid}`
                   );
-            }}>
+            }}
+            >
               <Stack direction="row">
                 <Box component="img" src={copyinvitationcode}></Box>
                 <Typography variant="body1" color="initial">
@@ -286,7 +363,7 @@ function Promotion() {
               </Stack>
               <Stack direction="row">
                 <Typography variant="body1" color="initial">
-                  {profile?.rec?.Login_Id}
+                  {result?.custid}
                 </Typography>
                 <ArrowForwardIosOutlinedIcon />
               </Stack>
@@ -297,7 +374,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                    Subordinate data
+                    Subordinate Data
                   </Typography>
                 </Stack>
                 <Stack direction="row">
@@ -305,7 +382,7 @@ function Promotion() {
                 </Stack>
               </Box>
             </NavLink>
-            <NavLink to="/account/income-main/my-team">
+            <NavLink to="/account/income-main/my-team/levels">
               <Box sx={style.invitbox}>
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
@@ -318,10 +395,10 @@ function Promotion() {
                 </Stack>
               </Box>
             </NavLink>
-            {/* <NavLink to="/promotion/MyCommission">
+            <NavLink to="/promotion/MyCommission">
               <Box sx={style.invitbox}>
                 <Stack direction="row">
-                  <Box component="img" src={comitiondetails}></Box>
+                  <Box component="img" src={"comitiondetails"}></Box>
                   <Typography variant="body1" color="initial">
                     Commission detail
                   </Typography>
@@ -331,12 +408,12 @@ function Promotion() {
                 </Stack>
               </Box>
             </NavLink>
-            <NavLink to="/promotion/Subordinates">
+            {/* <NavLink to="/promotion/Subordinates">
               <Box sx={style.invitbox}>
                 <Stack direction="row">
-                  <Box component="img" src={newsubordinatedata}></Box>
+                  <Box component="img" src={"newsubordinatedata"}></Box>
                   <Typography variant="body1" color="initial">
-                    New subordinates
+                    Subordinates Income
                   </Typography>
                 </Stack>
                 <Stack direction="row">
@@ -383,12 +460,15 @@ function Promotion() {
                 </Stack>
               </Box>
             </NavLink> */}
-            {/* <Box sx={style.promotionBoxOuter}>
+            
+            <Box sx={style.promotionBoxOuter}>
               <Box sx={style.promotionBox}>
                 <Stack direction="row">
-                  <Box component="img" src={promotiondata}></Box>
+                  <Box>
+                  <DashboardRounded  className="!text-orange-400"/>
+                  </Box>
                
-                  <Typography variant="body1" color="initial">
+                  <Typography variant="body1" color="initial" className="!mx-2 !font-bold">
                     promotion data
                   </Typography>
                 </Stack>
@@ -396,13 +476,13 @@ function Promotion() {
               <Stack direction="row">
                 <Box>
                   <Typography variant="body1" color="initial">
-                    0
+                  {Number(get?.this_week_commission || 0)?.toFixed(4)}
                   </Typography>
                   <Typography className="!text-gray-300">This Week</Typography>
                 </Box>
                 <Box>
                   <Typography variant="body1" color="initial">
-                    8241.78
+                  {Number(get?.total_commission || 0)?.toFixed(4)}
                   </Typography>
                   <Typography variant="body1" color="initial">
                     Total Commission
@@ -412,7 +492,7 @@ function Promotion() {
               <Stack direction="row">
                 <Box>
                   <Typography variant="body1" color="initial">
-                    0
+                  {Number(result?.total_direct_reg || 0)?.toFixed(0,2)}
                   </Typography>
                   <Typography variant="body1" color="initial">
                     Direct subordinate
@@ -420,15 +500,15 @@ function Promotion() {
                 </Box>
                 <Box>
                   <Typography variant="body1" color="initial">
-                    3
+                  {Number(result?.total_team_reg || 0)?.toFixed(0,2)}
                   </Typography>
                   <Typography variant="body1" color="initial">
-                    Total number of <br />
-                    subordinates in the team
+                   Team 
+                    subordinates
                   </Typography>
                 </Box>
               </Stack>
-            </Box> */}
+            </Box>
             <Box sx={style.promotionBoxOutertwo}></Box>
           </Box>
         </Box>

@@ -39,6 +39,7 @@ import axios from "axios";
 import { endpoint } from "../../../services/urls";
 import LockIcon from "@mui/icons-material/Lock";
 import { deCryptData } from "../../../shared/secret";
+import { apiConnectorGet } from "../../../services/apiconnector";
 function Withdraval() {
   const client = useQueryClient();
   const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -104,7 +105,7 @@ function Withdraval() {
   };
   const { isLoading: getbalance, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint?.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -113,24 +114,11 @@ function Withdraval() {
       refetchOnWindowFocus:false
     }
   );
-  const wallet_amount_data = wallet_amount?.data?.earning || 0;
-
-  const { data: total_bet_amount } = useQuery(
-    ["bet_amount"],
-    () => getBetFunction(setBet),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
-    }
-  );
-  const total_bet = total_bet_amount?.data?.earning || 0;
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
 
   const { isLoading, data } = useQuery(
     ["withdrawl_history"],
-    () => withdrawlHistoryFunction(),
+    () => apiConnectorGet(endpoint.withdrwal_history),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -140,11 +128,11 @@ function Withdraval() {
     }
   );
 
-  const res = data?.data?.earning?.info || [];
+  const res = data?.data?.data || [];
 
-  const { isLoading: bankList, data: game_history } = useQuery(
+  const { data: game_history } = useQuery(
     ["bank_details"],
-    () => BankDetailsFUnction(),
+    () => apiConnectorGet(endpoint?.bank_details),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -154,8 +142,8 @@ function Withdraval() {
     }
   );
   const game_history_data = React.useMemo(
-    () => game_history?.data?.earning?.bank_details?.[0],
-    [game_history?.data?.earning?.bank_details]
+    () => game_history?.data?.data?.[0],
+    [game_history?.data?.data]
   );
 
   useEffect(() => {
@@ -186,19 +174,6 @@ function Withdraval() {
       </audio>
     );
   }, []);
-
-  useEffect(() => {
-    getStatus();
-  }, []);
-
-  const getStatus = async () => {
-    try {
-      const res = await axios.get(endpoint.withdrawl_status);
-      setStatus(res?.data?.earning);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <Container sx={{ background: "#F7F8FF" }}>
@@ -264,7 +239,7 @@ function Withdraval() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              ₹ {wallet_amount_data || 0}
+              {/* ₹ {wallet_amount_data || 0} */}
             </Typography>
             <Box
               component="img"
@@ -340,7 +315,7 @@ function Withdraval() {
                 mt: 1,
               }}
             >
-              ZP
+              USDT
             </Typography>
           </Stack>
         </Stack>
@@ -473,7 +448,7 @@ function Withdraval() {
                 ml: 1,
               }}
             >
-              ₹{wallet_amount_data || 0}
+              {/* ₹{wallet_amount_data || 0} */}
             </Typography>
           </Stack>
        
@@ -555,7 +530,7 @@ function Withdraval() {
               }}
             >
               {" "}
-              ₹ {total_bet?.total_amt || 0}
+              {/* ₹ {total_bet?.total_amt || 0} */}
             </Typography>
             <Typography
               variant="body1"

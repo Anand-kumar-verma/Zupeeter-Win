@@ -30,7 +30,7 @@ function MainPageOFIncome() {
     // },
     {
       to: "/account/income-main/referral-bonus",
-      name: "Referral Bonus",
+      name: "Weekly Salary Bonus",
       logo: (
         <RedeemIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
@@ -40,7 +40,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/team-betting-bonus",
-      name: "Team Betting Bonus",
+      name: "Daily Salary Bonus",
       logo: (
         <LocalConvenienceStoreIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
@@ -60,7 +60,7 @@ function MainPageOFIncome() {
     // },
     {
       to: "/account/income-main/royality-bonus",
-      name: "Royality Bonus",
+      name: "Deposit Bonus",
       logo: (
         <StoreIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
@@ -70,7 +70,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/level-bonus",
-      name: "Level Bonus",
+      name: "VIP Bonus",
       logo: (
         <CardGiftcardIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
@@ -80,7 +80,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/ico-level-bonus",
-      name: "ICO Level Bonus",
+      name: "Gift Bonus",
       logo: (
         <Diversity2Icon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
@@ -90,7 +90,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/betting-bonus",
-      name: "Betting Bonus",
+      name: "Team Recharge Bonus",
       logo: (
         <AccountBalanceIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"

@@ -13,6 +13,8 @@ import zp from '../../../assets/images/zptoken.png';
 import { depositHistoryFunction } from "../../../services/apiCallings";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from '../../../utils/theme';
+import { apiConnectorGet } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
 
 
 function Depositehistory() {
@@ -21,7 +23,7 @@ function Depositehistory() {
 
   const { isLoading, data } = useQuery(
     ["deposit_history"],
-    () => depositHistoryFunction(),
+    () => apiConnectorGet(endpoint?.deposit_history),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -31,7 +33,7 @@ function Depositehistory() {
     }
   );
 
-  const res = data?.data?.earning?.rid || [];
+  const res = data?.data?.data || [];
 
   useEffect(() => {
     isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
@@ -105,24 +107,6 @@ function Depositehistory() {
         </Stack>
       </Box>
 
-      {/* <Stack sx={{ padding: 1 }} >
-        <Box sx={{ width: '100%' }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">All</InputLabel>
-            <Select
-              value={transection}
-              label="All"
-              onChange={handleChangeTransection}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        <Box sx={{ width: '100%', mt: 1 }}>
-        </Box>
-      </Stack> */}
       {visibleData?.map((i, index) => {
         return (
           <Box
@@ -205,7 +189,7 @@ function Depositehistory() {
                 Type
               </Typography>
               <Typography variant="body1" color="initial">
-                {i?.tr15_type}
+                {i?.type}
               </Typography>
             </Stack>
             <Stack

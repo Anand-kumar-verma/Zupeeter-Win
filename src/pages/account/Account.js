@@ -168,7 +168,7 @@ return (
                 if (or_m_user_type === "Dummy User") {
                   toast("Dummy User");
                 } else {
-                  navigate('/usdt-withdrawl-request');
+                  navigate('/withdraw');
                 }
               }}>
                 <Typography><img src={wih} alt="" className="w-8" /></Typography>
@@ -183,7 +183,7 @@ return (
                 }
               }}>
               <Typography><img src={zp} alt="" className="w-8" /></Typography>
-              <Typography className="">ZP</Typography>
+              <Typography className="">USDT</Typography>
             </Box>
           </Box>
         </Box>

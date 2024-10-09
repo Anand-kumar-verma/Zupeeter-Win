@@ -554,3 +554,6 @@ button {
     right: -200px;
   }
   
+  #tablepadding{
+padding: 4px !important;
+  }

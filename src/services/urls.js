@@ -1,14 +1,14 @@
 export const dummy_aviator = "https://bng-live-timer-1.onrender.com";
 export const domain = "https://bng-live-timer-1.onrender.com";
 export const domain_ovi_node = "https://api.zupeeter.com";
-export const game_domain = "http://192.168.18.183:9000";
+export const game_domain = "http://192.168.1.23:9000";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
 
 // export const baseUrl = "min.righttime.fun";
 // export const baseUrl = "https://webs.ferryinfotech.in";
-export const baseUrl = "http://192.168.18.183:9000";
+export const baseUrl = "http://192.168.1.23:9000";
 export const front_end_domain = "https://zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://zupeeter.com/ZUPEETER.pdf";
@@ -21,7 +21,10 @@ export const endpoint = {
   signup: `${game_domain}/api/v1/signup`,
   get_user_intro_name :`${game_domain}/api/v1/get-sponsor-name`,
   profile_function: `${game_domain}/api/v1/profileapi`,
-
+  get_level_general: `${game_domain}/api/v1/get_level_general_data`,
+  yesterday_income: `${game_domain}/api/v1/get-total-betA-ad-income-yesterday`,
+  get_level: `${game_domain}/api/v1/get-level`,
+  subordinate_data: `${game_domain}/api/v1/get-subordinate-data-funx`,
   //wingo
   // bet_placed: `${baseUrl}/api/betnew_color`,
   bet_placed: `${game_domain}/api/v1/bet`,
@@ -30,9 +33,29 @@ export const endpoint = {
   get_balance: `${game_domain}/api/v1/userwallet`,
   status: `${game_domain}/api/v1/get-status`,
   win_list_top: `${game_domain}/api/v1/get-top-winners`,
+  daily_salary_income: `${game_domain}/api/v1/daily-salary-icome`,
+  weekly_salary_income: `${game_domain}/api/v1/weekly-salary-icome`,
+  deposit_bonus: `${game_domain}/api/v1/get-deposit-bonus-income/`,
+  vip_income: `${game_domain}/api/v1/vip-bonus`,
+  incom_gift : `${game_domain}/api/v1/gift-bonus-list`,
+  recharge_income : `${game_domain}/api/v1/team-recharge-bonus`,
+  payment: `${game_domain}/api/v1/payment`,
+  payment_request: `${game_domain}/api/deposit-request`,
+  deposit_history: `${game_domain}/api/v1/deposit-history-inr`,
+  deposit_history_usdt: `${game_domain}/api/v1/deposit-history-usdt`,
+  admin_qr_address: `${game_domain}/api/v1/admin-qr-address`,
+  deposite_usdt_payin: `${game_domain}/api/v1/payin-request`,
+  bank_details: `${game_domain}/api/v1/user-bank-details`,
+  get_claim_card: `${game_domain}/api/v1/clame-bonus`,
+ get_card: `${game_domain}/api/v1/get-gift-card-list`,
+ 
 
-
-
+  
+  withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
+  withdrawal_request_usdt: `${game_domain}/api/v1/payout-request`,
+  withdrawal_address_usdt: `${game_domain}/api/v1/add-usdt-address`,
+  get_address_list: `${game_domain}/api/v1/usdt-address-record`,
+  withdrawl_usdt_history: `${game_domain}/api/v1/withdrawal-history-usdt`,
 
   total_withdrawal_bet: `${baseUrl}/api/total_withdrawal_bet`,
   my_team_level: `${baseUrl}/api/my_team`,
@@ -52,7 +75,10 @@ export const endpoint = {
   view_ico_purchaseing: `${baseUrl}/api/view_ico_purchaseing`,
   insert_ico_purchase: `${baseUrl}/api/insert_ico_purchase`,
   view_withdrwal_new_inr: `${baseUrl}/api/view_withdrwal_new_inr`,
-  wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
+  
+  // wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
+
+
   wallet_deposit: `${baseUrl}/api/wallet_deposit_insert`,
   wallet_withdrawl: `${baseUrl}/api/insert_withdrawal_request_inr_new`,
   usdt_withdrawl: `${baseUrl}/api/insert_withdrawal_request_usdt`,
@@ -90,8 +116,7 @@ export const endpoint = {
 
   ticket_raised: `${domain_ovi_node}/ticket-raised`,
   ticket_raised_history: `${domain_ovi_node}/ticket-raised-history`,
-  admin_qr_address: `${domain_ovi_node}/admin-qr-address`,
-  deposite_usdt_payin: `${domain_ovi_node}/payin-request`,
+
 
   node_api: {
     get_leder_data: `${domain}/api/v1/get-ledger-data`,

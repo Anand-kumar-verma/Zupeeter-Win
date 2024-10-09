@@ -40,18 +40,19 @@ import { endpoint } from "../../../services/urls";
 import QRScreen from "./QRScreen";
 import { deCryptData } from "../../../shared/secret";
 import { History } from "@mui/icons-material";
+import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 function Deposite() {
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const [isAllValue, setIsAllValue] = useState(false);
   const [visibleData, setvisibleData] = useState([]);
-  const [balance, setBalance] = useState("");
   const audioRefMusic = React.useRef(null);
+  const [selectedGateway, setSelectedGateway] = React.useState("");
   const [loding, setloding] = useState(false);
   const [show_time, set_show_time] = React.useState("0_0");
   const [deposit_req_data, setDeposit_req_data] = React.useState();
   const { isLoading: history, data } = useQuery(
     ["deposit_history"],
-    () => depositHistoryFunction(),
+    () => apiConnectorGet(endpoint.deposit_history),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -61,14 +62,15 @@ function Deposite() {
     }
   );
 
-  const res = data?.data?.earning?.rid || [];
+  const res = data?.data?.data|| [];
+
   useEffect(() => {
     isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
   }, [isAllValue, res]);
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint?.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -77,72 +79,94 @@ function Deposite() {
       refetchOnWindowFocus: false,
     }
   );
-  const wallet_amount_data = wallet_amount?.data?.earning || 0;
-
-  const initialValue = {
-    amount: "",
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
+  const initialValues = {
+    amount:  0,
+    all_data: { t_id: "", amount: "", date: "" },
   };
 
   const fk = useFormik({
-    initialValues: initialValue,
-    enableReinitialize: true,
+    initialValues: initialValues,
     onSubmit: () => {
-      if (Number(fk.values.amount) <= 100)
-        return toast("Amount must be grater than 100");
-      const reqBody = {
-        userid: user_id,
-        txtamount: fk.values.amount,
-      };
-      if (!reqBody.txtamount) return toast("Plese enter all data");
+      const transaction_id = `${Date.now()}${user_id}`;
+      // setT_id(transaction_id);
+      const fd = new FormData();
+      fd.append("UserID", "7704002732");
+      fd.append("Email", "mailto:sunlottery@gmail.com");
+      fd.append("txtamt", fk.values.amount);
+      fd.append("Name", "");
+      fd.append("TransactionID", transaction_id);
 
-      // WalletDipositFun(reqBody);
-      getStatusOfApi(reqBody);
+      // return toast("We are upgrading for smooth and fast payin please wait...");
+
+      paymentRequest(fd, fk.values.amount);
+      fk.setFieldValue("all_data", {
+        t_id: fd.get("TransactionID") || "",
+        amount: fk.values.amount,
+        date: new Date(),
+      });
+      localStorage.removeItem("amount_set");
     },
   });
 
-  async function getStatusOfApi(reqBody) {
-    try {
-      const res = await axios.get(endpoint?.payin_status);
-      console.log(res);
+  // sajid api
+  async function paymentRequest(fd, amnt) {
+    if (!amnt) {
+      toast("Please Enter the amount");
+      return;
 
-      const result = res?.data?.earning?.api_type;
-
-      if (result === "SWNL") WalletDipositFunSWNL(reqBody);
-      else if (result === "Indian Pay") WalletDipositFun(reqBody);
-    } catch (e) {
-      console.log(e);
     }
-  }
-
-  async function WalletDipositFun(reqBody) {
-    setloding(true);
+    const reqbody = {
+      amount: amnt || 1000,
+      transection_id: fd.get("TransactionID"),
+    };
+    const fdata = new FormData();
+    fdata.append("user_id", reqbody.user_id);
+    fdata.append("type_gateway", selectedGateway === "Gateway1" ? "1" : "2");
+    fdata.append("amount", reqbody.amount);
+    fdata.append("transection_id", reqbody.transection_id);
+    fdata.append("Deposit_type", "Null");
+    fdata.append("server_provider", "Null");
     try {
-      const res = await axios.post(endpoint?.wallet_deposit, reqBody);
-      toast(res?.data?.message);
-      if (res?.data?.status === true) {
-        window.location.href = res?.data?.earning?.msg;
-        // window.open(res?.data?.earning?.msg, '_blank');
+      const res = await apiConnectorPost(`${endpoint.payment_request}`, fdata);
+      const qr_url =
+        (res?.data?.data && JSON.parse(res?.data?.data)?.upi_deep_link) || "";
+      // const qr_url = JSON.parse(res?.data?.data) || "";
+      console.log(res);
+      if (qr_url) {
+        setDeposit_req_data(qr_url);
+      } else {
+        res?.data?.msg ? toast(res?.data?.msg) : toast("Something went wrong");
       }
     } catch (e) {
       console.log(e);
     }
     setloding(false);
-    // client.refetchQueries("bank_details");
   }
-  async function WalletDipositFunSWNL(reqBody) {
-    setloding(true);
-    try {
-      const res = await axios.post(endpoint?.swnl_pay_in_api, reqBody);
-      console.log(res);
-      const qr = res?.data?.earning?.msg;
-      qr && setDeposit_req_data(qr);
-    } catch (e) {
-      console.log(e);
-    }
-    setloding(false);
-    // client.refetchQueries("bank_details");
-  }
+  const initialValuesss = {
+    amount: 10,
+  };
 
+  const formik = useFormik({
+    initialValues: initialValuesss,
+    onSubmit: () => {
+      const fd = new FormData();
+      payment(formik.values.amount);
+    },
+  });
+  async function payment(amnt) {
+    setloding(true);
+    if (!amnt) {
+      toast("Please Enter the amount");
+      return;
+    }
+    const formdata = {
+      amount: Number(amnt),
+    };
+    const response = await apiConnectorPost(`${endpoint.payment}`, formdata);
+   
+    setloding(false);
+  }
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -152,31 +176,11 @@ function Deposite() {
     handlePlaySound();
   }, []);
 
-  React.useEffect(() => {
-    if (deposit_req_data) {
-      let min = 0;
-      let sec = 59;
-      const interval = setInterval(() => {
-        set_show_time(`${min}_${sec}`);
 
-        sec--;
-
-        if (sec < 0) {
-          sec = 59;
-          min--;
-
-          if (min < 0) {
-            sec = 59;
-            min = 0;
-            clearInterval(interval);
-            setDeposit_req_data();
-            set_show_time("0_0");
-            setloding(false);
-          }
-        }
-      }, 1000);
-    }
-  }, [deposit_req_data]);
+  if (deposit_req_data) {
+    window.open(deposit_req_data);
+  
+  } 
 
   const handlePlaySound = async () => {
     try {
@@ -269,7 +273,12 @@ function Deposite() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              ₹ {wallet_amount_data || 0}
+            ₹
+                {(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
             </Typography>
             <Box
               component="img"
@@ -387,37 +396,38 @@ function Deposite() {
         >
           <Button
             sx={style.paytmbtn}
-            onClick={() => fk.setFieldValue("amount", 500)}
+            onClick={() => formik.setFieldValue("amount", 500)}
           >
             ₹ 500
           </Button>
           <Button
             sx={style.paytmbtn}
-            onClick={() => fk.setFieldValue("amount", 1000)}
+            onClick={() => { setDeposit_req_data(null);
+              formik.setFieldValue("amount", 1000)}}
           >
             ₹ 1K
           </Button>
           <Button
             sx={style.paytmbtn}
-            onClick={() => fk.setFieldValue("amount", 5000)}
+            onClick={() => formik.setFieldValue("amount", 5000)}
           >
             ₹ 5K
           </Button>
           <Button
             sx={style.paytmbtn}
-            onClick={() => fk.setFieldValue("amount", 10000)}
+            onClick={() => formik.setFieldValue("amount", 10000)}
           >
             ₹ 10K
           </Button>
           <Button
             sx={style.paytmbtn}
-            onClick={() => fk.setFieldValue("amount", 15000)}
+            onClick={() => formik.setFieldValue("amount", 15000)}
           >
             ₹ 15K
           </Button>
           <Button
             sx={style.paytmbtn}
-            onClick={() => fk.setFieldValue("amount", 20000)}
+            onClick={() => formik.setFieldValue("amount", 20000)}
           >
             ₹ 20K
           </Button>
@@ -440,8 +450,8 @@ function Deposite() {
           <InputBase
             name="amount"
             id="amount"
-            onChange={fk.handleChange}
-            value={fk.values.amount}
+            onChange={formik.handleChange}
+            value={formik.values.amount}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             placeholder="Please enter the amount"
             inputProps={{ "aria-label": "search google maps" }}
@@ -647,7 +657,7 @@ function Deposite() {
                 Type
               </Typography>
               <Typography variant="body1" color="initial">
-                {i?.tr15_type}
+                {i?.type}
               </Typography>
             </Stack>
             <Stack

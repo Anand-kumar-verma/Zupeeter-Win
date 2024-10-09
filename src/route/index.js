@@ -58,6 +58,8 @@ import QRSCREENUSDT from "../pages/wallet/Component/QRSCREENUSDT";
 import UsdtDetails from "../pages/bank/UsdtDetails";
 import USDTWithdrawlRequest from "../pages/wallet/Component/USDTWithdrawlRequest";
 import Wingo from "../pages/wingo/Wingo";
+import AddAddressUsdt from "../pages/wallet/Component/AddAddressUsdt";
+import Gift from "../pages/activity/Gift";
 
 
 export const routes = [
@@ -163,6 +165,10 @@ export const routes = [
         element:<Withdraval />
     },
     {
+        path:"/gift",
+        element:<Gift />
+    },
+    {
         path:"/deposit",
         element:<Deposite />
     },
@@ -257,6 +263,10 @@ export const routes = [
     {
         path:"/account/income-main/my-team/levels",
         element:<Tables />
+    },
+    {
+        path:"/usdtaddress",
+        element:<AddAddressUsdt />
     },
     {
         path:"/account/Teamincome",

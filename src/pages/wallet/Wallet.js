@@ -20,7 +20,6 @@ import theme from "../../utils/theme";
 import { apiConnectorGet } from "../../services/apiconnector";
 
 function Wallet() {
-  const [balance, setBalance] = useState("");
   const or_m_user_type = localStorage.getItem("or_m_user_type");
 
   const { isLoading, data: wallet_amount } = useQuery(

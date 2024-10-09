@@ -29,11 +29,9 @@ import cip from "../../../assets/images/cip.png";
 import user from "../../../assets/images/instruction.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
-import zp from "../../../assets/images/zptoken.png";
+import usdt from "../../../assets/images/zptoken.png";
 import withdravalhistory from "../../../assets/images/withdrawalhistory.png";
 import {
-  depositHistoryFunction,
-  getBalanceFunction,
   getQraddress,
 } from "../../../services/apiCallings";
 import { endpoint } from "../../../services/urls";
@@ -41,6 +39,7 @@ import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress
 import { deCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
 import { History } from "@mui/icons-material";
+import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 
 function USDTDeposit() {
   const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -51,9 +50,11 @@ function USDTDeposit() {
   const [loding, setloding] = useState(false);
   const [receipt, setReceipt] = React.useState();
  const client = useQueryClient()
+
+
   const { isLoading: history, data } = useQuery(
     ["deposit_history"],
-    () => depositHistoryFunction(),
+    () => apiConnectorGet(endpoint.deposit_history_usdt),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -63,14 +64,14 @@ function USDTDeposit() {
     }
   );
 
-  const res = data?.data?.earning?.rid || [];
+  const res = data?.data?.data || [];
   useEffect(() => {
     isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
   }, [isAllValue, res]);
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => getBalanceFunction(setBalance),
+    () => apiConnectorGet(endpoint.get_balance),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -79,7 +80,7 @@ function USDTDeposit() {
       refetchOnWindowFocus: false,
     }
   );
-  const wallet_amount_data = wallet_amount?.data?.earning || 0;
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
 
  
   const initialValue = {
@@ -111,7 +112,7 @@ function USDTDeposit() {
   async function insertFundFn(reqBody) {
     setloding(true);
     try {
-      const res = await axios.post(endpoint?.deposite_usdt_payin, reqBody);
+      const res = await apiConnectorPost(endpoint?.deposite_usdt_payin, reqBody);
       toast(res?.data?.msg);
       setloding(false);
       if ("Request Successfully Accepted." === res?.data?.msg) {
@@ -140,12 +141,14 @@ function USDTDeposit() {
     toast.success("Copied to clipboard!");
   };
 
-  const { data:qr } = useQuery(["qr"], () => getQraddress(), {
+  const { data:qr } = useQuery(["qr"], 
+   async () => apiConnectorGet(endpoint.admin_qr_address), {
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   });
   const resqr = qr?.data?.data || 0;
+
   const selectedUPIDetails = Array.isArray(resqr)
   ? resqr?.find((item) => item?.id === fk.values?.deposit_type)
   : null;
@@ -246,7 +249,11 @@ function USDTDeposit() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              ₹ {wallet_amount_data || 0}
+              ₹  {(
+                  Number(
+                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  ) || 0
+                )?.toFixed(2)}{" "}
             </Typography>
             <Box
               component="img"
@@ -310,7 +317,7 @@ function USDTDeposit() {
           >
             <Box
               component="img"
-              src={zp}
+              src={usdt}
               width={40}
               sx={{ margin: "0px auto" }}
             ></Box>
@@ -324,7 +331,7 @@ function USDTDeposit() {
                 mt: 1,
               }}
             >
-              ZP
+              USDT
             </Typography>
           </Stack>
         </Stack>
@@ -380,7 +387,7 @@ function USDTDeposit() {
                       key={i?.id}
                       value={i?.id}
                     >
-                      {i?.zp_type}
+                      {i?.usdt_type}
                     </MenuItem>
                   ))}
               </TextField>
@@ -391,14 +398,14 @@ function USDTDeposit() {
                   </div>
                   <div className="pt-4 gap-2">
                     <p className="!text-xs font-bold px-1 !text-[#e97e0f]">
-                      {selectedUPIDetails?.zp_address}
+                      {selectedUPIDetails?.usdt_address}
                     </p>
                     <div className="w-full flex justify-center mt-5">
                       <Button
                         size="small !py-1"
                         className="!bg-[#fcbc42] !text-white  place-items-center"
                         onClick={() =>
-                          functionTOCopy(selectedUPIDetails?.zp_address)
+                          functionTOCopy(selectedUPIDetails?.usdt_address)
                         }
                       >
                         Copy
@@ -726,7 +733,7 @@ function USDTDeposit() {
                 Type
               </Typography>
               <Typography variant="body1" color="initial">
-                {i?.tr15_type}
+                {i?.usdt_type}
               </Typography>
             </Stack>
             <Stack

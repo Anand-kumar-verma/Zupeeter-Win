@@ -1,33 +1,33 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { useQuery } from "react-query";
+import { NavLink, useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import avaitorcategory3 from "../../../assets/images/avv.png";
 import lotteryimg from "../../../assets/images/lottery.png";
 import lotterycategory1 from "../../../assets/images/lotterycategory1.png";
 import lotterycategory2 from "../../../assets/images/lotterycategory2.png";
 import lotterycategory3 from "../../../assets/images/lotterycategory3.png";
 import lotterycategory4 from "../../../assets/images/lotterycategory4.png";
-import avaitorcategory3 from "../../../assets/images/avv.png";
 import win from "../../../assets/images/win.png";
 import win2 from "../../../assets/images/win2.png";
 import win3 from "../../../assets/images/win3.png";
 import win4 from "../../../assets/images/win4.png";
-import axios from "axios";
-import { endpoint } from "../../../services/urls";
 import { apiConnectorGet } from "../../../services/apiconnector";
-import { useQuery } from "react-query";
+import { endpoint } from "../../../services/urls";
 
 function Lottery() {
 
-  const { data} = useQuery(["status"] ,
-    ()=> apiConnectorGet(endpoint.status) ,{
-    refetchOnMount :false,
-    refetchOnWindowFocus:false,
-    refetchOnReconnect :false
+  const navigate = useNavigate()
+  const { data } = useQuery(["status"],
+    () => apiConnectorGet(endpoint.status), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false
   })
-const status = data?.data?.data
+  const status = data?.data?.data
 
   return (
     <Box sx={{ padding: "15px" }}>
@@ -41,8 +41,9 @@ const status = data?.data?.data
           Lottery
         </Typography>
       </Stack>
-      <NavLink to={String(status?.wingo_status) !== "0" && "/wingo"}>
-        <Box sx={style.winbox}>
+        <Box sx={style.winbox} onClick={()=>{if(status?.find((i)=>i?.title==="wingo_status")?.longtext !== "0"){
+          navigate('/wingo')
+        }}}>
           <Box
             component="img"
             src={win}
@@ -69,38 +70,42 @@ const status = data?.data?.data
             ></Box>
           </Box>
         </Box>
-      </NavLink>
-      <NavLink to={String(status?.aviator_status) !== "0" && "/playgame"}>
-        <Box sx={style.winbox}>
-          <Box
-            component="img"
-            src={win3}
-            sx={{ width: "100%", height: "70%" }}
-          ></Box>
-          <Box sx={style.positiongame}>
-            <Typography variant="body1" color="initial" sx={style.gameheading}>
-              Aviator{" "}
+   
+
+      <Box sx={style.winbox}
+        onClick={() => {
+          if (status?.find((i) => i?.title === "aviator_staus")?.longtext !== "0") {
+            navigate("/playgame");
+          }
+        }}>
+        <Box
+          component="img"
+          src={win3}
+          sx={{ width: "100%", height: "70%" }}
+        ></Box>
+        <Box sx={style.positiongame}>
+          <Typography variant="body1" color="initial" sx={style.gameheading}>
+            Aviator{" "}
+          </Typography>
+          <Box sx={{ mt: "15px" }}>
+            <Typography variant="body1" color="initial">
+              {/* Guess Number */}
+              Play & Earn
             </Typography>
-            <Box sx={{ mt: "15px" }}>
-              <Typography variant="body1" color="initial">
-                {/* Guess Number */}
-                Play & Earn
-              </Typography>
-              <Typography variant="body1" color="initial ">
-                {/* Big/Small/Odd/Even */}
-              </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
-            <Box
-              component="img"
-              className=" !rounded-full"
-              src={avaitorcategory3}
-              sx={{ width: "100px" }}
-            ></Box>
+            <Typography variant="body1" color="initial ">
+              {/* Big/Small/Odd/Even */}
+            </Typography>
           </Box>
         </Box>
-      </NavLink>
+        <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
+          <Box
+            component="img"
+            className=" !rounded-full"
+            src={avaitorcategory3}
+            sx={{ width: "100px" }}
+          ></Box>
+        </Box>
+      </Box>
       {/* <NavLink to='/k3'> */}
       <NavLink to="/comingsoon">
         <Box sx={style.winbox}>
@@ -161,8 +166,9 @@ const status = data?.data?.data
           </Box>
         </Box>
       </NavLink>
-      <NavLink to={status?.trx_status !== "0" && "/trx"}>
-        <Box sx={style.winbox}>
+        <Box sx={style.winbox} onClick={()=>{if(status?.find((i)=>i?.title==="trx_status")?.longtext !==0){
+          navigate('/trx')
+        }}}>
           <Box
             component="img"
             src={win4}
@@ -189,7 +195,7 @@ const status = data?.data?.data
             ></Box>
           </Box>
         </Box>
-      </NavLink>
+   
     </Box>
   );
 }

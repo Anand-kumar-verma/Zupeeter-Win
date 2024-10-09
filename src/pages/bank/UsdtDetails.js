@@ -29,6 +29,7 @@ import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 import { deCryptData } from "../../shared/secret";
+import { apiConnectorGet } from "../../services/apiconnector";
 
 export default function UsdtDetails() {
   const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -136,7 +137,7 @@ export default function UsdtDetails() {
     doc.save("table.pdf");
   };
 
-  const { data:qr } = useQuery(["qr"], () => getQraddress(), {
+  const { data:qr } = useQuery(["qr"], () => apiConnectorGet(endpoint.admin_qr_address), {
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
