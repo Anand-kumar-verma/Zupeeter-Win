@@ -93,23 +93,23 @@ function Wingo1Min() {
   React.useEffect(() => {
     const handleOneMin = (onemin) => {
       setOne_min_time(onemin);
-      // fk.setFieldValue("show_this_one_min_time", onemin);
-      if (onemin === 1) handlePlaySoundLast();
-      if ([5, 4, 3, 2].includes(onemin)) {
-        handlePlaySound();
+      fk.setFieldValue("show_this_one_min_time", onemin);
+      if (onemin === 5 || onemin === 4 || onemin === 3 || onemin === 2) {
       }
-
       if (onemin <= 10) {
         fk.setFieldValue("openTimerDialog", true);
+        Number(onemin) <= 5 && Number(onemin) > 0 && handlePlaySound();
+        Number(onemin) === 0 && handlePlaySoundLast();
+      } else {
+        fk.setFieldValue("openTimerDialog", false);
       }
       if (onemin === 0) {
-        // client.refetchQueries("myhistory");
-        client.refetchQueries("wallet_amount");
-        client.refetchQueries("gamehistory");
-        // client.refetchQueries("gamehistory_chart");
         client.refetchQueries("myAllhistory_1");
-        dispatch(dummycounterFun());
-        fk.setFieldValue("openTimerDialog", false);
+        client.refetchQueries("wallet_amount");
+        client.refetchQueries("gamehistory_1");
+        setTimeout(() => {
+          dispatch(dummycounterFun());
+        }, 2000);
       }
     };
     socket.on("onemin", handleOneMin);
@@ -129,7 +129,7 @@ function Wingo1Min() {
   );
 
   const { data: game_history } = useQuery(
-    ["gamehistory"],
+    ["gamehistory_1"],
     async () => await apiConnectorGet(`${endpoint.game_history}?limit=500&offset=0&gameid=1`),
     {
       refetchOnMount: false,

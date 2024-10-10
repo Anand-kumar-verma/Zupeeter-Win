@@ -12,7 +12,7 @@ import { deCryptData } from '../shared/secret';
 const MyBets = () => {
 
   // const logindata = localStorage.getItem('aviator_data');
-  const user_id = deCryptData(localStorage.getItem("user_id"));
+const user_id = deCryptData(localStorage.getItem("user_id"))?.UserID;
 
   const { isLoading, data } = useQuery(
     ["mybets"],

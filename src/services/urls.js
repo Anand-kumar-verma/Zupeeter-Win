@@ -1,18 +1,18 @@
-export const dummy_aviator = "https://bng-live-timer-1.onrender.com";
-export const domain = "https://bng-live-timer-1.onrender.com";
+export const dummy_aviator = "http://192.168.18.183:9001";
+export const domain = "http://192.168.18.183:9001";
 export const domain_ovi_node = "https://api.zupeeter.com";
-export const game_domain = "http://192.168.1.23:9000";
+export const game_domain = "http://192.168.18.183:9000";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
 
 // export const baseUrl = "min.righttime.fun";
 // export const baseUrl = "https://webs.ferryinfotech.in";
-export const baseUrl = "http://192.168.1.23:9000";
+export const baseUrl = "http://192.168.18.183:9000";
 export const front_end_domain = "https://zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://zupeeter.com/ZUPEETER.pdf";
-// export const local = "http://192.168.18.183:9002";
+// export const local = "http://192.168.18.183:9000";
 
 export const endpoint = {
   get_royality_date: `${domain_ovi_node}/get-royality-date`,

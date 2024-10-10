@@ -10,9 +10,7 @@ import { endpoint } from "../../services/urls";
 import { deCryptData } from "../../shared/secret";
 
 const MybetHistory = () => {
-  const user_id = deCryptData(localStorage.getItem("user_id"));
-
-
+  const user_id = deCryptData(localStorage.getItem("user_id"))?.UserID;
 
   const { isLoading, data } = useQuery(
     ["historydata"],
@@ -22,7 +20,6 @@ const MybetHistory = () => {
       refetchOnReconnect: true,
     }
   );
-
   const getHistory = async () => {
     const reqbody = {
       user_id_node: user_id

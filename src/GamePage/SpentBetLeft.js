@@ -13,7 +13,7 @@ import { deCryptData, enCryptData } from "../shared/secret";
 
 const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
   const client = useQueryClient();
-  const user_id = deCryptData(localStorage.getItem("user_id"));
+  const user_id = deCryptData(localStorage.getItem("user_id"))?.UserID;
   const spent_amount1 = localStorage.getItem("spent_amount1");
   const amount_total =
     client.getQueriesData("walletamount_aviator")?.[0]?.[1]?.data?.data || 0;

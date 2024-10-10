@@ -12,7 +12,7 @@ import { gray } from "./color";
 import { deCryptData } from "../shared/secret";
 
 const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
-  const user_id = deCryptData(localStorage.getItem("user_id"));
+  const user_id = deCryptData(localStorage.getItem("logindataen"))?.UserID;
   const client = useQueryClient();
   const spent_amount2 = localStorage.getItem("spent_amount2");
   const amount_total =

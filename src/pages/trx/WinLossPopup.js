@@ -233,46 +233,41 @@ import win from "../../assets/images/winnner.png";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { deCryptData } from "../../shared/secret";
-const WinLossPopup = ({ gid, setOpenDialogBox }) => {
-  //   const login_data = localStorage.getItem("logindataen") && CryptoJS.AES.decrypt(localStorage.getItem("logindataen"), "anand")?.toString(CryptoJS.enc.Utf8) || null;
-  //   const user_id = login_data && JSON.parse(login_data).UserID;
+import { apiConnectorPost } from "../../services/apiconnector";
+import { useSelector } from "react-redux";
+const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
   let array = [zero, one, two, three, four, five, six, seven, eight, nine];
-  // const my_history = useSelector((state) => state.aviator.myHistory_trx_one_min);
-  const user_id = deCryptData(localStorage.getItem("user_id"));
+
   const [loding, setloding] = useState(false);
   const [status, setstatus] = useState("");
   const [newstatus, setstatusNew] = useState("");
   const [all_result, setall_result] = useState();
+  const my_history_data_full = useSelector(
+    (state) => state.aviator.myHistory_trx_one_minFn
+  );
   const MyHistoryFn = async () => {
     setloding(true);
     try {
-      const reqBody = {
-        userid: user_id,
-        gameid: gid,
-      };
-      const response = await axios.post(
-        `${endpoint.trx_my_history_new}`,
-        reqBody
-      );
-      // const firstId = localStorage.getItem("betApplied")?.split("_")?.[4];
-      const firstId = response?.data?.earning?.[0]?.tr_transid;
-      const total_data = response?.data?.earning;
-      console.log(total_data, "hii anand");
+      // const response = await axios.get(
+      //   `${endpoint.my_history_all_trx}?userid=${user_id}&limit=0&gameid=${gid}`
+      // );
+      const my_history_data  =  my_history_data_full?.slice(0,10);
+      const firstId = my_history_data?.[0]?.gamesno;
       const winAmnt =
-        total_data
-          ?.filter((i) => i?.tr_transid === firstId)
-          ?.reduce((a, b) => a + Number(b?.tr_income || 0), 0) || 0;
+        my_history_data
+          ?.filter((i) => i?.gamesno === firstId)
+          ?.reduce((a, b) => a + Number(b?.win || 0), 0) || 0;
       const amntAmnt =
-        total_data
-          ?.filter((i) => i?.tr_transid === firstId)
-          ?.reduce((a, b) => a + Number(b?.tr_final_amt || 0), 0) || 0;
-      setall_result(total_data?.[0]);
-      // const winAmnt = response?.data?.earning?.[0]?.tr_income || 0;
-      // const amntAmnt = response?.data?.earning?.[0]?.tr_final_amt || 0;
-      // setstatus({
-      //   status: "2",
-      //   amount: 100,
-      // });
+        my_history_data
+          ?.filter((i) => i?.gamesno === firstId)
+          ?.reduce((a, b) => a + Number(b?.amount || 0), 0) || 0;
+      setall_result(my_history_data?.[0]);
+
+      // const amntAmnt =
+      //   response?.data?.data
+      //     ?.filter((i) => i?.gamesno === firstId)
+      //     ?.reduce((a, b) => a + Number(b?.amount || 0), 0) || 0;
+
       if (winAmnt) {
         setstatus({
           status: "1",
@@ -283,11 +278,8 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
           status: "2",
           amount: amntAmnt,
         });
+        // toast("Your Loss"); 
       }
-      setTimeout(() => {
-        setOpenDialogBox(false);
-        localStorage.setItem("betApplied", false);
-      }, 3000);
     } catch (e) {
       toast(e?.message);
       console.log(e);
@@ -296,7 +288,11 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
   };
 
   useEffect(() => {
-    MyHistoryFn();
+    setTimeout(() => {
+    // setOpenDialogBox(false);
+      localStorage.setItem("betApplied", false);
+    }, 5000);
+      MyHistoryFn();
   }, []);
 
   useEffect(() => {
@@ -304,15 +300,18 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
   }, [status]);
 
   if (loding) return <CustomCircularProgress isLoading={loding} />;
+  
+  // if (status?.status === "2") {
+  //   return null;
+  // }
   return (
     <Box
       sx={{
         width: "300px",
         height: "400px",
         margin: "auto",
-        backgroundImage: `url(${
-          (status?.status === "1" && Loss) || (status?.status === "2" && win)
-        })`,
+        backgroundImage: `url(${(status?.status === "1" && win) || (status?.status === "2" && Loss)
+          })`,
         // backgroundImage: `url(${win})`,
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
@@ -327,82 +326,62 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
             color="initial"
             className="crlg !text-center"
           >
-            {(status?.status === "1" && "Congratulations") ||
+            {(status?.status === "1" && "Win") ||
               (status?.status === "2" && "Loss")}
           </Typography>
-
-          {/* <Box className="winerpoint">
-        <Typography variant="body1" color="initial">
-          Game Results{" "}
-        </Typography>
-        <Typography variant="body1" color="initial">
-          green
-        </Typography>
-        <Box component="img" src={pr0} width={30} sx={{ mr: "5px" }}></Box>
-        <Typography variant="body1" color="initial">
-          small
-        </Typography>
-      </Box> */}
           <Typography
             variant="body1"
             color="initial"
-            className={`bonustext ${
-              status?.status === "1" ? "!text-white" : "!text-white"
-            }
+            className={`bonustext ${status?.status === "1" ? "!text-white" : "!text-white"
+              }
             !mr-0
             `}
           >
             {(status?.status === "1" && (
               <>
                 <div className="!text-sm !ml-7 !flex !items-center !gap-2">
-                  <span>Game Results: </span>
+                  <span>Results: </span>
                   <span
-                    className={`${
-                      [1, 3, 7, 9]?.includes(all_result?.tr_win_slot - 1)
-                        ? "!bg-green-500"
-                        : "!bg-red-500"
-                    }
-                  ${
-                    String(all_result?.tr_win_slot - 1) === String(0) &&
-                    "!bg-gradient-to-r from-red-500 to-purple-500"
-                  }
-                  ${
-                    String(all_result?.tr_win_slot - 1) === String(5) &&
-                    "!bg-gradient-to-r from-green-500 to-purple-500"
-                  }
+                    className={`${[1, 3, 7, 9]?.includes(Number(all_result?.result))
+                      ? "!bg-green-500"
+                      : "!bg-red-500"
+                      }
+                  ${String(Number(all_result?.result)) === String(0) &&
+                      "!bg-gradient-to-r from-red-500 to-purple-500"
+                      }
+                  ${String(Number(all_result?.result)) === String(5) &&
+                      "!bg-gradient-to-r from-green-500 to-purple-500"
+                      }
                   !text-center !p-2 !rounded-md
                   `}
                   >
-                    {(String(all_result?.tr_win_slot - 1) === String(0) &&
+                    {(String(Number(all_result?.result)) === String(0) &&
                       "Red Purple") ||
-                    (String(all_result?.tr_win_slot - 1) === String(5) &&
-                      "Green Purple") ||
-                    [1, 3, 7, 9]?.includes(all_result?.tr_win_slot - 1)
+                      (String(Number(all_result?.result)) === String(5) &&
+                        "Green Purple") ||
+                      [1, 3, 7, 9]?.includes(Number(all_result?.result))
                       ? "Green"
                       : "Red"}
                   </span>
                   <img
                     className="!h-[10%] !w-[10%]"
-                    src={array[all_result?.tr_win_slot - 1]}
+                    src={array[Number(all_result?.result)]}
                   />
                   <span
-                    className={`${
-                      [1, 3, 7, 9]?.includes(all_result?.tr_win_slot - 1)
-                        ? "!bg-green-500"
-                        : "!bg-red-500"
-                    }
-                  ${
-                    String(all_result?.tr_win_slot - 1) === String(0) &&
-                    "!bg-gradient-to-r from-red-500 to-purple-500"
-                  }
-                  ${
-                    String(all_result?.tr_win_slot - 1) === String(5) &&
-                    "!bg-gradient-to-r from-green-500 to-purple-500"
-                  }
+                    className={`${[1, 3, 7, 9]?.includes(Number(all_result?.result))
+                      ? "!bg-green-500"
+                      : "!bg-red-500"
+                      }
+                  ${String(Number(all_result?.result)) === String(0) &&
+                      "!bg-gradient-to-r from-red-500 to-purple-500"
+                      }
+                  ${String(Number(all_result?.result)) === String(5) &&
+                      "!bg-gradient-to-r from-green-500 to-purple-500"
+                      }
                   !text-center !p-2 !rounded-md
                   `}
                   >
-                    {all_result?.tr_win_slot - 1 <= 4 ? "Small" : "Big"}
+                    {Number(all_result?.result) <= 4 ? "Small" : "Big"}
                   </span>
                 </div>
                 <div className="!text-[20px] !mt-4">Bonus</div>
@@ -410,26 +389,37 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
             )) ||
               (status?.status === "2" && "Loss Amount")}
           </Typography>
+          {/* <Typography
+            variant="body1"
+            color="initial"
+            className={`bonustext ${
+              status?.status === "1" ? "!text-white" : "!text-white"
+            }`}
+          >
+            {(status?.status === "1" && "Bonus") }
+          </Typography> */}
           <Typography
             variant="body1"
             color="initial"
-            className={`bonusamt  ${
-              status?.status === "1" ? "!text-green-500" : "!text-red-300"
-            }`}
+            className={`bonusamt  ${status?.status === "1" ? "!text-green-500" : "!text-red-300"
+              }`}
           >
             ₹ {Number(status?.amount || 0)?.toFixed(2) || 0}
           </Typography>
           <Typography
             variant="body1"
             color="initial"
-            className={`bonuspr ${
-              status?.status === "1" ? "!text-pink-500" : "!text-red-300"
-            } !text-sm`}
+            className={`bonuspr ${status?.status === "1" ? "!text-white" : "!text-black"
+              }`}
           >
-            Period Minute {all_result?.tr_transid}
+            Period min :{all_result?.gamesno}
+            {/* {(status?.gameid === "1" && "One") ||
+              (status?.gameid === "3" && "Three") ||
+              (status?.gameid === "5" && "Five")}{" "} */}
+
           </Typography>
           <Typography variant="body1" color="initial" className="bonuscl">
-            Auto Close in 3 sec{" "}
+          {(status?.status === "1" &&  "") || (status?.status === "2" && "Try Again")}    
           </Typography>
         </>
       )}

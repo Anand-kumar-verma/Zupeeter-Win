@@ -49,25 +49,6 @@ function Wallet() {
   );
   const profile = user?.data?.data || [];
 
-  const { isLoading: total_deposit, data } = useQuery(
-    ["deposit_history"],
-    () => depositHistoryFunction(),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
-    }
-  );
-  const res = data?.data?.earning?.rid || [];
-  const total_deposit_amount = useMemo(() => {
-    return res
-      ?.filter((i) => i?.tr15_status === "Success")
-      ?.reduce((a, b) => a + Number(b?.tr15_amt || 0), 0);
-  }, [data]);
-
-
   useEffect(() => {
     if (!checkTokenValidity()) {
       localStorage.clear();
@@ -154,7 +135,7 @@ function Wallet() {
       
         </Stack>
       </Box>
-      <CustomCircularProgress isLoading={isLoading || total_deposit} />
+      <CustomCircularProgress isLoading={isLoading } />
       <Box sx={{ background: theme.palette.primary.main, pb: 2 }}>
         <Stack
           direction="row"
@@ -187,14 +168,14 @@ function Wallet() {
               color="initial"
               sx={{ fontSize: "20px", fontWeight: "500", color: "white" }}
             >
-              {rupees} {total_deposit_amount || 0}
+              {/* {rupees} 0 */}
             </Typography>
             <Typography
               variant="body1"
               color="initial"
               sx={{ fontSize: "14px", fontWeight: "400", color: "white" }}
             >
-              Total deposit amount
+              {/* Total deposit amount */}
             </Typography>
           </Box>
         </Stack>

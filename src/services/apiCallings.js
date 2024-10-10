@@ -354,13 +354,11 @@ export const GetTopFn = async () => {
 };
 
 export const walletamountAviator = async () => {
-
   try {
-    const user = deCryptData(localStorage.getItem("user_id"));
 
     const response = await axios.post(
       `${dummy_aviator}/api/v1/get-wallet-amount-by-id`,
-      { id: user }
+      { id: user_id }
     );
     return response;
   } catch (e) {

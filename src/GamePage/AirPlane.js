@@ -23,7 +23,6 @@ import {
   LeftDottedPointMoveable,
 } from "./DottedPoint";
 import SpentBetLeft from "./SpentBetLeft";
-import SpentBetRight from "./SpentBetRight";
 import betmusic from "../assets/place_your_bet.mp3";
 import { useSocket } from "../shared/socket/SocketContext";
 

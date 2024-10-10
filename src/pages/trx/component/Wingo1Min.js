@@ -68,40 +68,35 @@ function Wingo1Min() {
 
     const handleOneMin = (onemin) => {
       setOne_min_time(onemin);
-      if (onemin === 1) handlePlaySoundLast();
-      if ([5, 4, 3, 2].includes(onemin)) {
-        handlePlaySound();
+      fk.setFieldValue("show_this_one_min_time", onemin);
+      if (onemin === 5 || onemin === 4 || onemin === 3 || onemin === 2) {
       }
 
       if (onemin <= 10) {
         fk.setFieldValue("openTimerDialog", true);
+        Number(onemin) <= 5 && Number(onemin) > 0 && handlePlaySound();
+        Number(onemin) === 0 && handlePlaySoundLast();
       } else {
         fk.setFieldValue("openTimerDialog", false);
       }
-      if (onemin === 59) {
-        fk.setFieldValue("openTimerDialog", false);
-      }
-
-      if (onemin === 59) {
+      if (onemin === 58) {
         client.refetchQueries("wallet_amount");
+      }
+      if (onemin === 57) {
         client.refetchQueries("myAll_trx_history_new");
-      }
-      if (onemin === 0) {
         client.refetchQueries("trx_gamehistory");
+        dispatch(dummycounterFun());
       }
+    
     };
-    const handleOneMinResult = (result) => {
-      localStorage.setItem("anand_re", result);
-    };
+
     socket.on("onemintrx", handleOneMin);
-    socket.on("result", handleOneMinResult);
     return () => {
       socket.off("onemintrx", handleOneMin);
-      socket.off("result", handleOneMinResult);
     };
   }, []);
 
-  const { isLoading, data: game_history } = useQuery(
+  const { data: game_history } = useQuery(
     ["trx_gamehistory"],
     async () => await apiConnectorGet(
       `${endpoint.trx_game_history}?gameid=1&limit=500`
