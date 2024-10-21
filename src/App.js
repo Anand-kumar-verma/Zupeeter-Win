@@ -10,18 +10,19 @@ import Dashboard from "./pages/home/Dashboard";
 import Test from "./pages/test";
 import { routes } from "./route";
 import { deCryptData } from "./shared/secret";
-function App() {
+import { adminroutes } from "./AdminRoutes";
+import AdminLayout from "./Adminpages/Layout";
 
-  const isAuthenticated = deCryptData(localStorage.getItem("user_id"));
- 
+function App() {
+  const userData = deCryptData(localStorage.getItem("user_id"));
+  const isAuthenticated = userData ? true : false;
 
   return (
     <Routes>
-      <Route path="/" element={<Login />}></Route>
-      <Route path="/test" element={<Test />}></Route>
-      <Route path="/register" element={<Register />}></Route>
-      <Route path="/before-login" element={<BeforeLogin />}></Route>
-      {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+      <Route path="/" element={<Login />} />
+      <Route path="/test" element={<Test />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/before-login" element={<BeforeLogin />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route
         path="/playgame"
@@ -29,16 +30,33 @@ function App() {
       />
 
       {isAuthenticated ? (
-        routes?.map((route, index) => {
-          return (
-            <Route key={index} path={route?.path} element={route?.element} />
-          );
-        })
+        routes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))
       ) : (
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/" element={<Login />} />
       )}
 
-      <Route path="/splash" element={<SplashScreen />}></Route>
+      {isAuthenticated && (userData.user_type === "Admin" || userData.user_type === "Super Admin") ? (
+        adminroutes.map((route) => (
+          <Route
+            key={route.id}
+            path={route.path}
+            element={
+              <AdminLayout
+                id={route.id}
+                navLink={route.path}
+                navItem={route.navItem}
+                component={route.component}
+              />
+            }
+          />
+        ))
+      ) : (
+        <Route path="/" element={<Login />} />
+      )}
+
+      <Route path="/splash" element={<SplashScreen />} />
     </Routes>
   );
 }

@@ -18,16 +18,16 @@ import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint } from "../../services/urls";
 
-const WinLossPopup = ({ gid, setOpenDialogBox }) => {
+const WinLossPopup = () => {
   let array = [zero, one, two, three, four, five, six, seven, eight, nine];
   const [loding, setloding] = useState(false);
   const [status, setstatus] = useState("");
   const [newstatus, setstatusNew] = useState("");
   const [all_result, setall_result] = useState();
   const my_history_data = useSelector(
-    (state) => state.aviator.myHistory_trx_one_minFn
+    (state) => state.aviator.myHistory_trx_one_min
   );
-  const MyHistoryFn = async ({gid}) => {
+  const MyHistoryFn = async () => {
     setloding(true);
     try {
       const firstId = my_history_data?.[0]?.gamesno;
@@ -51,7 +51,9 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
           status: "2",
           amount: amntAmnt,
         });
+        // toast("Your Loss");
       }
+      // setstatus(response?.data?.data?.[0]);
     } catch (e) {
       toast(e?.message);
       console.log(e);
@@ -69,8 +71,6 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
   useEffect(() => {
     setstatusNew(status);
   }, [status]);
-
- 
   if (loding) return <CustomCircularProgress isLoading={loding} />;
   return (
     <Box
@@ -93,7 +93,7 @@ const WinLossPopup = ({ gid, setOpenDialogBox }) => {
             color="initial"
             className="crlg !text-center"
           >
-            {(status?.status === "1" && "Win") ||
+             {(status?.status === "1" && "Win") ||
               (status?.status === "2" && "Loss")}
           </Typography>
 

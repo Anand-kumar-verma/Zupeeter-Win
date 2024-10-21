@@ -5,14 +5,10 @@ export const game_domain = "http://192.168.18.183:9000";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
-
-// export const baseUrl = "min.righttime.fun";
-// export const baseUrl = "https://webs.ferryinfotech.in";
 export const baseUrl = "http://192.168.18.183:9000";
 export const front_end_domain = "https://zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://zupeeter.com/ZUPEETER.pdf";
-// export const local = "http://192.168.18.183:9000";
 
 export const endpoint = {
   get_royality_date: `${domain_ovi_node}/get-royality-date`,
@@ -48,6 +44,7 @@ export const endpoint = {
   bank_details: `${game_domain}/api/v1/user-bank-details`,
   get_claim_card: `${game_domain}/api/v1/clame-bonus`,
  get_card: `${game_domain}/api/v1/get-gift-card-list`,
+ level_income: `${game_domain}/api/v1/level-income`,
  
 
   
@@ -111,7 +108,7 @@ export const endpoint = {
   // ovi panel api's
   trx_bet_placed_node: `${game_domain}/api/v1/trx-bet`,
   trx_game_history: `${game_domain}/api/v1/trx-auto-genrated-result`, //////// done in node js
-  trx_my_history_new: `${game_domain}/api/v1//trx-getColourBets-temp`, /// done  in node js
+  trx_my_history_new: `${game_domain}/api/v1/trx-getColourBets-temp`, /// done  in node js
 
 
   ticket_raised: `${domain_ovi_node}/ticket-raised`,

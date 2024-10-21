@@ -93,7 +93,7 @@ function Login() {
         localStorage.setItem(
           "user_id",
           CryptoJS.AES.encrypt(
-            JSON.stringify({ UserID: response?.data?.UserID }),
+            JSON.stringify({ UserID: response?.data?.UserID ,user_type:response?.data?.user_type }),
             "anand"
           )?.toString()
         );
@@ -102,8 +102,10 @@ function Login() {
         sessionStorage.setItem("isAvailableCricketUser", true);
         setloding(false);
         storeCookies();
-        navigate("/before-login");
-        window.location.reload();
+        response?.data?.user_type==="User" 
+        ?navigate("/before-login"): 
+       (["Admin","Super Admin"]?.includes(response?.data?.user_type)) && navigate("/admindashboard");
+          window.location.reload();
       }
     } catch (e) {
       toast.error(e?.message);
@@ -112,11 +114,10 @@ function Login() {
     setloding(false);
   };
 
-  useEffect(() => {
-    user_id && 
-    navigate("/before-login");
-    // navigate("/dashboard");
-  }, [user_id]);
+  // useEffect(() => {
+  //   user_id && 
+  //   navigate("/before-login");
+  // }, [user_id]);
 
   useEffect(() => {
     const handleEnterKeyPress = (event) => {

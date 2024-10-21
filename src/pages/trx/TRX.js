@@ -283,10 +283,10 @@ function TRX () {
           <NavLink
             className={value === 2 ? " wingonavactive wingonav" : " wingonav"}
             onClick={() =>
-              // handleChange(2)
-              toast(
-                "The system is currently under maintenance. Please try again later."
-              )
+              handleChange(2)
+              // toast(
+              //   "The system is currently under maintenance. Please try again later."
+              // )
             }
           >
             <Box component="img" src={time} width={40}></Box>
@@ -303,10 +303,10 @@ function TRX () {
             className={value === 3 ? " wingonavactive wingonav" : " wingonav"}
             onClick={
               () =>
-                toast(
-                  "The system is currently under maintenance. Please try again later."
-                )
-              // handleChange(3)
+                // toast(
+                //   "The system is currently under maintenance. Please try again later."
+                // )
+             handleChange(3)
             }
           >
             <Box component="img" src={time} width={40}></Box>

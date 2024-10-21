@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import countdownfirst from "../../../assets/images/countdownfirst.mp3";
 import countdownlast from "../../../assets/images/countdownlast.mp3";
@@ -29,9 +29,12 @@ import timerbg2 from "../../../assets/images/timerbg2.png";
 import backbanner from "../../../assets/images/winbackbanner.png";
 import {
   dummycounterFun,
+  gameHistory_trx_one_minFn,
   myHistory_trx_one_minFn,
   updateNextCounter,
 } from "../../../redux/slices/counterSlice";
+import { apiConnectorGet } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
 import { changeImages } from "../../../shared/nodeSchedular";
 import { useSocket } from "../../../shared/socket/SocketContext";
 import BetNumber from "../BetNumber";
@@ -39,13 +42,6 @@ import Chart from "../history/Chart";
 import GameHistory from "../history/GameHistory";
 import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
-import axios from "axios";
-import { endpoint } from "../../../services/urls";
-import { gameHistory_trx_one_minFn } from "../../../redux/slices/counterSlice";
-import { useQuery } from "react-query";
-import toast from "react-hot-toast";
-import { My_All_HistoryFn } from "../../../services/apiCallings";
-import { apiConnectorGet } from "../../../services/apiconnector";
 
 function Wingo1Min() {
 

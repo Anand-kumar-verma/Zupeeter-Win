@@ -83,7 +83,7 @@ function Wingo1Min() {
         client.refetchQueries("wallet_amount");
       }
       if (onemin === 57) {
-        client.refetchQueries("myAll_trx_history_new");
+        client.refetchQueries("myAll_trx_history_new_1");
         client.refetchQueries("trx_gamehistory");
         dispatch(dummycounterFun());
       }
@@ -145,7 +145,7 @@ function Wingo1Min() {
   };
 
   const {isLoading: myhistory_loding_all, data:my_history_all_new } = useQuery(
-    ["myAll_trx_history_new"],
+    ["myAll_trx_history_new_1"],
     async () => await apiConnectorGet(
       `${endpoint.trx_my_history_new}?gameid=1&limit=500`
     ), {

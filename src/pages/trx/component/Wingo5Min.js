@@ -20,6 +20,7 @@ import timerbg2 from "../../../assets/images/timerbg2.png";
 import {
   dummycounterFun,
   gameHistory_trx_one_minFn,
+  myHistory_trx_one_minFn,
   trx_game_image_index_function,
   updateNextCounter,
 } from "../../../redux/slices/counterSlice";
@@ -31,6 +32,7 @@ import GameHistory from "../history/GameHistory";
 import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
+import { apiConnectorGet } from "../../../services/apiconnector";
 
 function Wingo5Min() {
   const [open, setOpen] = useState(false);
@@ -71,27 +73,21 @@ function Wingo5Min() {
 
 
   React.useEffect(() => {
-    const handleFiveMin = (fivemin) => {
+    const handleFiveMin = (onemin) => {
+      let fivemin = `${4 - (new Date()?.getMinutes() % 5)}_${onemin}`;
       setOne_min_time(fivemin);
-
-      if (fivemin?.split("_")?.[1] === "1" && fivemin?.split("_")?.[0] === "0")
-        handlePlaySoundLast();
+      fk.setFieldValue("show_this_one_min_time", fivemin);
 
       if (
-        Number(fivemin?.split("_")?.[1]) <= 30 &&
-        Number(fivemin?.split("_")?.[1]) > 1 && // this is for sec
-        fivemin?.split("_")?.[0] === "0" // this is for minut
-      ) {
-        handlePlaySound();
-      }
-
-      if (
-        Number(fivemin?.split("_")?.[1]) <= 30 && // this is for sec
+        Number(fivemin?.split("_")?.[1]) <= 10 && // this is for sec
         fivemin?.split("_")?.[0] === "0" // this is for minut
       ) {
         fk.setFieldValue("openTimerDialog", true);
+        Number(Number(fivemin?.split("_")?.[1])) <= 5 && Number(Number(fivemin?.split("_")?.[1])) > 0 && handlePlaySound();
+        Number(Number(fivemin?.split("_")?.[1])) === 0 && handlePlaySoundLast();
+      } else {
+        fk.setFieldValue("openTimerDialog", false);
       }
-
       if (
         fivemin?.split("_")?.[1] === "40" && // this is for sec
         fivemin?.split("_")?.[0] === "0" // this is for minut
@@ -100,51 +96,47 @@ function Wingo5Min() {
         // oneMinColorWinning();
       }
       if (
-        fivemin?.split("_")?.[1] === "59" &&
-        fivemin?.split("_")?.[0] === "4"
+        fivemin?.split("_")?.[1] === "0" &&
+        fivemin?.split("_")?.[0] === "0"
       ) {
-        fk.setFieldValue("openTimerDialog", false);
-      }
-      if (
-        fivemin?.split("_")?.[1] === "56" &&
-        fivemin?.split("_")?.[0] === "4"
-      ) {
-        dispatch(dummycounterFun());
-        client.refetchQueries("wallet_amount");
-        client.refetchQueries("trx_gamehistory_chart");
-        client.refetchQueries("myAll_trx_history");
-        client.refetchQueries("trx_gamehistory");
         client.refetchQueries("trx_gamehistory_5");
+        client.refetchQueries("myAll_trx_history_new_3");
+        client.refetchQueries("walletamount");
       }
     };
 
-    socket.on("fivemintrx", handleFiveMin);
+    socket.on("onemintrx", handleFiveMin);
 
     return () => {
-      socket.off("fivemintrx", handleFiveMin);
+      socket.off("onemintrx", handleFiveMin);
     };
   }, []);
 
   const { isLoading, data: game_history } = useQuery(
     ["trx_gamehistory_5"],
-    () => GameHistoryFn("3"),
+    () => apiConnectorGet(
+      `${endpoint.trx_game_history}?gameid=3&limit=500`
+    ),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
     }
   );
+  const {  data: my_history_all_new } = useQuery(
+    ["myAll_trx_history_new_3"],
+    async () => await apiConnectorGet(
+      `${endpoint.trx_my_history_new}?gameid=3&limit=500`
+    ), {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    // retry: false,
+    retryOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+  React.useEffect(() => {
+    dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
+  }, [my_history_all_new?.data?.data]);
 
-  const GameHistoryFn = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.trx_game_history}?gameid=3&limit=500`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
  React.useEffect(() => {
     dispatch(
       updateNextCounter(

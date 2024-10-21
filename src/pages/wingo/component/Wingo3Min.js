@@ -94,36 +94,22 @@ function Wingo3Min() {
   })
 
   React.useEffect(() => {
-    const handleThreeMin = (threemin) => {
-      setThree_min_time(threemin);
-      if (
-        threemin?.split("_")?.[1] === "1" &&
-        threemin?.split("_")?.[0] === "0"
-      )
-        handlePlaySoundLast();
-      if (
-        Number(threemin?.split("_")?.[1]) <= 10 &&
-        Number(threemin?.split("_")?.[1]) > 1 && // 1 index means second
-        threemin?.split("_")?.[0] === "0" // 0 index means min
-      ) {
-        handlePlaySound();
-      }
+    const handleThreeMin = (onemin) => {
+      let threemin = `${2 - (new Date()?.getMinutes() % 3)}_${onemin}`;
 
+      setThree_min_time(threemin);
+      fk.setFieldValue("show_this_one_min_time", threemin);
       if (
         Number(threemin?.split("_")?.[1]) <= 10 && // 1 index means second
         threemin?.split("_")?.[0] === "0" // 0 index means min
       ) {
+        Number(threemin?.split("_")?.[1]) <= 5 &&
+          Number(threemin?.split("_")?.[1]) > 0 &&
+          handlePlaySound();
+        Number(threemin?.split("_")?.[1]) === 0 && handlePlaySoundLast();
         fk.setFieldValue("openTimerDialog", true);
-      }
-      if (threemin?.split("_")?.[1] === "59") {
+      } else {
         fk.setFieldValue("openTimerDialog", false);
-      }
-      if (
-        threemin?.split("_")?.[1] === "25" &&
-        threemin?.split("_")?.[0] === "0"
-      ) {
-        // oneMinCheckResult();
-        // oneMinColorWinning();
       }
       if (
         threemin?.split("_")?.[1] === "0" &&
@@ -131,17 +117,17 @@ function Wingo3Min() {
       ) {
         client.refetchQueries("gamehistory_2min");
         client.refetchQueries("wallet_amount");
-        // client.refetchQueries("gamehistory_chart");
         client.refetchQueries("myAllhistory_2");
-        dispatch(dummycounterFun());
-        fk.setFieldValue("openTimerDialog", false);
+        setTimeout(() => {
+          dispatch(dummycounterFun());
+        }, 2000);
       }
     };
 
-    socket.on("threemin", handleThreeMin);
+    socket.on("onemin", handleThreeMin);
 
     return () => {
-      socket.off("threemin", handleThreeMin);
+      socket.off("onemin", handleThreeMin);
     };
   }, []);
 

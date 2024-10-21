@@ -1,5 +1,6 @@
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import Diversity2Icon from "@mui/icons-material/Diversity2";
 import LocalConvenienceStoreIcon from "@mui/icons-material/LocalConvenienceStore";
 import RedeemIcon from "@mui/icons-material/Redeem";
@@ -18,51 +19,21 @@ function MainPageOFIncome() {
   };
 
   const data_array = [
-    // {
-    //   to: "/account/income-main/registration-bonus",
-    //   name: "Registration Bonus",
-    //   logo: (
-    //     <CurrencyExchangeIcon
-    //       className="!w-[40px] !h-[40px] !text-[#F48901]"
-    //       color="#8f5206"
-    //     />
-    //   ),
-    // },
-    {
-      to: "/account/income-main/referral-bonus",
-      name: "Weekly Salary Bonus",
-      logo: (
-        <RedeemIcon
-          className="!w-[40px] !h-[40px] !text-[#F48901]"
-          color="#8f5206"
-        />
-      ),
-    },
-    {
-      to: "/account/income-main/team-betting-bonus",
-      name: "Daily Salary Bonus",
-      logo: (
-        <LocalConvenienceStoreIcon
-          className="!w-[40px] !h-[40px] !text-[#F48901]"
-          color="#8f5206"
-        />
-      ),
-    },
-    {
-      to: "/account/income-main/team-salary-bonus",
-      name: "Scrached Coupon",
-      logo: (
-        <AccountBalanceIcon
-          className="!w-[40px] !h-[40px] !text-[#F48901]"
-          color="#8f5206"
-        />
-      ),
-    },
     {
       to: "/account/income-main/royality-bonus",
       name: "Deposit Bonus",
       logo: (
         <StoreIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
+    {
+      to: "/account/income-main/betting-bonus",
+      name: "Referral Bonus / Team Recharge Bonus",
+      logo: (
+        <AccountBalanceIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
           color="#8f5206"
         />
@@ -78,6 +49,46 @@ function MainPageOFIncome() {
         />
       ),
     },
+     {
+      to: "/account/income-main/registration-bonus",
+      name: " Team Trading Bonus",
+      logo: (
+        <CurrencyExchangeIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
+    {
+      to: "/account/income-main/referral-bonus",
+      name: "Weekly Loss Recovery Bonus",
+      logo: (
+        <RedeemIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
+    {
+      to: "/account/income-main/team-salary-bonus",
+      name: "Scrached Coupon Bonus",
+      logo: (
+        <AccountBalanceIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
+    {
+      to: "/account/income-main/team-betting-bonus",
+      name: " Salary Bonus",
+      logo: (
+        <LocalConvenienceStoreIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
     {
       to: "/account/income-main/ico-level-bonus",
       name: "Gift Bonus",
@@ -88,16 +99,7 @@ function MainPageOFIncome() {
         />
       ),
     },
-    {
-      to: "/account/income-main/betting-bonus",
-      name: "Team Recharge Bonus",
-      logo: (
-        <AccountBalanceIcon
-          className="!w-[40px] !h-[40px] !text-[#F48901]"
-          color="#8f5206"
-        />
-      ),
-    },
+    
   ];
   return (
     <Layout>

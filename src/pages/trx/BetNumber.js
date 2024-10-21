@@ -188,7 +188,7 @@ const user_id = login_data && JSON.parse(login_data)?.UserID;
       <FalseCheck message={<span className="!text-sm">{e?.message}</span>} />;
     }
     client.refetchQueries("wallet_amount");
-    client.refetchQueries("myAll_trx_history_new");
+    client.refetchQueries(`myAll_trx_history_new_${gid}`);
     fk.setFieldValue("balance", "1");
     setRandomNumber(null);
     fk.setFieldValue("qnt", "1");

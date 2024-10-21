@@ -86,35 +86,21 @@ function Wingo5Min() {
   });
 
   React.useEffect(() => {
-    const handleFiveMin = (fivemin) => {
+    const handleFiveMin = (onemin) => {
+      let fivemin = `${4 - (new Date()?.getMinutes() % 5)}_${onemin}`;
       setOne_min_time(fivemin);
-
-      if (fivemin?.split("_")?.[1] === "1" && fivemin?.split("_")?.[0] === "0")
-        handlePlaySoundLast();
-
+      fk.setFieldValue("show_this_one_min_time", fivemin);
       if (
-        Number(fivemin?.split("_")?.[1]) <= 30 &&
-        Number(fivemin?.split("_")?.[1]) > 1 && // this is for sec
-        fivemin?.split("_")?.[0] === "0" // this is for minut
-      ) {
-        handlePlaySound();
-      }
-
-      if (
-        Number(fivemin?.split("_")?.[1]) <= 30 && // this is for sec
+        Number(fivemin?.split("_")?.[1]) <= 10 && // this is for sec
         fivemin?.split("_")?.[0] === "0" // this is for minut
       ) {
         fk.setFieldValue("openTimerDialog", true);
-      }
-      if (fivemin?.split("_")?.[1] === "59") {
+        Number(Number(fivemin?.split("_")?.[1])) <= 5 &&
+          Number(Number(fivemin?.split("_")?.[1])) > 0 &&
+          handlePlaySound();
+        Number(Number(fivemin?.split("_")?.[1])) === 0 && handlePlaySoundLast();
+      } else {
         fk.setFieldValue("openTimerDialog", false);
-      }
-      if (
-        fivemin?.split("_")?.[1] === "40" && // this is for sec
-        fivemin?.split("_")?.[0] === "0" // this is for minut
-      ) {
-        // oneMinCheckResult();
-        // oneMinColorWinning();
       }
       if (
         fivemin?.split("_")?.[1] === "0" &&
@@ -122,17 +108,17 @@ function Wingo5Min() {
       ) {
         client.refetchQueries("gamehistory_3min");
         client.refetchQueries("wallet_amount");
-        // client.refetchQueries("gamehistory_chart");
         client.refetchQueries("myAllhistory_3");
-        dispatch(dummycounterFun());
-        fk.setFieldValue("openTimerDialog", false);
+        setTimeout(() => {
+          dispatch(dummycounterFun());
+        }, 2000);
       }
     };
 
-    socket.on("fivemin", handleFiveMin);
+    socket.on("onemin", handleFiveMin);
 
     return () => {
-      socket.off("fivemin", handleFiveMin);
+      socket.off("onemin", handleFiveMin);
     };
   }, []);
 

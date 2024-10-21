@@ -10,7 +10,7 @@ import countdownfirst from "../../../assets/images/countdownfirst.mp3";
 import countdownlast from "../../../assets/images/countdownlast.mp3";
 import timerbg1 from "../../../assets/images/timerbg.png";
 import timerbg2 from "../../../assets/images/timerbg2.png";
-import { dummycounterFun, gameHistory_trx_one_minFn, trx_game_image_index_function, updateNextCounter } from "../../../redux/slices/counterSlice";
+import { dummycounterFun, gameHistory_trx_one_minFn, myHistory_trx_one_minFn, trx_game_image_index_function, updateNextCounter } from "../../../redux/slices/counterSlice";
 import { endpoint } from "../../../services/urls";
 import { useSocket } from "../../../shared/socket/SocketContext";
 import BetNumber from "../BetNumber";
@@ -19,6 +19,8 @@ import GameHistory from "../history/GameHistory";
 import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
+import { apiConnectorGet } from "../../../services/apiconnector";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 
 
 function Wingo3Min() {
@@ -56,31 +58,32 @@ function Wingo3Min() {
     onSubmit: () => { },
   });
 
+
   React.useEffect(() => {
-    const handleThreeMin = (threemin) => {
+    const handleThreeMin = (onemin) => {
+      let threemin = `${2 - (new Date()?.getMinutes() % 3)}_${onemin}`;
       setThree_min_time(threemin);
+      fk.setFieldValue("show_this_one_min_time", threemin);
+      if (
+        (threemin?.split("_")?.[1] === "5" ||
+          threemin?.split("_")?.[1] === "4" ||
+          threemin?.split("_")?.[1] === "3" ||
+          threemin?.split("_")?.[1] === "2") &&
+        threemin?.split("_")?.[0] === "0"
+      )
+        handlePlaySound();
       if (
         threemin?.split("_")?.[1] === "1" &&
         threemin?.split("_")?.[0] === "0"
       )
         handlePlaySoundLast();
       if (
-        Number(threemin?.split("_")?.[1]) <= 10 &&
-        Number(threemin?.split("_")?.[1]) > 1 && // 1 index means second
-        threemin?.split("_")?.[0] === "0" // 0 index means min
-      ) {
-        handlePlaySound();
-      }
-
-      if (
         Number(threemin?.split("_")?.[1]) <= 10 && // 1 index means second
         threemin?.split("_")?.[0] === "0" // 0 index means min
       ) {
         fk.setFieldValue("openTimerDialog", true);
-      }
-      if (threemin?.split("_")?.[1] === "59") {
-        fk.setFieldValue("openTimerDialog", false);
-      }
+      } else fk.setFieldValue("openTimerDialog", false);
+
       if (
         threemin?.split("_")?.[1] === "25" &&
         threemin?.split("_")?.[0] === "0"
@@ -89,52 +92,51 @@ function Wingo3Min() {
         // oneMinColorWinning();
       }
       if (
-        threemin?.split("_")?.[1] === "59" &&
-        threemin?.split("_")?.[0] === "3"
+        threemin?.split("_")?.[1] === "2" &&
+        threemin?.split("_")?.[0] === "58"
       ) {
-        fk.setFieldValue("openTimerDialog", false);
-      }
-      if (
-        threemin?.split("_")?.[1] === "56" &&
-        threemin?.split("_")?.[0] === "3"
-      ) {
-        // client.refetchQueries("myAll_trx_history");
-        // client.refetchQueries("trx_gamehistory");
-        // client.refetchQueries("trx_gamehistory_chart");
+        client.refetchQueries("trx_gamehistory_3");
+        client.refetchQueries("myAll_trx_history_new_2");
         client.refetchQueries("wallet_amount");
-        // client.refetchQueries("trx_gamehistory_3");
-        dispatch(dummycounterFun());
+        // dispatch(dummycounterFun());
+        // fk.setFieldValue("openTimerDialogBoxOneMin", false);
       }
     };
 
-    socket.on("threemintrx", handleThreeMin);
+    socket.on("onemintrx", handleThreeMin);
 
     return () => {
-      socket.off("threemintrx", handleThreeMin);
+      socket.off("onemintrx", handleThreeMin);
     };
   }, []);
 
   const { isLoading, data: game_history } = useQuery(
     ["trx_gamehistory_3"],
-    () => GameHistoryFn("2"),
+    async () => await  apiConnectorGet(
+      `${endpoint.trx_game_history}?gameid=2&limit=500`
+    ),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
     }
   );
 
-  const GameHistoryFn = async () => {
-    try {
-      const response = await axios.get(
-        `${endpoint.trx_game_history}?gameid=2&limit=500`
-      );
-      return response;
-    } catch (e) {
-      toast(e?.message);
-      console.log(e);
-    }
-  };
- React.useEffect(() => {
+  const { isLoading: myhistory_loding_all, data: my_history_all_new } = useQuery(
+    ["myAll_trx_history_new_2"],
+    async () => await apiConnectorGet(
+      `${endpoint.trx_my_history_new}?gameid=2&limit=500`
+    ), {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    // retry: false,
+    retryOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+  React.useEffect(() => {
+    dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
+  }, [my_history_all_new?.data?.data]);
+
+  React.useEffect(() => {
     dispatch(
       updateNextCounter(
         game_history?.data?.result
@@ -155,7 +157,6 @@ function Wingo3Min() {
     dispatch(gameHistory_trx_one_minFn(game_history?.data?.result));
     dispatch(trx_game_image_index_function(array));
   }, [game_history?.data?.result]);
-
 
 
 
@@ -203,6 +204,8 @@ function Wingo3Min() {
           </>
         );
       }, [audioRefMusic, audioRefMusiclast])}
+
+      <CustomCircularProgress isLoading={myhistory_loding_all} />
       <Box sx={{ px: 1, mt: 3 }}>
         <Box
           className="countdownbgtrx"
@@ -227,8 +230,8 @@ function Wingo3Min() {
                 return (
                   <>
                     <Stack direction='row' alignItems='center'>
-                    <Typography className="border border-white text-white px-1 !text-sm rounded" >Period</Typography>
-                   
+                      <Typography className="border border-white text-white px-1 !text-sm rounded" >Period</Typography>
+
                       <Button
                         variant="text"
                         color="primary"
@@ -295,7 +298,7 @@ function Wingo3Min() {
           {fk.values.openTimerDialog && (
             <div className="ti !w-full !z-50 top-0 !absolute rounded p-5 flex justify-center items-center">
               <div
-                c  className="flex gap-2 justify-cente !bg-opacity-5 !py-5"
+                c className="flex gap-2 justify-cente !bg-opacity-5 !py-5"
                 sx={{ width: "100%" }}
               >
                 <div
@@ -310,14 +313,14 @@ function Wingo3Min() {
                     justifyContent: "center",
                     // color: "white",
                   }}
-                   className="!bg-[#F48901]  !text-white !h-56 !pb-5"
+                  className="!bg-[#F48901]  !text-white !h-56 !pb-5"
                 >
                   {show_this_three_min_time_sec?.substring(0, 1)}
                 </div>
                 <div
                   style={{
                     fontSize: 200,
-                    
+
                     borderRadius: 20,
                     // background: "rgb(73, 57, 193)",
                     fontWeight: 700,
@@ -327,7 +330,7 @@ function Wingo3Min() {
                     justifyContent: "center",
                     // color: "white",
                   }}
-                   className="!bg-[#F48901]  !text-white !h-56 !pb-5"
+                  className="!bg-[#F48901]  !text-white !h-56 !pb-5"
                 >
                   {show_this_three_min_time_sec?.substring(1, 2)}
                 </div>

@@ -74,7 +74,7 @@ function ICOLevelBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>VIP Bonus</p>
+          <p>Gift Bonus</p>
         </Box>
         <div>
           <img className="" src={nodatafoundimage} />
@@ -98,7 +98,7 @@ function ICOLevelBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>VIP Bonus</p>
+          <p>Gift Bonus</p>
         </Box>
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>
@@ -108,7 +108,7 @@ function ICOLevelBonus() {
                 <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Date/Time</TableCell>
                 <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Amount</TableCell>
                 <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Claim</TableCell>
-                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Transaction Type</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Description</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

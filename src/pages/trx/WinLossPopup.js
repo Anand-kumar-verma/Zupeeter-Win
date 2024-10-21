@@ -243,7 +243,7 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
   const [newstatus, setstatusNew] = useState("");
   const [all_result, setall_result] = useState();
   const my_history_data_full = useSelector(
-    (state) => state.aviator.myHistory_trx_one_minFn
+    (state) => state.aviator.myHistory_trx_one_min
   );
   const MyHistoryFn = async () => {
     setloding(true);
@@ -310,7 +310,7 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
         width: "300px",
         height: "400px",
         margin: "auto",
-        backgroundImage: `url(${(status?.status === "1" && win) || (status?.status === "2" && Loss)
+        backgroundImage: `url(${(status?.status === "1" && Loss) || (status?.status === "2" && win)
           })`,
         // backgroundImage: `url(${win})`,
         backgroundSize: "100% 100%",

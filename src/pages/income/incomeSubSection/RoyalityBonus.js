@@ -107,7 +107,7 @@ function RoyalityBonus() {
                 <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r  !text-center !border-b !border-white" id="tablepadding">S.No</TableCell>
                 <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Date/Time</TableCell>
                 <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Amount</TableCell>
-                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Transaction Type</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Description</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
