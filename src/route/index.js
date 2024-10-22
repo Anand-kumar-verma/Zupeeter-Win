@@ -60,6 +60,7 @@ import USDTWithdrawlRequest from "../pages/wallet/Component/USDTWithdrawlRequest
 import Wingo from "../pages/wingo/Wingo";
 import AddAddressUsdt from "../pages/wallet/Component/AddAddressUsdt";
 import Gift from "../pages/activity/Gift";
+import P2PTransfer from "../pages/P2ptransfer/p2ptransfer";
 
 
 export const routes = [
@@ -271,6 +272,10 @@ export const routes = [
     {
         path:"/account/Teamincome",
         element:<TeamIncome />
+    },
+    {
+        path:"/p2p",
+        element:<P2PTransfer />
     },
     {
         path:"/promotion/TeamReport",

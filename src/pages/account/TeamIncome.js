@@ -79,6 +79,14 @@ const TeamIncome = () => {
         <Box sx={style.fx}>
           <span
             className="!text-blue-500 cursor-pointer"
+            onClick={() => navigate("/p2p")}
+          >
+            P2P Fund Transfer
+          </span>
+        </Box>
+        <Box sx={style.fx}>
+          <span
+            className="!text-blue-500 cursor-pointer"
             onClick={() => navigate("/ico-token")}
           >
             ICO Token

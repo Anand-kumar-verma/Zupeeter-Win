@@ -15,7 +15,7 @@ export const endpoint = {
   usdt_deposit_request: `${baseUrl}/api/insert_coin_payment_gateway`,
   login: `${game_domain}/api/v1/user_login`,
   signup: `${game_domain}/api/v1/signup`,
-  get_user_intro_name :`${game_domain}/api/v1/get-sponsor-name`,
+  get_user_intro_name: `${game_domain}/api/v1/get-sponsor-name`,
   profile_function: `${game_domain}/api/v1/profileapi`,
   get_level_general: `${game_domain}/api/v1/get_level_general_data`,
   yesterday_income: `${game_domain}/api/v1/get-total-betA-ad-income-yesterday`,
@@ -33,8 +33,8 @@ export const endpoint = {
   weekly_salary_income: `${game_domain}/api/v1/weekly-salary-icome`,
   deposit_bonus: `${game_domain}/api/v1/get-deposit-bonus-income/`,
   vip_income: `${game_domain}/api/v1/vip-bonus`,
-  incom_gift : `${game_domain}/api/v1/gift-bonus-list`,
-  recharge_income : `${game_domain}/api/v1/team-recharge-bonus`,
+  incom_gift: `${game_domain}/api/v1/gift-bonus-list`,
+  recharge_income: `${game_domain}/api/v1/team-recharge-bonus`,
   payment: `${game_domain}/api/v1/payment`,
   payment_request: `${game_domain}/api/deposit-request`,
   deposit_history: `${game_domain}/api/v1/deposit-history-inr`,
@@ -43,11 +43,13 @@ export const endpoint = {
   deposite_usdt_payin: `${game_domain}/api/v1/payin-request`,
   bank_details: `${game_domain}/api/v1/user-bank-details`,
   get_claim_card: `${game_domain}/api/v1/clame-bonus`,
- get_card: `${game_domain}/api/v1/get-gift-card-list`,
- level_income: `${game_domain}/api/v1/level-income`,
- 
+  get_card: `${game_domain}/api/v1/get-gift-card-list`,
+  level_income: `${game_domain}/api/v1/level-income`,
+  p2p_transfer: `${game_domain}/api/v1/p-to-p-fund_transfer`,
 
-  
+
+
+
   withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrawal_request_usdt: `${game_domain}/api/v1/payout-request`,
   withdrawal_address_usdt: `${game_domain}/api/v1/add-usdt-address`,
@@ -72,7 +74,7 @@ export const endpoint = {
   view_ico_purchaseing: `${baseUrl}/api/view_ico_purchaseing`,
   insert_ico_purchase: `${baseUrl}/api/insert_ico_purchase`,
   view_withdrwal_new_inr: `${baseUrl}/api/view_withdrwal_new_inr`,
-  
+
   // wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
 
 
