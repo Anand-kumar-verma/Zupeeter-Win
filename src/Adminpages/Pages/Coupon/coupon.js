@@ -1,7 +1,7 @@
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Button, Switch, TablePagination, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getCoupon } from "../../Services";
 import CustomTable from "../../Shared/CustomTable";
 import moment from "moment";
@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 
 const Coupon = () => {
 
+    const client = useQueryClient()
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [page, setPage] = React.useState(0);
     const [visibleRows, setVisibleRows] = React.useState([]);
@@ -31,7 +32,8 @@ const Coupon = () => {
  const UpdateCoupon = async (id)=>{
     try{
         const res = await axiosInstance.get(API_URLS?.update_coupon_record+id)
-        toast(res?.data?.msg)
+        toast(res?.data?.msg,{id:1})
+        client.refetchQueries("coupon");
     }
     catch(e){
         console.log(e)
