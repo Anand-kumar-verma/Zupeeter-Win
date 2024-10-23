@@ -380,7 +380,6 @@ const user_id = login_data && JSON.parse(login_data)?.UserID;
       </div>
 
       <Drawer
-        // open={Number(timing)>10 &&  open}
         open={open}
         anchor={"bottom"}
         sx={{
@@ -432,7 +431,7 @@ const user_id = login_data && JSON.parse(login_data)?.UserID;
             <Typography
               variant="body1"
               color="initial"
-              sx={{ textAlign: "center", color: "white", fontWeight: "700 " }}
+              sx={{ textAlign: "center", color: "white", fontWeight: "700"}}
             >
               TRX {gid == 3 ? 5 : gid == 2 ? 3 : gid} Min
             </Typography>

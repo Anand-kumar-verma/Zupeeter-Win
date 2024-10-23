@@ -92,8 +92,8 @@ function Wingo3Min() {
         // oneMinColorWinning();
       }
       if (
-        threemin?.split("_")?.[1] === "2" &&
-        threemin?.split("_")?.[0] === "58"
+        threemin?.split("_")?.[1] === "59" &&
+        threemin?.split("_")?.[0] === "2"
       ) {
         client.refetchQueries("trx_gamehistory_3");
         client.refetchQueries("myAll_trx_history_new_2");
@@ -157,8 +157,6 @@ function Wingo3Min() {
     dispatch(gameHistory_trx_one_minFn(game_history?.data?.result));
     dispatch(trx_game_image_index_function(array));
   }, [game_history?.data?.result]);
-
-
 
   const handlePlaySoundLast = async () => {
     try {

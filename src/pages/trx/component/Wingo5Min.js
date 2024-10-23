@@ -96,8 +96,8 @@ function Wingo5Min() {
         // oneMinColorWinning();
       }
       if (
-        fivemin?.split("_")?.[1] === "0" &&
-        fivemin?.split("_")?.[0] === "0"
+        fivemin?.split("_")?.[1] === "59" &&
+        fivemin?.split("_")?.[0] === "4"
       ) {
         client.refetchQueries("trx_gamehistory_5");
         client.refetchQueries("myAll_trx_history_new_3");

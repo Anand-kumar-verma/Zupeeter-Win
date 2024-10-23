@@ -112,8 +112,8 @@ function Wingo3Min() {
         fk.setFieldValue("openTimerDialog", false);
       }
       if (
-        threemin?.split("_")?.[1] === "0" &&
-        threemin?.split("_")?.[0] === "0"
+        threemin?.split("_")?.[1] === "59" &&
+        threemin?.split("_")?.[0] === "2"
       ) {
         client.refetchQueries("gamehistory_2min");
         client.refetchQueries("wallet_amount");

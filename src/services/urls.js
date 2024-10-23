@@ -46,6 +46,7 @@ export const endpoint = {
   get_card: `${game_domain}/api/v1/get-gift-card-list`,
   level_income: `${game_domain}/api/v1/level-income`,
   p2p_transfer: `${game_domain}/api/v1/p-to-p-fund_transfer`,
+  p2p_transfer_history: `${game_domain}/api/v1/p-to-p-fund_transfer-history`,
 
 
 

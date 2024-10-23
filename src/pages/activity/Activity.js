@@ -135,7 +135,7 @@ function Activity() {
             DAILY BONUS UNTIL 1 CRORE
           </Typography>
         </Box> */}
-        <Box sx={style.actimg2} onClick={()=>naviagte("/gift")}>
+        <Box sx={style.actimg2}>
           <Box
             component="img"
             sx={{ width: "100%", borderRadius: "10px 10px 0px 0px" }}

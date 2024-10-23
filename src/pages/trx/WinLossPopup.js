@@ -248,9 +248,6 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
   const MyHistoryFn = async () => {
     setloding(true);
     try {
-      // const response = await axios.get(
-      //   `${endpoint.my_history_all_trx}?userid=${user_id}&limit=0&gameid=${gid}`
-      // );
       const my_history_data  =  my_history_data_full?.slice(0,10);
       const firstId = my_history_data?.[0]?.gamesno;
       const winAmnt =
@@ -263,10 +260,6 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
           ?.reduce((a, b) => a + Number(b?.amount || 0), 0) || 0;
       setall_result(my_history_data?.[0]);
 
-      // const amntAmnt =
-      //   response?.data?.data
-      //     ?.filter((i) => i?.gamesno === firstId)
-      //     ?.reduce((a, b) => a + Number(b?.amount || 0), 0) || 0;
 
       if (winAmnt) {
         setstatus({
@@ -278,7 +271,6 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
           status: "2",
           amount: amntAmnt,
         });
-        // toast("Your Loss"); 
       }
     } catch (e) {
       toast(e?.message);
@@ -289,7 +281,6 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
 
   useEffect(() => {
     setTimeout(() => {
-    // setOpenDialogBox(false);
       localStorage.setItem("betApplied", false);
     }, 5000);
       MyHistoryFn();
@@ -300,10 +291,7 @@ const WinLossPopup = ({ gid ,setOpenDialogBox}) => {
   }, [status]);
 
   if (loding) return <CustomCircularProgress isLoading={loding} />;
-  
-  // if (status?.status === "2") {
-  //   return null;
-  // }
+
   return (
     <Box
       sx={{
