@@ -399,7 +399,7 @@ function Promotion() {
             <NavLink to="/promotion/MyCommission">
               <Box sx={style.invitbox}>
                 <Stack direction="row">
-                  <Box component="img" src={"comitiondetails"}></Box>
+                  <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
                     Commission detail
                   </Typography>
@@ -412,7 +412,7 @@ function Promotion() {
             <NavLink to="/promotion/Subordinates">
               <Box sx={style.invitbox}>
                 <Stack direction="row">
-                  <Box component="img" src={"newsubordinatedata"}></Box>
+                  <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
                     Subordinates Income
                   </Typography>

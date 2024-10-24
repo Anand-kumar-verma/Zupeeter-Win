@@ -175,7 +175,6 @@ function Deposite() {
 
   if (deposit_req_data) {
     window.open(deposit_req_data);
-  
   } 
 
   const handlePlaySound = async () => {
