@@ -1,16 +1,14 @@
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { Button, Switch, TablePagination, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
-import { getCoupon } from "../../Services";
-import CustomTable from "../../Shared/CustomTable";
+import { Add } from "@mui/icons-material";
+import { Button, Switch, TablePagination } from "@mui/material";
 import moment from "moment";
-import { Add, Edit } from "@mui/icons-material";
+import React from "react";
+import toast from "react-hot-toast";
+import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { endpoint } from "../../../services/urls";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import toast from "react-hot-toast";
+import { getCoupon } from "../../Services";
+import CustomTable from "../../Shared/CustomTable";
 
 const Coupon = () => {
 
@@ -37,12 +35,10 @@ const Coupon = () => {
     }
     catch(e){
         console.log(e)
-    }
-    
+    }    
  }
 
-
-    const handleChangePage = (event, newPage) => {
+   const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 

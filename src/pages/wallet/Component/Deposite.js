@@ -168,10 +168,6 @@ function Deposite() {
     setloding(false);
   }
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
-
   React.useEffect(() => {
     handlePlaySound();
   }, []);
@@ -228,7 +224,7 @@ function Deposite() {
             position: "relative",
           }}
         >
-          <NavLink onClick={goBack}>
+         <NavLink onClick={()=>navigate('/account')}>
             <Box component="img" src={backbtn} width={25}></Box>
           </NavLink>
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
@@ -325,7 +321,7 @@ function Deposite() {
             </Typography>
           </Stack>
           <Stack
-            onClick={()=>navigate("/usdt-deposit")}
+            onClick={()=>navigate("/zp")}
             sx={{
               width: "120px",
               background: "#FFFFFF",

@@ -6,6 +6,29 @@
 .rotate_refresh_image {
   animation: rotate_image 1s linear infinite;
 }
+/* src/BottomDrawer.css */
+
+.drawer {
+  position: fixed;
+  bottom: -100%;
+  /* Initially hidden */
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  transition: bottom 0.3s ease-in-out;
+  z-index: 1000;
+  /* Ensure it's above other content */
+}
+
+.drawer.open {
+  bottom: 0;
+  /* Slide in from bottom */
+}
+
+.drawer-content {
+  padding: 16px;
+}
 
 @keyframes rotate_image {
   0% {

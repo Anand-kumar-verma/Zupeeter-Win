@@ -61,6 +61,8 @@ import Wingo from "../pages/wingo/Wingo";
 import AddAddressUsdt from "../pages/wallet/Component/AddAddressUsdt";
 import Gift from "../pages/activity/Gift";
 import P2PTransfer from "../pages/P2ptransfer/p2ptransfer";
+import Zp from "../pages/wallet/Component/Zp";
+import ZpWithdrawal from "../pages/wallet/Component/Zpwithdrawal";
 
 
 export const routes = [
@@ -68,6 +70,14 @@ export const routes = [
     {
         path:"/RiskDisclosureAgreement",
         element:<RiskDisclosureAgreement />
+    },
+    {
+        path:"/zp",
+        element:<Zp />
+    },
+    {
+        path:"/zp-withdrawal",
+        element:<ZpWithdrawal />
     },
     {
         path:"/usdt-address",

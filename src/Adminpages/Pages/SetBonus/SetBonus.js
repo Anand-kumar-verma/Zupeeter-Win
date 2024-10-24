@@ -1,14 +1,13 @@
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import {
     Button,
     Skeleton,
     Table,
     TableBody,
+    TableCell,
     TableContainer,
     TableHead,
     TableRow,
     TextField,
-    TableCell,
     styled,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -23,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
     [`&.MuiTableCell-body`]: {
         fontSize: 14,
-        padding: "4px 8px",
+        padding: "10px 8px !important",
     },
 }));
 

@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ava from "../../assets/images/aviator.jpg";
 import banner1 from "../../assets/images/banner1.jpg";
 import banner2 from "../../assets/images/banner2.jpg";
 import banner3 from "../../assets/images/banner3.jpg";
@@ -36,11 +37,12 @@ import profile3 from "../../assets/images/profile3.png";
 import winerbanner1 from "../../assets/images/winerbanner1.png";
 import Layout from "../../component/layout/Layout";
 import {
-  LastTrade,
-  ProfileDataFunction,
-  checkTokenValidity,
+  checkTokenValidity
 } from "../../services/apiCallings";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
+import { deCryptData, enCryptData } from "../../shared/secret";
 import theme from "../../utils/theme";
 import Casino from "./component/Casino";
 import Fishing from "./component/Fishing";
@@ -50,12 +52,6 @@ import PVC from "./component/PVC";
 import Populer from "./component/Populer";
 import Slots from "./component/Slots";
 import Sports from "./component/Sports";
-import axios from "axios";
-import { endpoint } from "../../services/urls";
-import toast from "react-hot-toast";
-import ava from "../../assets/images/aviator.jpg";
-import { deCryptData, enCryptData } from "../../shared/secret";
-import { apiConnectorGet } from "../../services/apiconnector";
 
 function Dashboard() {
   const progressCircle = useRef(null);
@@ -77,7 +73,7 @@ function Dashboard() {
     refetchOnWindowFocus: false,
   });
 
-  const res = data?.data?.earning || [];
+  const res = data?.data?.data || [];
 
   useEffect(() => {
     if (!checkTokenValidity()) {
@@ -352,7 +348,7 @@ function Dashboard() {
           </Typography>
         </Stack>
         <Box className="">
-          {res?.slice(2)?.map((i, index) => {
+          {res?.slice(5,8)?.map((i, index) => {
             return (
               <Stack
                 key={index}
@@ -383,8 +379,13 @@ function Dashboard() {
                   sx={style.winnername}
                 >
                   <p className="!flex !flex-col">
-                    <span>{i?.or_m_user_id}</span>
-                    <span>{i?.or_m_name}</span>
+                  {i?.email
+                          ? i.email.split("@")[0].substring(0, 2) +
+                          "**" +
+                          (i.email.split("@")[0].length > 2
+                            ? i.email.split("@")[0].substring(2, 4)
+                            : "")
+                          : "**"}
                   </p>
                 </Typography>
                 <Box sx={style.winnerbannerouter}>
@@ -401,7 +402,7 @@ function Dashboard() {
                     color="initial"
                     sx={style.winneramout || 0}
                   >
-                    Receive ₹{i?.max_tr_pv}
+                     Receive ₹{Number(i?.win || 0)?.toFixed(2)}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -454,14 +455,24 @@ function Dashboard() {
                 ></Box>
                 <Box sx={style.winner2amt}>
                   <Typography variant="body1" color="initial">
-                    {"**"}
+                  {res?.[1]?.email
+                      ? res?.[1]?.email
+                        ?.split("@")?.[0]
+                        ?.substring(0, 2) +
+                      "**" +
+                      (res?.[1]?.email?.split("@")?.[0]?.length > 2
+                        ? res?.[1]?.email
+                          ?.split("@")?.[0]
+                          ?.substring(2, 4)
+                        : "")
+                      : "**"}
                   </Typography>
                   <Typography
                     variant="body1"
                     color="initial"
                     sx={style.winningamount}
                   >
-                    ₹{res?.[1]?.max_tr_pv}
+               ₹ {Number(res?.[1]?.win)?.toFixed(2)}
                   </Typography>
                 </Box>
               </Box>
@@ -492,14 +503,24 @@ function Dashboard() {
                 ></Box>
                 <Box sx={style.winner2amt}>
                   <Typography variant="body1" color="initial">
-                    {"**"}
+                  {res?.[0]?.email
+                      ? res?.[0]?.email
+                        ?.split("@")?.[0]
+                        ?.substring(0, 2) +
+                      "**" +
+                      (res?.[0]?.email?.split("@")?.[0]?.length > 2
+                        ? res?.[0]?.email
+                          ?.split("@")?.[0]
+                          ?.substring(2, 4)
+                        : "")
+                      : "**"}
                   </Typography>
                   <Typography
                     variant="body1"
                     color="initial"
                     sx={style.winningamount}
                   >
-                    ₹{res?.[0]?.max_tr_pv}
+           ₹ {Number(res?.[0]?.win)?.toFixed(2)}
                   </Typography>
                 </Box>
               </Box>
@@ -531,20 +552,30 @@ function Dashboard() {
                 ></Box>
                 <Box sx={style.winner2amt}>
                   <Typography variant="body1" color="initial">
-                    {"**"}
+                    {"**"}    {res?.[2]?.email
+                      ? res?.[2]?.email
+                        ?.split("@")?.[0]
+                        ?.substring(0, 2) +
+                      "**" +
+                      (res?.[2]?.email?.split("@")?.[0]?.length > 2
+                        ? res?.[2]?.email
+                          ?.split("@")?.[0]
+                          ?.substring(2, 4)
+                        : "")
+                      : "**"}
                   </Typography>
                   <Typography
                     variant="body1"
                     color="initial"
                     sx={style.winningamount}
                   >
-                    ₹{res?.[2]?.max_tr_pv}
+                   ₹ {Number(res?.[2]?.win)?.toFixed(2)}
                   </Typography>
                 </Box>
               </Box>
             </Stack>
           </Box>
-          {res?.slice(0, 2)?.map((i, index) => {
+          {res?.slice(3, 5)?.map((i, index) => {
             return (
               <Stack key={index} direction="row" sx={style.winnerslider}>
                 <div className="-mt-5">
@@ -570,8 +601,13 @@ function Dashboard() {
                   sx={style.winnername}
                 >
                   <p className="!flex !flex-col">
-                    <span>{i?.or_m_user_id}</span>
-                    <span>{i?.or_m_name}</span>
+                  {i?.email
+                        ? i.email.split("@")[0].substring(0, 2) +
+                        "**" +
+                        (i.email.split("@")[0].length > 2
+                          ? i.email.split("@")[0].substring(2, 4)
+                          : "")
+                        : "**"}
                   </p>
                 </Typography>
                 <Box sx={style.winnerbannerouter}>
@@ -588,7 +624,7 @@ function Dashboard() {
                     color="initial"
                     sx={style.winneramout || 0}
                   >
-                    Receive ₹{i?.max_tr_pv}
+                     Receive ₹{Number(i?.win || 0)?.toFixed(2)}
                   </Typography>
                   <Typography
                     variant="body1"

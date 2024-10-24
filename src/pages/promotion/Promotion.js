@@ -43,6 +43,7 @@ function Promotion() {
     }
   );
   const get = level?.data?.data?.[0] || [];
+
   const functionTOCopy = (value) => {
     copy(value);
     toast.success("Copied to clipboard!");
@@ -408,7 +409,7 @@ function Promotion() {
                 </Stack>
               </Box>
             </NavLink>
-            {/* <NavLink to="/promotion/Subordinates">
+            <NavLink to="/promotion/Subordinates">
               <Box sx={style.invitbox}>
                 <Stack direction="row">
                   <Box component="img" src={"newsubordinatedata"}></Box>
@@ -420,7 +421,7 @@ function Promotion() {
                   <ArrowForwardIosOutlinedIcon />
                 </Stack>
               </Box>
-            </NavLink> */}
+            </NavLink>
             {/* <NavLink to="/promotion/PromotionRule">
               <Box sx={style.invitbox}>
                 <Stack direction="row">

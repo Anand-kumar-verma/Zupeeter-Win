@@ -21,6 +21,8 @@ export const endpoint = {
   yesterday_income: `${game_domain}/api/v1/get-total-betA-ad-income-yesterday`,
   get_level: `${game_domain}/api/v1/get-level`,
   subordinate_data: `${game_domain}/api/v1/get-subordinate-data-funx`,
+  commission_data: `${game_domain}/api/v1/get-commisssion-data-funx`,
+
   //wingo
   // bet_placed: `${baseUrl}/api/betnew_color`,
   bet_placed: `${game_domain}/api/v1/bet`,

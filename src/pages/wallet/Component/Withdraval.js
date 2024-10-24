@@ -1,6 +1,7 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import LockIcon from "@mui/icons-material/Lock";
 import {
   Box,
   Button,
@@ -11,7 +12,12 @@ import {
 } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
+import axios from "axios";
+import { useFormik } from "formik";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
@@ -20,26 +26,14 @@ import backbtn from "../../../assets/images/backBtn.png";
 import bankicon from "../../../assets/images/bankicon.png";
 import cip from "../../../assets/images/cip.png";
 import refresh from "../../../assets/images/refwhite.png";
-import trx from "../../../assets/images/trx.png";
 import withdravalhistory from "../../../assets/images/withdrawalhistory.png";
-import theme from "../../../utils/theme";
-import {
-  BankDetailsFUnction,
-  getBalanceFunction,
-  getBetFunction,
-  withdrawlHistoryFunction,
-} from "../../../services/apiCallings";
-import { useQuery, useQueryClient } from "react-query";
-import moment from "moment";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import withdrawol_voice from "../../../assets/images/withdrawol_voice.mp3";
-import { useFormik } from "formik";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { endpoint } from "../../../services/urls";
-import LockIcon from "@mui/icons-material/Lock";
-import { deCryptData } from "../../../shared/secret";
+import zp from "../../../assets/images/zptoken.png";
 import { apiConnectorGet } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
+import { deCryptData } from "../../../shared/secret";
+import theme from "../../../utils/theme";
 function Withdraval() {
   const client = useQueryClient();
   const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -194,7 +188,7 @@ function Withdraval() {
             position: "relative",
           }}
         >
-          <NavLink onClick={goBack}>
+        <NavLink onClick={()=>navigate('/account')}>
             <Box component="img" src={backbtn} width={25}></Box>
           </NavLink>
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
@@ -287,7 +281,7 @@ function Withdraval() {
             </Typography>
           </Stack>
           <Stack
-          onClick={()=>navigate("/usdt-withdrawl-request")}
+          onClick={()=>navigate("/zp-withdrawal")}
           className={"!cursor-pointer"}
             sx={{
               width: "120px",
@@ -301,7 +295,7 @@ function Withdraval() {
           >
             <Box
               component="img"
-              src={trx}
+              src={zp}
               width={40}
               sx={{ margin: "0px auto" }}
             ></Box>
@@ -315,7 +309,7 @@ function Withdraval() {
                 mt: 1,
               }}
             >
-              USDT
+              ZP
             </Typography>
           </Stack>
         </Stack>

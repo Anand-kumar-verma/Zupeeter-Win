@@ -59,7 +59,7 @@ const Calendar = ({ onDateSelect }) => {
         <ArrowForward/>
         </button>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold">
+      <div className="grid grid-cols-7 gap-1 !mb-10 text-center !text-xs font-semibold">
         <div className="p-2">Sun</div>
         <div className="p-2">Mon</div>
         <div className="p-2">Tue</div>
@@ -73,7 +73,7 @@ const Calendar = ({ onDateSelect }) => {
               <div 
                 key={dayIndex} 
                 onClick={() => handleDateClick(day)} 
-                className={`p-2 border border-gray-200 rounded-md ${day ? 'bg-white' : 'bg-transparent'} ${selectedDate && selectedDate.date() === day ? 'bg-yellow-300 font-bold' : ''}`}
+                className={` border border-gray-200 !text-xs rounded-md ${day ? 'bg-white' : 'bg-transparent'} ${selectedDate && selectedDate.date() === day ? 'bg-yellow-300 font-bold' : ''}`}
               >
                 {day || ''}
               </div>

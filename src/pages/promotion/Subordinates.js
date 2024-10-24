@@ -20,9 +20,11 @@ function Subordinates() {
     const [selectedDate, setSelectedDate] = React.useState(moment(Date.now())?.format("YYYY-MM-DD"));
     const [data, setData] = React.useState(null);
     const [selectedLevel, setSelectedLevel] = React.useState("1");
-    const toggleDrawer = () => { setIsOpen(!isOpen); }
-    const toggleDrawer1 = () => { setIsOpen1(!isOpen1); };
 
+    const handleLevelSelect = (level) => {
+        setSelectedLevel(level.toString());
+        setIsOpen(false); // Close the drawer after selecting a level
+    };
     const handleDateSelect = (date) => {
         const selected = dayjs(date)?.format("YYYY-MM-DD");
         const today = dayjs().format("YYYY-MM-DD");
@@ -31,21 +33,12 @@ function Subordinates() {
             toast.error('Future dates are not allowed. Please select today or an earlier date');
             return;
         }
-
         setSelectedDate(selected);
+        setIsOpen1(false);
 
         // setSelectedDate(dayjs(date)?.format("YYYY-MM-DD"));
 
     };
-
-    const login_data =
-        (localStorage.getItem("logindataen") &&
-            CryptoJS.AES.decrypt(
-                localStorage.getItem("logindataen"),
-                "anand"
-            )?.toString(CryptoJS.enc.Utf8)) ||
-        null;
-    const user_id = login_data && JSON.parse(login_data)?.UserID;
 
     const reqbody = {
         level_no: Number(selectedLevel) || 0,
@@ -55,7 +48,7 @@ function Subordinates() {
         setLoading(true);
         try {
             const response = await apiConnectorPost(`${endpoint.subordinate_data}`, reqbody);
-            toast(response?.data?.msg, [-1])
+            toast(response?.data?.msg, {id:1})
             if (response?.data?.msg === "Data get successfully") {
                 setData(response.data?.data);
             } else {
@@ -68,11 +61,11 @@ function Subordinates() {
     };
     React.useEffect(() => {
         subordinate_data();
-    }, [selectedLevel, selectedDate, user_id]);
+    }, [selectedLevel, selectedDate]);
 
     return (
         <Layout header={false}>
-            <Container sx={{ background: "#F48901", width: '100%', padding: '10px', }}>
+            <Container sx={{ background: "", width: '100%', padding: '10px', }}>
                 <CustomCircularProgress isLoading={loding} />
                 <Box sx={style.header}>
                     <Box component={NavLink} to='/promotion/'>
@@ -82,92 +75,77 @@ function Subordinates() {
                     <Typography variant="body1" sx={{ color: "white" }}> </Typography>
                 </Box>
                 <Stack direction="row" justifyContent={"space-between"} className='!mt-5 !mx-3 ' sx={{ pb: 2 }}>
-                    <Box className="!border !w-1/2 !p-2 mr-4 !flex !justify-between " sx={{ color: 'white' }}
-                        onClick={toggleDrawer} >
+                    <Box className="!border !w-1/2 !p-2 mr-4 !flex !justify-between "
+                     onClick={() => setIsOpen(true)} >
                         Level {selectedLevel}   <ArrowDropDown />
                     </Box>
-                    <Box className="!border !w-1/2 !p-2 !flex !justify-between" sx={{ color: 'white' }}
-                        onClick={toggleDrawer1}>
+                    <Box className="!border !w-1/2 !p-2 !flex !justify-between"
+                        onClick={() => setIsOpen1(true)}>
                         {selectedDate} <ArrowDropDown />
                     </Box>
                 </Stack>
-                <Box sx={style.subcordinateBox} className="!mb-20">
+                <Box sx={style.promotionBoxOuter}>
+                    <Stack direction="row">
 
-                    <Box sx={style.boxStyles}>
-                        <Box sx={style.innerBoxStyles}>
-                            <Box sx={style.subcordinatelist}>
-                                <Typography
-                                    variant="body1"
-                                    sx={{ color: 'white' }}
-
-                                >
-                                    {data?.filter(level => level.lev_id === Number(selectedLevel) && Number(level.deposit) > 0).length || 0}
-
-                                </Typography>
-                                <Typography
-                                    variant="body1">
-                                    Deposite number
-                                </Typography>
-                            </Box>
-                            <Box sx={style.subcordinatelist}>
-                                <Typography
-                                    variant="body1"
-                                    sx={{ color: 'white' }}>
-                                    {data?.filter(level => level.lev_id === Number(selectedLevel) && Number(level.betting) > 0).length || 0}
-                                </Typography>
-                                <Typography
-                                    variant="body1" >
-                                    Number of bettors
-                                </Typography>
-                            </Box>
-
-                        </Box>
-
-                        <Box sx={style.innerBoxStylestwo}>
-                            <Box sx={style.subcordinatelist}>
-                                <Typography variant="body1"
-                                    sx={{ color: 'white' }}>
-                                    {data?.filter((j) => j?.lev_id === Number(selectedLevel))?.reduce((a, b) => a + Number(b?.deposit || 0), 0) || 0}
-
-                                </Typography>
-                                <Typography variant="body1" >
-
-                                    Deposit amount
-                                </Typography>
-                            </Box>
-                            <Box sx={style.subcordinatelist}>
-                                <Typography variant="body1"
-                                    sx={{ color: 'white' }} >
-                                    {data?.filter((j) => j?.lev_id === Number(selectedLevel))?.reduce((a, b) => a + Number(b?.betting || 0), 0) || 0}
-                                </Typography>
-                                <Typography variant="body1" >
-
-                                    Total Bet
-                                </Typography>
-                            </Box>
-
-                        </Box>
-                    </Box>
-                    {data?.map((item) => {
-                        return (<Box sx={{ background: "#F48901", borderRadius: '5px', padding: '5px', mb: 2, mt: 2, }}>
-                            <Typography sx={{ color: 'black' }} className='!border-b !border-gray-400 !my-1 !text-xl'>UID : {item?.userid}
+                    </Stack>
+                    <Stack direction="row">
+                        <Box>
+                            <Typography variant="body1" color="initial">
+                                {data?.filter(level => level.lev_id === Number(selectedLevel) && Number(level.deposit) > 0).length || 0}
                             </Typography>
-                            <Box className="!mx-1 !text-gray-500">
+                            <Typography className="!text-gray-300">Deposite number</Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="body1" color="initial">
+                                {data?.filter(level => level.lev_id === Number(selectedLevel) && Number(level.betting) > 0).length || 0}
+
+                            </Typography>
+                            <Typography variant="body1" color="initial">
+                                Number of bettors
+                            </Typography>
+                        </Box>
+                    </Stack>
+                    <Stack direction="row">
+                        <Box>
+                            <Typography variant="body1" color="initial">
+                                {data?.filter((j) => j?.lev_id === Number(selectedLevel))?.reduce((a, b) => a + Number(b?.deposit || 0), 0) || 0}
+                            </Typography>
+                            <Typography variant="body1" color="initial">
+                                Deposit Amount
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="body1" color="initial">
+                                {data?.filter((j) => j?.lev_id === Number(selectedLevel))?.reduce((a, b) => a + Number(b?.betting || 0), 0) || 0}
+                            </Typography>
+                            <Typography variant="body1" color="initial">
+                                Total Bet
+                            </Typography>
+                        </Box>
+                    </Stack>
+                </Box>
+                <Box className="!mb-20 !m-3">
+
+                    {data?.map((item) => {
+                        return (<Box sx={{ background: "#F48901", color: "white", borderRadius: '5px', padding: '5px', mb: 2, mt: 2, }}>
+                            <Typography className='!border-b !border-white !my-1 !text-xl'>UID : {item?.userid}
+                            </Typography>
+                            <Box className="!mx-1 ">
                                 <Stack direction="row" justifyContent={"space-between"}>
-                                    <Typography className='hunp15' sx={{ color: 'black' }}>Level</Typography>
-                                    <Typography className='hunp13' sx={{ color: 'black' }}>{item?.lev_id || 0}</Typography>
+                                    <Typography className='hunp15' >Level</Typography>
+                                    <Typography className='hunp13' >{item?.lev_id || 0}</Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent={"space-between"}>
-                                    <Typography className='hunp15' sx={{ color: 'black' }}>Deposit Amount</Typography>
-                                    <Typography className='hunp13' sx={{ color: 'black' }}>{item?.deposit || 0}</Typography>
+                                    <Typography className='hunp15' >Deposit Amount</Typography>
+                                    <Typography className='hunp13' >{item?.deposit || 0}</Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent={"space-between"}>
-                                    <Typography className='hunp15' sx={{ color: 'black' }}>Bet Amount </Typography>
-                                    <Typography className='hunp13' sx={{ color: 'black' }}>{item?.betting || 0}</Typography>
+                                    <Typography className='hunp15' >Bet Amount </Typography>
+                                    <Typography className='hunp13' >{item?.betting || 0}</Typography>
                                 </Stack>
                                 <Stack direction="row" justifyContent={"space-between"}>
-                                    <Typography className='hunp15' sx={{ color: 'black' }}>Commission </Typography>
-                                    <Typography className='hunp13' sx={{ color: 'black' }}>{(item?.betting > 0 ? item?.commission:0) || 0}</Typography>
+                                    <Typography className='hunp15' >Commission </Typography>
+                                    <Typography className='hunp13' >{(item?.betting > 0 ? item?.commission : 0) || 0}</Typography>
                                 </Stack>
 
                             </Box>
@@ -175,35 +153,23 @@ function Subordinates() {
                     })}
 
                 </Box>
-                <div className={`drawer ${isOpen ? 'open' : ''} !pb-10`}>
+                <div 
+                className={`drawer ${isOpen ? 'open' : ''} !pb-10`}
+                >
                     <div className='!flex justify-between m-5'>
-                        <p onClick={toggleDrawer} className='!cursor-pointer'>Cancel</p>
-                        <p className='text-orange-500 !cursor-pointer' onClick={toggleDrawer} >Confirm</p>
+                        <p onClick={() => setIsOpen(false)} className='!cursor-pointer'>Cancel</p>
+                        <p className='text-orange-500 !cursor-pointer'  ></p>
                     </div>
-                    <div className=" !py-10  !text-center">
-                        <p className='!py-2 !cursor-pointer'
-                            onClick={() => setSelectedLevel('1')}>Level 1</p>
-                        <p className='!py-2 !cursor-pointer'
-                            onClick={() => setSelectedLevel('2')}>Level 2</p>
-                        <p className='!py-2 !cursor-pointer'
-                            onClick={() => setSelectedLevel('3')}>Level 3</p>
-                        <p className='!py-2 !cursor-pointer'
-                            onClick={() => setSelectedLevel('4')}>Level 4</p>
-                        <p className='!py-2 !cursor-pointer'
-                            onClick={() => setSelectedLevel('5')}>Level 5</p>
-                        <p className='!py-2 !cursor-pointer'
-                            onClick={() => setSelectedLevel('6')}>Level 6</p>
+                    <div className=" !py-10 !text-center">
+                        {[1, 2, 3, 4, 5, 6].map(level => (
+                            <p key={level} className='!py-2 !cursor-pointer' onClick={() => handleLevelSelect(level)}>Level {level}</p>
+                        ))}
                     </div>
                 </div>
                 {/* date */}
-                <div className={`drawer ${isOpen1 ? 'open' : ''} !pb-20 px-1`}>
+                <div className={`drawer ${isOpen1 ? 'open' : ''}  px-1`}>
                     <div className='!flex flex-col justify-between my-5'>
                         <Calendar onDateSelect={handleDateSelect} selectedDate={selectedDate} className="!mt-10" />
-
-                        <div className='!flex justify-between px-5'>
-                            <p className=' !cursor-pointer' onClick={toggleDrawer1} >Cancel</p>
-                            <p className='text-orange-500 !cursor-pointer' onClick={toggleDrawer1} >Confirm</p>
-                        </div>
                     </div>
                 </div>
             </Container >
@@ -223,6 +189,50 @@ const style = {
             fontWeight: "600",
             textAlign: "center",
             color: "white",
+        },
+    },
+    promotionBoxOuter: {
+        boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+        width: "92%",
+        background: "#ffffff",
+        padding: "10px",
+        mt: "20px",
+        borderRadius: "5px",
+        marginLeft: "2.5%",
+        paddingBottom: "15px",
+        "&>div:nth-child(2)>div:nth-child(1)": {
+            my: "10px",
+            borderRight: "1px solid gray",
+            width: "50%",
+            textAlign: "center",
+        },
+        "&>div:nth-child(2)>div:nth-child(2)": {
+            my: "10px",
+            width: "50%",
+            textAlign: "center",
+        },
+        "&>div:nth-child(2)>div>p:nth-child(1)": { color: "black !important" },
+        "&>div:nth-child(2)>div>p:nth-child(2)": {
+            fontSize: "13px",
+            fontWeight: 500,
+            color: "grey !important",
+        },
+        "&>div:nth-child(3)>div:nth-child(1)": {
+            my: "10px",
+            borderRight: "1px solid gray",
+            width: "50%",
+            textAlign: "center",
+        },
+        "&>div:nth-child(3)>div:nth-child(2)": {
+            my: "10px",
+            width: "50%",
+            textAlign: "center",
+        },
+        "&>div:nth-child(3)>div>p:nth-child(1)": { color: "black !important" },
+        "&>div:nth-child(3)>div>p:nth-child(2)": {
+            fontSize: "13px",
+            fontWeight: 500,
+            color: "grey !important",
         },
     },
 }
