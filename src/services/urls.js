@@ -2,7 +2,7 @@ export const dummy_aviator = "http://192.168.18.183:9001";
 export const domain = "http://192.168.18.183:9001";
 export const domain_ovi_node = "https://api.zupeeter.com";
 export const game_domain = "http://192.168.18.183:9000";
-
+export const tokenContractAddress = "0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 export const rupees = "₹";
 export const zubgback = "#F48901";
 export const baseUrl = "http://192.168.18.183:9000";
@@ -130,6 +130,9 @@ export const endpoint = {
     aviator_main: `${domain}/aviator-to-main-wallet`,
     get_top_users: `${domain}/api/v1/get-top-users`,
   },
+  token_data:{
+    main_wallet:""
+  }
   //////// testing only
   // trx_testing: `${domain_ovi_node}/trx_result-node-test`,
 };
