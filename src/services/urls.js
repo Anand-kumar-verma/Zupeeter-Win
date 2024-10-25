@@ -49,10 +49,13 @@ export const endpoint = {
   level_income: `${game_domain}/api/v1/level-income`,
   p2p_transfer: `${game_domain}/api/v1/p-to-p-fund_transfer`,
   p2p_transfer_history: `${game_domain}/api/v1/p-to-p-fund_transfer-history`,
+  ticket_raised: `${game_domain}/api/v1/ticket-raised`,
+  ticket_raised_history: `${game_domain}/api/v1/ticket-raised-history`,
+  forget_password: `${game_domain}/api/v1/change-password`,
 
 
 
-
+  view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrawal_request_usdt: `${game_domain}/api/v1/payout-request`,
   withdrawal_address_usdt: `${game_domain}/api/v1/add-usdt-address`,
@@ -76,8 +79,7 @@ export const endpoint = {
   pin_password: `${baseUrl}/api/update_pin_password`,
   view_ico_purchaseing: `${baseUrl}/api/view_ico_purchaseing`,
   insert_ico_purchase: `${baseUrl}/api/insert_ico_purchase`,
-  view_withdrwal_new_inr: `${baseUrl}/api/view_withdrwal_new_inr`,
-
+ 
   // wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
 
 
@@ -116,8 +118,8 @@ export const endpoint = {
   trx_my_history_new: `${game_domain}/api/v1/trx-getColourBets-temp`, /// done  in node js
 
 
-  ticket_raised: `${domain_ovi_node}/ticket-raised`,
-  ticket_raised_history: `${domain_ovi_node}/ticket-raised-history`,
+  // ticket_raised: `${domain_ovi_node}/ticket-raised`,
+  // ticket_raised_history: `${domain_ovi_node}/ticket-raised-history`,
 
 
   node_api: {
