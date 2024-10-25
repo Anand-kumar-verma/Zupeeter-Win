@@ -5,42 +5,44 @@ import React from "react";
 import toast from "react-hot-toast";
 import Layout from "../../component/layout/Layout";
 import { endpoint } from "../../services/urls";
-import { deCryptData } from "../../shared/secret";
+import { useNavigate } from "react-router-dom";
+import { apiConnectorPost } from "../../services/apiconnector";
 
 const AccountPassword = () => {
-  const user_id = deCryptData(localStorage.getItem("user_id"));
+
+  const navigate= useNavigate()
   const initialValue = {
     old_pass: "",
     new_pass: "",
-    confirm_pass: "",
+    confirm_new_pass: "",
   };
 
   const fk = useFormik({
     initialValues: initialValue,
     enableReinitialize: true,
     onSubmit: () => {
-      const reqBody = {
-        user_id: user_id,
-        txtpassword: fk.values.new_pass,
-        txtcpassword: fk.values.confirm_pass,
-        txtopassword: fk.values.old_pass,
-      };
       if (
-        !reqBody.txtpassword ||
-        !reqBody.txtcpassword ||
-        !reqBody.txtopassword
-      )
-        return toast("Plese enter all data");
-      if (!reqBody.txtcpassword !== !reqBody.txtpassword)
-        return toast("New password and Confirm Password should be same");
-      changePasswordFn(reqBody);
+        !fk.values.old_pass ||
+        !fk.values.new_pass ||
+        !fk.values.confirm_new_pass
+      ) {
+        toast.error("Please enter all fields");
+        return;
+      }
+      const reqbody = {
+        old_pass: fk.values.old_pass,
+        new_pass: fk.values.new_pass,
+        confirm_new_pass: fk.values.confirm_new_pass,
+      };
+      changePasswordFn(reqbody);
     },
   });
 
   async function changePasswordFn(reqBody) {
     try {
-      const res = await axios.post(endpoint?.update_password, reqBody);
-      toast(res?.data?.earning?.mag);
+      const res = await apiConnectorPost(endpoint?.forget_password, reqBody);
+      toast(res?.data?.msg);
+      navigate("/account");
     } catch (e) {
       console.log(e);
     }
@@ -70,6 +72,7 @@ const AccountPassword = () => {
             name="old_pass"
             value={fk.values.old_pass}
             onChange={fk.handleChange}
+            onKeyDown={(e) => e.key === "Enter" && fk.handleSubmit()}
             placeholder="Enter Old Password"
             className="!w-[100%]"
           ></TextField>
@@ -84,10 +87,10 @@ const AccountPassword = () => {
           />
           <span>Confirm Password*</span>
           <TextField
-            id="confirm_pass"
-            name="confirm_pass"
+            id="confirm_new_pass"
+            name="confirm_new_pass"
             placeholder="Enter Confirm Password"
-            value={fk.values.confirm_pass}
+            value={fk.values.confirm_new_pass}
             onChange={fk.handleChange}
             className="!w-[100%]"
           />

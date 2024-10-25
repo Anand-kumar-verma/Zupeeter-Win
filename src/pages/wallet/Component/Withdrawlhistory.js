@@ -22,6 +22,8 @@ import {
 } from "../../../services/apiCallings";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
+import { apiConnectorGet } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
 
 function Withdrawlhistory() {
   const [isAllValue, setIsAllValue] = useState(false);
@@ -30,7 +32,7 @@ function Withdrawlhistory() {
 
   const { isLoading, data } = useQuery(
     ["withdrawl_history"],
-    () => withdrawlHistoryFunction(),
+    () => apiConnectorGet(endpoint?.view_withdrwal_new_inr),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,

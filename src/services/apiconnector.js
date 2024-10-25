@@ -1,6 +1,6 @@
-import { ContactSupportOutlined } from "@mui/icons-material";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { front_end_domain } from "./urls";
 
 export const apiConnectorGet = async (endpoint, params) => {
   try {
@@ -15,10 +15,13 @@ export const apiConnectorGet = async (endpoint, params) => {
         params: params,
       }
     );
-    response?.data?.msg ==="Invalid Token." &&
-    toast(
-      "Login in another device " 
-    )
+    if (response?.data?.msg === "Invalid Token.") {
+      toast("Login in another device ", { id: 1 })
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href=`${front_end_domain}`
+      return
+    }
     return response;
   } catch (e) {
     

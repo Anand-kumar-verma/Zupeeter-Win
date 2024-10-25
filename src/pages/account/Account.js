@@ -179,18 +179,17 @@ return (
                 if (or_m_user_type === "Dummy User") {
                   toast("Dummy User");
                 } else {
-                  navigate('/usdt-deposit');
+                  navigate('/zp');
                 }
               }}>
               <Typography><img src={zp} alt="" className="w-8" /></Typography>
-              <Typography className="">USDT</Typography>
+              <Typography className="">ZP</Typography>
             </Box>
           </Box>
         </Box>
       </Box>
       <Box className="grid grid-cols-2 gap-3 m-4  !my-8">
-      
-              <Box className="flex gap-1 p-1 py-4 cursor-pointer justify-center items-center shadow-xl bg-white rounded-lg"
+       <Box className="flex gap-1 p-1 py-4 cursor-pointer justify-center items-center shadow-xl bg-white rounded-lg"
                 onClick={() => {
                   if (or_m_user_type === "Dummy User") {
                     toast("Dummy User");
@@ -201,8 +200,6 @@ return (
                 <Typography><img src={depo} alt="" className="w-10" /></Typography>
                 <Typography>Deposit <br /><span className="!text-xs !text-gray-500"> My Deposit history</span></Typography>
               </Box>
-           
-          
               <Box className="flex gap-1 p-1 py-4 justify-center items-center cursor-pointer shadow-xl bg-white rounded-lg"
                 onClick={()=>{
                   if (or_m_user_type === "Dummy User") {

@@ -28,9 +28,9 @@ function Wallet() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false
     }
   );
   const navigate = useNavigate();
@@ -42,9 +42,9 @@ function Wallet() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false
     }
   );
   const profile = user?.data?.data || [];
@@ -61,88 +61,88 @@ function Wallet() {
   return (
     <Layout header={false}
     > <Container
-    sx={{
+      sx={{
         width: "100%",
         height: "100vh",
         overflow: "auto",
 
-    }}>
-       <Box sx={style.header}>
-        <Typography variant="body1" color="initial"></Typography>
-        <Typography variant="body1" color="initial">
-       
-        </Typography>
-        <Box component={NavLink} to="/promotion/Subordinate/"></Box>
-      </Box>
-      <Box
-        sx={{
-          padding: "15px 15px 5px 15px",
-          background: theme.palette.primary.main,
-        }}
-      >
+      }}>
+        <Box sx={style.header}>
+          <Typography variant="body1" color="initial"></Typography>
+          <Typography variant="body1" color="initial">
+
+          </Typography>
+          <Box component={NavLink} to="/promotion/Subordinate/"></Box>
+        </Box>
+        <Box
+          sx={{
+            padding: "15px 15px 5px 15px",
+            background: theme.palette.primary.main,
+          }}
+        >
           <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-start"
-          gap={1}
-          sx={{ flexDirection: "row" }}
-          className="!mx-7"
-        >
-         
-          <Typography
-            variant="body1"
-            color="initial"
-            sx={{ fontSize: "12px", fontWeight: "400", color: "white" }}
+            direction="row"
+            alignItems="center"
+            justifyContent="space-start"
+            gap={1}
+            sx={{ flexDirection: "row" }}
+            className="!mx-7"
           >
-           UserId/Name :
-          </Typography>
-          <Typography
-            variant="body1"
-            color="initial"
-            sx={{ fontSize: "14px", fontWeight: "500", color: "white" }}
+
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{ fontSize: "12px", fontWeight: "400", color: "white" }}
+            >
+              UserId/Name :
+            </Typography>
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{ fontSize: "14px", fontWeight: "500", color: "white" }}
+            >
+              {profile?.custid} / {profile?.full_name}
+            </Typography>
+
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-start"
+            gap={1}
+            sx={{ flexDirection: "row" }}
+            className="!mx-7"
           >
-           {profile?.custid} / {profile?.full_name}  
-          </Typography>
-        
-        </Stack>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-start"
-          gap={1}
-          sx={{ flexDirection: "row" }}
-          className="!mx-7"
-        >
-          <Typography
-            variant="body1"
-            color="initial"
-            sx={{ fontSize: "14px", fontWeight: "400", color: "white" }}
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{ fontSize: "14px", fontWeight: "400", color: "white" }}
+            >
+              Wallet :
+            </Typography>
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{ fontSize: "18px", fontWeight: "500", color: "white" }}
+            >
+
+              ₹ {(
+                Number(
+                  Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                ) || 0
+              )?.toFixed(2)}{" "}
+            </Typography>
+
+          </Stack>
+        </Box>
+        <CustomCircularProgress isLoading={isLoading} />
+        <Box sx={{ background: theme.palette.primary.main, pb: 2 }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-around"
           >
-           Wallet:
-          </Typography>
-          <Typography
-            variant="body1"
-            color="initial"
-            sx={{ fontSize: "18px", fontWeight: "500", color: "white" }}
-          >
-            ₹
-                {(
-                  Number(
-                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
-                  ) || 0
-                )?.toFixed(2)}{" "}
-          </Typography>
-      
-        </Stack>
-      </Box>
-      <CustomCircularProgress isLoading={isLoading } />
-      <Box sx={{ background: theme.palette.primary.main, pb: 2 }}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-around"
-        >
-          <Box sx={{ textAlign: "center" }}>
+            {/* <Box sx={{ textAlign: "center" }}>
             <Typography
               variant="body1"
               color="initial"
@@ -161,178 +161,176 @@ function Wallet() {
             >
               Total amount
             </Typography>
-          </Box>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography
-              variant="body1"
-              color="initial"
-              sx={{ fontSize: "20px", fontWeight: "500", color: "white" }}
-            >
-              {/* {rupees} 0 */}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="initial"
-              sx={{ fontSize: "14px", fontWeight: "400", color: "white" }}
-            >
-              {/* Total deposit amount */}
-            </Typography>
-          </Box>
-        </Stack>
-      </Box>
-      <Box
-        sx={{
-          width: "92%",
-          margin: "auto",
-          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-          borderRadius: "10px",
-        }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            background: "#ffffff",
-            padding: 1,
-            borderRadius: "10px",
-            mt: -1,
-          }}
-        >
-          <Stack
-        
-            direction="row"
-            sx={{
-              my:5,
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box sx={{ width: "50%", position: "relative" }}>
-           
-             
-              <Box
-                sx={{
-                  textAlign: "center",
-                  "&>p": { color: "black", fontSize: "13px", fontWeight: 500 },
-                }}
+          </Box> */}
+            <Box sx={{ textAlign: "center" }}>
+              <Typography
+                variant="body1"
+                color="initial"
+                sx={{ fontSize: "20px", fontWeight: "500", color: "white" }}
               >
-                <Typography variant="body1" color="initial">
-                ₹
-                {(
-                   Number(wallet_amount_data?.wallet || 0)
-                  ) 
-                ?.toFixed(2)}{" "}
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Main wallet
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ width: "50%", position: "relative" }}>
-             
-              <Box
-                sx={{
-                  textAlign: "center",
-                  "&>p": { color: "black", fontSize: "13px", fontWeight: 500 },
-                }}
+                {/* {rupees} 0 */}
+              </Typography>
+              <Typography
+                variant="body1"
+                color="initial"
+                sx={{ fontSize: "14px", fontWeight: "400", color: "white" }}
               >
-                <Typography variant="body1" color="initial">
-                ₹ {wallet_amount?.data?.total_withdrawal}
-                </Typography>
-                <Typography variant="body1" color="initial">
-                  Total Withdrawl
-                </Typography>
-              </Box>
+                {/* Total deposit amount */}
+              </Typography>
             </Box>
           </Stack>
-          <Button sx={style.mainwallettrbutton}>Main wallet transfer</Button>
-        
-          <Stack direction="row" sx={style.stack}
+        </Box>
+        <Box
+          sx={{
+            width: "92%",
+            margin: "auto",
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+            borderRadius: "10px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              background: "#ffffff",
+              padding: 1,
+              borderRadius: "10px",
+              mt: -1,
+            }}
           >
-        <Box sx={style.box}   
-        onClick={() => {
-              if (or_m_user_type === "Dummy User") {
-                toast("Dummy User");
-              } else {
-                navigate('/deposit');
-              }
-            }}>
-              <Box sx={style.innerBox}>
-                <Box
-                  component="img"
-                  src={depositeimg}
-                  sx={style.innerBoximg}
-                ></Box>
-              </Box>
-              <Typography variant="body1" color="initial" sx={style.typography}>
-                Deposit
-              </Typography>
-            </Box>
+            <Stack
 
-            <Box sx={style.box} 
-              onClick={() => {
-                if (or_m_user_type === "Dummy User") {
-                  toast("Dummy User");
-                } else {
-                  navigate('/usdt-withdrawl-request');
-                }
-              }}>
-              <Box sx={style.innerBox}>
+              direction="row"
+              sx={{
+                my: 5,
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box sx={{ width: "50%", position: "relative" }}>
                 <Box
-                  component="img"
-                  src={withdraw}
-                  sx={style.innerBoximg}
-                ></Box>
+                  sx={{
+                    textAlign: "center",
+                    "&>p": { color: "black", fontSize: "13px", fontWeight: 500 },
+                  }}
+                >
+                  <Typography variant="body1" color="initial">
+                   
+                  ₹ {(
+                      Number(wallet_amount_data?.wallet || 0)
+                    )
+                      ?.toFixed(2)}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Main wallet
+                  </Typography>
+                </Box>
               </Box>
-              <Typography variant="body1" color="initial" sx={style.typography}>
-                Withdraw
-              </Typography>
-            </Box>
-            <Box sx={style.box} 
-              onClick={() => {
-                if (or_m_user_type === "Dummy User") {
-                  toast("Dummy User");
-                } else {
-                  navigate('/depositehistory');
-                }
-              }}>
-              <Box sx={style.innerBox}>
+              <Box sx={{ width: "50%", position: "relative" }}>
+
                 <Box
-                  component="img"
-                  src={dhistory}
-                  sx={style.innerBoximg}
-                ></Box>
+                  sx={{
+                    textAlign: "center",
+                    "&>p": { color: "black", fontSize: "13px", fontWeight: 500 },
+                  }}
+                >
+                  {/* <Typography variant="body1" color="initial">
+                    ₹ {wallet_amount?.data?.total_withdrawal}
+                  </Typography>
+                  <Typography variant="body1" color="initial">
+                    Total Withdrawl
+                  </Typography> */}
+                </Box>
               </Box>
-              <Typography variant="body1" color="initial" sx={style.typography}>
-                Deposit history
-              </Typography>
-            </Box>
-            <Box sx={style.box} 
-            onClick={() => {
-              if (or_m_user_type === "Dummy User") {
-                toast("Dummy User");
-              } else {
-                navigate('/withdrawlhistory');
-              }
-            }}>
-              <Box sx={style.innerBox}>
-                <Box
-                  component="img"
-                  src={whistory}
-                  sx={style.innerBoximg}
-                ></Box>
+            </Stack>
+            <Button sx={style.mainwallettrbutton}>Main wallet transfer</Button>
+
+            <Stack direction="row" sx={style.stack}
+            >
+              <Box sx={style.box}
+                onClick={() => {
+                  if (or_m_user_type === "Dummy User") {
+                    toast("Dummy User");
+                  } else {
+                    navigate('/deposit');
+                  }
+                }}>
+                <Box sx={style.innerBox}>
+                  <Box
+                    component="img"
+                    src={depositeimg}
+                    sx={style.innerBoximg}
+                  ></Box>
+                </Box>
+                <Typography variant="body1" color="initial" sx={style.typography}>
+                  Deposit
+                </Typography>
               </Box>
-              <Typography variant="body1" color="initial" sx={style.typography}>
-                Withdrawal history
-              </Typography>
-            </Box>
-          </Stack> 
-          
-     </Box>
-      </Box>
-    </Container>
-     
-   
+
+              <Box sx={style.box}
+                onClick={() => {
+                  if (or_m_user_type === "Dummy User") {
+                    toast("Dummy User");
+                  } else {
+                    navigate('/usdt-withdrawl-request');
+                  }
+                }}>
+                <Box sx={style.innerBox}>
+                  <Box
+                    component="img"
+                    src={withdraw}
+                    sx={style.innerBoximg}
+                  ></Box>
+                </Box>
+                <Typography variant="body1" color="initial" sx={style.typography}>
+                  Withdraw
+                </Typography>
+              </Box>
+              <Box sx={style.box}
+                onClick={() => {
+                  if (or_m_user_type === "Dummy User") {
+                    toast("Dummy User");
+                  } else {
+                    navigate('/depositehistory');
+                  }
+                }}>
+                <Box sx={style.innerBox}>
+                  <Box
+                    component="img"
+                    src={dhistory}
+                    sx={style.innerBoximg}
+                  ></Box>
+                </Box>
+                <Typography variant="body1" color="initial" sx={style.typography}>
+                  Deposit history
+                </Typography>
+              </Box>
+              <Box sx={style.box}
+                onClick={() => {
+                  if (or_m_user_type === "Dummy User") {
+                    toast("Dummy User");
+                  } else {
+                    navigate('/withdrawlhistory');
+                  }
+                }}>
+                <Box sx={style.innerBox}>
+                  <Box
+                    component="img"
+                    src={whistory}
+                    sx={style.innerBoximg}
+                  ></Box>
+                </Box>
+                <Typography variant="body1" color="initial" sx={style.typography}>
+                  Withdrawal history
+                </Typography>
+              </Box>
+            </Stack>
+
+          </Box>
+        </Box>
+      </Container>
+
+
     </Layout>
   );
 }

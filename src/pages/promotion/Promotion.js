@@ -401,7 +401,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                    Commission detail
+                    Commission Income
                   </Typography>
                 </Stack>
                 <Stack direction="row">

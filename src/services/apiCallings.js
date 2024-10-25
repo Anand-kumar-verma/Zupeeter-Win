@@ -217,20 +217,6 @@ export const TokenLaunch = async () => {
   }
 };
 
-
-
-export const withdrawlHistoryFunction = async () => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.view_withdrwal_new_inr, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
 export const depositHistoryFunction = async () => {
   try {
     const reqBody = {
@@ -432,18 +418,7 @@ export const TimerFn = async (gid) => {
     console.log(e);
   }
 };
-export const getTicketRaisedHistory = async () => {
-  const id = deCryptData(localStorage.getItem("user_id"));
-  try {
-    const response = await axios.get(
-      `${endpoint.ticket_raised_history}?user_id=${id}`
-    );
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
+
 
 export const showRank = (num) => {
   if (Number(num) === 1) return "Gold Club";

@@ -17,11 +17,11 @@ import * as React from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import Layout from "../../component/layout/Layout";
-import { getTicketRaisedHistory } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 import { deCryptData } from "../../shared/secret";
+import { apiConnectorGet, apiConnectorPost } from "../../services/apiconnector";
 
 export default function Ticket() {
   const [image, setImage] = React.useState(null);
@@ -53,10 +53,10 @@ export default function Ticket() {
   async function ticketRaised(reqBody) {
     setloding(true);
     try {
-      const response = await axios.post(endpoint.ticket_raised, reqBody);
+      const response = await apiConnectorPost(endpoint.ticket_raised, reqBody);
       toast(response?.data?.msg);
     } catch (e) {
-      toast("File size should be less than 25kb");
+      console.log(e);
     }
     setloding(false);
     client.refetchQueries("get_ticket_raised_history");
@@ -78,7 +78,7 @@ export default function Ticket() {
 
   const { isLoading, data: TicketRaised } = useQuery(
     ["get_ticket_raised_history"],
-    () => getTicketRaisedHistory(),
+    () => apiConnectorGet(endpoint?.ticket_raised_history),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,

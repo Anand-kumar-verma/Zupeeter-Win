@@ -327,9 +327,6 @@ export const routes = [
         path:"/password/transction",
         element:<TransactionPassword />
     },
-    {
-        path:"/password/account",
-        element:<AccountPassword />
-    },
+   
    
 ]
