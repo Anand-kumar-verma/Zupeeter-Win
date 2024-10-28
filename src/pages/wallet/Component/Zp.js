@@ -21,13 +21,17 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
+import {
+  apiConnectorGet,
+  apiConnectorPost,
+} from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
 import { ethers } from "ethers";
+import { enCryptData } from "../../../shared/secret";
 const tokenABI = [
   // balanceOf function ABI
   "function balanceOf(address owner) view returns (uint256)",
@@ -57,18 +61,18 @@ function Zp() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-
   const { data: address } = useQuery(
     ["address_own"],
-    () => apiConnectorGet(endpoint?.zp_own_address), {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    retryOnMount: false,
-    refetchOnWindowFocus: false,
-  }
-  )
-  const ownaddress = address?.data?.data?.[0]
+    () => apiConnectorGet(endpoint?.zp_own_address),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const ownaddress = address?.data?.data?.[0];
 
   React.useEffect(() => {
     handlePlaySound();
@@ -134,7 +138,8 @@ function Zp() {
     setLoding(false);
   }
   async function sendTokenTransaction() {
-    console.log("funct");
+   if(!walletAddress) 
+    return toast("Plese Connect your wallet.")
     setLoding(true);
     if (!window.ethereum) {
       toast("MetaMask not detected");
@@ -150,7 +155,11 @@ function Zp() {
     const signer = provider.getSigner();
     try {
       const tokenAmount = ethers.utils.parseUnits(
-        String(Number(Number(fk.values.inr_value) / ownaddress?.token_amnt)?.toFixed(6)),
+        String(
+          Number(Number(fk.values.inr_value) / ownaddress?.token_amnt)?.toFixed(
+            6
+          )
+        ),
         18
       ); // Sending 1 ZP token
 
@@ -190,11 +199,11 @@ function Zp() {
       setTransactionHash(transactionResponse.hash);
       setReceiptStatus(receipt.status === 1 ? "Success" : "Failure");
       if (receipt.status === 1) {
-        PayinZp(2)
-        // hit function 
+        PayinZp(2);
+        // hit function
       } else {
-        PayinZp(3)
-        // hit function 
+        PayinZp(3);
+        // hit function
       }
     } catch (error) {
       console.log(error);
@@ -212,13 +221,14 @@ function Zp() {
       currentBNB: bnb,
       currentZP: no_of_Tokne,
       gas_price: gasprice,
-    }
+    };
     try {
-      const res = await apiConnectorPost(endpoint?.zp_paying, reqbody);
+      const res = await apiConnectorPost(endpoint?.zp_paying, {
+        payload: enCryptData(reqbody),
+      });
       toast(res?.data?.msg);
       fk.handleReset();
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
   }
@@ -291,7 +301,7 @@ function Zp() {
               {(
                 Number(
                   Number(wallet_amount_data?.winning || 0) +
-                  Number(wallet_amount_data?.wallet || 0)
+                    Number(wallet_amount_data?.wallet || 0)
                 ) || 0
               )?.toFixed(2)}{" "}
             </Typography>
@@ -464,7 +474,9 @@ function Zp() {
             <p className="text-[#F48901] !text-sm !font-bold"> ZP </p>
           </IconButton>
           <InputBase
-            value={Number(Number(fk.values.inr_value) / ownaddress?.token_amnt)?.toFixed(4)}
+            value={Number(
+              Number(fk.values.inr_value) / ownaddress?.token_amnt
+            )?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}
           />
