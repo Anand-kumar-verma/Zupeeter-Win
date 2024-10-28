@@ -253,7 +253,7 @@ function Zp() {
               Deposit
             </Typography>
           </Box>
-          <NavLink to="/depositehistory">
+          <NavLink to="/zpdeposit">
             <Typography
               variant="body1"
               color="initial"

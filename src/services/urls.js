@@ -52,9 +52,10 @@ export const endpoint = {
   ticket_raised: `${game_domain}/api/v1/ticket-raised`,
   ticket_raised_history: `${game_domain}/api/v1/ticket-raised-history`,
   forget_password: `${game_domain}/api/v1/change-password`,
+  zp_payout: `${game_domain}/api/v1/zp-user-payout`,
 
 
-  
+  Zp_deposit_history: `${game_domain}/api/v1/zp-deposit-history`,
   zp_own_address: `${game_domain}/api/v1/zp-payin-ownr-address`,
   zp_paying: `${game_domain}/api/v1/zp-payin-request`,
   view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,

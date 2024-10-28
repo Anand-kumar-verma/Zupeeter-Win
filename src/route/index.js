@@ -63,6 +63,7 @@ import Gift from "../pages/activity/Gift";
 import P2PTransfer from "../pages/P2ptransfer/p2ptransfer";
 import Zp from "../pages/wallet/Component/Zp";
 import ZpWithdrawal from "../pages/wallet/Component/Zpwithdrawal";
+import Zpdeposithistory from "../pages/wallet/Component/zpdeposithoistory";
 
 
 export const routes = [
@@ -327,6 +328,9 @@ export const routes = [
         path:"/password/transction",
         element:<TransactionPassword />
     },
-   
+    {
+        path:"/zpdeposit",
+        element:<Zpdeposithistory />
+    },
    
 ]

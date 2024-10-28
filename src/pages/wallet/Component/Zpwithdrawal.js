@@ -21,12 +21,13 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet } from "../../../services/apiconnector";
+import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
+import { useFormik } from "formik";
 
 const tokenABI = [
   // balanceOf function ABI
@@ -39,9 +40,11 @@ function ZpWithdrawal() {
   const audioRefMusic = React.useRef(null);
   const [amount, setAmount] = useState("100");
   const [address, setAddress] = useState();
-  const [transactionhash, setTransactionhash] = useState();
+  const [transactionhash, setTransactionHash] = useState();
   const [status, setStatus] = useState();
+  const [gasprice, setGasPrice] = useState("");
   const [loding, setLoding] = useState(false);
+  const [receiptStatus, setReceiptStatus] = useState("");
 
 
   const navigate = useNavigate();
@@ -58,11 +61,26 @@ function ZpWithdrawal() {
     }
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
-
+  const { data: walletaddress } = useQuery(
+    ["address_own"],
+    () => apiConnectorGet(endpoint?.zp_own_address), {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    retryOnMount: false,
+    refetchOnWindowFocus: false,
+  }
+  )
+  const ownaddress = walletaddress?.data?.data?.[0]
   React.useEffect(() => {
     handlePlaySound();
   }, []);
 
+  const fk = useFormik({
+    initialValues: {
+      inr_value: "",
+    },
+  });
   async function requestAccount() {
     setLoding(true);
     if (window.ethereum) {
@@ -96,7 +114,90 @@ function ZpWithdrawal() {
     setLoding(false);
   }
 
-  
+  async function sendTokenTransaction() {
+    console.log("funct");
+    setLoding(true);
+    if (!window.ethereum) {
+      toast("MetaMask not detected");
+      setLoding(false);
+      return;
+    }
+
+    if (!fk.values.inr_value) {
+      setLoding(false);
+      return toast("Enter Your Amount.");
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    try {
+      const tokenAmount = ethers.utils.parseUnits(
+        String(Number(Number(fk.values.inr_value) / ownaddress?.token_amnt)?.toFixed(6)),
+        18
+      ); // Sending 1 ZP token
+
+      // Create a contract instance for the ZP token
+      const tokenContract = new ethers.Contract(
+        tokenContractAddress,
+        tokenABI,
+        signer
+      );
+      const gasPrice = await provider.getGasPrice();
+
+      const gasEstimate = await tokenContract.estimateGas.transfer(
+        ownaddress?.payin_token_address, // Receiver address
+        tokenAmount // Amount of tokens to transfer
+      );
+      // Calculate total gas cost in BNB
+      const totalGasCost = gasEstimate.mul(gasPrice);
+      setGasPrice(ethers.utils.formatEther(totalGasCost));
+      const bnbBalance = await provider.getBalance(await signer.getAddress());
+      // console.log("BNB Balance:", ethers.utils.formatEther(bnbBalance));
+      if (bnbBalance.lt(totalGasCost)) {
+        setLoding(false);
+        return toast(
+          `Insufficient BNB for gas fees. You need at least ${ethers.utils.formatEther(
+            totalGasCost
+          )} BNB.`
+        );
+      }
+      // Call the transfer function on the token contract
+      const transactionResponse = await tokenContract.transfer(
+        ownaddress?.payin_token_address, // Receiver address
+        tokenAmount // Amount of tokens to transfer
+      );
+      // Wait for transaction confirmation
+      const receipt = await transactionResponse.wait();
+      // Update UI with transaction status
+      setTransactionHash(transactionResponse.hash);
+      setReceiptStatus(receipt.status === 1 ? "Success" : "Failure");
+      if (receipt.status === 1) {
+        PayinZp(2)
+        // hit function 
+      } else {
+        PayinZp(3)
+        // hit function 
+      }
+    } catch (error) {
+      console.log(error);
+      toast("Token transaction failed", error);
+    }
+    setLoding(false);
+  }
+
+  async function PayinZp(status) {
+    const reqbody = {
+      req_amount: fk.values.inr_value,
+      receiver_kay :address,
+    }
+    try {
+      const res = await apiConnectorPost(endpoint?.zp_payout, reqbody);
+      toast(res?.data?.msg);
+      fk.handleReset();
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause) {
@@ -329,9 +430,10 @@ function ZpWithdrawal() {
             <p className='text-[#F48901] !text-sm !font-bold'> INR </p>
           </IconButton>
           <InputBase
-            name="amount"
-            id="amount"
-            value={amount}
+            name="inr_amount "
+            id="inr_amount "
+            value={fk.values.inr_value}
+            onChange={fk.values.inr_value}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             placeholder="Please enter the amount"
             inputProps={{ "aria-label": "search google maps" }}
@@ -364,7 +466,7 @@ function ZpWithdrawal() {
         </Paper>
       <Button
           sx={style.wdbtn1}
-        //   onClick={fk.handleSubmit}
+          onClick={sendTokenTransaction}
           className="!bg-[#F48901]"
         >
           Confirm
@@ -423,8 +525,8 @@ const style = {
     fontSize: "15px",
     height: "0.93333rem",
     width: "100%",
-    background:
-      "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
+    // background:
+    //   "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
     backgroundSize: "100% 100%, 100% 100%",
     backgroundPosition: "center, center",
     backgroundRepeat: "no-repeat, no-repeat",

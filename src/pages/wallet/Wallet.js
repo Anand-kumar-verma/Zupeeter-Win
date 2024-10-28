@@ -272,7 +272,7 @@ function Wallet() {
                   if (or_m_user_type === "Dummy User") {
                     toast("Dummy User");
                   } else {
-                    navigate('/usdt-withdrawl-request');
+                    navigate('/withdraw');
                   }
                 }}>
                 <Box sx={style.innerBox}>
