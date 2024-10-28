@@ -2,7 +2,8 @@ export const dummy_aviator = "http://192.168.18.183:9001";
 export const domain = "http://192.168.18.183:9001";
 export const domain_ovi_node = "https://api.zupeeter.com";
 export const game_domain = "http://192.168.18.183:9000";
-export const tokenContractAddress = "0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
+export const tokenContractAddress =
+  "0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 export const rupees = "₹";
 export const zubgback = "#F48901";
 export const baseUrl = "http://192.168.18.183:9000";
@@ -53,8 +54,6 @@ export const endpoint = {
   ticket_raised_history: `${game_domain}/api/v1/ticket-raised-history`,
   forget_password: `${game_domain}/api/v1/change-password`,
 
-
-
   view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrawal_request_usdt: `${game_domain}/api/v1/payout-request`,
@@ -79,9 +78,8 @@ export const endpoint = {
   pin_password: `${baseUrl}/api/update_pin_password`,
   view_ico_purchaseing: `${baseUrl}/api/view_ico_purchaseing`,
   insert_ico_purchase: `${baseUrl}/api/insert_ico_purchase`,
- 
-  // wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
 
+  // wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
 
   wallet_deposit: `${baseUrl}/api/wallet_deposit_insert`,
   wallet_withdrawl: `${baseUrl}/api/insert_withdrawal_request_inr_new`,
@@ -107,20 +105,16 @@ export const endpoint = {
   view_paying_api: `${baseUrl}/api/view_paying_api`,
   update_profile_pic: `${baseUrl}/api/update_profile_pic`,
 
-
   payin_status: `${baseUrl}/api/payin_api`,
   swnl_pay_in_api: `${baseUrl}/api/insert_fund_request_vapayout`,
-
 
   // ovi panel api's
   trx_bet_placed_node: `${game_domain}/api/v1/trx-bet`,
   trx_game_history: `${game_domain}/api/v1/trx-auto-genrated-result`, //////// done in node js
   trx_my_history_new: `${game_domain}/api/v1/trx-getColourBets-temp`, /// done  in node js
 
-
   // ticket_raised: `${domain_ovi_node}/ticket-raised`,
   // ticket_raised_history: `${domain_ovi_node}/ticket-raised-history`,
-
 
   node_api: {
     get_leder_data: `${domain}/api/v1/get-ledger-data`,
@@ -130,9 +124,9 @@ export const endpoint = {
     aviator_main: `${domain}/aviator-to-main-wallet`,
     get_top_users: `${domain}/api/v1/get-top-users`,
   },
-  token_data:{
-    main_wallet:""
-  }
+  token_data: {
+    main_wallet: "",
+  },
   //////// testing only
   // trx_testing: `${domain_ovi_node}/trx_result-node-test`,
 };
