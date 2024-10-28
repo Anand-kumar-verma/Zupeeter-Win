@@ -43,7 +43,6 @@ function ZpWithdrawal() {
   const [transactionhash, setTransactionHash] = useState();
   const [status, setStatus] = useState();
   const [loding, setLoding] = useState(false);
-  const [receiptStatus, setReceiptStatus] = useState("");
 
 
   const navigate = useNavigate();
@@ -130,6 +129,7 @@ function ZpWithdrawal() {
       toast(res?.data?.msg);
       setTransactionHash(res?.data?.transaction_hash)
       setStatus(res?.data?.transaction_status)
+      client.refetchQueries("wallet_amount_amount")
       client.refetchQueries("zp_withdrawl_history")
       setLoding(false);
       fk.handleReset();

@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
@@ -48,6 +48,9 @@ function Zp() {
   const [gasprice, setGasPrice] = useState("");
   const navigate = useNavigate();
   const [loding, setLoding] = useState(false);
+  const client = useQueryClient()
+
+
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
     () => apiConnectorGet(endpoint?.get_balance),
@@ -90,6 +93,7 @@ function Zp() {
       console.error("Error during play:", error);
     }
   };
+
 
   const audio = React.useMemo(() => {
     return (
@@ -227,6 +231,7 @@ function Zp() {
         payload: enCryptData(reqbody),
       });
       toast(res?.data?.msg);
+      client.refetchQueries("wallet_amount_amount")
       fk.handleReset();
     } catch (e) {
       console.log(e);
