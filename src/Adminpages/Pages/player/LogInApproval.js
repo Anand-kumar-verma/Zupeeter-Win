@@ -35,11 +35,12 @@ const LogInApproval = () => {
   };
 
   const tablehead = [
-    <span>S.No.</span>,
+        <span>S.No.</span>,
         <span>User Id</span>,
         <span>Name</span>,
         <span>Action</span>,   
   ];
+
 
   const tablerow = [
     {
@@ -67,16 +68,15 @@ const LogInApproval = () => {
   return (
     <div>
       <div className="flex px-2 gap-5 !justify-start py-2">
-      <TextField
+               <TextField
                         className="!h-[10%]"
-                       
                         id="username"
                         name="username"
                         placeholder="User Id"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-        <Button
+             <Button
                     onClick={() => candidateName(search)}
                     variant="contained"
                     endIcon={<FilterAltOutlined />}
@@ -87,8 +87,7 @@ const LogInApproval = () => {
       <CustomTable
         tablehead={tablehead}
         tablerow={tablerow}
-      />
-      
+      />   
     </div>
   );
 };
