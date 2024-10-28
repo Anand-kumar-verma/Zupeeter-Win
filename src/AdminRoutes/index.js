@@ -24,6 +24,7 @@ import SelfDepositBonus from "../Adminpages/Pages/genealogy/SelfDepositBonus";
 import WelcomeBonus from "../Adminpages/Pages/genealogy/WelcomeBonus";
 import UserPermission from "../Adminpages/Pages/Permission/Userpermission";
 import AddPlayer from "../Adminpages/Pages/player/AddPlayer";
+import LogInApproval from "../Adminpages/Pages/player/LogInApproval";
 import Player from "../Adminpages/Pages/player/Player";
 import AviatorReport from "../Adminpages/Pages/Report/AvaitorReport";
 import TrxReport from "../Adminpages/Pages/Report/TrxReport";
@@ -228,6 +229,12 @@ export const adminroutes = [
     path: "/set_bonus",
     component: <SetBonus/>,
     navItem: "Set Bonus ",
+  },
+  {
+    id: 35,
+    path: "/loginApproval",
+    component: <LogInApproval/>,
+    navItem: "LogIn Approval",
   },
 ];
 

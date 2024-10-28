@@ -268,7 +268,7 @@ const PlayGame = () => {
   }, [value]);
 
   const myall_bets = useMemo(() => {
-    return value === 0 && <AllBets formik={formik} fk={fk} />;
+    return value === 0 && <AllBets formik={formik} fk={fk}  />;
   }, [formik, fk, value]);
 
   const show_result = useMemo(() => {

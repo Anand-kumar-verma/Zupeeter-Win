@@ -252,9 +252,8 @@ function Zp() {
             position: "relative",
           }}
         >
-          <NavLink onClick={() => navigate("/account")}>
-            <Box component="img" src={backbtn} width={25}></Box>
-          </NavLink>
+            <Box component="img" src={backbtn} width={25} onClick={() => navigate("/account")}></Box>
+     
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
               variant="body1"

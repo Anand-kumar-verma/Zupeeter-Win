@@ -21,6 +21,7 @@ import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
+import trxbg from "../../../assets/images/trxbg.png";
 
 
 function Wingo3Min() {
@@ -208,7 +209,7 @@ function Wingo3Min() {
         <Box
           className="countdownbgtrx"
           sx={{
-            backgroundImage: `url(https://www.tcvvip11.com/assets/png/trxbg-21e5d811.png)`,
+            backgroundImage: `url(${trxbg})`,
           }}
         >
           <Box

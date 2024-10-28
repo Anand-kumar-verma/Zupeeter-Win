@@ -35,8 +35,11 @@ import phoneaa from "../../assets/images/phoneaa.png";
 import { storeCookies } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
 import { deCryptData, enCryptData } from "../../shared/secret";
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
+
 
 function Login() {
+  const [visitorId, setVisitorId] = useState(null);
   const [value, setValue] = useState("one");
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const navigate = useNavigate();
@@ -60,7 +63,6 @@ function Login() {
     email: "",
     password: "",
     mobile: "",
-
   };
 
   const fk = useFormik({
@@ -69,7 +71,8 @@ function Login() {
       const reqBody = {
         username: value === "one" ? String(fk.values.mobile) : fk.values.email,
         password: fk.values.password,
-        ipAddress: ""
+        ipAddress: "",
+        u_finger_id:visitorId,
       };
       if (!reqBody.password || !reqBody.username)
         return toast("Plese enter all fields");
@@ -130,6 +133,17 @@ function Login() {
       window.removeEventListener("keydown", handleEnterKeyPress);
     };
   }, [fk]);
+
+  useEffect(() => {
+    // Initialize FingerprintJS and fetch the visitor ID
+    const fetchVisitorId = async () => {
+      const fp = await FingerprintJS.load();
+      const result = await fp.get();
+      setVisitorId(result.visitorId);
+    };
+
+    fetchVisitorId().catch(console.error);
+  }, []);
   return (
     <Container>
       <Box

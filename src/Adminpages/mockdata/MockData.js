@@ -1,4 +1,4 @@
-import { Approval, BoltRounded, Book, Cancel, Collections, ColorizeRounded, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeakRemoveOutlined, LoginOutlined, MonetizationOn, Money, MoneyOff, Pending, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RequestPage, RowingSharp, SailingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
+import { Approval, BoltRounded, Book, Cancel, Collections, ColorizeRounded, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, MoneyOff, Pending, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RequestPage, RowingSharp, SailingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
@@ -50,7 +50,17 @@ export const all_Data = [
           </span>
         ),
       },
-      // {
+      {
+        id: 2.3,
+        navLink: "/loginApproval",
+        navItem: "LogIn Approval",
+        navIcon: (
+          <span>
+            <LoginSharp color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+       // {
       //   id: 2.3,
       //   navLink: "/player/add-player",
       //   navItem: "Add Player",

@@ -1,5 +1,5 @@
-export const dummy_aviator = "http://192.168.18.183:9000";
-export const domain = "http://192.168.18.183:9000";
+export const dummy_aviator = "http://192.168.18.183:9001";
+export const domain = "http://192.168.18.183:9001";
 export const domain_ovi_node = "https://api.zupeeter.com";
 export const game_domain = "http://192.168.18.183:9000";
 export const tokenContractAddress =
@@ -55,7 +55,7 @@ export const endpoint = {
   forget_password: `${game_domain}/api/v1/change-password`,
   zp_payout: `${game_domain}/api/v1/zp-user-payout`,
 
-
+  Zp_withdrawal_history: `${game_domain}/api/v1/zp-withdrawal-history`,
   Zp_deposit_history: `${game_domain}/api/v1/zp-deposit-history`,
   zp_own_address: `${game_domain}/api/v1/zp-payin-ownr-address`,
   zp_paying: `${game_domain}/api/v1/zp-payin-request`,

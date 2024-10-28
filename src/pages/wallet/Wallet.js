@@ -1,5 +1,5 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -10,14 +10,12 @@ import withdraw from "../../assets/images/withdraw.png";
 import Layout from "../../component/layout/Layout";
 import {
   ProfileDataFunction,
-  checkTokenValidity,
-  depositHistoryFunction,
-  showRank,
+  checkTokenValidity
 } from "../../services/apiCallings";
-import { endpoint, rupees } from "../../services/urls";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
-import { apiConnectorGet } from "../../services/apiconnector";
 
 function Wallet() {
   const or_m_user_type = localStorage.getItem("or_m_user_type");

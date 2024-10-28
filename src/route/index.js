@@ -61,9 +61,10 @@ import Wingo from "../pages/wingo/Wingo";
 import AddAddressUsdt from "../pages/wallet/Component/AddAddressUsdt";
 import Gift from "../pages/activity/Gift";
 import P2PTransfer from "../pages/P2ptransfer/p2ptransfer";
-import Zp from "../pages/wallet/Component/Zp";
+import Zp from "../pages/wallet/Component/ZpDeposit";
 import ZpWithdrawal from "../pages/wallet/Component/Zpwithdrawal";
 import Zpdeposithistory from "../pages/wallet/Component/zpdeposithoistory";
+import ZpWithdrawlhistory from "../pages/wallet/Component/ZpWithdrawalhistory";
 
 
 export const routes = [
@@ -332,5 +333,8 @@ export const routes = [
         path:"/zpdeposit",
         element:<Zpdeposithistory />
     },
-   
+    {
+        path:"/zpwithdraw",
+        element:<ZpWithdrawlhistory />
+    },
 ]
