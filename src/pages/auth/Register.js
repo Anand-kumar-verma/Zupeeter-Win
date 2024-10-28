@@ -77,6 +77,7 @@ function Login() {
         refid: username?.id,
         name: fk.values.name,
         u_finger_id:visitorId,
+        through: 2,
        
       };
       signupFunction(reqbody);

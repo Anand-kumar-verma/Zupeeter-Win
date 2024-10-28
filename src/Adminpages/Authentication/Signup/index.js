@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupSchemaValidataon } from "../../../services/validation";
 import { candidateName } from "../../Services";
@@ -9,10 +9,13 @@ import { endpoint } from "../../../services/urls";
 import { apiConnectorPost } from "../../../services/apiconnector";
 import CustomCircularProgress from "../../../shared/CustomDialogBox";
 import toast from "react-hot-toast";
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
+
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [loding, setloding] = useState(false);
+  const [visitorId, setVisitorId] = useState(null);
 
   const initialValue = {
     email: "",
@@ -38,6 +41,9 @@ const SignUp = () => {
         confirmpass: fk.values.confirmpass,
         refid: result?.id,
         name: fk.values.name,
+        u_finger_id:visitorId,
+        through:1,
+
       }
 
       signupFunction(reqBody);
@@ -58,6 +64,16 @@ const SignUp = () => {
     }
     setloding(false);
 }
+useEffect(() => {
+  // Initialize FingerprintJS and fetch the visitor ID
+  const fetchVisitorId = async () => {
+    const fp = await FingerprintJS.load();
+    const result = await fp.get();
+    setVisitorId(result.visitorId);
+  };
+
+  fetchVisitorId().catch(console.error);
+}, []); 
 
   const { data } = useQuery(
     ["getname", fk.values.refid],
