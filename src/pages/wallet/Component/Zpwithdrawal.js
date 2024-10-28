@@ -22,16 +22,27 @@ import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
 import { apiConnectorGet } from "../../../services/apiconnector";
-import { endpoint } from "../../../services/urls";
+import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
+import { ethers } from "ethers";
+import toast from "react-hot-toast";
 
+const tokenABI = [
+  // balanceOf function ABI
+  "function balanceOf(address owner) view returns (uint256)",
+  // transfer function ABI
+  "function transfer(address to, uint256 amount) returns (bool)",
+];
 function ZpWithdrawal() {
+  
   const audioRefMusic = React.useRef(null);
   const [amount, setAmount] = useState("100");
   const [address, setAddress] = useState();
   const [transactionhash, setTransactionhash] = useState();
   const [status, setStatus] = useState();
+  const [loding, setLoding] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -52,7 +63,40 @@ function ZpWithdrawal() {
     handlePlaySound();
   }, []);
 
+  async function requestAccount() {
+    setLoding(true);
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const userAccount = accounts[0];
+        setAddress(userAccount);
+        // Create a provider
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
 
+        // Get the native token balance (BNB)
+        // const nativeBalance = await provider.getBalance(userAccount);
+        // setBnb(ethers.utils.formatEther(nativeBalance));
+        // Create a contract instance for the ZP token
+        const tokenContract = new ethers.Contract(
+          tokenContractAddress,
+          tokenABI,
+          provider
+        );
+        // Get the balance of the ZP token for the user account
+        // const tokenBalance = await tokenContract.balanceOf(userAccount);
+        // setno_of_Tokne(ethers.utils.formatUnits(tokenBalance, 18));
+      } catch (error) {
+        toast("Error connecting...", error);
+      }
+    } else {
+      toast("MetaMask not detected.");
+    }
+    setLoding(false);
+  }
+
+  
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause) {
@@ -103,7 +147,7 @@ function ZpWithdrawal() {
               sx={{ color: "white", fontSize: "16px", fontWeight: "600" }}
             >
               
-Withdrawal
+            Withdrawal
             </Typography>
           </Box>
           <NavLink to="/withdrawlhistory">
@@ -257,14 +301,16 @@ Withdrawal
         </Stack>
         <Button
           sx={style.wdbtn}
-        //   onClick={fk.handleSubmit}
-        //   className={`${fk.values.amount ? "!bg-[#F48901]" : "!bg-gray-400"}`}
+          onClick={requestAccount}
+          className="!bg-[#F48901]"
         >
           Connect Your Wallet
         </Button>
-        <div className="m-3 !font-bold">
-        <p>Your Wallet Address</p> 
-        <p>{address}</p>
+        <div className="my-3">
+        <div className="flex flex-wrap justify-start">
+            <span className="">Address : </span>{" "}
+            <span>{address}</span>
+          </div>
         </div>
         <div className='!my-4'>
         <Paper
