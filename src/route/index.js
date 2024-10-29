@@ -65,6 +65,7 @@ import Zp from "../pages/wallet/Component/ZpDeposit";
 import ZpWithdrawal from "../pages/wallet/Component/Zpwithdrawal";
 import Zpdeposithistory from "../pages/wallet/Component/zpdeposithoistory";
 import ZpWithdrawlhistory from "../pages/wallet/Component/ZpWithdrawalhistory";
+import CashBackBonus from "../pages/income/incomeSubSection/CashbackBonus";
 
 
 export const routes = [
@@ -264,6 +265,10 @@ export const routes = [
     {
         path:"/account/income-main/ico-level-bonus",
         element:<ICOLevelBonus />
+    },
+    {
+        path:"/account/income-main/cashback-bonus",
+        element:<CashBackBonus />
     },
     {
         path:"/account/income-main/betting-bonus",

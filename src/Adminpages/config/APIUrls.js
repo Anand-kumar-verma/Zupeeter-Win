@@ -11,6 +11,8 @@ export const API_URLS = {
     withdrawl_reject_list: `/api/v1/inr-payout-request-list-failed`,
     withdrawl_pending_list: `/api/v1/inr-payout-request-list-pending-from-gateway`,
     user_list: `/api/v1/user-list`,
+    token_zp: `/api/v1/zp-token-payin-admin`,
+    token_zp_payout: `/api/v1/zp-token-payout-admin`,
     update_user_status: `/api/v1//update-user-status`,
     wingo_result_api: `/api/v1/update-wingo-result`,
     add_fund: `/api/v1/add-fund-to-user`,

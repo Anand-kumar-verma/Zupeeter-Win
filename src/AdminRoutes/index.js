@@ -32,6 +32,8 @@ import WingoReport from "../Adminpages/Pages/Report/WingoReport";
 import SetBonus from "../Adminpages/Pages/SetBonus/SetBonus";
 import DownlineTeam from "../Adminpages/Pages/Team/DownlineTeam";
 import UplineTeam from "../Adminpages/Pages/Team/UplineTeam";
+import ZpToken from "../Adminpages/Pages/Zptoken/ZpToken";
+import ZpTokenPayout from "../Adminpages/Pages/Zptoken/ZpTokenPayout";
 
 
 export const adminroutes = [ 
@@ -235,6 +237,18 @@ export const adminroutes = [
     path: "/loginApproval",
     component: <LogInApproval/>,
     navItem: "LogIn Approval",
+  },
+  {
+    id: 36,
+    path: "/zp_token",
+    component: <ZpToken/>,
+    navItem: "Paying",
+  },
+  {
+    id: 36,
+    path: "/zp_token_payout",
+    component: <ZpTokenPayout/>,
+    navItem: "Payout",
   },
 ];
 

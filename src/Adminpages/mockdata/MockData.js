@@ -74,59 +74,59 @@ export const all_Data = [
   },
  
 
-  {
-    id: 5,
-    navLink: "/game-withdrawl-request",
-    navItem: " Withdrawal Request",
-    navIcon: (
-      <span>
-        <FormatShapesIcon color="#15317E" fontSize="medium" />
-      </span>
-    ),
-    subcomponent: [
-      {
-        id: 5.1,
-        navLink: "/game-withdrawl-request",
-        navItem: "Withdrawal Request",
-        navIcon: (
-          <span>
-            <RequestPage color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
-      {
-        id: 5.2,
-        navLink: "/game-withdrawl-request/reject-request",
-        navItem: "Reject Request",
-        navIcon: (
-          <span>
-            <Cancel color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
-      {
-        id: 5.3,
-        navLink: "/game-withdrawl-request/pending-request",
-        navItem: "Gateway Pending Request",
-        navIcon: (
-          <span>
-            <Pending color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
+  // {
+  //   id: 5,
+  //   navLink: "/game-withdrawl-request",
+  //   navItem: " Withdrawal Request",
+  //   navIcon: (
+  //     <span>
+  //       <FormatShapesIcon color="#15317E" fontSize="medium" />
+  //     </span>
+  //   ),
+  //   subcomponent: [
+  //     {
+  //       id: 5.1,
+  //       navLink: "/game-withdrawl-request",
+  //       navItem: "Withdrawal Request",
+  //       navIcon: (
+  //         <span>
+  //           <RequestPage color="#15317E" fontSize="medium" />
+  //         </span>
+  //       ),
+  //     },
+  //     {
+  //       id: 5.2,
+  //       navLink: "/game-withdrawl-request/reject-request",
+  //       navItem: "Reject Request",
+  //       navIcon: (
+  //         <span>
+  //           <Cancel color="#15317E" fontSize="medium" />
+  //         </span>
+  //       ),
+  //     },
+  //     {
+  //       id: 5.3,
+  //       navLink: "/game-withdrawl-request/pending-request",
+  //       navItem: "Gateway Pending Request",
+  //       navIcon: (
+  //         <span>
+  //           <Pending color="#15317E" fontSize="medium" />
+  //         </span>
+  //       ),
+  //     },
      
-      {
-        id: 5.4,
-        navLink: "/game-withdrawl-request/approved-request",
-        navItem: "Approved Request",
-        navIcon: (
-          <span>
-            <Approval color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
-    ],
-  },
+  //     {
+  //       id: 5.4,
+  //       navLink: "/game-withdrawl-request/approved-request",
+  //       navItem: "Approved Request",
+  //       navIcon: (
+  //         <span>
+  //           <Approval color="#15317E" fontSize="medium" />
+  //         </span>
+  //       ),
+  //     },
+  //   ],
+  // },
   {
     id: 6,
     navLink: "/welcomebonus",
@@ -308,6 +308,40 @@ export const all_Data = [
     
     ],
   },
+  {
+    id: 11,
+    navLink: "/zp_token",
+    navItem: "Zp Token",
+    navIcon: (
+      <span>
+        <Games color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [
+      {
+        id: 11.1,
+        navLink: "/zp_token",
+        navItem: "Paying",
+        navIcon: (
+          <span>
+            <PlayCircleFilledSharp color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 11.2,
+        navLink: "/zp_token_payout",
+        navItem: "Payout",
+        navIcon: (
+          <span>
+            <ColorizeRounded color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+    
+    ],
+  },
+
   {
     id: 22,
     navLink: "/upline_team",

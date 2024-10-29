@@ -67,6 +67,7 @@ export const endpoint = {
   withdrawal_address_usdt: `${game_domain}/api/v1/add-usdt-address`,
   get_address_list: `${game_domain}/api/v1/usdt-address-record`,
   withdrawl_usdt_history: `${game_domain}/api/v1/withdrawal-history-usdt`,
+  cashback_bonus: `${game_domain}/api/v1/getCashBack-report`,
 
   total_withdrawal_bet: `${baseUrl}/api/total_withdrawal_bet`,
   my_team_level: `${baseUrl}/api/my_team`,

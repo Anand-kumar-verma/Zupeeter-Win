@@ -42,6 +42,7 @@ const Dashboard = () => {
     () => dashboard_counter_function(),
     {
       refetchOnMount: false,
+      refetchOnWindowFocus:false,
       refetchOnReconnect: true,
     }
   );
@@ -52,6 +53,7 @@ const Dashboard = () => {
     () => registrationCahrt(),
     {
       refetchOnMount: false,
+      refetchOnWindowFocus:false,
       refetchOnReconnect: true,
     }
   );
@@ -62,6 +64,7 @@ const Dashboard = () => {
     () => businessChart(),
     {
       refetchOnMount: false,
+      refetchOnWindowFocus:false,
       refetchOnReconnect: true,
     }
   );
@@ -69,18 +72,21 @@ const Dashboard = () => {
 
   const { data: trx } = useQuery(["trxchart"], () => trxChart(), {
     refetchOnMount: false,
+    refetchOnWindowFocus:false,
     refetchOnReconnect: true,
   });
   const trxnew_data = trx?.data?.data || [];
 
   const { data: wingo } = useQuery(["wingochart"], () => wingoChart(), {
     refetchOnMount: false,
+    refetchOnWindowFocus:false,
     refetchOnReconnect: true,
   });
   const wingonew_data = wingo?.data?.data || [];
 
   const { data: aviator } = useQuery(["aviatorchart"], () => aviatorChart(), {
     refetchOnMount: false,
+    refetchOnWindowFocus:false,
     refetchOnReconnect: true,
   });
   const aviatornew_data = aviator?.data?.data || [];
@@ -427,6 +433,18 @@ const Dashboard = () => {
       item: "Total Rejected Withdrawal",
       icon: <AddBusinessIcon className="!h-[5rem] !w-[5rem] !text-[#2a2785]" />,
       count: dashboard_new_data?.total_rejected_withdrawal || 0,
+    },
+    {
+      id: 16,
+      item: "Deposit Token",
+      icon: <AddBusinessIcon className="!h-[5rem] !w-[5rem] !text-[#2a2785]" />,
+      count: dashboard_new_data?.total_payin_token || 0,
+    },
+    {
+      id: 17,
+      item: "Withdrawal Token",
+      icon: <AddBusinessIcon className="!h-[5rem] !w-[5rem] !text-[#2a2785]" />,
+      count: dashboard_new_data?.total_payout_token || 0,
     },
   ];
   if (isLoading)

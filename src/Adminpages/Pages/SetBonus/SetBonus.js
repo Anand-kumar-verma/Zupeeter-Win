@@ -16,7 +16,7 @@ import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.MuiTableCell-head`]: {
@@ -44,6 +44,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 //   {Number(ownaddress?.token_amnt)?.toFixed(4)}
 
 const SetBonus = () => {
+
+    const client = useQueryClient()
     const [loading, setLoading] = useState(false);
     const [amounts, setAmounts] = useState({});
     const handleReset = () => {
@@ -59,6 +61,7 @@ const SetBonus = () => {
             const res = await axiosInstance.post(`${API_URLS?.zp_Amount}`, req);
             toast.success(res?.data?.msg);
             if (res?.data?.msg === "Updated successfully.") {
+                client.refetchQueries("address_own")
                 handleReset();
             }
             console.log(res);
@@ -91,7 +94,7 @@ const SetBonus = () => {
 
     const tableHead = [
         "S.No.",
-        "Bonus",
+        "Token",
         "Unit",
         "Amount",
         "Enter Amount",
