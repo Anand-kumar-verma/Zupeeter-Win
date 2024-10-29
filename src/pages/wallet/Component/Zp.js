@@ -138,8 +138,7 @@ function Zp() {
     setLoding(false);
   }
   async function sendTokenTransaction() {
-   if(!walletAddress) 
-    return toast("Plese Connect your wallet.")
+    if (!walletAddress) return toast("Plese Connect your wallet.");
     setLoding(true);
     if (!window.ethereum) {
       toast("MetaMask not detected");
