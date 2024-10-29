@@ -94,6 +94,7 @@ export const getUserList = async (reqBody) => {
   }
 };
 export const candidateName = async (reqBody) => {
+  console.log(reqBody);
   try {
     const res = await axiosInstance.get(
       API_URLS?.get_name_code,
@@ -163,6 +164,19 @@ export const getDailySalaryBonus = async (reqBody) => {
   try {
     const res = await axiosInstance.get(
       API_URLS?.daily_salary_bonus_data,
+      {
+        params: reqBody,
+      }
+    );
+    return res;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export const getgiftBonus = async (reqBody) => {
+  try {
+    const res = await axiosInstance.get(
+      API_URLS?.gift_bonus_data,
       {
         params: reqBody,
       }

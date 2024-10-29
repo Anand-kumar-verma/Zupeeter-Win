@@ -67,279 +67,277 @@ import Zpdeposithistory from "../pages/wallet/Component/zpdeposithoistory";
 import ZpWithdrawlhistory from "../pages/wallet/Component/ZpWithdrawalhistory";
 import CashBackBonus from "../pages/income/incomeSubSection/CashbackBonus";
 
-
 export const routes = [
-   
-    {
-        path:"/RiskDisclosureAgreement",
-        element:<RiskDisclosureAgreement />
-    },
-    {
-        path:"/zp",
-        element:<Zp />
-    },
-    {
-        path:"/zp-withdrawal",
-        element:<ZpWithdrawal />
-    },
-    {
-        path:"/usdt-address",
-        element:<UsdtDetails />
-    },
-    {
-        path:"/usdt-withdrawl-request",
-        element:<USDTWithdrawlRequest />
-    },
-    {
-        path:"/qr-screen-usdt",
-        element:<QRSCREENUSDT />
-    },
-    {
-        path:"/usdt-deposit",
-        element:<USDTDeposit />
-    },
-    {
-        path:"/supportPage",
-        element:<SupportPage />
-    },
-    {
-        path:"/ticket",
-        element:<Ticket/>
-    },
-    {
-        path:"/dashboard",
-        element:<Dashboard />
-    },
-    {
-        path:"/withdrawlhistory",
-        element:<Withdrawlhistory />
-    },
-    {
-        path:"/depositehistory",
-        element:<Depositehistory />
-    },
-    {
-        path:"/promotion",
-        element:<Promotion />
-    },
-    {
-        path:"/wallet",
-        element:<Wallet />
-    },
-    {
-        path:"/bankcard",
-        element:<Bankaccount />
-    },
-    {
-        path:"/addbankaccount",
-        element:<AddBankAccount />
-    },
-    {
-        path:"/account",
-        element:<Account />
-    },
-    {
-        path:"/activity",
-        element:<Activity />
-    },
-    {
-        path:"/wingo",
-        element:<Wingo />
-    },
-    {
-        path:"/trx",
-        element:<TRX />
-    },
-    {
-        path:"/k3",
-        element:<K3 />
-    },
-    {
-        path:"/D5lotre",
-        element:<D5lotre />
-    },
-    {
-        path:"/CustomerService",
-        element:<Contactus />
-    },
-    {
-        path:"/ServiceCollections",
-        element:<ServiceCollections />
-    },
-    {
-        path:"/comingsoon",
-        element:<ComingSoon />
-    },
-    {
-        path:"/comingsoonavaitor",
-        element:<Soon />
-    },
-    {
-        path:"/withdraw",
-        element:<Withdraval />
-    },
-    {
-        path:"/gift",
-        element:<Gift />
-    },
-    {
-        path:"/deposit",
-        element:<Deposite />
-    },
-    {
-        path:"/trx/tron-scan",
-        element:<TronScanPage />
-    },
-    {
-        path:"/bank",
-        element:<BankDetails />
-    },
-    {
-        path:"/banks-details",
-        element:<Banks />
-    },
-    {
-        path:"/banks-upi",
-        element:<UPIDetails />
-    },
-    {
-        path:"/ico-token",
-        element:<ICOToken />
-    },
-    {
-        path:"/fund-main",
-        element:<FundMain />
-    },
-    {
-        path:"/fund-report",
-        element:<FundReport />
-    },
-    {
-        path:"/fund-transfer",
-        element:<FundTransfer />
-    },
-    {
-        path:"/fund-recieve",
-        element:<FundRecieve />
-    },
-    {
-        path:"/view-salary-income",
-        element:<ViewSalaryIncome />
-    },
-    {
-        path:"/upi-deposit-token",
-        element:<UPIDepositToken />
-    },
-    {
-        path:"/zupeeter-token",
-        element:<ZupeeterTokenReport />
-    },
-    {
-        path:"/account/income-main/registration-bonus",
-        element:<RegistrationBonus />
-    },
-    {
-        path:"/account/income-main",
-        element:<MainPageOFIncome />
-    },
-    {
-        path:"/account/income-main/referral-bonus",
-        element:<ReferralBonus />
-    },
-    {
-        path:"/account/income-main/team-betting-bonus",
-        element:<TeamBettingBonus />
-    },
-    {
-        path:"/account/income-main/team-salary-bonus",
-        element:<TeamSalaryBonus />
-    },
-    {
-        path:"/account/income-main/royality-bonus",
-        element:<RoyalityBonus />
-    },
-    {
-        path:"/account/income-main/level-bonus",
-        element:<LevelBonus />
-    },
-    {
-        path:"/account/income-main/ico-level-bonus",
-        element:<ICOLevelBonus />
-    },
-    {
-        path:"/account/income-main/cashback-bonus",
-        element:<CashBackBonus />
-    },
-    {
-        path:"/account/income-main/betting-bonus",
-        element:<BettingBonus />
-    },
-    {
-        path:"/account/income-main/my-team",
-        element:<AllLevelOfTeam />
-    },
-    {
-        path:"/account/income-main/my-team/levels",
-        element:<Tables />
-    },
-    {
-        path:"/usdtaddress",
-        element:<AddAddressUsdt />
-    },
-    {
-        path:"/account/Teamincome",
-        element:<TeamIncome />
-    },
-    {
-        path:"/p2p",
-        element:<P2PTransfer />
-    },
-    {
-        path:"/promotion/TeamReport",
-        element:<TeamReport />
-    },
-    {
-        path:"/promotion/Teamdata",
-        element:<TeamData />
-    },
-    {
-        path:"/promotion/MyCommission",
-        element:<MyCommission />
-    },
-    {
-        path:"/promotion/Subordinates",
-        element:<Subordinates />
-    },
-    {
-        path:"/promotion/Server",
-        element:<Server />
-    },
-    {
-        path:"/promotion/Rebate",
-        element:<RebateRatio />
-    },
-    {
-        path:"/promotion/PromotionRule",
-        element:<PromotionRule />
-    },
-    {
-        path:"password",
-        element:<ChangePassword />
-    },
-    {
-        path:"/password/account",
-        element:<AccountPassword />
-    },
-    {
-        path:"/password/transction",
-        element:<TransactionPassword />
-    },
-    {
-        path:"/zpdeposit",
-        element:<Zpdeposithistory />
-    },
-    {
-        path:"/zpwithdraw",
-        element:<ZpWithdrawlhistory />
-    },
-]
+  {
+    path: "/RiskDisclosureAgreement",
+    element: <RiskDisclosureAgreement />,
+  },
+  {
+    path: "/zp",
+    element: <Zp />,
+  },
+  {
+    path: "/zp-withdrawal",
+    element: <ZpWithdrawal />,
+  },
+  {
+    path: "/usdt-address",
+    element: <UsdtDetails />,
+  },
+  {
+    path: "/usdt-withdrawl-request",
+    element: <USDTWithdrawlRequest />,
+  },
+  {
+    path: "/qr-screen-usdt",
+    element: <QRSCREENUSDT />,
+  },
+  {
+    path: "/usdt-deposit",
+    element: <USDTDeposit />,
+  },
+  {
+    path: "/supportPage",
+    element: <SupportPage />,
+  },
+  {
+    path: "/ticket",
+    element: <Ticket />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/withdrawlhistory",
+    element: <Withdrawlhistory />,
+  },
+  {
+    path: "/depositehistory",
+    element: <Depositehistory />,
+  },
+  {
+    path: "/promotion",
+    element: <Promotion />,
+  },
+  {
+    path: "/wallet",
+    element: <Wallet />,
+  },
+  {
+    path: "/bankcard",
+    element: <Bankaccount />,
+  },
+  {
+    path: "/addbankaccount",
+    element: <AddBankAccount />,
+  },
+  {
+    path: "/account",
+    element: <Account />,
+  },
+  {
+    path: "/activity",
+    element: <Activity />,
+  },
+  {
+    path: "/wingo",
+    element: <Wingo />,
+  },
+  {
+    path: "/trx",
+    element: <TRX />,
+  },
+  {
+    path: "/k3",
+    element: <K3 />,
+  },
+  {
+    path: "/D5lotre",
+    element: <D5lotre />,
+  },
+  {
+    path: "/CustomerService",
+    element: <Contactus />,
+  },
+  {
+    path: "/ServiceCollections",
+    element: <ServiceCollections />,
+  },
+  {
+    path: "/comingsoon",
+    element: <ComingSoon />,
+  },
+  {
+    path: "/comingsoonavaitor",
+    element: <Soon />,
+  },
+  {
+    path: "/withdraw",
+    element: <Withdraval />,
+  },
+  {
+    path: "/gift",
+    element: <Gift />,
+  },
+  {
+    path: "/deposit",
+    element: <Deposite />,
+  },
+  {
+    path: "/trx/tron-scan",
+    element: <TronScanPage />,
+  },
+  {
+    path: "/bank",
+    element: <BankDetails />,
+  },
+  {
+    path: "/banks-details",
+    element: <Banks />,
+  },
+  {
+    path: "/banks-upi",
+    element: <UPIDetails />,
+  },
+  {
+    path: "/ico-token",
+    element: <ICOToken />,
+  },
+  {
+    path: "/fund-main",
+    element: <FundMain />,
+  },
+  {
+    path: "/fund-report",
+    element: <FundReport />,
+  },
+  {
+    path: "/fund-transfer",
+    element: <FundTransfer />,
+  },
+  {
+    path: "/fund-recieve",
+    element: <FundRecieve />,
+  },
+  {
+    path: "/view-salary-income",
+    element: <ViewSalaryIncome />,
+  },
+  {
+    path: "/upi-deposit-token",
+    element: <UPIDepositToken />,
+  },
+  {
+    path: "/zupeeter-token",
+    element: <ZupeeterTokenReport />,
+  },
+  {
+    path: "/account/income-main/registration-bonus",
+    element: <RegistrationBonus />,
+  },
+  {
+    path: "/account/income-main",
+    element: <MainPageOFIncome />,
+  },
+  {
+    path: "/account/income-main/referral-bonus",
+    element: <ReferralBonus />,
+  },
+  {
+    path: "/account/income-main/team-betting-bonus",
+    element: <TeamBettingBonus />,
+  },
+  {
+    path: "/account/income-main/team-salary-bonus",
+    element: <TeamSalaryBonus />,
+  },
+  {
+    path: "/account/income-main/royality-bonus",
+    element: <RoyalityBonus />,
+  },
+  {
+    path: "/account/income-main/level-bonus",
+    element: <LevelBonus />,
+  },
+  {
+    path: "/account/income-main/ico-level-bonus",
+    element: <ICOLevelBonus />,
+  },
+  {
+    path: "/account/income-main/betting-bonus",
+    element: <BettingBonus />,
+  },
+  {
+    path: "/account/income-main/my-team",
+    element: <AllLevelOfTeam />,
+  },
+  {
+    path: "/account/income-main/my-team/levels",
+    element: <Tables />,
+  },
+  {
+    path: "/usdtaddress",
+    element: <AddAddressUsdt />,
+  },
+  {
+    path: "/account/Teamincome",
+    element: <TeamIncome />,
+  },
+  {
+    path: "/p2p",
+    element: <P2PTransfer />,
+  },
+  {
+    path: "/promotion/TeamReport",
+    element: <TeamReport />,
+  },
+  {
+    path: "/promotion/Teamdata",
+    element: <TeamData />,
+  },
+  {
+    path: "/promotion/MyCommission",
+    element: <MyCommission />,
+  },
+  {
+    path: "/promotion/Subordinates",
+    element: <Subordinates />,
+  },
+  {
+    path: "/promotion/Server",
+    element: <Server />,
+  },
+  {
+    path: "/promotion/Rebate",
+    element: <RebateRatio />,
+  },
+  {
+    path: "/promotion/PromotionRule",
+    element: <PromotionRule />,
+  },
+  {
+    path: "password",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/password/account",
+    element: <AccountPassword />,
+  },
+  {
+    path: "/password/transction",
+    element: <TransactionPassword />,
+  },
+  {
+    path: "/zpdeposit",
+    element: <Zpdeposithistory />,
+  },
+  {
+    path: "/zpwithdraw",
+    element: <ZpWithdrawlhistory />,
+  },
+  {
+    path: "/account/income-main/cashback-bonus",
+    element: <CashBackBonus />,
+  },
+];

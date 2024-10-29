@@ -2,14 +2,14 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Button, TablePagination, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { getDailyLevelBonus, getLevelBonus } from "../../Services";
+import { getDailyWeeklyBonus, getWeeklyBonus } from "../../Services";
 import CustomTable from "../../Shared/CustomTable";
 import moment from "moment";
 import { FilterAlt } from "@mui/icons-material";
 import axiosInstance from "../../config/axios";
 import { API_URLS } from "../../config/APIUrls";
 
-const LevelBonus = () => {
+const WeeklyBonus = () => {
   const [loding, setloding] = useState(false);
     const [data, setData] = useState([]);
     const [from_date, setFrom_date] = useState("");
@@ -19,10 +19,10 @@ const LevelBonus = () => {
     const [visibleRows, setVisibleRows] = React.useState([]);
     const [search, setSearch] = useState("");
 
-    const LevelBonus = async () => {
+    const WeeklyBonus = async () => {
         setloding(true);
         try {
-          const res = await axiosInstance.post(API_URLS?.level_bonus_data, {
+          const res = await axiosInstance.post(API_URLS?.weekly_bonus_data, {
             start_date: from_date,
             end_date: to_date,
             search: search,
@@ -101,7 +101,7 @@ const LevelBonus = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button
-                    onClick={() => LevelBonus()}
+                    onClick={() => WeeklyBonus()}
                     variant="contained"
                     startIcon={<FilterAlt />}
                 >
@@ -126,4 +126,4 @@ const LevelBonus = () => {
     );
 };
 
-export default LevelBonus;
+export default WeeklyBonus;

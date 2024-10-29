@@ -40,7 +40,7 @@ export default function MobileNavigation() {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className={"!bg-white !bg-opacity-50"}>
+      <AppBar position="static" className={" !bg-white !bg-opacity-50"}>
         <Toolbar>
           <IconButton
             size="large"

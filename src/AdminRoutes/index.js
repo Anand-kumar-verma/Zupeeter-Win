@@ -18,9 +18,14 @@ import BetBonus from "../Adminpages/Pages/genealogy/BetBonus";
 import DailySalaryBonus from "../Adminpages/Pages/genealogy/DailySalaryBonus";
 import DepositBonus from "../Adminpages/Pages/genealogy/DepositeBonus";
 import DownLine from "../Adminpages/Pages/genealogy/DownLine";
+import GiftBonus from "../Adminpages/Pages/genealogy/GiftBonus";
 import LevelBonus from "../Adminpages/Pages/genealogy/LevelBonus";
 import RoiBonus from "../Adminpages/Pages/genealogy/RoiBonus";
+import SalaryBonus from "../Adminpages/Pages/genealogy/SailaryBonus";
 import SelfDepositBonus from "../Adminpages/Pages/genealogy/SelfDepositBonus";
+import TeamReferral from "../Adminpages/Pages/genealogy/TeamRefferral";
+import VipBonus from "../Adminpages/Pages/genealogy/VipBonus";
+import WeeklyBonus from "../Adminpages/Pages/genealogy/WeeklyBonus";
 import WelcomeBonus from "../Adminpages/Pages/genealogy/WelcomeBonus";
 import UserPermission from "../Adminpages/Pages/Permission/Userpermission";
 import AddPlayer from "../Adminpages/Pages/player/AddPlayer";
@@ -128,7 +133,13 @@ export const adminroutes = [
     id: 15,
     path: "/selfdepositBonus",
     component: <SelfDepositBonus/>,
-    navItem: "Self Deposit Bonus",
+    navItem: "First Deposit Bonus",
+  },
+  {
+    id: 15,
+    path: "/teamreferal",
+    component: <TeamReferral/>,
+    navItem: "Team Referral First",
   },
   {
     id: 16,
@@ -141,6 +152,30 @@ export const adminroutes = [
     path: "/dailysalaryBonus",
     component: <DailySalaryBonus/>,
     navItem: "Daily Salary Bonus",
+  },
+  {
+    id: 17,
+    path: "/giftBonus",
+    component: <GiftBonus/>,
+    navItem: "Gift Bonus",
+  },
+  {
+    id: 41,
+    path: "/salarybonus",
+    component: <SalaryBonus/>,
+    navItem: "Salary Bonus",
+  },
+  {
+    id: 42,
+    path: "/weeklybonus",
+    component: <WeeklyBonus/>,
+    navItem: "Weekly Recovery",
+  },
+  {
+    id: 42,
+    path: "/vipbonus",
+    component: <VipBonus/>,
+    navItem: "Vip Bonus",
   },
   {
     id: 18,

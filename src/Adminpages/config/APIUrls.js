@@ -29,10 +29,16 @@ export const API_URLS = {
     welcome_bonus: `/api/v1/tget-wlcm-bonus-admin-data`,
     deposit_bonus_data: `/api/v1/tget-dpst-bonus-admin-data`,
     self_deposit_bonus_data: `/api/v1/tget-slf-dpst-bonus-admin-data`,
+   team_referal_bonus_data: `/api/v1/getTeamReferralFirstListAdmin`,
     roi_bonus_data: `/api/v1/tget-roi-bonus-admin-data`,
     daily_salary_bonus_data: `/api/v1/tget-daily-salary-bonus-admin-data`,
+    gift_bonus_data: `/api/v1/gift-bonus-list-admin`,
+    salary_bonus_data: `/api/v1/tget-daily-salary-bonus-admin-data`,
+    weekly_bonus_data: `/api/v1/tget-weekly-recovery-admin-data`,
     bet_bonus_data: `/api/v1/tget-bet-income-bonus-admin-data`,
     level_bonus_data: `/api/v1/tget-level-income-bonus-admin-data`,
+    vip_bonus_data: `/api/v1 vip-bonus-list-admin`,
+   
     //chart
     business_chart: `/api/v1/user-business-status-bar-chart`,
     registration_chart: `/api/v1/user-registration-status-bar-chart`,

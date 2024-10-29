@@ -101,9 +101,9 @@ function Withdraval() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
     }
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
@@ -114,9 +114,9 @@ function Withdraval() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -128,9 +128,9 @@ function Withdraval() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
     }
   );
   const game_history_data = React.useMemo(
@@ -186,8 +186,13 @@ function Withdraval() {
             position: "relative",
           }}
         >
-            <Box component="img" src={backbtn} width={25} onClick={()=>navigate('/account')}></Box>
-        
+          <Box
+            component="img"
+            src={backbtn}
+            width={25}
+            onClick={() => navigate("/account")}
+          ></Box>
+
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
               variant="body1"
@@ -278,8 +283,8 @@ function Withdraval() {
             </Typography>
           </Stack>
           <Stack
-          onClick={()=>navigate("/zp-withdrawal")}
-          className={"!cursor-pointer"}
+            onClick={() => navigate("/zp-withdrawal")}
+            className={"!cursor-pointer"}
             sx={{
               width: "120px",
               background: "#FFFFFF",
@@ -442,7 +447,7 @@ function Withdraval() {
               {/* ₹{wallet_amount_data || 0} */}
             </Typography>
           </Stack>
-       
+
           <Button
             variant="Outlined"
             color="primary"
@@ -481,7 +486,7 @@ function Withdraval() {
             ₹ 0.00
           </Typography>
         </Stack>
-      
+
         <Button
           sx={style.wdbtn}
           className={`${
@@ -532,8 +537,7 @@ function Withdraval() {
               to be able to withdraw{" "}
             </Typography>
           </Stack>
-      
-        
+
           <Stack direction="row" alignItems="center" mt={1}>
             <Box
               sx={{

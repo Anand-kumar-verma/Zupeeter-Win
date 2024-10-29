@@ -160,7 +160,7 @@ export const all_Data = [
       {
         id: 6.3,
         navLink: "/selfdepositBonus",
-        navItem: "Self Deposit Bonus",
+        navItem: "First Deposit Bonus",
         navIcon: (
           <span>
             <SelfImprovement color="#15317E" fontSize="medium" />
@@ -204,6 +204,56 @@ export const all_Data = [
         navIcon: (
           <span>
             <LeakRemoveOutlined color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.5,
+        navLink: "/giftBonus",
+        navItem: "Gift Bonus",
+        navIcon: (
+          <span>
+            <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.5,
+        navLink: "/salarybonus",
+        navItem: "Salary Bonus",
+        navIcon: (
+          <span>
+            <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.5,
+        navLink: "/weeklybonus",
+        navItem: "Weekly Recovery",
+        navIcon: (
+          <span>
+            <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.6,
+        navLink: "/vipbonus",
+        navItem: "Vip Bonus",
+        navIcon: (
+          <span>
+            <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.6,
+        navLink: "/teamreferal",
+        navItem: "Team Referral First",
+        navIcon: (
+          <span>
+            <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
           </span>
         ),
       },
@@ -261,6 +311,7 @@ export const all_Data = [
           </span>
         ),
       },
+     
     ],
   },
  
