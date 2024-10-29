@@ -551,7 +551,7 @@ const style = {
     fontWeight: "700",
     fontSize: "15px",
     height: "0.93333rem",
-    width: "100%",
+    // width: "100%",
     // background:
     //   "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
     backgroundSize: "100% 100%, 100% 100%",

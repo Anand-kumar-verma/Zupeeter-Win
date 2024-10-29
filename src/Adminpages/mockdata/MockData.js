@@ -77,7 +77,7 @@ export const all_Data = [
   {
     id: 5,
     navLink: "/game-withdrawl-request",
-    navItem: " Withdrawl Request",
+    navItem: " Withdrawal Request",
     navIcon: (
       <span>
         <FormatShapesIcon color="#15317E" fontSize="medium" />
@@ -87,7 +87,7 @@ export const all_Data = [
       {
         id: 5.1,
         navLink: "/game-withdrawl-request",
-        navItem: "Withdrawl Request",
+        navItem: "Withdrawal Request",
         navIcon: (
           <span>
             <RequestPage color="#15317E" fontSize="medium" />
