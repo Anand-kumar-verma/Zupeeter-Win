@@ -250,7 +250,7 @@ export const all_Data = [
       {
         id: 8.6,
         navLink: "/teamreferal",
-        navItem: "Team Referral First",
+        navItem: "Team Recharge Bonus",
         navIcon: (
           <span>
             <WheelchairPickupOutlined color="#15317E" fontSize="medium" />

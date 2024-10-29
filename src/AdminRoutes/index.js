@@ -139,7 +139,7 @@ export const adminroutes = [
     id: 15,
     path: "/teamreferal",
     component: <TeamReferral/>,
-    navItem: "Team Referral First",
+    navItem: "Team Recharge Bonus",
   },
   {
     id: 16,
