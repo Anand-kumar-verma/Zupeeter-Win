@@ -94,6 +94,7 @@ export const getUserList = async (reqBody) => {
   }
 };
 export const candidateName = async (reqBody) => {
+  console.log(reqBody);
   try {
     const res = await axiosInstance.get(
       API_URLS?.get_name_code,

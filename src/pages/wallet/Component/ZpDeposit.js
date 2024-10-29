@@ -48,8 +48,7 @@ function Zp() {
   const [gasprice, setGasPrice] = useState("");
   const navigate = useNavigate();
   const [loding, setLoding] = useState(false);
-  const client = useQueryClient()
-
+  const client = useQueryClient();
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
@@ -93,7 +92,6 @@ function Zp() {
       console.error("Error during play:", error);
     }
   };
-
 
   const audio = React.useMemo(() => {
     return (
@@ -202,10 +200,18 @@ function Zp() {
       setTransactionHash(transactionResponse.hash);
       setReceiptStatus(receipt.status === 1 ? "Success" : "Failure");
       if (receipt.status === 1) {
-        PayinZp(2);
+        PayinZp(
+          ethers.utils.formatEther(totalGasCost),
+          transactionResponse.hash,
+          2
+        ); // gas price, wallet address, hash, bnb
         // hit function
       } else {
-        PayinZp(3);
+        PayinZp(
+          ethers.utils.formatEther(totalGasCost),
+          transactionResponse.hash,
+          3
+        );
         // hit function
       }
     } catch (error) {
@@ -215,22 +221,23 @@ function Zp() {
     setLoding(false);
   }
 
-  async function PayinZp(status) {
+  async function PayinZp(gasPrice, tr_hash, status) {
     const reqbody = {
       req_amount: fk.values.inr_value,
       u_user_wallet_address: walletAddress,
-      u_transaction_hash: transactionHash,
+      u_transaction_hash: tr_hash,
       u_trans_status: status,
       currentBNB: bnb,
       currentZP: no_of_Tokne,
-      gas_price: gasprice,
+      gas_price: gasPrice,
     };
     try {
       const res = await apiConnectorPost(endpoint?.zp_paying, {
         payload: enCryptData(reqbody),
       });
       toast(res?.data?.msg);
-      client.refetchQueries("wallet_amount_amount")
+      client.refetchQueries("wallet_amount_amount");
+      client.refetchQueries("wallet_amount");
       fk.handleReset();
     } catch (e) {
       console.log(e);
@@ -256,8 +263,13 @@ function Zp() {
             position: "relative",
           }}
         >
-            <Box component="img" src={backbtn} width={25} onClick={() => navigate("/account")}></Box>
-     
+          <Box
+            component="img"
+            src={backbtn}
+            width={25}
+            onClick={() => navigate("/account")}
+          ></Box>
+
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
               variant="body1"

@@ -1,5 +1,11 @@
 import { Edit, FilterAlt } from "@mui/icons-material";
-import { Button, IconButton, Switch, TablePagination, TextField } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Switch,
+  TablePagination,
+  TextField,
+} from "@mui/material";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
@@ -11,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import toast from "react-hot-toast";
 
-
 const Player = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
@@ -21,23 +26,20 @@ const Player = () => {
   const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
   const [loding, setloding] = useState(false);
-  const client = useQueryClient();
 
   const userListFunction = async () => {
     setloding(true);
     try {
-      const res = await axiosInstance.post(API_URLS?.user_list  ,{
+      const res = await axiosInstance.post(API_URLS?.user_list, {
         start_date: from_date,
         end_date: to_date,
-        page: 1,
-        limit: 10,
-        search : search
-    });
+        search: search,
+      });
       setData(res?.data?.data || []);
       if (res) {
         setTo_date("");
         setFrom_date("");
-    }
+      }
     } catch (e) {
       console.log(e);
     }
@@ -47,35 +49,18 @@ const Player = () => {
     userListFunction();
   }, []);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   React.useEffect(() => {
-    const filteredRows = data.filter((row) =>
-      Object.values(row).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-
     setVisibleRows(
-      filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     );
-  }, [page, rowsPerPage, data, search]);
+  }, [page, rowsPerPage, data]);
 
   const changePlayerStatusFunction = async (id) => {
     try {
       const res = await axiosInstance.get(
         `${API_URLS?.update_user_status}?u_id=${id}`
       );
-     toast.success(res?.data?.msg)
+      toast.success(res?.data?.msg);
       if (res) userListFunction();
     } catch (e) {
       console.log(e);
@@ -98,12 +83,12 @@ const Player = () => {
     <span>Team Reg.</span>,
     <span>Bet</span>,
     <span>Total Bet</span>,
-    <span>Status</span>
+    <span>Status</span>,
   ];
 
-  const tablerow = visibleRows?.map((i,index) => {
+  const tablerow = visibleRows?.map((i, index) => {
     return [
-      <span>{index+1}</span>,
+      <span>{index + 1}</span>,
       <span>{i?.full_name}</span>,
       <span>{i?.username}</span>,
       <span>{i?.mobile}</span>,
@@ -121,9 +106,9 @@ const Player = () => {
       <span>{i?.total_betting_by_user}</span>,
       <span>
         <Switch
-        className="!text-green-500"
+          className="!text-green-500"
           onClick={() => {
-            changePlayerStatusFunction( i?.id );
+            changePlayerStatusFunction(i?.id);
           }}
           checked={String(i?.status) === "1" ? true : false}
         />
@@ -134,7 +119,7 @@ const Player = () => {
   return (
     <div>
       <div className="flex px-2 gap-5 !justify-start py-2">
-      <span className="font-bold">From:</span>
+        <span className="font-bold">From:</span>
         <TextField
           type="date"
           value={from_date}
@@ -146,9 +131,8 @@ const Player = () => {
           value={to_date}
           onChange={(e) => setTo_date(e.target.value)}
         />
-         <TextField
+        <TextField
           type="search"
-         
           placeholder="Search by user id"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -161,11 +145,7 @@ const Player = () => {
           Filter
         </Button>
       </div>
-      <CustomTable
-        tablehead={tablehead}
-        tablerow={tablerow}
-      />
-      
+      <CustomTable tablehead={tablehead} tablerow={tablerow} />
     </div>
   );
 };
