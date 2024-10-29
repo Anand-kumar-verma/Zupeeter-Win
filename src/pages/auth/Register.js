@@ -31,10 +31,13 @@ import { signupSchemaValidataon } from "../../services/validation";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 import { apiConnectorGet, apiConnectorPost } from "../../services/apiconnector";
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 
 
 function Login() {
+
+  const [visitorId, setVisitorId] = useState(null);
   const url = new URL(window.location.href);
   const [refParam, setrefParam] = useState(url.searchParams.get("ref") || "");
   const navigate = useNavigate();
@@ -73,6 +76,8 @@ function Login() {
         confirmpass: fk.values.confirmpass,
         refid: username?.id,
         name: fk.values.name,
+        u_finger_id:visitorId,
+        through: 2,
        
       };
       signupFunction(reqbody);
@@ -115,7 +120,6 @@ function Login() {
       userid: fk.values.refid,
     };
     try {
-      console.log(reqBody)
       const res = await axios.get(endpoint?.get_user_intro_name, {
         params: reqBody
       });
@@ -131,6 +135,16 @@ function Login() {
   }, [fk.values.refid]);
 
 
+  useEffect(() => {
+    // Initialize FingerprintJS and fetch the visitor ID
+    const fetchVisitorId = async () => {
+      const fp = await FingerprintJS.load();
+      const result = await fp.get();
+      setVisitorId(result.visitorId);
+    };
+
+    fetchVisitorId().catch(console.error);
+  }, []);
   return (
     <Container>
       <Box

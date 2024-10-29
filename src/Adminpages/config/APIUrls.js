@@ -41,6 +41,7 @@ export const API_URLS = {
     coupon: `/api/v1/get-admin-coupon-list`,
     add_coupon: `/api/v1/add-admin-coupon-list`,
     update_coupon_record: `/api/v1/update-admin-coupon-list?t_id=`,
+    login_approval:`api/v1/other-browser-approval-by-admin`,
 
     //close
     get_next_gameid_one_min: `/api/v1/get-bet-one-min-next-id`,

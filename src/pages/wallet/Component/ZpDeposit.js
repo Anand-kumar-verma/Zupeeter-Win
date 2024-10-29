@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
@@ -48,6 +48,9 @@ function Zp() {
   const [gasprice, setGasPrice] = useState("");
   const navigate = useNavigate();
   const [loding, setLoding] = useState(false);
+  const client = useQueryClient()
+
+
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
     () => apiConnectorGet(endpoint?.get_balance),
@@ -90,6 +93,7 @@ function Zp() {
       console.error("Error during play:", error);
     }
   };
+
 
   const audio = React.useMemo(() => {
     return (
@@ -226,6 +230,7 @@ function Zp() {
         payload: enCryptData(reqbody),
       });
       toast(res?.data?.msg);
+      client.refetchQueries("wallet_amount_amount")
       fk.handleReset();
     } catch (e) {
       console.log(e);
@@ -251,9 +256,8 @@ function Zp() {
             position: "relative",
           }}
         >
-          <NavLink onClick={() => navigate("/account")}>
-            <Box component="img" src={backbtn} width={25}></Box>
-          </NavLink>
+            <Box component="img" src={backbtn} width={25} onClick={() => navigate("/account")}></Box>
+     
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
               variant="body1"
@@ -262,7 +266,7 @@ function Zp() {
               Deposit
             </Typography>
           </Box>
-          <NavLink to="/depositehistory">
+          <NavLink to="/zpdeposit">
             <Typography
               variant="body1"
               color="initial"
@@ -546,7 +550,7 @@ const style = {
     fontWeight: "700",
     fontSize: "15px",
     height: "0.93333rem",
-    width: "100%",
+    // width: "100%",
     // background:
     //   "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
     backgroundSize: "100% 100%, 100% 100%",

@@ -105,7 +105,7 @@ const AdminLayout = ({ component, navItem, navLink, id }) => {
 
         {!isMediumScreen && (
           <span className="flex text-secondary px-2  justify-end">
-            <p>All Rights reserved to <span className="!font-bold">RIGHT TIME GAMING Software 2024</span></p>
+            <p>All Rights reserved to <span className="!font-bold">ZUPEETER WIN  GAMING Software 2024</span></p>
 
             {/* <span className="flex gap-2">
               <p>Review</p> | <p>Purchase</p> | <p>Docs</p>

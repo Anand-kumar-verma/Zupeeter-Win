@@ -1,15 +1,17 @@
-export const dummy_aviator = "http://192.168.18.183:9000";
-export const domain = "http://192.168.18.183:9000";
-export const domain_ovi_node = "https://api.zupeeter.com";
-export const game_domain = "http://192.168.18.183:9000";
-export const tokenContractAddress =
-  "0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
+export const dummy_aviator = "https://zupeeter-win-timer.onrender.com";
+export const domain = "https://zupeeter-win-timer.onrender.com";
+// export const domain_ovi_node = "https://bet.zupeeter.com";
+// export const game_domain = "https://bet.zupeeter.com";
+export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 export const rupees = "₹";
 export const zubgback = "#F48901";
-export const baseUrl = "http://192.168.18.183:9000";
-export const front_end_domain = "https://zupeeter.com";
+// export const baseUrl = "https://bet.zupeeter.com";
+export const front_end_domain = "https://play.zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
-export const download_app_url = "https://zupeeter.com/ZUPEETER.pdf";
+export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
+export const baseUrl = "http://192.168.18.183:9000";
+export const domain_ovi_node = "http://192.168.18.183:9000";
+export const game_domain = "http://192.168.18.183:9000";
 
 export const endpoint = {
   get_royality_date: `${domain_ovi_node}/get-royality-date`,
@@ -53,7 +55,10 @@ export const endpoint = {
   ticket_raised: `${game_domain}/api/v1/ticket-raised`,
   ticket_raised_history: `${game_domain}/api/v1/ticket-raised-history`,
   forget_password: `${game_domain}/api/v1/change-password`,
+  zp_payout: `${game_domain}/api/v1/zp-user-payout`,
 
+  Zp_withdrawal_history: `${game_domain}/api/v1/zp-withdrawal-history`,
+  Zp_deposit_history: `${game_domain}/api/v1/zp-deposit-history`,
   zp_own_address: `${game_domain}/api/v1/zp-payin-ownr-address`,
   zp_paying: `${game_domain}/api/v1/zp-payin-request`,
   view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,

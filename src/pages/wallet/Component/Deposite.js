@@ -62,7 +62,7 @@ function Deposite() {
     }
   );
 
-  const res = data?.data?.data|| [];
+  const res = data?.data?.data || [];
 
   useEffect(() => {
     isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
@@ -81,7 +81,7 @@ function Deposite() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
   const initialValues = {
-    amount:  0,
+    amount: 0,
     all_data: { t_id: "", amount: "", date: "" },
   };
 
@@ -164,7 +164,7 @@ function Deposite() {
       amount: Number(amnt),
     };
     const response = await apiConnectorPost(`${endpoint.payment}`, formdata);
-   
+
     setloding(false);
   }
   const navigate = useNavigate();
@@ -175,7 +175,7 @@ function Deposite() {
 
   if (deposit_req_data) {
     window.open(deposit_req_data);
-  } 
+  }
 
   const handlePlaySound = async () => {
     try {
@@ -223,9 +223,8 @@ function Deposite() {
             position: "relative",
           }}
         >
-         <NavLink onClick={()=>navigate('/account')}>
-            <Box component="img" src={backbtn} width={25}></Box>
-          </NavLink>
+          <Box component="img" src={backbtn} width={25} onClick={() => navigate('/account')}></Box>
+
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
               variant="body1"
@@ -240,7 +239,7 @@ function Deposite() {
               color="initial"
               sx={{ fontSize: "11px", color: "white" }}
             >
-              <History/>
+              <History />
             </Typography>
           </NavLink>
         </Stack>
@@ -268,12 +267,12 @@ function Deposite() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-            ₹
-                {(
-                  Number(
-                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
-                  ) || 0
-                )?.toFixed(2)}{" "}
+              ₹
+              {(
+                Number(
+                  Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                ) || 0
+              )?.toFixed(2)}{" "}
             </Typography>
             <Box
               component="img"
@@ -291,14 +290,14 @@ function Deposite() {
       <Box sx={{ mt: 2, px: 2 }}>
         <Stack direction="row">
           <Stack
-        sx={{
-          background:
-            "-webkit-linear-gradient(top, #e97e0f 0%, #fcbc42 100%)",
-          padding: 2,
-          borderRadius: 2,
-          mr: 2,
-          width: "120px",
-        }}
+            sx={{
+              background:
+                "-webkit-linear-gradient(top, #e97e0f 0%, #fcbc42 100%)",
+              padding: 2,
+              borderRadius: 2,
+              mr: 2,
+              width: "120px",
+            }}
           >
             <Box
               component="img"
@@ -320,7 +319,7 @@ function Deposite() {
             </Typography>
           </Stack>
           <Stack
-            onClick={()=>navigate("/zp")}
+            onClick={() => navigate("/zp")}
             sx={{
               width: "120px",
               background: "#FFFFFF",
@@ -330,7 +329,7 @@ function Deposite() {
               boxShadow:
                 " rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
             }}
-          className={"!cursor-pointer"}>
+            className={"!cursor-pointer"}>
             <Box
               component="img"
               src={zp}
@@ -397,8 +396,10 @@ function Deposite() {
           </Button>
           <Button
             sx={style.paytmbtn}
-            onClick={() => { setDeposit_req_data(null);
-              formik.setFieldValue("amount", 1000)}}
+            onClick={() => {
+              setDeposit_req_data(null);
+              formik.setFieldValue("amount", 1000)
+            }}
           >
             ₹ 1K
           </Button>

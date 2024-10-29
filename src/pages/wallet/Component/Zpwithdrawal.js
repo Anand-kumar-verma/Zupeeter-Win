@@ -1,16 +1,16 @@
 import { History } from "@mui/icons-material";
 import {
-    Box,
-    Button,
-    Container,
-    IconButton,
-    InputBase,
-    Paper,
-    Stack,
-    Typography
+  Box,
+  Button,
+  Container,
+  IconButton,
+  InputBase,
+  Paper,
+  Stack,
+  Typography
 } from "@mui/material";
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
@@ -21,12 +21,14 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet } from "../../../services/apiconnector";
+import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
+import { useFormik } from "formik";
+import { enCryptData } from "../../../shared/secret";
 
 const tokenABI = [
   // balanceOf function ABI
@@ -35,16 +37,16 @@ const tokenABI = [
   "function transfer(address to, uint256 amount) returns (bool)",
 ];
 function ZpWithdrawal() {
-  
+
   const audioRefMusic = React.useRef(null);
-  const [amount, setAmount] = useState("100");
   const [address, setAddress] = useState();
-  const [transactionhash, setTransactionhash] = useState();
+  const [transactionhash, setTransactionHash] = useState();
   const [status, setStatus] = useState();
   const [loding, setLoding] = useState(false);
 
 
   const navigate = useNavigate();
+  const client = useQueryClient()
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
@@ -59,10 +61,27 @@ function ZpWithdrawal() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
+  const { data: walletaddress } = useQuery(
+    ["address_own"],
+    () => apiConnectorGet(endpoint?.zp_own_address), {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    retryOnMount: false,
+    refetchOnWindowFocus: false,
+  }
+  )
+  const ownaddress = walletaddress?.data?.data?.[0]
+
   React.useEffect(() => {
     handlePlaySound();
   }, []);
 
+  const fk = useFormik({
+    initialValues: {
+      inr_value: "",
+    },
+  });
   async function requestAccount() {
     setLoding(true);
     if (window.ethereum) {
@@ -74,19 +93,11 @@ function ZpWithdrawal() {
         setAddress(userAccount);
         // Create a provider
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-        // Get the native token balance (BNB)
-        // const nativeBalance = await provider.getBalance(userAccount);
-        // setBnb(ethers.utils.formatEther(nativeBalance));
-        // Create a contract instance for the ZP token
         const tokenContract = new ethers.Contract(
           tokenContractAddress,
           tokenABI,
           provider
         );
-        // Get the balance of the ZP token for the user account
-        // const tokenBalance = await tokenContract.balanceOf(userAccount);
-        // setno_of_Tokne(ethers.utils.formatUnits(tokenBalance, 18));
       } catch (error) {
         toast("Error connecting...", error);
       }
@@ -95,8 +106,38 @@ function ZpWithdrawal() {
     }
     setLoding(false);
   }
+  async function PayinZp() {
+    if (!address)
+      return toast("Please connect Your Wallet")
+    setLoding(true)
 
-  
+    if (!fk.values.inr_value) {
+      setLoding(false);
+      return toast("Enter Amount")
+    }
+    const reqbody = {
+      inr_amount: fk.values.inr_value,
+      receiver_kay: address,
+    }
+
+    try {
+      const res = await apiConnectorPost(endpoint?.zp_payout,
+        {
+          payload: enCryptData(reqbody),
+        }
+      );
+      toast(res?.data?.msg);
+      setTransactionHash(res?.data?.transaction_hash)
+      setStatus(res?.data?.transaction_status)
+      client.refetchQueries("wallet_amount_amount")
+      client.refetchQueries("zp_withdrawl_history")
+      setLoding(false);
+      fk.handleReset();
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause) {
@@ -122,7 +163,7 @@ function ZpWithdrawal() {
   return (
     <Container sx={{ background: "#F7F8FF" }}>
       {audio}
-      <CustomCircularProgress isLoading={isLoading } />
+      <CustomCircularProgress isLoading={isLoading || loding} />
       <Box
         sx={{
           background:
@@ -138,25 +179,24 @@ function ZpWithdrawal() {
             position: "relative",
           }}
         >
-          <NavLink onClick={()=>navigate('/account')}>
-            <Box component="img" src={backbtn} width={25}></Box>
-          </NavLink>
+         
+         <Box component="img" src={backbtn} width={25}  onClick={() => navigate('/account')}></Box>
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
               variant="body1"
               sx={{ color: "white", fontSize: "16px", fontWeight: "600" }}
             >
-              
-            Withdrawal
+
+              Withdrawal
             </Typography>
           </Box>
-          <NavLink to="/withdrawlhistory">
+          <NavLink to="/zpwithdraw">
             <Typography
               variant="body1"
               color="initial"
               sx={{ fontSize: "11px", color: "white" }}
             >
-              <History/>
+              <History />
             </Typography>
           </NavLink>
         </Stack>
@@ -185,10 +225,10 @@ function ZpWithdrawal() {
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
               ₹  {(
-                  Number(
-                    Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
-                  ) || 0
-                )?.toFixed(2)}{" "}
+                Number(
+                  Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                ) || 0
+              )?.toFixed(2)}{" "}
             </Typography>
             <Box
               component="img"
@@ -204,20 +244,20 @@ function ZpWithdrawal() {
         </Box>
       </Box>
 
-     
+
       <Box sx={{ mt: 2, px: 2 }}>
         <Stack direction="row">
           <Stack
-          onClick={()=>navigate("/withdraw")}
-          sx={{
-            width: "120px",
-            background: "#FFFFFF",
-            padding: 2,
-            borderRadius: 2,
-            mr: 2,
-            boxShadow:
-              " rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
-          }}
+            onClick={() => navigate("/withdraw")}
+            sx={{
+              width: "120px",
+              background: "#FFFFFF",
+              padding: 2,
+              borderRadius: 2,
+              mr: 2,
+              boxShadow:
+                " rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
+            }}
           >
             <Box
               component="img"
@@ -239,8 +279,8 @@ function ZpWithdrawal() {
             </Typography>
           </Stack>
           <Stack
-          
-          className={"!cursor-pointer"}
+
+            className={"!cursor-pointer"}
             sx={{
               background:
                 "-webkit-linear-gradient(top, #e97e0f 0%, #fcbc42 100%)",
@@ -307,39 +347,40 @@ function ZpWithdrawal() {
           Connect Your Wallet
         </Button>
         <div className="my-3">
-        <div className="flex flex-wrap justify-start">
+          <div className="flex flex-wrap justify-start">
             <span className="">Address : </span>{" "}
             <span>{address}</span>
           </div>
         </div>
         <div className='!my-4'>
+          <Paper
+            component="form"
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              background: "#F2F2F2",
+              borderRadius: "20px",
+              border: "none",
+              boxShadow: "none",
+            }}
+          >
+            <IconButton sx={{ p: "10px" }} aria-label="menu">
+              <p className='text-[#F48901] !text-sm !font-bold'> INR </p>
+            </IconButton>
+            <InputBase
+              name="inr_value"
+              id="inr_value"
+              value={fk.values.inr_value}
+              onChange={fk.handleChange}
+              sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
+              placeholder="Please enter the amount"
+              inputProps={{ "aria-label": "search google maps" }}
+            />
+          </Paper>
+
+        </div>
         <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            background: "#F2F2F2",
-            borderRadius: "20px",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
-          <IconButton sx={{ p: "10px" }} aria-label="menu">
-            <p className='text-[#F48901] !text-sm !font-bold'> INR </p>
-          </IconButton>
-          <InputBase
-            name="amount"
-            id="amount"
-            value={amount}
-            sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-            placeholder="Please enter the amount"
-            inputProps={{ "aria-label": "search google maps" }}
-          />
-        </Paper>
-     
-      </div>
-      <Paper
           component="form"
           sx={{
             p: "2px 4px",
@@ -355,30 +396,31 @@ function ZpWithdrawal() {
             <p className='text-[#F48901] !text-sm !font-bold'> ZP </p>
           </IconButton>
           <InputBase
-            name="amount"
-            id="amount"
-            value={Number(Number(amount || 0) / 5.4)?.toFixed(4)}
+            value={Number(Number(fk.values.inr_value || 0) / ownaddress?.token_amnt)?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}
           />
         </Paper>
-      <Button
+        <Button
           sx={style.wdbtn1}
-        //   onClick={fk.handleSubmit}
+          onClick={PayinZp}
           className="!bg-[#F48901]"
         >
           Confirm
         </Button>
         <div className="m-3">
-        <div className=" flex  justify-start !font-bold !gap-4">
-        <p>Transaction Hash</p> <p>{transactionhash}</p>
+        <div className=" flex flex-wrap justify-start">
+            <p>Transaction Hash : </p>{" "}
+            <p className="!text-[9px] whitespace-break-spaces">
+              {transactionhash}
+            </p>
+          </div>
+          <div className="flex justify-start !font-bold !gap-4">
+            <p>Transaction Status</p> <p>{status}</p>
+          </div>
         </div>
-        <div className="flex justify-start !font-bold !gap-4">
-        <p>Transaction Status</p> <p>{status}</p>
-        </div>
-        </div>
-       </Box>
-       
+      </Box>
+
     </Container>
   );
 }
@@ -423,8 +465,8 @@ const style = {
     fontSize: "15px",
     height: "0.93333rem",
     width: "100%",
-    background:
-      "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
+    // background:
+    //   "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
     backgroundSize: "100% 100%, 100% 100%",
     backgroundPosition: "center, center",
     backgroundRepeat: "no-repeat, no-repeat",

@@ -33,6 +33,8 @@ import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
 import { apiConnectorGet } from "../../../services/apiconnector";
+import trxbg from "../../../assets/images/trxbg.png";
+
 
 function Wingo5Min() {
   const [open, setOpen] = useState(false);
@@ -206,7 +208,7 @@ function Wingo5Min() {
         <Box
           className="countdownbgtrx"
           sx={{
-            backgroundImage: `url(https://www.tcvvip11.com/assets/png/trxbg-21e5d811.png)`,
+            backgroundImage: `url(${trxbg})`,
           }}
         >
           <Box
