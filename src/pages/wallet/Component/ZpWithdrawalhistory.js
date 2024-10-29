@@ -17,10 +17,10 @@ import backbtn from "../../../assets/images/backBtn.png";
 import bankcardactive from "../../../assets/images/bankcardactive.png";
 import bankcardinactive from "../../../assets/images/bankcardinactive.png";
 import zp from "../../../assets/images/zptoken.png";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import theme from "../../../utils/theme";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
+import theme from "../../../utils/theme";
 
 function ZpWithdrawlhistory() {
   const [isAllValue, setIsAllValue] = useState(false);

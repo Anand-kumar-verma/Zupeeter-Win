@@ -8,39 +8,31 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import atmchip from "../../../assets/images/atmchip.png";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
+import { useFormik } from "formik";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
+import atmchip from "../../../assets/images/atmchip.png";
 import wallet from "../../../assets/images/atmw.png";
 import backbtn from "../../../assets/images/backBtn.png";
+import audiovoice from "../../../assets/images/bankvoice.mp3";
 import cip from "../../../assets/images/cip.png";
 import user from "../../../assets/images/instruction.png";
-import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
-import zp from "../../../assets/images/zptoken.png";
-import upiimg from "../../../assets/images/upiimg.png";
 import withdravalhistory from "../../../assets/images/withdrawalhistory.png";
-import theme from "../../../utils/theme";
-import {
-  depositHistoryFunction,
-  getBalanceFunction,
-} from "../../../services/apiCallings";
-import { useQuery } from "react-query";
+import zp from "../../../assets/images/zptoken.png";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import audiovoice from "../../../assets/images/bankvoice.mp3";
-import { useFormik } from "formik";
-import toast from "react-hot-toast";
-import axios from "axios";
-import moment from "moment";
-
-import { endpoint } from "../../../services/urls";
-import QRScreen from "./QRScreen";
-import { deCryptData } from "../../../shared/secret";
+import theme from "../../../utils/theme";
 import { History } from "@mui/icons-material";
 import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
+import { deCryptData } from "../../../shared/secret";
+import QRScreen from "./QRScreen";
 function Deposite() {
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const [isAllValue, setIsAllValue] = useState(false);

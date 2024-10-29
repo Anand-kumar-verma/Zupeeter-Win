@@ -1,12 +1,11 @@
+import { Box, Container, Typography } from "@mui/material";
 import React from "react";
-import Layout from "../../component/layout/Layout";
-import { Box, Container, Drawer, Typography } from "@mui/material";
-import theme from "../../utils/theme";
-import { ArrowDownward, ExpandMore } from "@mui/icons-material";
-import serv from "../../assets/images/server.png"
-import agn from "../../assets/images/agent.png"
-import backbtn from "../../assets/images/backBtn.png";
 import { NavLink } from "react-router-dom";
+import agn from "../../assets/images/agent.png";
+import backbtn from "../../assets/images/backBtn.png";
+import serv from "../../assets/images/server.png";
+import Layout from "../../component/layout/Layout";
+import theme from "../../utils/theme";
 
 
 const Server = () => {

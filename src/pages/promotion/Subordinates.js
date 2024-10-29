@@ -1,6 +1,5 @@
 import { ArrowDropDown, KeyboardArrowLeftOutlined } from "@mui/icons-material";
 import { Box, Container, Stack, Typography } from "@mui/material";
-import CryptoJS from "crypto-js";
 import dayjs from 'dayjs';
 import moment from "moment";
 import React from "react";

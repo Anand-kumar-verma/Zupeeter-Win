@@ -228,7 +228,7 @@ export const adminroutes = [
     id: 34,
     path: "/set_bonus",
     component: <SetBonus/>,
-    navItem: "Set Bonus ",
+    navItem: "Set ZP Amount ",
   },
   {
     id: 35,

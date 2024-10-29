@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
+import { apiConnectorGet } from "../../../services/apiconnector";
+import { endpoint } from "../../../services/urls";
+import { useQuery } from "react-query";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.MuiTableCell-head`]: {
@@ -36,6 +39,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
+
+
+//   {Number(ownaddress?.token_amnt)?.toFixed(4)}
+
 const SetBonus = () => {
     const [loading, setLoading] = useState(false);
     const [amounts, setAmounts] = useState({});
@@ -46,10 +53,10 @@ const SetBonus = () => {
         setLoading(true);
         const req = {
             t_id: id,
-            bonus_value: Number(amounts[id]) || 0,
+            zp_amount : Number(amounts[id]) || 0,
         };
         try {
-            const res = await axiosInstance.post(`${API_URLS?.bonus_set}`, req);
+            const res = await axiosInstance.post(`${API_URLS?.zp_Amount}`, req);
             toast.success(res?.data?.msg);
             if (res?.data?.msg === "Updated successfully.") {
                 handleReset();
@@ -62,18 +69,31 @@ const SetBonus = () => {
             setLoading(false);
         }
     };
+    const { data: walletaddress } = useQuery(
+        ["address_own"],
+        () => apiConnectorGet(endpoint?.zp_own_address), {
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        retryOnMount: false,
+        refetchOnWindowFocus: false,
+      }
+      )
+      const ownaddress = walletaddress?.data?.data?.[0]
+
 
     const setBonusData = [
-        { id: 1, name: "Registration", unit: "Amount" },
-        { id: 2, name: "First Deposit Bonus", unit: "Percentage" },
-        { id: 3, name: "Direct Referral Deposit Bonus", unit: "Percentage" },
-        { id: 4, name: "ROI Bonus", unit: "Percentage" },
+        { id: 1,
+             name: "Registration",
+              unit: "Amount" 
+             },
     ];
 
     const tableHead = [
         "S.No.",
         "Bonus",
         "Unit",
+        "Amount",
         "Enter Amount",
         "Action",
     ];
@@ -94,6 +114,10 @@ const SetBonus = () => {
                 component="th"
                 scope="row"
                 className="capitalize !text-center !py-[10px]">{item.unit}</StyledTableCell>
+                    <StyledTableCell
+                component="th"
+                scope="row"
+                className="capitalize !text-center !py-[10px]">{Number(ownaddress?.token_amnt)?.toFixed(4)}</StyledTableCell>
             <StyledTableCell
                 component="th"
                 scope="row"

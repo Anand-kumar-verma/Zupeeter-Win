@@ -1,6 +1,6 @@
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { Box, Container, Stack, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import CStype from '../../assets/images/CStype.png'
 import backbtn from '../../assets/images/backBtn.png'

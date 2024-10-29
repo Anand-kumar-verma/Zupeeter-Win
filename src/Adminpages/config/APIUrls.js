@@ -38,6 +38,7 @@ export const API_URLS = {
     wingo_chart: `/api/v1/user-wingo-status-area-chart`,
     avaitor_chart: `/api/v1/user-aviator-status-area-chart`,
     bonus_set: `/api/v1/set-income-amount`,
+    zp_Amount: `/api/v1/set-zp-amount`,
     coupon: `/api/v1/get-admin-coupon-list`,
     add_coupon: `/api/v1/add-admin-coupon-list`,
     update_coupon_record: `/api/v1/update-admin-coupon-list?t_id=`,

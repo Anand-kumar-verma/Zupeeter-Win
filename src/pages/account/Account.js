@@ -1,5 +1,5 @@
 
-import { BorderColor, CopyAll, GroupAddRounded } from "@mui/icons-material";
+import { CopyAll, GroupAddRounded } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -15,19 +15,18 @@ import f1 from "../../assets/images/f1.png";
 import l1 from "../../assets/images/l1.png";
 import n1 from "../../assets/images/n1.png";
 import s1 from "../../assets/images/s1.png";
-import zp from "../../assets/zptoken.png";
 import vip from "../../assets/images/vip.png";
 import wal from "../../assets/images/wal.png";
 import wih from "../../assets/images/with.png";
 import wit from "../../assets/images/witt.png";
+import zp from "../../assets/zptoken.png";
 import Layout from "../../component/layout/Layout";
-import { ProfileDataFunction, Update_ProfileFn, getBalanceFunction, logOutFunction, showRank } from "../../services/apiCallings";
+import { ProfileDataFunction, logOutFunction } from "../../services/apiCallings";
+import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint, front_end_domain } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-import ImageSelectorModal from "./ImageSelectorModal";
-import CustomDate from "../../shared/CustomiztionDate/CustomDate";
 import { deCryptData } from "../../shared/secret";
-import { apiConnectorGet } from "../../services/apiconnector";
+import ImageSelectorModal from "./ImageSelectorModal";
 
 function Account() {
   const or_m_user_type = deCryptData(localStorage.getItem("or_m_user_type"))

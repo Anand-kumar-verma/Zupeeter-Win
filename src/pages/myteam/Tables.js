@@ -1,19 +1,17 @@
+import { ArrowDownwardOutlined, KeyboardArrowLeftOutlined } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Container } from "@mui/material";
 import "jspdf-autotable";
 import * as React from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../component/layout/Layout";
 import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint, zubgback } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
-import { ArrowDownwardOutlined, KeyboardArrowLeftOutlined } from "@mui/icons-material";
-import { NavLink, useNavigate } from "react-router-dom";
 export default function Tables() {
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
+ 
   const { isLoading, data } = useQuery(
     ["get_level"],
     () => apiConnectorGet(endpoint?.get_level),
@@ -40,7 +38,7 @@ export default function Tables() {
         <CustomCircularProgress isLoading={isLoading} />
         <Box>
         <Box sx={style.header}>
-          <Box component={NavLink} onClick={()=>navigate('/promotion')}>
+          <Box className="!cursor-pointer !text-white" onClick={()=>navigate('/promotion')}>
             <KeyboardArrowLeftOutlined />
           </Box>
           <p className="!font-bold !text-xl"> Team Data</p>

@@ -18,6 +18,7 @@ import copy from "clipboard-copy";
 import { useFormik } from "formik";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import moment from "moment/moment";
 import * as React from "react";
 import toast from "react-hot-toast";
 import QRCode from "react-qr-code";
@@ -31,9 +32,8 @@ import {
 } from "../../services/apiCallings";
 import { endpoint, rupees } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-import theme from "../../utils/theme";
-import moment from "moment/moment";
 import { deCryptData } from "../../shared/secret";
+import theme from "../../utils/theme";
 export default function ZupeeterTokenReport() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);

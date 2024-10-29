@@ -1,12 +1,12 @@
+import { Box, Stack } from "@mui/material";
+import axios from "axios";
 import React, { useEffect } from "react";
+import { useQueryClient } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../../component/layout/Layout";
 import { logOutFunction } from "../../services/apiCallings";
-import { Box, Stack, Typography } from "@mui/material";
-import theme from "../../utils/theme";
 import { endpoint, front_end_domain } from "../../services/urls";
-import axios from "axios";
-import { useQueryClient } from "react-query";
+import theme from "../../utils/theme";
 
 const TeamIncome = () => {
   const navigate = useNavigate();
