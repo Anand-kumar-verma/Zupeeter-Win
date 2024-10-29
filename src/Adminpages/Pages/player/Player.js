@@ -1,21 +1,10 @@
-import { Edit, FilterAlt } from "@mui/icons-material";
-import {
-  Button,
-  IconButton,
-  Switch,
-  TablePagination,
-  TextField,
-} from "@mui/material";
-import moment from "moment/moment";
+import { FilterAlt } from "@mui/icons-material";
+import { Button, Switch, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
-import { get_all_player_data, getUserList } from "../../Services";
+import toast from "react-hot-toast";
 import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-import toast from "react-hot-toast";
 
 const Player = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

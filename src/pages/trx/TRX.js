@@ -8,7 +8,6 @@ import {
   Typography
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -19,6 +18,9 @@ import music from "../../assets/images/music.png";
 import musicoff from "../../assets/images/musicoff.png";
 import refresh from "../../assets/images/refresh.png";
 import time from "../../assets/images/time.png";
+import { byTimeIsEnableSound, wallet_real_balanceFn } from "../../redux/slices/counterSlice";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 import WinLossPopup from "./WinLossPopup";
@@ -26,9 +28,6 @@ import Wingo10Min from "./component/Wingo10Min";
 import Wingo1Min from "./component/Wingo1Min";
 import Wingo3Min from "./component/Wingo3Min";
 import Wingo5Min from "./component/Wingo5Min";
-import { byTimeIsEnableSound, wallet_real_balanceFn } from "../../redux/slices/counterSlice";
-import { endpoint } from "../../services/urls";
-import { apiConnectorGet } from "../../services/apiconnector";
 
 function TRX () {
 

@@ -14,11 +14,9 @@ import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import nodatafoundimage from "../../../assets/images/nodatafoundimage.png";
 import Layout from "../../../component/layout/Layout";
-
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import { registrationBonusFn } from "../../../services/apiCallings";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 const zubgback = "#F48901"
 const zubgmid = "#F48901"
 const zubgbackgrad = "#F48901"

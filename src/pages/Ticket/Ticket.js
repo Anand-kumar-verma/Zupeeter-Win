@@ -9,7 +9,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import "jspdf-autotable";
 import moment from "moment";
@@ -17,11 +16,11 @@ import * as React from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import Layout from "../../component/layout/Layout";
+import { apiConnectorGet, apiConnectorPost } from "../../services/apiconnector";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-import theme from "../../utils/theme";
 import { deCryptData } from "../../shared/secret";
-import { apiConnectorGet, apiConnectorPost } from "../../services/apiconnector";
+import theme from "../../utils/theme";
 
 export default function Ticket() {
   const [image, setImage] = React.useState(null);

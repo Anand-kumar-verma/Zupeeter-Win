@@ -1,12 +1,11 @@
 import { Button, Container, TextField } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
 import toast from "react-hot-toast";
-import Layout from "../../component/layout/Layout";
-import { endpoint } from "../../services/urls";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../component/layout/Layout";
 import { apiConnectorPost } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 
 const AccountPassword = () => {
 

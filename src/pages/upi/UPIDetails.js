@@ -29,8 +29,8 @@ import {
 } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-import theme from "../../utils/theme";
 import { deCryptData } from "../../shared/secret";
+import theme from "../../utils/theme";
 export default function UPIDetails() {
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

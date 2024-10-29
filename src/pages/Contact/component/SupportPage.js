@@ -8,13 +8,9 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import banner10 from '../../../assets/images/banner10.png';
-// import banner11 from '../../../assets/images/banner1.jpg';
-import banner5 from '../../../assets/images/banner5.jpg';
 import banner6 from '../../../assets/images/banner2.jpg';
-// import banner7 from '../../../assets/images/banner7.jpg';
+import banner5 from '../../../assets/images/banner5.jpg';
 import banner8 from '../../../assets/images/banner4.jpg';
-// import banner9 from '../../../assets/images/banner9.png';
 
 const SupportPage = () => {
   const [open, setOpen] = useState(false);

@@ -212,7 +212,7 @@ export const all_Data = [
   {
     id: 38,
     navLink: "/set_bonus",
-    navItem: "Set Bonus",
+    navItem: "Set ZP Amount",
     navIcon: (
       <span>
         <BoltRounded color="#15317E" fontSize="medium" />

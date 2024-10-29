@@ -1,6 +1,5 @@
 import { ArrowBackIos, HistoryEduOutlined } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, TextField, Typography } from '@mui/material'
-import axios from 'axios'
+import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import copy from "clipboard-copy"
 import CryptoJS from "crypto-js"
 import { useFormik } from 'formik'
@@ -9,8 +8,8 @@ import toast from 'react-hot-toast'
 import { useQuery, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import Layout from '../../component/layout/Layout'
-import { endpoint } from '../../services/urls'
 import { apiConnectorGet, apiConnectorPost } from '../../services/apiconnector'
+import { endpoint } from '../../services/urls'
 
 
 function Gift() {

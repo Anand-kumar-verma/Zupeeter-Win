@@ -1,17 +1,13 @@
-import { Box, Button, Container, IconButton, MenuItem, Stack, TextField, Typography } from "@mui/material";
-import axios from "axios";
+import { Box, Button, Container, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
+import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import Layout from "../../component/layout/Layout";
-import {
-  ProfileDataFunction,
-} from "../../services/apiCallings";
-import { endpoint } from "../../services/urls";
 import { apiConnectorGet, apiConnectorPost } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 import theme from "../../utils/theme";
-import moment from "moment/moment";
 
 const P2PTransfer = () => {
   const [username, setusername] = useState("");
@@ -20,7 +16,7 @@ const P2PTransfer = () => {
   const [isAllValue, setIsAllValue] = useState(false);
   const [visibleData, setvisibleData] = useState([]);
 
-  const { isLoading, data } = useQuery(
+  const { data } = useQuery(
     ["p2p_transfer"],
     () => apiConnectorGet(endpoint?.p2p_transfer_history),
     {

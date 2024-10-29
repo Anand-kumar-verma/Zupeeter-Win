@@ -1,3 +1,4 @@
+import { Close } from "@mui/icons-material";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import {
   Box,
@@ -12,18 +13,16 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import * as React from "react";
+import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
+import scratch from "../../../assets/Capture.PNG";
 import nodatafoundimage from "../../../assets/images/nodatafoundimage.png";
 import Layout from "../../../component/layout/Layout";
-import scratch from "../../../assets/Capture.PNG"
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import { registrationBonusFn } from "../../../services/apiCallings";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
-import toast from "react-hot-toast";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import ScratchCard from "./ScratchCard";
-import { Close } from "@mui/icons-material";
 const zubgback = "#F48901"
 const zubgmid = "#F48901"
 const zubgbackgrad = "#F48901"

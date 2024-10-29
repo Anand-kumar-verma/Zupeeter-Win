@@ -1,6 +1,5 @@
-import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import RedeemIcon from "@mui/icons-material/Redeem";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import * as React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Layout from "../../component/layout/Layout";

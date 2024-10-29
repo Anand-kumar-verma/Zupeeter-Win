@@ -40,7 +40,6 @@ function Withdraval() {
   const audioRefMusic = React.useRef(null);
   const [isAllValue, setIsAllValue] = useState(false);
   const [visibleData, setvisibleData] = useState([]);
-
   const navigate = useNavigate();
   const [loding, setloding] = useState(false);
   const [status, setStatus] = useState({});
