@@ -1,3 +1,4 @@
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
@@ -18,8 +19,8 @@ import {
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import CryptoJS from "crypto-js";
 import axios from "axios";
+import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -34,8 +35,7 @@ import password from "../../assets/images/password.png";
 import phoneaa from "../../assets/images/phoneaa.png";
 import { storeCookies } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
-import { deCryptData, enCryptData } from "../../shared/secret";
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import { deCryptData } from "../../shared/secret";
 
 
 function Login() {

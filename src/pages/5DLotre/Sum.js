@@ -1,26 +1,24 @@
 import {
-    Box,
-    Button,
-    ButtonGroup,
-    Checkbox,
-    Dialog,
-    Drawer,
-    Grid,
-    Stack,
-    TextField,
-    Typography,
-  } from "@mui/material";
-  import axios from "axios";
-  import { useFormik } from "formik";
-  import React, { useEffect, useState } from "react";
-  import toast from "react-hot-toast";
-  import { useQueryClient } from "react-query";
-  import { getBalanceFunction } from "../../services/apiCallings";
-  import { endpoint } from "../../services/urls";
-  import SuccessCheck from "../../shared/check/SuccessCheck";
-  import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-  import theme from "../../utils/theme";
+  Box,
+  Button,
+  Checkbox,
+  Drawer,
+  Grid,
+  Stack,
+  TextField,
+  Typography
+} from "@mui/material";
+import axios from "axios";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
+import { getBalanceFunction } from "../../services/apiCallings";
+import { endpoint } from "../../services/urls";
+import SuccessCheck from "../../shared/check/SuccessCheck";
+import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { deCryptData } from "../../shared/secret";
+import theme from "../../utils/theme";
 
   const Sum = ({ gid }) => {
     const user_id = deCryptData(localStorage.getItem("user_id"));
@@ -28,8 +26,6 @@ import { deCryptData } from "../../shared/secret";
     const [selectNumber, setSelectNumber] = useState("");
     const [getBalance, setBalance] = useState(0);
     const [loding, setLoding] = useState(false);
-    const [random, setRandomNumber] = useState(null)
-    const [isBlinking, setIsBlinking] = useState(false)
     const client = useQueryClient();
     const initialValue = {
       balance: "1",

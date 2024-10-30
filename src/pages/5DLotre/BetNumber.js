@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Checkbox,
   Dialog,
   DialogActions,
@@ -9,20 +8,20 @@ import {
   Grid,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
+import { NavLink } from "react-router-dom";
 import { endpoint } from "../../services/urls";
 import SuccessCheck from "../../shared/check/SuccessCheck";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-import theme from "../../utils/theme";
-import { NavLink } from "react-router-dom";
-import Howtoplay from "./component/Howtoplay";
 import { deCryptData } from "../../shared/secret";
+import theme from "../../utils/theme";
+import Howtoplay from "./component/Howtoplay";
 const BetNumber = ({ gid }) => {
   const user_id = deCryptData(localStorage.getItem("user_id"));
   const [open, setOpen] = useState(false);
