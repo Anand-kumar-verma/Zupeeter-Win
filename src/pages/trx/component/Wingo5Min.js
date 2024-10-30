@@ -46,7 +46,7 @@ function Wingo5Min() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  let preValue = 0;
   const socket = useSocket();
   const client = useQueryClient();
   const dispatch = useDispatch();
@@ -76,7 +76,13 @@ function Wingo5Min() {
 
   React.useEffect(() => {
     const handleFiveMin = (onemin) => {
-      let fivemin = `${4 - (new Date()?.getMinutes() % 5)}_${onemin}`;
+      const t = Number(String(onemin)?.split("_")?.[1]);
+      const min = Number(String(onemin)?.split("_")?.[0]);
+      const time_to_be_intro = t > 0 ? 60 - t : t;
+      let fivemin = `${
+        4 - (Number(t === 0 ? preValue : min) % 5)
+      }_${time_to_be_intro}`;
+      preValue = min;
       setOne_min_time(fivemin);
       fk.setFieldValue("show_this_one_min_time", fivemin);
 
@@ -98,8 +104,8 @@ function Wingo5Min() {
         // oneMinColorWinning();
       }
       if (
-        fivemin?.split("_")?.[1] === "59" &&
-        fivemin?.split("_")?.[0] === "4"
+        fivemin?.split("_")?.[1] === "0" &&
+        fivemin?.split("_")?.[0] === "0"
       ) {
         client.refetchQueries("trx_gamehistory_5");
         client.refetchQueries("myAll_trx_history_new_3");
@@ -107,10 +113,10 @@ function Wingo5Min() {
       }
     };
 
-    socket.on("onemintrx", handleFiveMin);
+    socket.on("onemin", handleFiveMin);
 
     return () => {
-      socket.off("onemintrx", handleFiveMin);
+      socket.off("onemin", handleFiveMin);
     };
   }, []);
 

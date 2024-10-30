@@ -42,6 +42,7 @@ import { My_All_HistoryFn } from "../../../services/apiCallings";
 import { apiConnectorGet } from "../../../services/apiconnector";
 
 function Wingo3Min() {
+  let preValue = 0;
   const socket = useSocket();
   const client = useQueryClient();
   const [three_min_time, setThree_min_time] = useState("0_0");
@@ -95,7 +96,14 @@ function Wingo3Min() {
 
   React.useEffect(() => {
     const handleThreeMin = (onemin) => {
-      let threemin = `${2 - (new Date()?.getMinutes() % 3)}_${onemin}`;
+      const t = Number(String(onemin)?.split("_")?.[1]);
+      const min = Number(String(onemin)?.split("_")?.[0]);
+
+      const time_to_be_intro = t > 0 ? 60 - t : t;
+      let threemin = `${
+        2 - (Number(t === 0 ? preValue : min) % 3)
+      }_${time_to_be_intro}`;
+      preValue = min;
 
       setThree_min_time(threemin);
       fk.setFieldValue("show_this_one_min_time", threemin);
@@ -112,8 +120,8 @@ function Wingo3Min() {
         fk.setFieldValue("openTimerDialog", false);
       }
       if (
-        threemin?.split("_")?.[1] === "59" &&
-        threemin?.split("_")?.[0] === "2"
+        threemin?.split("_")?.[1] === "0" &&
+        threemin?.split("_")?.[0] === "0"
       ) {
         client.refetchQueries("gamehistory_2min");
         client.refetchQueries("wallet_amount");

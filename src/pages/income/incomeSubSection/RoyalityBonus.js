@@ -72,7 +72,7 @@ function RoyalityBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Deposit Bonus</p>
+          <p>First Deposit Bonus</p>
         </Box>
         <div>
           <img className="" src={nodatafoundimage} />
@@ -96,7 +96,7 @@ function RoyalityBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Deposit Bonus</p>
+          <p>First Deposit Bonus</p>
         </Box>
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>

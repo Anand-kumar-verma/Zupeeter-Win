@@ -128,7 +128,7 @@ return (
             <Box className="bg-gray-600 !w-fit h-6 rounded-full p-1   realtive !left-40 flex gap-3 justify-center">
               <Typography className="text-white !text-xs">UID </Typography>
               <Typography className="text-white !text-xs">| </Typography>
-              <Typography className="text-white !text-xs">{profile?.custid} <CopyAll fontSize="small" /> </Typography>
+              <Typography className="text-white !text-xs">{profile?.username} <CopyAll fontSize="small" /> </Typography>
             </Box>
           
           </Box>

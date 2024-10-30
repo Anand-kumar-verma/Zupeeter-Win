@@ -1,6 +1,7 @@
 import {
     Button,
     Skeleton,
+    Switch,
     Table,
     TableBody,
     TableCell,
@@ -33,73 +34,67 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
         backgroundColor: theme.palette.action.hover,
     },
- 
+
     "&:last-child td, &:last-child th": {
         border: 0,
     },
 }));
 
 
-
-//   {Number(ownaddress?.token_amnt)?.toFixed(4)}
-
-const SetBonus = () => {
+const Master = () => {
 
     const client = useQueryClient()
-    const [loading, setLoading] = useState(false);
-    const [amounts, setAmounts] = useState({});
-    const handleReset = () => {
-        setAmounts({}); // Reset amounts state to clear inputs
-    };
-    const setBonusFunction = async (id) => {
-        setLoading(true);
-        const req = {
-            t_id: id,
-            zp_amount : Number(amounts[id]) || 0,
-        };
-        try {
-            const res = await axiosInstance.post(`${API_URLS?.zp_Amount}`, req);
-            toast.success(res?.data?.msg);
-            if (res?.data?.msg === "Updated successfully.") {
-                client.refetchQueries("address_own")
-                handleReset();
-            }
-            console.log(res);
-        } catch (e) {
-            console.error(e);
-            toast.error(e.response?.data?.msg || "An error occurred.");
-        } finally {
-            setLoading(false);
-        }
-    };
-    const { data: walletaddress } = useQuery(
-        ["address_own"],
-        () => apiConnectorGet(endpoint?.zp_own_address), {
+    const { data } = useQuery(["status"],
+        () => apiConnectorGet(endpoint.status), {
         refetchOnMount: false,
-        refetchOnReconnect: false,
-        retry: false,
-        retryOnMount: false,
         refetchOnWindowFocus: false,
-      }
-      )
-      const ownaddress = walletaddress?.data?.data?.[0]
+        refetchOnReconnect: false
+    })
+    const status = data?.data?.data
 
-
-    const setBonusData = [
-        { id: 1,
-             name: "ZP Token",
-             },
+    const [loading, setLoading] = useState(false);
+    const MasterFunction = async (id) => {
+        setLoading(true)
+        try {
+            const res = await axiosInstance.get(API_URLS?.set_game_status + `?t_id=${id}`)
+            toast(res?.data?.msg, { id: 1 })
+            client.refetchQueries()
+            setLoading(false)
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+    const MasterData = [
+        {
+            id: 15,
+            name: "TRX",
+        },
+        {
+            id: 14,
+            name: "WINGO",
+        },
+        {
+            id: 16,
+            name: "AVIATOR",
+        },
+        {
+            id: 21,
+            name: "SATTA MATKA",
+        },
+        {
+            id: 22,
+            name: "ROULETTE",
+        },
     ];
 
     const tableHead = [
         "S.No.",
-        "Token",
-        "Amount",
-        "Enter Amount",
+        "Game",
         "Action",
     ];
 
-    const tableRow = setBonusData?.map((item, index) => (
+    const tableRow = MasterData?.map((item, index) => (
         <StyledTableRow key={item.id}
             className="hover:!bg-purple-200 cursor-pointer"
         >
@@ -111,33 +106,17 @@ const SetBonus = () => {
                 component="th"
                 scope="row"
                 className="capitalize !text-center !py-[10px]">{item.name}</StyledTableCell>
-           
-                    <StyledTableCell
-                component="th"
-                scope="row"
-                className="capitalize !text-center !py-[10px]">{Number(ownaddress?.token_amnt)?.toFixed(4)}</StyledTableCell>
+
+
             <StyledTableCell
                 component="th"
                 scope="row"
                 className="capitalize !text-center !py-[10px]">
-                <TextField
-                    type="number"
-                    value={amounts[item?.id] || ""}
-                    onChange={(e) => setAmounts({ ...amounts, [item?.id]: e.target.value })}
+                <Switch
+                    checked={status?.find((i)=>i?.id===item?.id)?.longtext==="1" ? true :false}
+                    className="!text-green-600"
+                    onChange={() => MasterFunction(item?.id)}
                 />
-            </StyledTableCell>
-            <StyledTableCell 
-             component="th"
-                scope="row"
-                className="capitalize !text-center !py-[10px]">
-                <Button
-                    variant="contained"
-                    className="!bg-[#198754]"
-                    onClick={() => setBonusFunction(item.id)}
-                    disabled={loading} // Disable button while loading
-                >
-                    {loading ? "Submitting..." : "Submit"}
-                </Button>
             </StyledTableCell>
         </StyledTableRow>
     ));
@@ -182,4 +161,4 @@ const SetBonus = () => {
     );
 };
 
-export default SetBonus;
+export default Master;

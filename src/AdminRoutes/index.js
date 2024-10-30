@@ -10,25 +10,22 @@ import Dashboard from "../Adminpages/Pages/dashboard/Dashboard";
 import DayBookReport from "../Adminpages/Pages/DayBookReport/daybookreport";
 import Fund from "../Adminpages/Pages/fund/Fund";
 import FundHistory from "../Adminpages/Pages/fund/FundHistory";
+import P2pHistory from "../Adminpages/Pages/fund/P2pHistory";
 import ApprovedRequest from "../Adminpages/Pages/gamewithdrawlrequest/ApprovedRequest";
 import GameWithdrawlRequest from "../Adminpages/Pages/gamewithdrawlrequest/GameWithdrawlRequest";
 import PendingRequest from "../Adminpages/Pages/gamewithdrawlrequest/PendingRequest";
 import RejectRequest from "../Adminpages/Pages/gamewithdrawlrequest/RejectRequest";
-import BetBonus from "../Adminpages/Pages/genealogy/BetBonus";
-import DailySalaryBonus from "../Adminpages/Pages/genealogy/DailySalaryBonus";
-import DepositBonus from "../Adminpages/Pages/genealogy/DepositeBonus";
+import CashbackBonus from "../Adminpages/Pages/genealogy/CashbackBonus";
 import DownLine from "../Adminpages/Pages/genealogy/DownLine";
 import GiftBonus from "../Adminpages/Pages/genealogy/GiftBonus";
 import LevelBonus from "../Adminpages/Pages/genealogy/LevelBonus";
-import RoiBonus from "../Adminpages/Pages/genealogy/RoiBonus";
 import SalaryBonus from "../Adminpages/Pages/genealogy/SailaryBonus";
 import SelfDepositBonus from "../Adminpages/Pages/genealogy/SelfDepositBonus";
 import TeamReferral from "../Adminpages/Pages/genealogy/TeamRefferral";
 import VipBonus from "../Adminpages/Pages/genealogy/VipBonus";
 import WeeklyBonus from "../Adminpages/Pages/genealogy/WeeklyBonus";
-import WelcomeBonus from "../Adminpages/Pages/genealogy/WelcomeBonus";
+import Master from "../Adminpages/Pages/Master/MAster";
 import UserPermission from "../Adminpages/Pages/Permission/Userpermission";
-import AddPlayer from "../Adminpages/Pages/player/AddPlayer";
 import LogInApproval from "../Adminpages/Pages/player/LogInApproval";
 import Player from "../Adminpages/Pages/player/Player";
 import AviatorReport from "../Adminpages/Pages/Report/AvaitorReport";
@@ -44,6 +41,12 @@ import ZpTokenPayout from "../Adminpages/Pages/Zptoken/ZpTokenPayout";
 export const adminroutes = [ 
   {
     id: 1,
+    path: "/master",
+    component: <Master />,
+    navItem: "Master",
+  },
+  {
+    id: 2,
     path: "/admindashboard",
     component: <Dashboard />,
     navItem: "Dashboard",
@@ -67,12 +70,7 @@ export const adminroutes = [
     component: <GameWithdrawlRequest />,
     navItem: "Game Withdrawl Request",
   },
-  {
-    id: 6,
-    path: "/welcomebonus",
-    component: <WelcomeBonus/>,
-    navItem: "Welcome Bonus",
-  },
+
   {
     id: 7,
     path: "/genealogy/downline",
@@ -98,12 +96,12 @@ export const adminroutes = [
     component: <Fund/>,
     navItem: "Fund",
   },
-  // {
-  //   id: 10,
-  //   path: "/player/add-player",
-  //   component: <AddPlayer/>,
-  //   navItem: "Add Player",
-  // },
+  {
+    id: 9,
+    path: "/fund/p2p-history",
+    component: <P2pHistory/>,
+    navItem: "P2P History",
+  },
   {
     id: 11,
     path: "/change-password",
@@ -123,13 +121,6 @@ export const adminroutes = [
     navItem: "Reject Request",
   },
   {
-    id: 14,
-    path: "/depositBonus",
-    component: <DepositBonus/>,
-    navItem: " Referral Bonus",
-  },
- 
-  {
     id: 15,
     path: "/selfdepositBonus",
     component: <SelfDepositBonus/>,
@@ -143,15 +134,9 @@ export const adminroutes = [
   },
   {
     id: 16,
-    path: "/roiBonus",
-    component: <RoiBonus/>,
-    navItem: "ROI Bonus",
-  },
-  {
-    id: 17,
-    path: "/dailysalaryBonus",
-    component: <DailySalaryBonus/>,
-    navItem: "Daily Salary Bonus",
+    path: "/cashbackBonus",
+    component: <CashbackBonus/>,
+    navItem: "CashBack Bonus",
   },
   {
     id: 17,
@@ -178,16 +163,10 @@ export const adminroutes = [
     navItem: "Vip Bonus",
   },
   {
-    id: 18,
-    path: "/betBonus",
-    component: <BetBonus/>,
-    navItem: "Self Trading Bonus",
-  },
-  {
     id: 19,
     path: "/levelBonus",
     component: <LevelBonus/>,
-    navItem: "Level Bonus",
+    navItem: "Team Trading Bonus",
   },
   {
     id: 20,
@@ -217,7 +196,7 @@ export const adminroutes = [
     id: 26,
     path: "/fund/transfer-fund-history",
     component: <FundHistory/>,
-    navItem: "Fund History",
+    navItem: "Transfer Fund History",
   },
   {
     id: 27,

@@ -1,17 +1,19 @@
 export const dummy_aviator = "https://zupeeter-win-timer.onrender.com";
 export const domain = "https://zupeeter-win-timer.onrender.com";
-// export const domain_ovi_node = "https://bet.zupeeter.com";
-// export const game_domain = "https://bet.zupeeter.com";
+export const domain_ovi_node = "https://bet.zupeeter.com";
+export const game_domain = "https://bet.zupeeter.com";
 export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 export const rupees = "₹";
 export const zubgback = "#F48901";
-// export const baseUrl = "https://bet.zupeeter.com";
+export const baseUrl = "https://bet.zupeeter.com";
 export const front_end_domain = "https://play.zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
-export const baseUrl = "http://192.168.18.183:9000";
-export const domain_ovi_node = "http://192.168.18.183:9000";
-export const game_domain = "http://192.168.18.183:9000";
+// export const dummy_aviator = "http://192.168.18.183:9001";
+// export const domain = "http://192.168.18.183:9001";
+// export const baseUrl = "http://192.168.18.183:9000";
+// export const domain_ovi_node = "http://192.168.18.183:9000";
+// export const game_domain = "http://192.168.18.183:9000";
 
 export const endpoint = {
   get_royality_date: `${domain_ovi_node}/get-royality-date`,

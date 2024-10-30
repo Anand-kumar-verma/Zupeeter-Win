@@ -17,7 +17,7 @@ function MainPageOFIncome() {
   const data_array = [
     {
       to: "/account/income-main/royality-bonus",
-      name: "Deposit Bonus",
+      name: "First Deposit Bonus",
       logo: (
         <StoreIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"

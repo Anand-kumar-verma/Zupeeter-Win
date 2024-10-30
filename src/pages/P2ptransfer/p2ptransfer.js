@@ -87,6 +87,7 @@ const P2PTransfer = () => {
       const res = await apiConnectorPost(endpoint?.p2p_transfer, reqBody);
       toast(res?.data?.msg);
       fk.handleReset();
+      client.refetchQueries("p2p_transfer")
       client.refetchQueries("wallet_amount_amount")
     } catch (e) {
       console.log(e);

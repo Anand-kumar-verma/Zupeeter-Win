@@ -6,7 +6,7 @@ import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import CustomTable from "../../Shared/CustomTable";
 
-const LevelBonus = () => {
+const CashbackBonus = () => {
   const [loding, setloding] = useState(false);
     const [data, setData] = useState([]);
     const [from_date, setFrom_date] = useState("");
@@ -16,10 +16,10 @@ const LevelBonus = () => {
     const [visibleRows, setVisibleRows] = React.useState([]);
     const [search, setSearch] = useState("");
 
-    const LevelBonus = async () => {
+    const CashbackBonus = async () => {
         setloding(true);
         try {
-          const res = await axiosInstance.post(API_URLS?.level_bonus_data, {
+          const res = await axiosInstance.post(API_URLS?.cashback_bonus_data, {
             start_date: from_date,
             end_date: to_date,
             username: search,
@@ -98,7 +98,7 @@ const LevelBonus = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button
-                    onClick={() => LevelBonus()}
+                    onClick={() => CashbackBonus()}
                     variant="contained"
                     startIcon={<FilterAlt />}
                 >
@@ -123,4 +123,4 @@ const LevelBonus = () => {
     );
 };
 
-export default LevelBonus;
+export default CashbackBonus;

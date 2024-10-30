@@ -99,7 +99,7 @@ function Wallet() {
               color="initial"
               sx={{ fontSize: "14px", fontWeight: "500", color: "white" }}
             >
-              {profile?.custid} / {profile?.full_name}
+              {profile?.username} / {profile?.full_name}
             </Typography>
 
           </Stack>

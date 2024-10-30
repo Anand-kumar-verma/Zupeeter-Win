@@ -1,13 +1,10 @@
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { Button, TablePagination, TextField } from "@mui/material";
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { getDailySalaryBonus, getgiftBonus } from "../../Services";
-import CustomTable from "../../Shared/CustomTable";
-import moment from "moment";
 import { FilterAlt } from "@mui/icons-material";
-import axiosInstance from "../../config/axios";
+import { Button, TablePagination, TextField } from "@mui/material";
+import moment from "moment";
+import React, { useState } from "react";
 import { API_URLS } from "../../config/APIUrls";
+import axiosInstance from "../../config/axios";
+import CustomTable from "../../Shared/CustomTable";
 
 const GiftBonus = () => {
   const [loding, setloding] = useState(false);
@@ -25,7 +22,8 @@ const GiftBonus = () => {
           const res = await axiosInstance.post(API_URLS?.gift_bonus_data, {
             start_date: from_date,
             end_date: to_date,
-            search: search,
+            username: search,
+
           });
           setData(res?.data?.data || []);
           if (res) {

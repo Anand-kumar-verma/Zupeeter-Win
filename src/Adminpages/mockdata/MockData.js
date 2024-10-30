@@ -1,15 +1,25 @@
-import { Approval, BoltRounded, Book, Cancel, Collections, ColorizeRounded, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, MoneyOff, Pending, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RequestPage, RowingSharp, SailingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
+import { BoltRounded, Book, ColorizeRounded, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import Diversity1Icon from "@mui/icons-material/Diversity1";
-import FormatShapesIcon from "@mui/icons-material/FormatShapes";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 export const all_Data = [
   {
     id: 1,
+    navLink: "/master",
+    navItem: "Master",
+    navIcon: (
+      <span>
+        <LeaderboardSharp color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [],
+  },
+  {
+    id: 2,
     navLink: "/admindashboard",
     navItem: "Dashboard",
     navIcon: (
@@ -60,73 +70,9 @@ export const all_Data = [
           </span>
         ),
       },
-       // {
-      //   id: 2.3,
-      //   navLink: "/player/add-player",
-      //   navItem: "Add Player",
-      //   navIcon: (
-      //     <span>
-      //       <AddToPhotosIcon color="#15317E" fontSize="medium" />
-      //     </span>
-      //   ),
-      // },
     ],
   },
- 
 
-  // {
-  //   id: 5,
-  //   navLink: "/game-withdrawl-request",
-  //   navItem: " Withdrawal Request",
-  //   navIcon: (
-  //     <span>
-  //       <FormatShapesIcon color="#15317E" fontSize="medium" />
-  //     </span>
-  //   ),
-  //   subcomponent: [
-  //     {
-  //       id: 5.1,
-  //       navLink: "/game-withdrawl-request",
-  //       navItem: "Withdrawal Request",
-  //       navIcon: (
-  //         <span>
-  //           <RequestPage color="#15317E" fontSize="medium" />
-  //         </span>
-  //       ),
-  //     },
-  //     {
-  //       id: 5.2,
-  //       navLink: "/game-withdrawl-request/reject-request",
-  //       navItem: "Reject Request",
-  //       navIcon: (
-  //         <span>
-  //           <Cancel color="#15317E" fontSize="medium" />
-  //         </span>
-  //       ),
-  //     },
-  //     {
-  //       id: 5.3,
-  //       navLink: "/game-withdrawl-request/pending-request",
-  //       navItem: "Gateway Pending Request",
-  //       navIcon: (
-  //         <span>
-  //           <Pending color="#15317E" fontSize="medium" />
-  //         </span>
-  //       ),
-  //     },
-     
-  //     {
-  //       id: 5.4,
-  //       navLink: "/game-withdrawl-request/approved-request",
-  //       navItem: "Approved Request",
-  //       navIcon: (
-  //         <span>
-  //           <Approval color="#15317E" fontSize="medium" />
-  //         </span>
-  //       ),
-  //     },
-  //   ],
-  // },
   {
     id: 6,
     navLink: "/welcomebonus",
@@ -137,26 +83,7 @@ export const all_Data = [
       </span>
     ),
     subcomponent: [
-      {
-        id: 6.1,
-        navLink: "/welcomebonus",
-        navItem: "Welcome Bonus",
-        navIcon: (
-          <span>
-            <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
-      {
-        id: 6.2,
-        navLink: "/depositBonus",
-        navItem: "Referral Bonus",
-        navIcon: (
-          <span>
-            <MoneyOff color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
+     
       {
         id: 6.3,
         navLink: "/selfdepositBonus",
@@ -169,8 +96,8 @@ export const all_Data = [
       },
       {
         id: 6.4,
-        navLink: "/roiBonus",
-        navItem: "Roi Bonus",
+        navLink: "/cashbackBonus",
+        navItem: "CashBack Bonus",
         navIcon: (
           <span>
             <RowingSharp color="#15317E" fontSize="medium" />
@@ -178,29 +105,9 @@ export const all_Data = [
         ),
       },
       {
-        id: 6.5,
-        navLink: "/dailysalaryBonus",
-        navItem: "Daily Salary Bonus",
-        navIcon: (
-          <span>
-            <SailingSharp color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
-      {
-        id: 6.6,
-        navLink: "/betBonus",
-        navItem: "Self Trading Bonus",
-        navIcon: (
-          <span>
-            <Collections color="#15317E" fontSize="medium" />
-          </span>
-        ),
-      },
-      {
         id: 6.7,
         navLink: "/levelBonus",
-        navItem: "Level Bonus",
+        navItem: "Team Trading Bonus",
         navIcon: (
           <span>
             <LeakRemoveOutlined color="#15317E" fontSize="medium" />
@@ -250,7 +157,7 @@ export const all_Data = [
       {
         id: 8.6,
         navLink: "/teamreferal",
-        navItem: "Team Recharge Bonus",
+        navItem: "Team / Referral Recharge Bonus",
         navIcon: (
           <span>
             <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
@@ -311,7 +218,16 @@ export const all_Data = [
           </span>
         ),
       },
-     
+      {
+        id: 8.2,
+        navLink: "/fund/p2p-history",
+        navItem: "P2P History",
+        navIcon: (
+          <span>
+            <Transcribe color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
     ],
   },
  

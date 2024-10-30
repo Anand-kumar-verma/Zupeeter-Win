@@ -107,7 +107,7 @@ function Login() {
         storeCookies();
         response?.data?.user_type==="User" 
         ?navigate("/before-login"): 
-       (["Admin","Super Admin"]?.includes(response?.data?.user_type)) && navigate("/admindashboard");
+       (["Admin","Super Admin"]?.includes(response?.data?.user_type)) && navigate("/master");
           window.location.reload();
       }
     } catch (e) {

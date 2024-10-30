@@ -11,7 +11,7 @@ import {
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import loginLogo from "../../Assets/logoImage.png";
+import loginLogo from "../../Assets/faviconn.png";
 import { all_Data } from "../../mockdata/MockData";
 
 const Sidebar = () => {

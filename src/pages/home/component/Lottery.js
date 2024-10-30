@@ -41,41 +41,49 @@ function Lottery() {
           Lottery
         </Typography>
       </Stack>
-        <Box sx={style.winbox} onClick={()=>{if(status?.find((i)=>i?.title==="wingo_status")?.longtext !== "0"){
+      <Box sx={style.winbox} onClick={() => {
+        if (status?.find((i) => i?.title === "wingo_status")?.longtext !== "0") {
           navigate('/wingo')
-        }}}>
-          <Box
-            component="img"
-            src={win}
-            sx={{ width: "100%", height: "70%" }}
-          ></Box>
-          <Box sx={style.positiongame}>
-            <Typography variant="body1" color="initial" sx={style.gameheading}>
-              Win Go{" "}
+        }
+        else {
+          navigate('/comingsoon')
+        }
+      }}>
+        <Box
+          component="img"
+          src={win}
+          sx={{ width: "100%", height: "70%" }}
+        ></Box>
+        <Box sx={style.positiongame}>
+          <Typography variant="body1" color="initial" sx={style.gameheading}>
+            Win Go{" "}
+          </Typography>
+          <Box sx={{ mt: "15px" }}>
+            <Typography variant="body1" color="initial">
+              Guess Number
             </Typography>
-            <Box sx={{ mt: "15px" }}>
-              <Typography variant="body1" color="initial">
-                Guess Number
-              </Typography>
-              <Typography variant="body1" color="initial ">
-                Green/Red/Purple to win
-              </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
-            <Box
-              component="img"
-              src={lotterycategory1}
-              sx={{ width: "100px" }}
-            ></Box>
+            <Typography variant="body1" color="initial ">
+              Green/Red/Purple to win
+            </Typography>
           </Box>
         </Box>
-   
+        <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
+          <Box
+            component="img"
+            src={lotterycategory1}
+            sx={{ width: "100px" }}
+          ></Box>
+        </Box>
+      </Box>
+
 
       <Box sx={style.winbox}
         onClick={() => {
           if (status?.find((i) => i?.title === "aviator_staus")?.longtext !== "0") {
             navigate("/playgame");
+          }
+          else {
+            navigate('/comingsoon')
           }
         }}>
         <Box
@@ -166,36 +174,41 @@ function Lottery() {
           </Box>
         </Box>
       </NavLink>
-        <Box sx={style.winbox} onClick={()=>{if(status?.find((i)=>i?.title==="trx_status")?.longtext !==0){
+      <Box sx={style.winbox} onClick={() => {
+        if (status?.find((i) => i?.title === "trx_status")?.longtext !== 0) {
           navigate('/trx')
-        }}}>
-          <Box
-            component="img"
-            src={win4}
-            sx={{ width: "100%", height: "70%" }}
-          ></Box>
-          <Box sx={style.positiongame}>
-            <Typography variant="body1" color="initial" sx={style.gameheading}>
-              Trx Win{" "}
+        }
+        else {
+          navigate('/comingsoon')
+        }
+      }}>
+        <Box
+          component="img"
+          src={win4}
+          sx={{ width: "100%", height: "70%" }}
+        ></Box>
+        <Box sx={style.positiongame}>
+          <Typography variant="body1" color="initial" sx={style.gameheading}>
+            Trx Win{" "}
+          </Typography>
+          <Box sx={{ mt: "15px" }}>
+            <Typography variant="body1" color="initial">
+              Guess Number
             </Typography>
-            <Box sx={{ mt: "15px" }}>
-              <Typography variant="body1" color="initial">
-                Guess Number
-              </Typography>
-              <Typography variant="body1" color="initial ">
-                Green/Red/Purple to win
-              </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
-            <Box
-              component="img"
-              src={lotterycategory4}
-              sx={{ width: "100px" }}
-            ></Box>
+            <Typography variant="body1" color="initial ">
+              Green/Red/Purple to win
+            </Typography>
           </Box>
         </Box>
-   
+        <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
+          <Box
+            component="img"
+            src={lotterycategory4}
+            sx={{ width: "100px" }}
+          ></Box>
+        </Box>
+      </Box>
+
     </Box>
   );
 }

@@ -17,6 +17,7 @@ export const API_URLS = {
     wingo_result_api: `/api/v1/update-wingo-result`,
     add_fund: `/api/v1/add-fund-to-user`,
     get_fund_history: `/api/v1/fund-transfer-history`,
+    p2p_history: `/api/v1/p-2-p-list-admin`,
     get_aviator_report: `/api/v1/get-aviator-report`,
     get_trx_report: `/api/v1/get-trx-report`,
     get_wingo_report: `/api/v1/get-wingo-report`,
@@ -28,7 +29,7 @@ export const API_URLS = {
     down_team:`api/v1/get-downline-team`,
     welcome_bonus: `/api/v1/tget-wlcm-bonus-admin-data`,
     deposit_bonus_data: `/api/v1/tget-dpst-bonus-admin-data`,
-    self_deposit_bonus_data: `/api/v1/tget-slf-dpst-bonus-admin-data`,
+    self_deposit_bonus_data: `/api/v1/tget-dpst-bonus-admin-data`,
    team_referal_bonus_data: `/api/v1/getTeamReferralFirstListAdmin`,
     roi_bonus_data: `/api/v1/tget-roi-bonus-admin-data`,
     daily_salary_bonus_data: `/api/v1/tget-daily-salary-bonus-admin-data`,
@@ -37,7 +38,8 @@ export const API_URLS = {
     weekly_bonus_data: `/api/v1/tget-weekly-recovery-admin-data`,
     bet_bonus_data: `/api/v1/tget-bet-income-bonus-admin-data`,
     level_bonus_data: `/api/v1/tget-level-income-bonus-admin-data`,
-    vip_bonus_data: `/api/v1 vip-bonus-list-admin`,
+    vip_bonus_data: `/api/v1/vip-bonus-list-admin`,
+    cashback_bonus_data: `/api/v1/cash-back-bonus-list-admin`,
    
     //chart
     business_chart: `/api/v1/user-business-status-bar-chart`,
@@ -50,7 +52,7 @@ export const API_URLS = {
     coupon: `/api/v1/get-admin-coupon-list`,
     add_coupon: `/api/v1/add-admin-coupon-list`,
     update_coupon_record: `/api/v1/update-admin-coupon-list?t_id=`,
-    login_approval:`api/v1/other-browser-approval-by-admin`,
+    set_game_status:`api/v1/set-game-status`,
 
     //close
     get_next_gameid_one_min: `/api/v1/get-bet-one-min-next-id`,

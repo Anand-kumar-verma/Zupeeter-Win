@@ -335,7 +335,7 @@ function Promotion() {
                   onClick={() => {
                   
                        functionTOCopy(
-                          `${front_end_domain}/register/?inviteid=${result?.custid}`
+                          `${front_end_domain}/register/?inviteid=${result?.username}`
                         );
                   }}
                 >
@@ -352,7 +352,7 @@ function Promotion() {
             <Box sx={style.invitbox} className={"!cursor-pointer"}
              onClick={() => {
           functionTOCopy(
-                    `${front_end_domain}/register/?inviteid=${result?.custid}`
+                    `${front_end_domain}/register/?inviteid=${result?.username}`
                   );
             }}
             >
@@ -364,7 +364,7 @@ function Promotion() {
               </Stack>
               <Stack direction="row">
                 <Typography variant="body1" color="initial">
-                  {result?.custid}
+                  {result?.username}
                 </Typography>
                 <ArrowForwardIosOutlinedIcon />
               </Stack>
