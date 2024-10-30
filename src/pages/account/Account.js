@@ -29,6 +29,8 @@ import { deCryptData } from "../../shared/secret";
 import ImageSelectorModal from "./ImageSelectorModal";
 
 function Account() {
+  const userData = deCryptData(localStorage.getItem("user_id"));
+  const isAuthenticated = userData ? true : false;
   const or_m_user_type = deCryptData(localStorage.getItem("or_m_user_type"))
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -238,10 +240,11 @@ return (
             <Typography><img src={c1} alt="" className="w-8 " /></Typography>
             <Typography className=" !text-sm ml-2"> Service</Typography>
           </Box>
-          <Box className="flex flex-col justify-center items-center">
+          {isAuthenticated && (userData.user_type === "Admin" || userData.user_type === "Super Admin") &&
+          <Box className="flex flex-col justify-center items-center" onClick={()=>navigate('/admindashboard')}>
             <Typography><img src={b1} alt="" className="w-8 " /></Typography>
-            <Typography className=" !text-sm"> Guide</Typography>
-          </Box>
+            <Typography className=" !text-sm"> Admin</Typography>
+          </Box>}
           <Box className="flex flex-col justify-center items-center">
             <Typography><img src={a1} alt="" className="w-8 " /></Typography>
             <Typography className="!text-sm">About us</Typography>

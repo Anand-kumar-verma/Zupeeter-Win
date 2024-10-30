@@ -106,8 +106,8 @@ const user_id = login_data && JSON.parse(login_data)?.UserID;
       (selectNumber === "green" && 10) ||
       (selectNumber === "red" && 30) ||
       (selectNumber === "voilet" && 20) ||
-      (selectNumber === "big" && 40) ||
-      (selectNumber === "small" && 50) ||
+      (selectNumber === "Big" && 40) ||
+      (selectNumber === "Small" && 50) ||
       selectNumber,
       gameid: `${Number(gid)}`,
       gamesnio: 123456,
