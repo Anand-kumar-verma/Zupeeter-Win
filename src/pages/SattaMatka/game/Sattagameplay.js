@@ -229,7 +229,7 @@ function Sattagameplay() {
             <Box
               //  className="w95 !fixed !bottom-14 bg-[#0A001B] !py-2 !px-3  !flex !justify-between"
 
-              className="lg:!w-[48%] !w-[100%] !fixed !bottom-14 bg-[#0A001B] !py-2 !px-3  !flex !justify-between"
+              className=" !fixed !bottom-4 bg-[#0A001B] !py-2 !px-3  !flex gap-40 !justify-between"
               sx={style.flexbetween}
             >
               <Box className="">
@@ -251,7 +251,13 @@ function Sattagameplay() {
                     ?.toFixed(2) || 0}
                 </Typography>
               </Box>
-              {!(
+              <Button
+                    className="!bg-[#24cc3b] !text-white "
+                    onClick={() => placeBet()}
+                  >
+                    Place Bid
+                  </Button>
+              {/* {!(
                 (Number(minut) < 30 && 30 - Number(minut) <= 5) ||
                 (Number(minut) > 30 && 60 - Number(minut) <= 5)
               ) && (
@@ -261,7 +267,7 @@ function Sattagameplay() {
                   >
                     Place Bid
                   </Button>
-                )}
+                )} */}
             </Box>
           </Box>
         </Container>
