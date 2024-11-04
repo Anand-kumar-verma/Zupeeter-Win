@@ -17,6 +17,7 @@ import timerbg1 from "../../../assets/images/timerbg.png";
 import timerbg2 from "../../../assets/images/timerbg2.png";
 import trxbg from "../../../assets/images/trxbg.png";
 import {
+  dummycounterFun,
   gameHistory_trx_one_minFn,
   myHistory_trx_one_minFn,
   trx_game_image_index_function,
@@ -109,12 +110,15 @@ function Wingo3Min() {
         // oneMinColorWinning();
       }
       if (
-        threemin?.split("_")?.[1] === "58" &&
-        threemin?.split("_")?.[0] === "2"
+        threemin?.split("_")?.[1] === "0" &&
+        threemin?.split("_")?.[0] === "0"
       ) {
         client.refetchQueries("trx_gamehistory_3");
-        client.refetchQueries("myAll_trx_history_new_2");
         client.refetchQueries("wallet_amount");
+        client.refetchQueries("myAll_trx_history_new_2");
+        setTimeout(() => {
+          dispatch(dummycounterFun());
+        }, 2000);
         // dispatch(dummycounterFun());
         // fk.setFieldValue("openTimerDialogBoxOneMin", false);
       }

@@ -1,5 +1,5 @@
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { Box, Stack, TablePagination } from "@mui/material";
+import { Box, Stack, TablePagination, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -40,53 +40,146 @@ const MyHistory = ({ gid}) => {
       <div className="flex flex-col gap-[2px]">
         {visibleRows?.map((i) => {
           return (
-            <div style={{ mb: 2 }}>
-              <Accordion className="!rounded-lg">
+            <div>
+              <Accordion className="!rounded-lg" disableElevation>
                 <AccordionSummary
-                  expandIcon={
-                    <ArrowDownwardIcon
-                      sx={{ color: "black", fontSize: "15px" }}
-                    />
-                  }
+                  // expandIcon={<ArrowDownwardIcon sx={{ color: 'gray', mx: '10px' }} />}
                   aria-controls="panel1-content"
                   id="panel1-header"
-                  sx={{ color: "white" }}
+                  sx={{
+                    background: "white",
+                    color: "black",
+                    borderRadius: "5px",
+                    margin: "0px important",
+                    mb: 1,
+                  }}
                 >
-                  <div className="!w-full !flex !justify-between">
-                    <p className="!text-black ">{i?.gamesno}</p>
-                    <p
-                      className={`${
-                        i?.status === "2"
-                          ? "!text-red-600"
-                          : i?.status === "1"
-                          ? "!text-green-600"
-                          : "!text-red-600"
-                      } !font-bold`}
-                    >
-                     {i?.status === "0"
+                  <Box className="flexbetween">
+                    <div className="!flex  gap-4">
+                      <Box
+                        sx={{
+                          background: "red",
+                          width: "45px",
+                          height: "45px",
+                          borderRadius: "10px",
+                        }}
+                        className={`flexcenter
+                                     ${
+                                       (i?.number === "0" &&
+                                         "transparentColorRedPurpleBGTOP") ||
+                                       (i?.number === "5" &&
+                                         "transparentColorGreenRedBGTOP") ||
+                                       ((i?.number === "1" ||
+                                         i?.number === "3" ||
+                                         i?.number === "7" ||
+                                         i?.number === "9" ||
+                                         i?.number === "10") &&
+                                         "!bg-[#18b680]") ||
+                                       ((i?.number === "2" ||
+                                         i?.number === "4" ||
+                                         i?.number === "6" ||
+                                         i?.number === "8" ||
+                                         i?.number === "30") &&
+                                         "!bg-[#fb6161]") ||
+                                       (i?.number === "50" &&
+                                         "!bg-[#468ce8]") ||
+                                       (i?.number === "40" &&
+                                         "!bg-[#ffc300]") ||
+                                       (i?.number === "20" && "!bg-[#c86eff]")
+                                     }
+                                  font-bold text-xl !text-center !pt-2
+
+                                        `}
+                      >
+                        <Typography
+                          variant="body1"
+                          sx={{ color: "white" }}
+                          className="!text-[11px]"
+                        >
+                          {/* {i?.result <= 4 ? "Small" : "Big"} */}
+                          {i?.number === "10" ? (
+                            ""
+                          ) : i?.number === "50" ? (
+                            "small"
+                          ) : i?.number === "40" ? (
+                            "big"
+                          ) : i?.number === "30" ? (
+                            ""
+                          ) : i?.number === "20" ? (
+                            ""
+                          ) : (
+                            <span className="!text-lg">{i?.number}</span>
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box className="flexrowsstart">
+                        <Typography
+                          variant="body1"
+                          className="funp15"
+                          sx={{ color: "#0D0335", textDecoration: "none" }}
+                        >
+                          <span className="!text-[14px]">{i?.gamesno}</span>
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          className="funp13 !mt-1"
+                          sx={{ color: "#0D0335" }}
+                        >
+                          <span className="!text-[10px] !text-gray-500">
+                            {moment(i?.datetime)?.format("DD-MM-YYYY")}{" "}
+                            {moment(i?.datetime)?.format("HH:mm:ss")}
+                          </span>
+                        </Typography>
+                      </Box>
+                    </div>
+                    <Box className="flexrows">
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          borderRadius: "5px",
+                          padding: "1px 10px",
+                          border: `.5px solid red`,
+                          color: "red",
+                        }}
+                        className={` funp15
+                        !w-[80px] !text-center !text-sm
+                         ${
+                           i?.status === "0"
+                             ? "!text-red-400"
+                             : i?.status === "1"
+                             ? "!text-green-400 !border-[.5px] !border-green-500"
+                             : "!text-red-400"
+                         } !py-0`}
+                      >
+                        {" "}
+                        {i?.status === "0"
                           ? "Pending"
                           : i?.status === "1"
-                          ? "Win"
-                          : "Loss"}
-                    </p>
-                    <span
-                      style={{ mr: 1 }}
-                      className={`${
-                        i?.status === "2"
-                          ? "!text-red-600"
-                          : i?.status === "1"
-                          ? "!text-green-600"
-                          : "!text-red-600"
-                      }`}
-                    >
-                      {" "}
-                      {rupees}{" "}
-                      {i?.win ? "₹" + i?.win : "-" + i?.amount}
-                    </span>
-                  </div>
+                          ? "Success"
+                          : "Failed"}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{ color: "red", mt: 1 }}
+                        className={` funp13 ${
+                          i?.status === "0"
+                            ? "!text-red-400"
+                            : i?.status === "1"
+                            ? "!text-green-400"
+                            : "!text-red-400"
+                        } !pr-1`}
+                      >
+                        {" "}
+                        {i?.win ? "₹ " + i?.win : "- " + " ₹ " + i?.amount}
+                      </Typography>
+                    </Box>
+                  </Box>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <p className={`!text-green-400 !font-semibold !text-lg`}>
+                <AccordionDetails sx={{ borderRadius: "10px", color: "black" }}>
+                  <p
+                    className={`!text-black-400 !font-semibold !text-lg`}
+                    style={{ color: "black !important" }}
+                  >
                     Period Detail
                   </p>
                   <div className="!w-full !grid !grid-cols-2 !gap-y-1 ">
@@ -100,7 +193,7 @@ const MyHistory = ({ gid}) => {
                       Contract Money
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                    {Number(i?.amount || 0).toFixed(2)}
+                      {Number(i?.amount || 0).toFixed(2)}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Contract Count
@@ -112,13 +205,13 @@ const MyHistory = ({ gid}) => {
                       Delivery
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                    {Number(i?.totalamount || 0).toFixed(2)}
+                      {Number(i?.totalamount || 0).toFixed(2)}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Fee
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
-                    {Number(i?.commission || 0).toFixed(2)}
+                      {Number(i?.commission || 0).toFixed(2)}
                     </span>
                     <span className="bg-white !bg-opacity-10 py-1 px-2 ">
                       Open Price
@@ -174,16 +267,17 @@ const MyHistory = ({ gid}) => {
                                 i?.result === "8") &&
                               "Red"}
                         </span>
-                        <span>{i?.result <= 4 ? "Small" : "Big"}</span>
+                        <span>{Number(i?.result) <= 4 ? "Small" : "Big"}</span>
                       </div>
                     ) : (
                       <div></div>
                     )}
+
                     <span className="bg-white !bg-opacity-10 py-1 px-2">
                       Select
                     </span>
                     <div className="!bg-white !bg-opacity-10 py-1 px-2">
-                    <span
+                      <span
                         className={`
                   ${
                     (i?.number === "0" &&
@@ -228,7 +322,7 @@ const MyHistory = ({ gid}) => {
                     </span>
                     <span
                       className={`${
-                        i?.status === "2"
+                        i?.status === "0"
                           ? "!text-red-400"
                           : i?.status === "1"
                           ? "!text-green-400"

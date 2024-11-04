@@ -10,7 +10,12 @@ export const gray = "!bg-[#151617]"
 export const graydark = "!bg-[#1F2937]"
 export const graymedium = "!bg-gray-500"
 export const red = "#BC0319"
-
+export const stargrad = "linear-gradient(to top, #ff0844 0%, #ffb199 100%)";
+export const stardarkblue = "#0A001B";
+export const starblue = "#14073C";
+export const starbluegrad = "#6C10ED";
+export const stargreen = "#6C10ED";
+export const stargold = "#BA903B";
 
 
 

@@ -28,7 +28,8 @@ function App() {
         path="/playgame"
         element={<LayoutAviator component={<PlayGame />} />}
       />
-
+ 
+     
       {isAuthenticated ? (
         routes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />

@@ -27,7 +27,7 @@ const FundTransfer = () => {
       refetchOnWindowFocus: false
     }
   );
-  const profile = data?.data?.earning || [];
+  const profile = data?.data?.data || [];
 
   const initialValue = {
     wallet: balance || "",

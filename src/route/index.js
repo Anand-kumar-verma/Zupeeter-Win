@@ -66,8 +66,49 @@ import ZpWithdrawal from "../pages/wallet/Component/Zpwithdrawal";
 import Zpdeposithistory from "../pages/wallet/Component/zpdeposithoistory";
 import ZpWithdrawlhistory from "../pages/wallet/Component/ZpWithdrawalhistory";
 import CashBackBonus from "../pages/income/incomeSubSection/CashbackBonus";
+import Satta from "../pages/SattaMatka/game/Satta";
+import Home from "../rollet/pages/Home/Home";
+import History from "../pages/SattaMatka/game/History";
+import SattaChart from "../pages/SattaMatka/game/Chart";
+import LocationChart from "../pages/SattaMatka/game/LocationChart";
+import Sattagameplay from "../pages/SattaMatka/game/Sattagameplay";
+import AnderBaherChart from "../pages/SattaMatka/game/AnderBaherChart";
+import LocationListChart from "../pages/SattaMatka/game/LocationListChart";
 
 export const routes = [
+
+  {
+    path: "/rollet",
+    element: <Home />,
+  },
+  {
+    path: "/SattaChart",
+    element: <SattaChart />
+},
+{
+    path: "/satta/play",
+    element: <Sattagameplay />
+},
+{
+    path: "/history",
+    element: <History />
+},
+{
+    path: "/anderbaher/chart",
+    element: <AnderBaherChart />
+},
+{
+    path: "/location/chart/list",
+    element: <LocationListChart />
+},
+{
+    path: "/location/chart",
+    element: <LocationChart />
+},
+  {
+    path: "/satta/matka",
+    element: <Satta />,
+  },
   {
     path: "/RiskDisclosureAgreement",
     element: <RiskDisclosureAgreement />,

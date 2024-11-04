@@ -2,6 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.w95 {
+  width: 95% !important;
+  margin-left: 2.5% !important;
+}
+.w94 {
+  width: 95% !important;
+  /* margin-left: 2.5% !important; */
+}
+.transparentColorRedPurpleBGTOP {
+  background: #c86eff !important;
+  background: linear-gradient(
+    to bottom right,
+    #fb6161 50%,
+    #c86eff 50%
+  ) !important;
+}
+.transparentColorGreenRedBGTOP {
+  background: #18b680 !important;
+  background: linear-gradient(
+    to bottom right,
+    #18b680 50%,
+    #c86eff 50%
+  ) !important;
+}
+
+.flexrows {
+  display: flex !important;
+  align-items: end !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+}
+.flexbetween {
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.flexrowsstart {
+  display: flex !important;
+  align-items: start !important;
+  justify-content: start !important;
+  flex-direction: column !important;
+}
 /* src/BottomDrawer.css */
 ::-webkit-scrollbar {
   width: .3em !important;

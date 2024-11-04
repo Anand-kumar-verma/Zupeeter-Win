@@ -1,5 +1,7 @@
 export const dummy_aviator = "https://zupeeter-win-timer.onrender.com";
 export const domain = "https://zupeeter-win-timer.onrender.com";
+// export const domain = "http://192.168.18.183:9001";
+
 export const domain_ovi_node = "https://bet.zupeeter.com";
 export const game_domain = "https://bet.zupeeter.com";
 export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
@@ -9,8 +11,8 @@ export const baseUrl = "https://bet.zupeeter.com";
 export const front_end_domain = "https://play.zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
-// export const dummy_aviator = "http://192.168.18.183:9001";
-// export const domain = "http://192.168.18.183:9001";
+// export const dummy_aviator = "http://192.168.18.183:9000";
+export const domain1 = "https://bet.zupeeter.com";
 // export const baseUrl = "http://192.168.18.183:9000";
 // export const domain_ovi_node = "http://192.168.18.183:9000";
 // export const game_domain = "http://192.168.18.183:9000";
@@ -137,6 +139,37 @@ export const endpoint = {
   token_data: {
     main_wallet: "",
   },
-  //////// testing only
-  // trx_testing: `${domain_ovi_node}/trx_result-node-test`,
+
+  node:{
+    top_two_winners:domain1+"/api/v1/getTopTwo_winner",
+    top_winners:domain1+"/api/v1/getTopWinners",
+    history_my: domain1 + "/api/v1/getMyHistory-roulette",
+     game_result: domain1 + "/api/v1/getRouletteGameHistory",
+     bet_satta: domain1 + "/api/v1/betPlacedSatta",
+    satta_game_Lastfour: domain1 + "/api/v1/getSattaGameHistoryLastFour",
+    satta_game_gamehistory: domain1 + "/api/v1/getSattaGameHistory",
+    satta_game_myhistory: domain1 + "/api/v1/getSattaMyHistory",
+    getStatusSattaMatka: domain1 + "/api/v1/getStatusSattaMatka",
+    referral_bonus: domain1 + "/api/v1/getReferralBonus",
+    level_income: domain1 + "/api/v1/getLevelIncome",
+    cashback_income: domain1 + "/api/v1/cash-back-income",
+    get_bank_list: domain1 + "/api/v1/get-bank-Details",
+    get_upi_list: domain1 + "/api/v1/get-upi-details",
+    deposite_request: domain1 + "/api/v1/payin-request",
+    withdraw_payment: domain1 + "/api/v1/payout-request",
+    add_bank: domain1 + "/api/v1/add-bank-upi",
+    bank_details: domain1 + "/api/v1/user-bank-details",
+    withdrawl_history: domain1 + "/api/v1/withdrawal-history",
+    deposit_history: domain1 + "/api/v1/deposit-history",
+    
+    
+   
+      
+  },
+
+  rollet: {
+   
+    bet_now: domain1 + "/api/v1/betPlacedRoulette",
+    // game_result: baseUrl + "/api/roulette-results-history",
+  },
 };
