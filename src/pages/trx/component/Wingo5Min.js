@@ -94,13 +94,6 @@ function Wingo5Min() {
         fk.setFieldValue("openTimerDialog", false);
       }
       if (
-        fivemin?.split("_")?.[1] === "40" && // this is for sec
-        fivemin?.split("_")?.[0] === "0" // this is for minut
-      ) {
-        // oneMinCheckResult();
-        // oneMinColorWinning();
-      }
-      if (
         fivemin?.split("_")?.[1] === "58" &&
         fivemin?.split("_")?.[0] === "4"
       ) {
