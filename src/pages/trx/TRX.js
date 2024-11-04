@@ -1,12 +1,6 @@
 import VolumeUpIcon from "@mui/icons-material/VolumeUpOutlined";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import {
-  Box,
-  Container,
-  Dialog,
-  Stack,
-  Typography
-} from "@mui/material";
+import { Box, Container, Dialog, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +12,10 @@ import music from "../../assets/images/music.png";
 import musicoff from "../../assets/images/musicoff.png";
 import refresh from "../../assets/images/refresh.png";
 import time from "../../assets/images/time.png";
-import { byTimeIsEnableSound, wallet_real_balanceFn } from "../../redux/slices/counterSlice";
+import {
+  byTimeIsEnableSound,
+  wallet_real_balanceFn,
+} from "../../redux/slices/counterSlice";
 import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
@@ -29,8 +26,7 @@ import Wingo1Min from "./component/Wingo1Min";
 import Wingo3Min from "./component/Wingo3Min";
 import Wingo5Min from "./component/Wingo5Min";
 
-function TRX () {
-
+function TRX() {
   const [musicicon, setmusicicon] = useState(true);
   const [value, setValue] = useState(1);
   const dispatch = useDispatch();
@@ -38,11 +34,7 @@ function TRX () {
   const isAppliedbet = localStorage.getItem("betApplied");
   const dummycounter = useSelector((state) => state.aviator.dummycounter);
   const client = useQueryClient();
-  const wallet_amount_data = useSelector(
-    (state) => state.aviator.wallet_real_balance
-  );
-  const byTimeEnablingSound = useSelector((state) => state.aviator.byTimeEnablingSound);
-  const navigate = useNavigate();
+
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -74,10 +66,17 @@ function TRX () {
   }, []);
 
   React.useEffect(() => {
-    if (isAppliedbet?.split("_")?.[1] === String(true)) {
-      setOpenDialogBox(true);
-    }
+    setTimeout(() => {
+      if (isAppliedbet?.split("_")?.[1] === String(true)) {
+        setOpenDialogBox(true);
+        setTimeout(() => {
+          setOpenDialogBox(false);
+          localStorage.setItem("betApplied", false);
+        }, 3000);
+      }
+    }, 1000);
   }, [dummycounter]);
+
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
     () => apiConnectorGet(endpoint.get_balance),
@@ -92,7 +91,10 @@ function TRX () {
 
   React.useEffect(() => {
     dispatch(wallet_real_balanceFn(wallet_amount?.data?.data));
-  }, [Number(wallet_amount?.data?.data?.wallet), Number(wallet_amount?.data?.data?.winning)]);
+  }, [
+    Number(wallet_amount?.data?.data?.wallet),
+    Number(wallet_amount?.data?.data?.winning),
+  ]);
 
   function refreshFunctionForRotation() {
     client.refetchQueries("wallet_amount");
@@ -143,9 +145,23 @@ function TRX () {
             </NavLink>
             <NavLink onClick={() => setmusicicon(!musicicon)}>
               {musicicon === true ? (
-                <Box component="img" src={music} width={25} onClick={()=>{dispatch(byTimeIsEnableSound(true))}}></Box>
+                <Box
+                  component="img"
+                  src={music}
+                  width={25}
+                  onClick={() => {
+                    dispatch(byTimeIsEnableSound(true));
+                  }}
+                ></Box>
               ) : (
-                <Box component="img" src={musicoff} width={25} onClick={()=>{dispatch(byTimeIsEnableSound(false))}}></Box>
+                <Box
+                  component="img"
+                  src={musicoff}
+                  width={25}
+                  onClick={() => {
+                    dispatch(byTimeIsEnableSound(false));
+                  }}
+                ></Box>
               )}
             </NavLink>
           </Stack>
@@ -174,10 +190,10 @@ function TRX () {
               fontSize="18px"
               fontWeight={700}
             >
-               {(
+              {(
                 Number(
                   Number(wallet_amount?.data?.data?.winning || 0) +
-                  Number(wallet_amount?.data?.data?. wallet || 0)
+                    Number(wallet_amount?.data?.data?.wallet || 0)
                 ) || 0
               )?.toFixed(0)}
             </Typography>
@@ -281,8 +297,8 @@ function TRX () {
         <Box sx={{ width: "30%" }}>
           <NavLink
             className={value === 2 ? " wingonavactive wingonav" : " wingonav"}
-            onClick={() =>
-              handleChange(2)
+            onClick={
+              () => handleChange(2)
               // toast(
               //   "The system is currently under maintenance. Please try again later."
               // )
@@ -300,12 +316,11 @@ function TRX () {
         <Box sx={{ width: "30%" }}>
           <NavLink
             className={value === 3 ? " wingonavactive wingonav" : " wingonav"}
-            onClick={
-              () =>
-                // toast(
-                //   "The system is currently under maintenance. Please try again later."
-                // )
-             handleChange(3)
+            onClick={() =>
+              // toast(
+              //   "The system is currently under maintenance. Please try again later."
+              // )
+              handleChange(3)
             }
           >
             <Box component="img" src={time} width={40}></Box>

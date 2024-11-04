@@ -31,11 +31,9 @@ import Wingo5Min from "./component/Wingo5Min";
 function Wingo() {
   const [musicicon, setmusicicon] = useState(true);
   const [value, setValue] = useState(1);
-  const [getBalance, setBalance] = useState(0);
   const [opendialogbox, setOpenDialogBox] = useState(false);
   const isAppliedbet = localStorage.getItem("betApplied");
   const dummycounter = useSelector((state) => state.aviator.dummycounter);
-  const wallet_amount_data = useSelector((state) => state.aviator.wallet_real_balance);
   const client = useQueryClient();
   const navigate = useNavigate();
   const handleChange = (newValue) => {

@@ -6,10 +6,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -17,13 +15,14 @@ import countdownfirst from "../../../assets/images/countdownfirst.mp3";
 import countdownlast from "../../../assets/images/countdownlast.mp3";
 import timerbg1 from "../../../assets/images/timerbg.png";
 import timerbg2 from "../../../assets/images/timerbg2.png";
+import trxbg from "../../../assets/images/trxbg.png";
 import {
-  dummycounterFun,
   gameHistory_trx_one_minFn,
   myHistory_trx_one_minFn,
   trx_game_image_index_function,
   updateNextCounter,
 } from "../../../redux/slices/counterSlice";
+import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
 import { useSocket } from "../../../shared/socket/SocketContext";
 import BetNumber from "../BetNumber";
@@ -32,9 +31,6 @@ import GameHistory from "../history/GameHistory";
 import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
-import { apiConnectorGet } from "../../../services/apiconnector";
-import trxbg from "../../../assets/images/trxbg.png";
-
 
 function Wingo5Min() {
   const [open, setOpen] = useState(false);
@@ -73,7 +69,6 @@ function Wingo5Min() {
     onSubmit: () => {},
   });
 
-
   React.useEffect(() => {
     const handleFiveMin = (onemin) => {
       const t = Number(String(onemin)?.split("_")?.[1]);
@@ -91,7 +86,9 @@ function Wingo5Min() {
         fivemin?.split("_")?.[0] === "0" // this is for minut
       ) {
         fk.setFieldValue("openTimerDialog", true);
-        Number(Number(fivemin?.split("_")?.[1])) <= 5 && Number(Number(fivemin?.split("_")?.[1])) > 0 && handlePlaySound();
+        Number(Number(fivemin?.split("_")?.[1])) <= 5 &&
+          Number(Number(fivemin?.split("_")?.[1])) > 0 &&
+          handlePlaySound();
         Number(Number(fivemin?.split("_")?.[1])) === 0 && handlePlaySoundLast();
       } else {
         fk.setFieldValue("openTimerDialog", false);
@@ -104,8 +101,8 @@ function Wingo5Min() {
         // oneMinColorWinning();
       }
       if (
-        fivemin?.split("_")?.[1] === "0" &&
-        fivemin?.split("_")?.[0] === "0"
+        fivemin?.split("_")?.[1] === "58" &&
+        fivemin?.split("_")?.[0] === "4"
       ) {
         client.refetchQueries("trx_gamehistory_5");
         client.refetchQueries("myAll_trx_history_new_3");
@@ -122,30 +119,31 @@ function Wingo5Min() {
 
   const { isLoading, data: game_history } = useQuery(
     ["trx_gamehistory_5"],
-    () => apiConnectorGet(
-      `${endpoint.trx_game_history}?gameid=3&limit=500`
-    ),
+    () => apiConnectorGet(`${endpoint.trx_game_history}?gameid=3&limit=500`),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
     }
   );
-  const {  data: my_history_all_new } = useQuery(
+  const { data: my_history_all_new } = useQuery(
     ["myAll_trx_history_new_3"],
-    async () => await apiConnectorGet(
-      `${endpoint.trx_my_history_new}?gameid=3&limit=500`
-    ), {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    // retry: false,
-    retryOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+    async () =>
+      await apiConnectorGet(
+        `${endpoint.trx_my_history_new}?gameid=3&limit=500`
+      ),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      // retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
   React.useEffect(() => {
     dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
   }, [my_history_all_new?.data?.data]);
 
- React.useEffect(() => {
+  React.useEffect(() => {
     dispatch(
       updateNextCounter(
         game_history?.data?.result
@@ -323,7 +321,10 @@ function Wingo5Min() {
           }, [])}
         </Box>
         <div className="relative">
-          <BetNumber timing={`${show_this_three_min_time_min}_${show_this_three_min_time_sec}`} gid={"3"} />
+          <BetNumber
+            timing={`${show_this_three_min_time_min}_${show_this_three_min_time_sec}`}
+            gid={"3"}
+          />
           {fk.values.openTimerDialog && (
             <div className="ti !w-full !z-50 top-0 !absolute rounded p-5 flex justify-center items-center">
               <div

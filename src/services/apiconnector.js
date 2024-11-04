@@ -2,7 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { front_end_domain } from "./urls";
 
-export const apiConnectorGet = async (endpoint, params) => {
+export const apiConnectorGet = async (endpoint, param) => {
   try {
     const response = await axios?.get(
       endpoint,
@@ -12,7 +12,7 @@ export const apiConnectorGet = async (endpoint, params) => {
         },
       },
       {
-        params: params,
+        params: param,
       }
     );
     if (response?.data?.msg === "Invalid Token.") {

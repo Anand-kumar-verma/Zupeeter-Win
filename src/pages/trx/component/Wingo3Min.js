@@ -1,8 +1,13 @@
-import { Box, Button, Dialog, DialogActions, Stack, Typography } from "@mui/material";
-import axios from "axios";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -10,8 +15,16 @@ import countdownfirst from "../../../assets/images/countdownfirst.mp3";
 import countdownlast from "../../../assets/images/countdownlast.mp3";
 import timerbg1 from "../../../assets/images/timerbg.png";
 import timerbg2 from "../../../assets/images/timerbg2.png";
-import { dummycounterFun, gameHistory_trx_one_minFn, myHistory_trx_one_minFn, trx_game_image_index_function, updateNextCounter } from "../../../redux/slices/counterSlice";
+import trxbg from "../../../assets/images/trxbg.png";
+import {
+  gameHistory_trx_one_minFn,
+  myHistory_trx_one_minFn,
+  trx_game_image_index_function,
+  updateNextCounter,
+} from "../../../redux/slices/counterSlice";
+import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { useSocket } from "../../../shared/socket/SocketContext";
 import BetNumber from "../BetNumber";
 import Chart from "../history/Chart";
@@ -19,12 +32,8 @@ import GameHistory from "../history/GameHistory";
 import MyHistory from "../history/MyHistory";
 import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
-import { apiConnectorGet } from "../../../services/apiconnector";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import trxbg from "../../../assets/images/trxbg.png";
 
-
-function Wingo3Min() {  
+function Wingo3Min() {
   let preValue = 0;
   const [open, setOpen] = useState(false);
   const socket = useSocket();
@@ -57,9 +66,8 @@ function Wingo3Min() {
   };
   const fk = useFormik({
     initialValues: initialValue,
-    onSubmit: () => { },
+    onSubmit: () => {},
   });
-
 
   React.useEffect(() => {
     const handleThreeMin = (onemin) => {
@@ -101,8 +109,8 @@ function Wingo3Min() {
         // oneMinColorWinning();
       }
       if (
-        threemin?.split("_")?.[1] === "0" &&
-        threemin?.split("_")?.[0] === "0"
+        threemin?.split("_")?.[1] === "58" &&
+        threemin?.split("_")?.[0] === "2"
       ) {
         client.refetchQueries("trx_gamehistory_3");
         client.refetchQueries("myAll_trx_history_new_2");
@@ -121,26 +129,29 @@ function Wingo3Min() {
 
   const { isLoading, data: game_history } = useQuery(
     ["trx_gamehistory_3"],
-    async () => await  apiConnectorGet(
-      `${endpoint.trx_game_history}?gameid=2&limit=500`
-    ),
+    async () =>
+      await apiConnectorGet(`${endpoint.trx_game_history}?gameid=2&limit=500`),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
     }
   );
 
-  const { isLoading: myhistory_loding_all, data: my_history_all_new } = useQuery(
-    ["myAll_trx_history_new_2"],
-    async () => await apiConnectorGet(
-      `${endpoint.trx_my_history_new}?gameid=2&limit=500`
-    ), {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    // retry: false,
-    retryOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  const { isLoading: myhistory_loding_all, data: my_history_all_new } =
+    useQuery(
+      ["myAll_trx_history_new_2"],
+      async () =>
+        await apiConnectorGet(
+          `${endpoint.trx_my_history_new}?gameid=2&limit=500`
+        ),
+      {
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        // retry: false,
+        retryOnMount: false,
+        refetchOnWindowFocus: false,
+      }
+    );
   React.useEffect(() => {
     dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
   }, [my_history_all_new?.data?.data]);
@@ -192,7 +203,6 @@ function Wingo3Min() {
     }
   };
 
-
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -236,27 +246,42 @@ function Wingo3Min() {
               {React.useMemo(() => {
                 return (
                   <>
-                    <Stack direction='row' alignItems='center'>
-                      <Typography className="border border-white text-white px-1 !text-sm rounded" >Period</Typography>
+                    <Stack direction="row" alignItems="center">
+                      <Typography className="border border-white text-white px-1 !text-sm rounded">
+                        Period
+                      </Typography>
 
                       <Button
                         variant="text"
                         color="primary"
                         className="htpbutton2"
                         onClick={handleClickOpen}
-                      > How To Play
+                      >
+                        {" "}
+                        How To Play
                       </Button>
                     </Stack>
-                    <Stack direction='row' sx={{ mt: 1.5, justifyContent: 'space-between' }}>
+                    <Stack
+                      direction="row"
+                      sx={{ mt: 1.5, justifyContent: "space-between" }}
+                    >
                       <Typography
                         variant="body1"
-                        sx={{ color: 'white', fontSize: '18px', fontWeight: '500' }}
+                        sx={{
+                          color: "white",
+                          fontSize: "18px",
+                          fontWeight: "500",
+                        }}
                       >
                         {next_step}{" "}
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ color: 'white', fontSize: '15px', fontWeight: '500' }}
+                        sx={{
+                          color: "white",
+                          fontSize: "15px",
+                          fontWeight: "500",
+                        }}
                       >
                         Draw Time
                       </Typography>
@@ -266,18 +291,22 @@ function Wingo3Min() {
               }, [next_step])}
             </Box>
             <Box>
-              <NavLink to='/trx/tron-scan'>
-                <Button
-                  variant="text"
-                  color="primary"
-                  className="htpbutton3"
-                >Public Chain Query
+              <NavLink to="/trx/tron-scan">
+                <Button variant="text" color="primary" className="htpbutton3">
+                  Public Chain Query
                 </Button>
               </NavLink>
               {React.useMemo(() => {
                 return (
                   <Stack direction="row" mt={1.5}>
-                    <Box className="timer " sx={{ backgroundImage: `url(${timerbg1})`, backgroundSize: '100%', backgroundPosition: 'center' }}>
+                    <Box
+                      className="timer "
+                      sx={{
+                        backgroundImage: `url(${timerbg1})`,
+                        backgroundSize: "100%",
+                        backgroundPosition: "center",
+                      }}
+                    >
                       {show_this_three_min_time_min?.substring(0, 1)}
                     </Box>
                     <Box className="timer1 ">
@@ -288,7 +317,14 @@ function Wingo3Min() {
                     <Box className="timer1 ">
                       {show_this_three_min_time_sec?.substring(0, 1)}
                     </Box>
-                    <Box className="timer2 " sx={{ backgroundImage: `url(${timerbg2})`, backgroundSize: '100%', backgroundPosition: 'center' }}>
+                    <Box
+                      className="timer2 "
+                      sx={{
+                        backgroundImage: `url(${timerbg2})`,
+                        backgroundSize: "100%",
+                        backgroundPosition: "center",
+                      }}
+                    >
                       {show_this_three_min_time_sec?.substring(1, 2)}
                     </Box>
                   </Stack>
@@ -301,11 +337,15 @@ function Wingo3Min() {
           }, [])}
         </Box>
         <div className="relative">
-          <BetNumber timing={`${show_this_three_min_time_min}_${show_this_three_min_time_sec}`} gid={"2"} />
+          <BetNumber
+            timing={`${show_this_three_min_time_min}_${show_this_three_min_time_sec}`}
+            gid={"2"}
+          />
           {fk.values.openTimerDialog && (
             <div className="ti !w-full !z-50 top-0 !absolute rounded p-5 flex justify-center items-center">
               <div
-                c className="flex gap-2 justify-cente !bg-opacity-5 !py-5"
+                c
+                className="flex gap-2 justify-cente !bg-opacity-5 !py-5"
                 sx={{ width: "100%" }}
               >
                 <div
@@ -375,10 +415,30 @@ function Wingo3Min() {
         {value === 2 && <Chart gid="2" />}
         {value === 3 && <MyHistory gid="2" />}
       </Box>
-      <Dialog sx={{ maxWidth: '400px !important', minWidth: '400px !important', margin: 'auto', minHeight: '70%', maxHeight: '80%', }} open={open} >
+      <Dialog
+        sx={{
+          maxWidth: "400px !important",
+          minWidth: "400px !important",
+          margin: "auto",
+          minHeight: "70%",
+          maxHeight: "80%",
+        }}
+        open={open}
+      >
         <Howtoplay />
-        <DialogActions sx={{ margin: 'auto', width: '100%' }}>
-          <Button disableElevation onClick={handleClose} autoFocus variant="contained" sx={{ color: 'white', borderRadius: '20px', width: '60%', margin: 'auto' }}>
+        <DialogActions sx={{ margin: "auto", width: "100%" }}>
+          <Button
+            disableElevation
+            onClick={handleClose}
+            autoFocus
+            variant="contained"
+            sx={{
+              color: "white",
+              borderRadius: "20px",
+              width: "60%",
+              margin: "auto",
+            }}
+          >
             Close
           </Button>
         </DialogActions>
@@ -388,4 +448,3 @@ function Wingo3Min() {
 }
 
 export default Wingo3Min;
-

@@ -23,61 +23,7 @@ const GameHistory = ({ gid }) => {
   const game_history = useSelector(
     (state) => state.aviator.gameHistory_trx_one_min
   );
-
-  // const { isLoading, data: game_history } = useQuery(
-  //   ["trx_gamehistory", gid],
-  //   () => GameHistoryFn(gid),
-  //   {
-  //     refetchOnMount: false,
-  //     refetchOnReconnect: true,
-  //   }
-  // );
-
-  // const GameHistoryFn = async (gid) => {
-  //   try {
-  //     const reqBody = {
-  //       gameid: gid,
-  //       limit: 100,
-  //     };
-  //     const response = await axios.post(
-  //       `${endpoint.trx_game_history}`,
-  //       reqBody
-  //     );
-  //     return response;
-  //   } catch (e) {
-  //     toast(e?.message);
-  //     console.log(e);
-  //   }
-  // };
-  // const game_histor y = []
   const isLoading = false;
-  // const game_history_data = game_history;
-  // const game_history_data = React.useMemo(
-  //   () => game_history,
-  //   [game_history]
-  // );
-
-  // React.useEffect(() => {
-  //   dispatch(
-  //     updateNextCounter(
-  //       game_history
-  //         ? Number(game_history?.[0]?.tr_transaction_id) + 1
-  //         : 1
-  //     )
-  //   );
-  //   const tr_digit =
-  //     game_history && game_history?.[0]?.tr_digits;
-  //   let array = [];
-  //   for (let i = 0; i < tr_digit?.length; i++) {
-  //     if (/[a-zA-Z]/.test(tr_digit[i])) {
-  //       array.push(tr_digit[i].toUpperCase());
-  //     } else {
-  //       array.push(tr_digit[i]);
-  //     }
-  //   }
-  //   dispatch(trx_game_image_index_function(array));
-  // }, [game_history]);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -215,35 +161,34 @@ const GameHistory = ({ gid }) => {
                     <span
                       className={`
                 ${
-                  (String(Number(i?.tr41_slot_id - 1)) === "0" &&
+                  (String(Number(i?.tr41_slot_id)) === "0" &&
                     "!bg-gradient-to-t from-red-400 to-violet-400") ||
-                  (String(Number(i?.tr41_slot_id - 1)) === "5" &&
+                  (String(Number(i?.tr41_slot_id)) === "5" &&
                     "!bg-gradient-to-t from-violet-400 to-green-400") ||
-                  ((String(Number(i?.tr41_slot_id - 1)) === "1" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "3" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "7" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "9" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "10") &&
+                  ((String(Number(i?.tr41_slot_id)) === "1" ||
+                    String(Number(i?.tr41_slot_id)) === "3" ||
+                    String(Number(i?.tr41_slot_id)) === "7" ||
+                    String(Number(i?.tr41_slot_id)) === "9" ||
+                    String(Number(i?.tr41_slot_id)) === "10") &&
                     "bg-gradient-to-t from-green-400 to-green-900") ||
-                  ((String(Number(i?.tr41_slot_id - 1)) === "2" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "4" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "6" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "8" ||
-                    String(Number(i?.tr41_slot_id - 1)) === "30") &&
+                  ((String(Number(i?.tr41_slot_id)) === "2" ||
+                    String(Number(i?.tr41_slot_id)) === "4" ||
+                    String(Number(i?.tr41_slot_id)) === "6" ||
+                    String(Number(i?.tr41_slot_id)) === "8" ||
+                    String(Number(i?.tr41_slot_id)) === "30") &&
                     "bg-gradient-to-tl from-red-400 to-red-900") ||
-                  (String(Number(i?.tr41_slot_id - 1)) === "50" &&
+                  (String(Number(i?.tr41_slot_id)) === "50" &&
                     "bg-[#3183ee]") ||
-                  (String(Number(i?.tr41_slot_id - 1)) === "40" &&
+                  (String(Number(i?.tr41_slot_id)) === "40" &&
                     "bg-[#f1be24]") ||
-                  (String(Number(i?.tr41_slot_id - 1)) === "20" &&
-                    "bg-[#eb2feb]")
+                  (String(Number(i?.tr41_slot_id)) === "20" && "bg-[#eb2feb]")
                 }
                 transparentColor font-bold  text-lg
                 `}
                     >
-                      {Number(i?.tr41_slot_id - 1)}
+                      {Number(i?.tr41_slot_id)}
                     </span>
-                    <span> {Number(i?.tr41_slot_id - 1) <= 4 ? "S" : "B"}</span>
+                    <span> {Number(i?.tr41_slot_id) <= 4 ? "S" : "B"}</span>
                   </TableCell>
                 </TableRow>
               );

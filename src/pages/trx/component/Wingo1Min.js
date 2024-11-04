@@ -21,7 +21,7 @@ import {
   gameHistory_trx_one_minFn,
   myHistory_trx_one_minFn,
   trx_game_image_index_function,
-  updateNextCounter
+  updateNextCounter,
 } from "../../../redux/slices/counterSlice";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
@@ -35,7 +35,6 @@ import Howtoplay from "./Howtoplay";
 import ShowImages from "./ShowImages";
 ////
 function Wingo1Min() {
-
   const [open, setOpen] = useState(false);
   const socket = useSocket();
   const dispatch = useDispatch();
@@ -46,7 +45,6 @@ function Wingo1Min() {
   const audioRefMusiclast = React.useRef(null);
   const client = useQueryClient();
   const next_step = useSelector((state) => state.aviator.next_step);
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -61,35 +59,40 @@ function Wingo1Min() {
   };
   const fk = useFormik({
     initialValues: initialValue,
-    onSubmit: () => { },
+    onSubmit: () => {},
   });
 
   React.useEffect(() => {
-
     const handleOneMin = (onemin) => {
       const t = Number(String(onemin)?.split("_")?.[1]);
       const time_to_be_intro = t > 0 ? 60 - t : t;
       setOne_min_time(time_to_be_intro);
       fk.setFieldValue("show_this_one_min_time", time_to_be_intro);
-      if (time_to_be_intro === 5 || time_to_be_intro === 4 || time_to_be_intro === 3 || time_to_be_intro === 2) {
+      if (
+        time_to_be_intro === 5 ||
+        time_to_be_intro === 4 ||
+        time_to_be_intro === 3 ||
+        time_to_be_intro === 2
+      ) {
       }
 
       if (time_to_be_intro <= 10) {
         fk.setFieldValue("openTimerDialog", true);
-        Number(time_to_be_intro) <= 5 && Number(time_to_be_intro) > 0 && handlePlaySound();
+        Number(time_to_be_intro) <= 5 &&
+          Number(time_to_be_intro) > 0 &&
+          handlePlaySound();
         Number(time_to_be_intro) === 0 && handlePlaySoundLast();
       } else {
         fk.setFieldValue("openTimerDialog", false);
       }
-      if (time_to_be_intro === 59) {
+      if (time_to_be_intro === 58) {
         client.refetchQueries("wallet_amount");
       }
-      if (time_to_be_intro === 59) {
+      if (time_to_be_intro === 58) {
         client.refetchQueries("myAll_trx_history_new_1");
         client.refetchQueries("trx_gamehistory");
         dispatch(dummycounterFun());
       }
-    
     };
 
     socket.on("onemin", handleOneMin);
@@ -100,15 +103,14 @@ function Wingo1Min() {
 
   const { data: game_history } = useQuery(
     ["trx_gamehistory"],
-    async () => await apiConnectorGet(
-      `${endpoint.trx_game_history}?gameid=1&limit=500`
-    ),
+    async () =>
+      await apiConnectorGet(`${endpoint.trx_game_history}?gameid=1&limit=500`),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
       // retry: false,
       retryOnMount: false,
-      refetchOnWindowFocus: false,
+      // refetchOnWindowFocus: false,
     }
   );
   React.useEffect(() => {
@@ -146,21 +148,25 @@ function Wingo1Min() {
     }
   };
 
-  const {isLoading: myhistory_loding_all, data:my_history_all_new } = useQuery(
-    ["myAll_trx_history_new_1"],
-    async () => await apiConnectorGet(
-      `${endpoint.trx_my_history_new}?gameid=1&limit=500`
-    ), {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      // retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    });
-    
-    React.useEffect(() => {
-      dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
-    }, [my_history_all_new?.data?.data]);
+  const { isLoading: myhistory_loding_all, data: my_history_all_new } =
+    useQuery(
+      ["myAll_trx_history_new_1"],
+      async () =>
+        await apiConnectorGet(
+          `${endpoint.trx_my_history_new}?gameid=1&limit=500`
+        ),
+      {
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        // retry: false,
+        retryOnMount: false,
+        refetchOnWindowFocus: false,
+      }
+    );
+
+  React.useEffect(() => {
+    dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
+  }, [my_history_all_new?.data?.data]);
 
   const handlePlaySound = async () => {
     try {
