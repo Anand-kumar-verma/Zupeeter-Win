@@ -15,7 +15,7 @@ const Chart = ({ gid }) => {
     const array = [];
     for (let i = 0; i <= 9; i++) {
       let res = game_history?.findIndex(
-        (element) => element.tr41_slot_id - 1 === i
+        (element) => element.tr41_slot_id  === i
       );
       array.push(res < 0 ? 100 : res);
     }
@@ -53,23 +53,23 @@ const Chart = ({ gid }) => {
         visibleRows?.length > 0 &&
         visibleRows?.map((element, index) => {
           const childId =
-            String(Number(element?.tr41_slot_id - 1)) === "0"
+            String(Number(element?.tr41_slot_id)) === "0"
               ? `zero${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "1"
+              : String(Number(element?.tr41_slot_id)) === "1"
               ? `one${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "2"
+              : String(Number(element?.tr41_slot_id)) === "2"
               ? `two${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "3"
+              : String(Number(element?.tr41_slot_id)) === "3"
               ? `three${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "4"
+              : String(Number(element?.tr41_slot_id)) === "4"
               ? `four${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "5"
+              : String(Number(element?.tr41_slot_id)) === "5"
               ? `five${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "6"
+              : String(Number(element?.tr41_slot_id)) === "6"
               ? `six${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "7"
+              : String(Number(element?.tr41_slot_id)) === "7"
               ? `seven${index}`
-              : String(Number(element?.tr41_slot_id - 1)) === "8"
+              : String(Number(element?.tr41_slot_id)) === "8"
               ? `eight${index}`
               : `nine${index}`;
           const childRect = document
@@ -158,14 +158,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`zero${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "0"
+                        (i?.tr41_slot_id )?.toString() === "0"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number   ${
-                          (i?.tr41_slot_id - 1)?.toString() === "0"
+                          (i?.tr41_slot_id )?.toString() === "0"
                             ? "!bg-gradient-to-b from-[#e85053] to-[#8c06f2] !text-white !font-bold !text-[5px] "
                             : "!bg-white !text-black !border-[1px] !border-black  !text-[5px]  !opacity-20"
                         }`}
@@ -178,14 +178,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`one${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "1"
+                        (i?.tr41_slot_id )?.toString() === "1"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number  ${
-                          (i?.tr41_slot_id - 1)?.toString() === "1"
+                          (i?.tr41_slot_id )?.toString() === "1"
                             ? "!bg-[#4bef98] !text-white  !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -198,14 +198,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`two${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "2"
+                        (i?.tr41_slot_id )?.toString() === "2"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number   ${
-                          (i?.tr41_slot_id - 1)?.toString() === "2"
+                          (i?.tr41_slot_id )?.toString() === "2"
                             ? "!bg-[#f1494c] !text-white !font-bold "
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -218,14 +218,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`three${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "3"
+                        (i?.tr41_slot_id )?.toString() === "3"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number  ${
-                          (i?.tr41_slot_id - 1)?.toString() === "3"
+                          (i?.tr41_slot_id )?.toString() === "3"
                             ? "!bg-[#46eb93] !text-white !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -238,14 +238,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`four${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "4"
+                        (i?.tr41_slot_id )?.toString() === "4"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number ${
-                          (i?.tr41_slot_id - 1)?.toString() === "4"
+                          (i?.tr41_slot_id )?.toString() === "4"
                             ? "!bg-[#ed4b4e] !text-white !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -258,14 +258,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`five${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "5"
+                        (i?.tr41_slot_id )?.toString() === "5"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number ${
-                          (i?.tr41_slot_id - 1)?.toString() === "5"
+                          (i?.tr41_slot_id )?.toString() === "5"
                             ? "!bg-gradient-to-b from-[#55f8a1] to-[#8c06f2] !text-white  !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -277,14 +277,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`six${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "6"
+                        (i?.tr41_slot_id )?.toString() === "6"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number ${
-                          (i?.tr41_slot_id - 1)?.toString() === "6"
+                          (i?.tr41_slot_id )?.toString() === "6"
                             ? "!bg-[#f54b4e] !text-white !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -296,14 +296,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`seven${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "7"
+                        (i?.tr41_slot_id )?.toString() === "7"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number ${
-                          (i?.tr41_slot_id - 1)?.toString() === "7"
+                          (i?.tr41_slot_id )?.toString() === "7"
                             ? "!bg-[#4af499] !text-white !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -316,14 +316,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`eight${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "8"
+                        (i?.tr41_slot_id )?.toString() === "8"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number  ${
-                          (i?.tr41_slot_id - 1)?.toString() === "8"
+                          (i?.tr41_slot_id )?.toString() === "8"
                             ? "!bg-[#eb494c] !text-white !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -336,14 +336,14 @@ const Chart = ({ gid }) => {
                     <div
                       id={`nine${indexi}`}
                       className={`${
-                        (i?.tr41_slot_id - 1)?.toString() === "9"
+                        (i?.tr41_slot_id )?.toString() === "9"
                           ? "!z-20"
                           : "!z-[-10px]"
                       }`}
                     >
                       <Typography
                         className={`circleNumberbody-number  ${
-                          (i?.tr41_slot_id - 1)?.toString() === "9"
+                          (i?.tr41_slot_id )?.toString() === "9"
                             ? "!bg-[#4cf199] !text-white !font-bold"
                             : "!bg-white !text-black !border-[1px] !border-black !opacity-20"
                         }`}
@@ -354,12 +354,12 @@ const Chart = ({ gid }) => {
                     </div>
                     <Typography
                       className={`circleNumberbody-number ${
-                        (i?.tr41_slot_id - 1)?.toString() <= 4
+                        (i?.tr41_slot_id )?.toString() <= 4
                           ? "!bg-[#F39E2A]"
                           : "!bg-[#6DA7F4]"
                       }  !h-[20px] !w-[20px] !rounded-full !text-center !text-white `}
                     >
-                      {(i?.tr41_slot_id - 1)?.toString() <= 4 ? "S" : "B"}
+                      {(i?.tr41_slot_id )?.toString() <= 4 ? "S" : "B"}
                     </Typography>
                   </Box>
                 </div>

@@ -3,6 +3,20 @@
 @tailwind utilities;
 
 
+
+.animation_image {
+  animation: rotatemain 24s reverse linear infinite;
+}
+
+@keyframes rotatemain {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 .w95 {
   width: 95% !important;
   margin-left: 2.5% !important;

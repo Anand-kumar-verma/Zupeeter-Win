@@ -345,7 +345,7 @@ const Chart = ({ gid }) => {
                           : "!bg-[#df4be1]"
                       }  !h-[20px] !w-[20px] !rounded-full !text-center circleNumberbody-number !mr-1 !text-[5px] !text-white `}
                     >
-                      {(i?.tr41_slot_id - 1)?.toString() <= 4 ? "S" : "B"}
+                      {(i?.tr41_slot_id)?.toString() <= 4 ? "S" : "B"}
                     </Typography>
                   </Box>
                 </div>

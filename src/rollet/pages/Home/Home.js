@@ -16,7 +16,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { NavLink } from "react-router-dom";
-import CustomCircularProgress from "../../../shared/CustomDialogBox";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { useSocket } from "../../../shared/socket/SocketContext";
 import btbg1 from "../../../assets/btbg1.png";
 import btbg2 from "../../../assets/btbg2.png";
