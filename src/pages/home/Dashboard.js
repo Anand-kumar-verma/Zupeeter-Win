@@ -16,6 +16,9 @@ import banner3 from "../../assets/images/banner3.jpg";
 import banner4 from "../../assets/images/banner4.jpg";
 import banner5 from "../../assets/images/banner5.jpg";
 import banner7 from "../../assets/images/banner7.jpg";
+import banner8 from "../../assets/orangebanner.png";
+import banner9 from "../../assets/Goldblack.png";
+import banner10 from "../../assets/blueyellow.png";
 import crown1 from "../../assets/images/crown1.png";
 import crown2 from "../../assets/images/crown2.png";
 import crown3 from "../../assets/images/crown3.png";
@@ -138,6 +141,15 @@ function Dashboard() {
         </SwiperSlide>
         <SwiperSlide>
           <Box component="img" src={ava} sx={style.banner}></Box>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Box component="img" src={banner8} sx={style.banner}></Box>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Box component="img" src={banner9} sx={style.banner}></Box>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Box component="img" src={banner10} sx={style.banner}></Box>
         </SwiperSlide>
         <div className="autoplay-progress" slot="container-end">
           <svg viewBox="0 0 48 48" ref={progressCircle}>

@@ -1,8 +1,5 @@
 import { History, List } from "@mui/icons-material";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import FitbitIcon from "@mui/icons-material/Fitbit";
 import { Box, Button, Container, Typography } from "@mui/material";
-import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -15,7 +12,7 @@ import { stardarkblue, stargrad } from "../../../shared/color";
 import one from "../../../pages/SattaMatka/assets/images/Top-Reasons-Why-Satta-Matka-is-so-Famous-1024x538-Photoroom (1).jpg";
 import buildings from "../../../pages/SattaMatka/assets/images/buildings.png";
 import { apiConnectorGet } from "../../../services/apiconnector";
-import { download_app_url, endpoint } from "../../../services/urls";
+import { endpoint } from "../../../services/urls";
 import Layout from "../../../component/layout/Layout";
 
 function Satta() {
@@ -51,12 +48,6 @@ function Satta() {
   );
   const statta_matka_staus_result = statta_matka_staus?.data?.data || [];
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setMinut(moment(Date.now())?.format("mm"));
-  //   }, 1000);
-  //   return () => clearInterval(timer);
-  // }, []);
   useEffect(() => {
     const handleOneMin = (onemin) => {
       const t = Number(String(onemin)?.split("_")?.[1]);
