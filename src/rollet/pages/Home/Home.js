@@ -429,821 +429,825 @@ function Home() {
   };
 
   return (
-    <Container className="!bg-transparent">
-    <Box className="home" sx={style.root}>
-      <Stack
-        direction="row"
-        sx={{ alignItems: "center", justifyContent: "space-between" }}
-        className="w95"
-      >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <ReplyOutlinedIcon
-            sx={{ color: "gray", width: "20px", mr: 1 }}
-            onClick={() => {
-              mouseClickSound();
-              setOpen1(true);
-            }}
-          />
-          <Box sx={style.p15}>
-            {" "}
-            <Typography variant="h6" color="initial" sx={style.p13}>
-              Balance ₹{" "}
-              {Number(
-                Number(newdata?.wallet || 0) + Number(newdata?.winning || 0)
-              )?.toFixed(2)}
-            </Typography>
-          </Box>
-        </Box>
-        <Box>
-          <ListOutlinedIcon
-            sx={{ color: "gray", width: "20px" }}
-            onClick={() => {
-              mouseClickSound();
-              one_min_time > 10 && setopenDialogBoxhistory(true);
-            }}
-          />
-        </Box>
-      </Stack>
-      <Stack
-        sx={{ alignItems: "center", justifyContent: "space-between" }}
-        direction="row"
-      >
-        <Stack
-          sx={{ alignItems: "center", justifyContent: "space-between" }}
-          direction="row"
-        >
-          <Box
-            sx={{
-              width: "50px",
-              height: "40px",
-              background: "#BA903B",
-              borderRadius: "5px",
-              border: "1px solid white",
-              mr: 1,
-            }}
-          >
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: "25px",
-                fontWeight: "700",
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              {" "}
-              {result_rollet}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography className="!text-xs " variant="body1" sx={style.p13}>
-              {" "}
-              {profileData?.full_name
-                ? profileData?.full_name?.substring(0, 10) + "..."
-                : "*******"}
-            </Typography>
-            <Typography className="!text-xs" variant="body1" sx={style.p13}>
-              {" "}
-              Bet :{" "}
-              {bet?.reduce((a, b) => a + Number(b?.amount), 0) ||
-                Number(total_amount_bet)?.toFixed(2)}
-            </Typography>
-            <Typography
-              className="!-mb-2 !text-xs"
-              variant="body1"
-              sx={style.p13}
-            >
-              {" "}
-              Win : {Number(res?.[0]?.win || 0)?.toFixed(2)}
-            </Typography>
-          </Box>
-        </Stack>
-        <Collapse in={open3}>
-          <Box
-            sx={{
-              position: "absolute",
-              width: "90%",
-              height: "50%",
-              background: "red",
-              zIndex: "1000",
-              left: "5%",
-              top: "25%",
-              borderRadius: "10px",
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                position: "relative",
-                // backgroundImage: `url(${roulettebg})`,
-                // backgroundRepeat: "no-repeat",
-                backgroundSize: "100% 100%",
-                // background: '#BA903B',
-                backgroundImage: `url(${rouletteBORD})`,
-                borderRadius: "10px",
-                border: "1px solid white",
-              }}
-            >
-              <div
-                // style={{
-                //   width: "250px",
-                //   height: "250px",
-                //   position: "absolute",
-                //   top: "5%",
-                //   right: "15%",
-                // }}
-                // style={{
-                //   width: '300px',
-                //   height: '300px',
-                //   bottom:"12px",
-                //   left:"12px",
-                //   position: 'absolute',
-                //  }}
-                className=" !flex !justify-center !items-center animation_image z-50"
-              >
-                <img
-                  src={roulette}
-                  alt=""
-                  className="!h-full !w-full !bg-no-repeat "
-                />
-                <Rolletball/>
-              </div>
-            </Box>
-          </Box>
-        </Collapse>
-        <Box
-          sx={{
-            width: "50px",
-            height: "50px",
-            background: "#BA903B",
-            borderRadius: "5px",
-            border: "1px solid white",
-          }}
-        >
-          {useMemo(() => {
-            return (
-              <>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    cursor: "pointer",
-                  }}
-                >
-                  <div className=" !flex !justify-center !items-center animation_image">
-                    <img
-                      src={roulette}
-                      className="!h-full !w-full !bg-no-repeat "
-                    />
-                    {/* <Rolletball /> */}
-                  </div>
-                </Box>
+    <Layout>
+          <Container className="!bg-transparent">
+     
+     <Box className="home" sx={style.root}>
+       <Stack
+         direction="row"
+         sx={{ alignItems: "center", justifyContent: "space-between" }}
+         className="w95"
+       >
+         <Box sx={{ display: "flex", alignItems: "center" }}>
+           <ReplyOutlinedIcon
+             sx={{ color: "gray", width: "20px", mr: 1 }}
+             onClick={() => {
+               mouseClickSound();
+               setOpen1(true);
+             }}
+           />
+           <Box sx={style.p15}>
+             {" "}
+             <Typography variant="h6" color="initial" sx={style.p13}>
+               Balance ₹{" "}
+               {Number(
+                 Number(newdata?.wallet || 0) + Number(newdata?.winning || 0)
+               )?.toFixed(2)}
+             </Typography>
+           </Box>
+         </Box>
+         <Box>
+           <ListOutlinedIcon
+             sx={{ color: "gray", width: "20px" }}
+             onClick={() => {
+               mouseClickSound();
+               one_min_time > 10 && setopenDialogBoxhistory(true);
+             }}
+           />
+         </Box>
+       </Stack>
+       <Stack
+         sx={{ alignItems: "center", justifyContent: "space-between" }}
+         direction="row"
+       >
+         <Stack
+           sx={{ alignItems: "center", justifyContent: "space-between" }}
+           direction="row"
+         >
+           <Box
+             sx={{
+               width: "50px",
+               height: "40px",
+               background: "#BA903B",
+               borderRadius: "5px",
+               border: "1px solid white",
+               mr: 1,
+             }}
+           >
+             <Typography
+               variant="body1"
+               sx={{
+                 fontSize: "25px",
+                 fontWeight: "700",
+                 color: "white",
+                 textAlign: "center",
+               }}
+             >
+               {" "}
+               {result_rollet}
+             </Typography>
+           </Box>
+           <Box>
+             <Typography className="!text-xs " variant="body1" sx={style.p13}>
+               {" "}
+               {profileData?.full_name
+                 ? profileData?.full_name?.substring(0, 10) + "..."
+                 : "*******"}
+             </Typography>
+             <Typography className="!text-xs" variant="body1" sx={style.p13}>
+               {" "}
+               Bet :{" "}
+               {bet?.reduce((a, b) => a + Number(b?.amount), 0) ||
+                 Number(total_amount_bet)?.toFixed(2)}
+             </Typography>
+             <Typography
+               className="!-mb-2 !text-xs"
+               variant="body1"
+               sx={style.p13}
+             >
+               {" "}
+               Win : {Number(res?.[0]?.win || 0)?.toFixed(2)}
+             </Typography>
+           </Box>
+         </Stack>
+         <Collapse in={open3}>
+           <Box
+             sx={{
+               position: "absolute",
+               width: "90%",
+               height: "50%",
+               background: "red",
+               zIndex: "1000",
+               left: "5%",
+               top: "25%",
+               borderRadius: "10px",
+             }}
+           >
+             <Box
+               sx={{
+                 width: "100%",
+                 height: "100%",
+                 position: "relative",
+                 // backgroundImage: `url(${roulettebg})`,
+                 // backgroundRepeat: "no-repeat",
+                 backgroundSize: "100% 100%",
+                 // background: '#BA903B',
+                 backgroundImage: `url(${rouletteBORD})`,
+                 borderRadius: "10px",
+                 border: "1px solid white",
+               }}
+             >
+               <div
+                 // style={{
+                 //   width: "250px",
+                 //   height: "250px",
+                 //   position: "absolute",
+                 //   top: "5%",
+                 //   right: "15%",
+                 // }}
+                 // style={{
+                 //   width: '300px',
+                 //   height: '300px',
+                 //   bottom:"12px",
+                 //   left:"12px",
+                 //   position: 'absolute',
+                 //  }}
+                 className=" !flex !justify-center !items-center animation_image z-50"
+               >
+                 <img
+                   src={roulette}
+                   alt=""
+                   className="!h-full !w-full !bg-no-repeat "
+                 />
+                 <Rolletball/>
+               </div>
+             </Box>
+           </Box>
+         </Collapse>
+         <Box
+           sx={{
+             width: "50px",
+             height: "50px",
+             background: "#BA903B",
+             borderRadius: "5px",
+             border: "1px solid white",
+           }}
+         >
+           {useMemo(() => {
+             return (
+               <>
+                 <Box
+                   sx={{
+                     width: "100%",
+                     height: "100%",
+                     cursor: "pointer",
+                   }}
+                 >
+                   <div className=" !flex !justify-center !items-center animation_image">
+                     <img
+                       src={roulette}
+                       className="!h-full !w-full !bg-no-repeat "
+                     />
+                     {/* <Rolletball /> */}
+                   </div>
+                 </Box>
+ 
+                 {/* <Box sx={{ width: '50px', height: '25px', background: '#BA903B', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '5px', mt: 1, }}
+                 onClick={toggleDrawer3(true)}>
+                   <Typography  variant="body1" color="initial" sx={{ fontWeight: '500', color: 'white', borderRadius: '5px', }}><RemoveRedEyeIcon /></Typography>
+                 </Box> */}
+               </>
+             );
+           }, [])}
+         </Box>
+       </Stack>
+ 
+       <CustomCircularProgress isLoading={loding} />
+       {useMemo(() => {
+         return (
+           <>
+             <audio ref={placeBetMusic} hidden>
+               <source src={`${placebetmusic}`} type="audio/mp3" />
+             </audio>
+           </>
+         );
+       }, [placeBetMusic])}
+       
+       <Box>
+         <Box>
+           {useMemo(() => {
+             return (
+               <>
+                 <audio ref={audioRefMusic} hidden>
+                   <source src={`${wheel_roulette}`} type="audio/mp3" />
+                 </audio>
+                 <audio ref={audioRefMusicStopBall} hidden>
+                   <source src={`${stop_ball_music}`} type="audio/mp3" />
+                 </audio>
+                 <audio ref={mouseClickSoundref} hidden>
+                   <source src={`${mouse_click}`} type="audio/mp3" />
+                 </audio>
+               </>
+             );
+           }, [audioRefMusic, audioRefMusicStopBall, mouseClickSoundref])}
+           {/* {useMemo(() => { */}
+           {/* return ( */}
+ 
+           {/* ); */}
+           {/* }, [])} */}
+           <Rule setOpen2={setOpen2} open2={open2} style={style} />
+          
+               <ButtonGroup
+               variant="outlined"
+               aria-label="Basic button group"
+               sx={{
+                 position: "absolute",
+                 top: "11%",
+                 right: "1%",
+                 width: "97%",
+                 "&>button": {
+                   py: "10px",
+                   background: "transparent",
+                   "&.Mui-disabled": {
+                     backgroundColor: "transparent",
+                     color: "#757575",
+                     cursor: "not-allowed",
+                     opacity: "0.5",
+                   },
+                   "&:hover": { backgroundColor: "transparent" },
+                 },
+                 "&>button:nth-child(1)": {
+                   backgroundImage: `url(${btbg1})`,
+                   backgroundSize: "100% 100%",
+                   color: "white",
+                   width: "15%",
+                 },
+                 }}
+             >
+             <Button
+               variant="contained"
+                 sx={{
+                   display: "flex",
+                   alignItems: "center",
+                   justifyContent: "center",
+                   fontSize: "10px",
+                   // borderRadius: "5px",
+                 }}
+                 onClick={() => {
+                   setOpen2(true);
+                 }}
+               >
+                Rule
+               </Button>
+                </ButtonGroup>
+       
+           {/* <Box
+             sx={{
+               width: "100%",
+               height: "100%",
+               position: "absolute",
+             }}
+           > */}
+           <ConfirmationDialogBox
+             style={style}
+             handleConfirm={handleConfirm}
+             open1={open1}
+             setOpen1={setOpen1}
+             isOpenPreRoundDialogBox={isOpenPreRoundDialogBox}
+           />
+           {/* <Box sx={style.naiming100}>
+               <Typography variant="body1" color="initial">
+                 Name
+               </Typography>
+               <Typography variant="body1" color="initial">
+                 {profileData?.full_name
+                   ? profileData?.full_name?.substring(0, 10) + "..."
+                   : "*******"}
+               </Typography>
+             </Box> */}
+           {/* <Box sx={style.naiming200}>
+               <Typography variant="body1" color="initial">
+                 Bet Amount
+               </Typography>
+               <Typography variant="body1" color="initial">
+                 {bet?.reduce((a, b) => a + Number(b?.amount), 0) ||
+                   Number(total_amount_bet)?.toFixed(2)}
+               </Typography>
+             </Box> */}
+           {/* <Box sx={style.naiming300}>
+               <Typography variant="body1" color="initial">
+                 You Win
+               </Typography>
+               <Typography variant="body1" color="initial">
+                 {openDialogBox ? Number(openDialogBox || 0)?.toFixed(2) : 0}
+               </Typography>
+             </Box> */}
+           {/* <Box direction={"row"} sx={style.winnerlooserouter}>
+               <Box sx={style.winnerLooserList2}>
+                 <Typography
+                   variant="body1"
+                   color="initial"
+                   sx={{ color: "red" }}
+                   className="!text-[10px]"
+                 >
+                   Name:{" "}
+                   {profileData?.full_name
+                     ? profileData?.full_name?.substring(0, 10) + "..."
+                     : "*******"}
+                 </Typography>
+                 <Typography
+                   variant="body1"
+                   color="initial"
+                   sx={{ color: "red" }}
+                 >
+                   Bet Amount:{" "}
+                   <span style={{ color: "red" }}>
+ 
+                   </span>
+                 </Typography>
+                 <Typography
+                   variant="body1"
+                   color="initial"
+                   sx={{ color: "red" }}
+                 >
+                   You Win :{" "}
+                   <span style={{ color: "#15158F !important" }}>
+                     {openDialogBox ? Number(openDialogBox || 0)?.toFixed(2) : 0}
+                   </span>
+                 </Typography>
+               </Box>
+             </Box> */}
+           {/* </Box> */}
+           <Box
+             direction={"row"}
+             sx={{ ...style.winnerlooserouter2, ...style.flex }}
+           >
+             <Box
+               sx={{
+                 width: "45px",
+                 height: "100%",
+                 position: "absolute",
+                 right: 0,
+                 border: "2px solid white",
+                 borderRadius: "5px",
+               }}
+             ></Box>
+             {[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]?.map((ele) => {
+               return (
+                 <Box key={ele} sx={{ ...style.winnerLooserList }}>
+                   <Typography
+                     variant="body1"
+                     color="initial"
+                     sx={{ color: "green" }}
+                   >
+                     {black_array?.includes(
+                       Number(bet_result_history_Data?.[ele]?.number)
+                     ) && Number(bet_result_history_Data?.[ele]?.number)}
+                     {/* {ele} */}
+                   </Typography>
+ 
+                   <Typography
+                     variant="body1"
+                     color="initial"
+                     sx={{ color: "green" }}
+                   >
+                     {0 === Number(bet_result_history_Data?.[ele]?.number) &&
+                       Number(bet_result_history_Data?.[ele]?.number)}
+                     {/* {ele} */}
+                   </Typography>
+ 
+                   <Typography
+                     variant="body1"
+                     color="initial"
+                     sx={{ color: "green" }}
+                   >
+                     {red_array?.includes(
+                       Number(bet_result_history_Data?.[ele]?.number)
+                     ) && Number(bet_result_history_Data?.[ele]?.number)}
+                     {/* {ele} */}
+                   </Typography>
+                 </Box>
+               );
+             })}
+           </Box>
+           {/* <Box
+             sx={{
+               width: "100%",
+               height: "100%",
+               position: "absolute",
+             }}
+           >
+             <Box direction={"row"} sx={style.winnerlooserouter3}>
+               <Box sx={style.winnerLooserList3}>
+                 <Typography
+                   variant="body1"
+                   color="initial"
+ 
+                 >
+                   {result_rollet}
+                 </Typography>
+               </Box>
+             </Box>
+           </Box> */}
+           <TwoToOne
+             isSelectedDropBet={isSelectedDropBet}
+             removeSingleBetFunction={removeSingleBetFunction}
+             // setOpenDialogBox={setOpenDialogBox}
+             bet={bet}
+             setBetFuncton={setBetFuncton}
+             amount={amount}
+           />
+           {/* {useMemo(() => {
+             return (
+               <Box sx={{ width: '110px', height: '110px', background: '#ff000000', backdropFilter: 'blur(5px)', border: `1px solid #6C10ED`, transform: 'rotate(180deg)', display: 'flex', position: 'absolute', bottom: '14%', right: '2%', padding: '5px', borderRadius: '5px' }}>
+                 <Box sx={{ width: '70px', height: '100px', background: 'transparent' }}>
+                   <Box
+                     sx={{
+                       width: "100%",
+                       height: "100%",
+                       cursor: 'pointer',
+                       mt: '16px'
+                     }}
+ 
+                   >
+                     <div
+                       className=" !flex !justify-center !items-center animation_image"
+                     >
+                       <img
+                         src={roulette}
+                         className="!h-full !w-full !bg-no-repeat "
+                       />
+                       <Rolletball />
+                     </div>
+                   </Box>
+                 </Box>
+                 <Box sx={{ width: '30px', height: '100px', background: '#6C10ED', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                   <Typography onClick={toggleDrawer3(true)} variant="body1" color="initial" sx={{ fontWeight: '500', transform: 'rotate(-90deg)', color: 'white', borderRadius: '5px', }}>View</Typography>
+                 </Box>
+               </Box>
+             );
+           }, [])} */}
+           <Box
+             sx={{
+               width: "25px",
+               height: "100%",
+             }}
+           >
+             {preBetHandle && isPreBet === "true" && one_min_time > 10 && (
+               <>
+                 <Box
+                   sx={style.naiming10}
+                   component={NavLink}
+                   className={"!ml-10"}
+                 >
+                   <Typography
+                     onClick={() => justDouble(bet, setBet, newdata)}
+                     variant="body1"
+                     color="initial"
+                   >
+                     Double
+                   </Typography>
+                 </Box>
+                 <Box
+                   sx={style.naiming11}
+                   component={NavLink}
+                   className={"!ml-16"}
+                 >
+                   <Typography
+                     onClick={() => rebetFuncton(bet, rebet, setBet, newdata)}
+                     variant="body1"
+                     color="initial"
+                   >
+                     Re - bet
+                   </Typography>
+                 </Box>
+               </>
+             )}
+             {/* <Box sx={style.naiming}>
+               <Typography variant="body1" color="initial">
+                 POINT BALANCE
+               </Typography>
+               <Typography variant="body1" color="initial">
+                 {Number(
+                   Number(wallet_amount_data?.wallet || 0) +
+                   Number(wallet_amount_data?.winning || 0)
+                 )?.toFixed(2)}
+               </Typography>
+             </Box> */}
+             {/* <Box sx={style.naiming2}>
+               <Typography variant="body1" color="initial">
+                 Name
+               </Typography>
+               <Typography variant="body1" color="initial">
+                 {isLoading ? (
+                   <CircularProgress className="!text-red-600" size={"small"} />
+                 ) : profileData?.full_name ? (
+                   profileData?.full_name?.substring(0, 15)
+                 ) : (
+                   "*****"
+                 )}
+               </Typography>
+             </Box> */}
+             <Coin
+               mouseClickSound={mouseClickSound}
+               setAmount={setAmount}
+               amount={amount}
+               setisSelectedDropBet={setisSelectedDropBet}
+             />
+ 
+             {/* <Box
+               sx={style.naiming4}
+               onClick={() => {
+                 mouseClickSound();
+                 setOpen1(true);
+               }}
+             >
+               <Typography variant="body1" color="initial">
+                 LEAVE TABLE
+               </Typography>
+             </Box> */}
+             <ButtonGroup
+               variant="outlined"
+               aria-label="Basic button group"
+               sx={{
+                 position: "absolute",
+                 bottom: "7%",
+                 right: "2%",
+                 width: "96%",
+                 "&>button": {
+                   py: "10px",
+                   background: "transparent",
+                   "&.Mui-disabled": {
+                     backgroundColor: "transparent",
+                     color: "#757575",
+                     cursor: "not-allowed",
+                     opacity: "0.5",
+                   },
+                   "&:hover": { backgroundColor: "transparent" },
+                 },
+                 "&>button:nth-child(1)": {
+                   backgroundImage: `url(${btbg1})`,
+                   backgroundSize: "100% 100%",
+                   color: "white",
+                   width: "25%",
+                 },
+                 "&>button:nth-child(2)": {
+                   backgroundImage: `url(${btbg2})`,
+                   backgroundSize: "100% 100%",
+                   color: "white",
+                   width: "25%",
+                 },
+                 "&>button:nth-child(3)": {
+                   backgroundImage: `url(${btbg1})`,
+                   backgroundSize: "100% 100%",
+                   color: "white",
+                   width: "25%",
+                 },
+                 "&>button:nth-child(4)": {
+                   backgroundImage: `url(${btbg3})`,
+                   backgroundSize: "100% 100%",
+                   color: "white",
+                   width: "25%",
+                 },
+               }}
+             >
+               <Button
+                 disabled={
+                   one_min_time < 10 ||
+                   !(bet?.length > 0 && isAlreadyAppliedBet === "false")
+                 }
+                 variant="contained"
+                 sx={{
+                   display: "flex",
+                   alignItems: "center",
+                   justifyContent: "center",
+                   fontSize: "11px",
+                   borderRadius: "5px",
+                 }}
+                 onClick={() => removeBetFunctonAll()}
+               >
+                 Remove
+               </Button>
+               <Button
+                 variant="contained"
+                 sx={{
+                   backgroundImage: `url(${btbg3})`,
+                   backgroundSize: "100% 100%",
+                   color: "white !important",
+                   fontSize: "20px",
+                   fontWeight: "700",
+                   "&:hover": { backgroundColor: "transparent" },
+                 }}
+                 onClick={() => justHalf(bet, setBet, newdata)}
+               >
+                 -
+               </Button>
+               <Button
+                 onClick={() => {
+                   mouseClickSound();
+                   confirmBet(
+                     setloding,
+                     rebet,
+                     setrebet,
+                     bet,
+                     setBet,
+                     user_id,
+                     newdata,
+                     client
+                   );
+                 }}
+                 className="text-white w-[25%] !text-center pt-3 !cursor-pointer"
+                 sx={{
+                   backgroundImage: `url(${btbg1})`,
+                   backgroundSize: "100% 100%",
+                   "&>div>input": {
+                     color: "white !important",
+                     fontSize: "20px",
+                     fontWeight: "700",
+                   },
+                 }}
+               >
+                 {bet?.reduce((a, b) => a + Number(b?.amount), 0) ||
+                   Number(total_amount_bet)?.toFixed(2)}
+               </Button>
+ 
+               <Button
+                 variant="contained"
+                 sx={{
+                   backgroundImage: `url(${btbg3})`,
+                   backgroundSize: "100% 100%",
+                   color: "white !important",
+                   fontSize: "20px",
+                   fontWeight: "700",
+                   "&:hover": { backgroundColor: "transparent" },
+                 }}
+                 onClick={() => justDouble(bet, setBet, newdata)}
+               >
+                 +
+               </Button>
+               {/* <Button variant="contained" disabled={one_min_time < 10 || !(bet?.length > 0 && isAlreadyAppliedBet === "false")} onClick={() => removeBetFunctonAll()}>Clear Bet</Button> */}
+               {/* <Button variant="contained" disabled={one_min_time < 10} onClick={() => {
+                 mouseClickSound();
+                 confirmBet(
+                   setloding,
+                   rebet,
+                   setrebet,
+                   bet,
+                   setBet,
+                   user_id,
+                   wallet_amount_data,
+                   client
+                 );
+               }}
+               >Confirm</Button> */}
+             </ButtonGroup>
+             {/* {one_min_time > 10 && (
+               <>
+                 <Box sx={{ ...style.naiming5 }} className={"!flex !gap-3"}>
+                   <Typography
+                     sx={{
+                       display: "flex",
+                       alignItems: "center",
+                       justifyContent: "center",
+                       fontSize: "11px",
+                       borderRadius: "5px",
+                     }}
+                     onClick={() => {
+                       mouseClickSound();
+                       confirmBet(
+                         setloding,
+                         rebet,
+                         setrebet,
+                         bet,
+                         setBet,
+                         user_id,
+                         wallet_amount_data,
+                         client
+                       );
+                     }}
+                     variant="body1"
+                     color="initial"
+                   >
+                     CONFIRM
+                   </Typography>
+                 </Box>
+                 {bet?.length > 0 && isAlreadyAppliedBet === "false" && (
+                   <>
+                     <Box sx={style.naiming12} className={"!flex !gap-3"}>
+                       <Typography
+                         sx={{
+                           display: "flex",
+                           alignItems: "center",
+                           justifyContent: "center",
+                           fontSize: "11px",
+                           borderRadius: "5px",
+                         }}
+                         onClick={() => {
+                           setisSelectedDropBet(true);
+                         }}
+                         variant="body1"
+                         color="initial"
+                       >
+                         Remove
+                       </Typography>
+                     </Box>
+                     <Box sx={style.naiming13} className={"!flex "}>
+                       <Typography
+                         onClick={() => removeBetFunctonAll()}
+                         variant="body1"
+                         color="initial"
+                         sx={{
+                           display: "flex",
+                           alignItems: "center",
+                           justifyContent: "center",
+                           fontSize: "11px",
+                           borderRadius: "5px",
+                         }}
+                       >
+                         CLEAR BET
+                       </Typography>
+                     </Box>
+                   </>
+                 )}
+               </>
+             )} */}
+           </Box>
+           <Box
+             component="img"
+             src={dealer}
+             sx={{
+               width: "230px",
+               position: "absolute",
+               bottom: "18%",
+               left: "-3%",
+               filter: "drop-shadow(2px 4px 30px #1B9E6F )",
+             }}
+           ></Box>
+           <Box
+             component="img"
+             src={model2}
+             sx={{
+               width: "90px",
+               position: "absolute",
+               top: "-2%",
+               right: "28%",
+             }}
+           ></Box>
+           <Box
+             // countdown
+             sx={{
+               ...style.countdownOuter,
+               backgroundImage: `url(${watch})`,
+               backgroundSize: "100%",
+             }}
+             className=" !flex !justify-center !items-center"
+           >
+             <div
+               className="!text-white absolute right-[-40px] !text-[10px] transform rotate-90"
+               style={{
+                 background: "#BA903B",
+                 padding: "5px",
+                 marginRight: "-15px",
+                 borderRadius: "2px",
+               }}
+             >
+               Time Left: {show_this_one_min_time}
+             </div>
+ 
+             <SvgCircle />
+           </Box>
+ 
+           <Drawer
+             sx={{
+               "&>div": {
+                 background: "#0000009e",
+                 height: "90vh",
+                 width: "100%",
+                 //  minWidth:'80% important',
+                 ...style.flex,
+               },
+             }}
+             anchor="top"
+             open={openDialogBoxhistory}
+             onClose={() => {
+               setopenDialogBoxhistory(!openDialogBoxhistory);
+             }}
+           >
+             <Box
+               sx={{
+                 width: "100%",
+                 height: "55%",
+                 // // transform: "rotate(90deg)",
+                 // width: "150%",
+                 // height: "55%",
+                 background: "white",
+                 // transform: "rotate(90deg)",
+                 borderRadius: "5px",
+                 padding: "0px",
+               }}
+             >
+               <Stack direction="row" sx={{ float: "right", mx: 2 }}>
+                 <CloseIcon onClick={() => setopenDialogBoxhistory("")} />
+               </Stack>
+               <MyTableComponent res={res} />
+             </Box>
+           </Drawer>
+         </Box>
+       </Box>
+     </Box>
+     </Container>
+    </Layout>
 
-                {/* <Box sx={{ width: '50px', height: '25px', background: '#BA903B', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '5px', mt: 1, }}
-                onClick={toggleDrawer3(true)}>
-                  <Typography  variant="body1" color="initial" sx={{ fontWeight: '500', color: 'white', borderRadius: '5px', }}><RemoveRedEyeIcon /></Typography>
-                </Box> */}
-              </>
-            );
-          }, [])}
-        </Box>
-      </Stack>
-
-      <CustomCircularProgress isLoading={loding} />
-      {useMemo(() => {
-        return (
-          <>
-            <audio ref={placeBetMusic} hidden>
-              <source src={`${placebetmusic}`} type="audio/mp3" />
-            </audio>
-          </>
-        );
-      }, [placeBetMusic])}
-      
-      <Box>
-        <Box>
-          {useMemo(() => {
-            return (
-              <>
-                <audio ref={audioRefMusic} hidden>
-                  <source src={`${wheel_roulette}`} type="audio/mp3" />
-                </audio>
-                <audio ref={audioRefMusicStopBall} hidden>
-                  <source src={`${stop_ball_music}`} type="audio/mp3" />
-                </audio>
-                <audio ref={mouseClickSoundref} hidden>
-                  <source src={`${mouse_click}`} type="audio/mp3" />
-                </audio>
-              </>
-            );
-          }, [audioRefMusic, audioRefMusicStopBall, mouseClickSoundref])}
-          {/* {useMemo(() => { */}
-          {/* return ( */}
-
-          {/* ); */}
-          {/* }, [])} */}
-          <Rule setOpen2={setOpen2} open2={open2} style={style} />
-         
-              <ButtonGroup
-              variant="outlined"
-              aria-label="Basic button group"
-              sx={{
-                position: "absolute",
-                top: "11%",
-                right: "1%",
-                width: "97%",
-                "&>button": {
-                  py: "10px",
-                  background: "transparent",
-                  "&.Mui-disabled": {
-                    backgroundColor: "transparent",
-                    color: "#757575",
-                    cursor: "not-allowed",
-                    opacity: "0.5",
-                  },
-                  "&:hover": { backgroundColor: "transparent" },
-                },
-                "&>button:nth-child(1)": {
-                  backgroundImage: `url(${btbg1})`,
-                  backgroundSize: "100% 100%",
-                  color: "white",
-                  width: "15%",
-                },
-                }}
-            >
-            <Button
-              variant="contained"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "10px",
-                  // borderRadius: "5px",
-                }}
-                onClick={() => {
-                  setOpen2(true);
-                }}
-              >
-               Rule
-              </Button>
-               </ButtonGroup>
-      
-          {/* <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-            }}
-          > */}
-          <ConfirmationDialogBox
-            style={style}
-            handleConfirm={handleConfirm}
-            open1={open1}
-            setOpen1={setOpen1}
-            isOpenPreRoundDialogBox={isOpenPreRoundDialogBox}
-          />
-          {/* <Box sx={style.naiming100}>
-              <Typography variant="body1" color="initial">
-                Name
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {profileData?.full_name
-                  ? profileData?.full_name?.substring(0, 10) + "..."
-                  : "*******"}
-              </Typography>
-            </Box> */}
-          {/* <Box sx={style.naiming200}>
-              <Typography variant="body1" color="initial">
-                Bet Amount
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {bet?.reduce((a, b) => a + Number(b?.amount), 0) ||
-                  Number(total_amount_bet)?.toFixed(2)}
-              </Typography>
-            </Box> */}
-          {/* <Box sx={style.naiming300}>
-              <Typography variant="body1" color="initial">
-                You Win
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {openDialogBox ? Number(openDialogBox || 0)?.toFixed(2) : 0}
-              </Typography>
-            </Box> */}
-          {/* <Box direction={"row"} sx={style.winnerlooserouter}>
-              <Box sx={style.winnerLooserList2}>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{ color: "red" }}
-                  className="!text-[10px]"
-                >
-                  Name:{" "}
-                  {profileData?.full_name
-                    ? profileData?.full_name?.substring(0, 10) + "..."
-                    : "*******"}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{ color: "red" }}
-                >
-                  Bet Amount:{" "}
-                  <span style={{ color: "red" }}>
-
-                  </span>
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  sx={{ color: "red" }}
-                >
-                  You Win :{" "}
-                  <span style={{ color: "#15158F !important" }}>
-                    {openDialogBox ? Number(openDialogBox || 0)?.toFixed(2) : 0}
-                  </span>
-                </Typography>
-              </Box>
-            </Box> */}
-          {/* </Box> */}
-          <Box
-            direction={"row"}
-            sx={{ ...style.winnerlooserouter2, ...style.flex }}
-          >
-            <Box
-              sx={{
-                width: "45px",
-                height: "100%",
-                position: "absolute",
-                right: 0,
-                border: "2px solid white",
-                borderRadius: "5px",
-              }}
-            ></Box>
-            {[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]?.map((ele) => {
-              return (
-                <Box key={ele} sx={{ ...style.winnerLooserList }}>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    sx={{ color: "green" }}
-                  >
-                    {black_array?.includes(
-                      Number(bet_result_history_Data?.[ele]?.number)
-                    ) && Number(bet_result_history_Data?.[ele]?.number)}
-                    {/* {ele} */}
-                  </Typography>
-
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    sx={{ color: "green" }}
-                  >
-                    {0 === Number(bet_result_history_Data?.[ele]?.number) &&
-                      Number(bet_result_history_Data?.[ele]?.number)}
-                    {/* {ele} */}
-                  </Typography>
-
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    sx={{ color: "green" }}
-                  >
-                    {red_array?.includes(
-                      Number(bet_result_history_Data?.[ele]?.number)
-                    ) && Number(bet_result_history_Data?.[ele]?.number)}
-                    {/* {ele} */}
-                  </Typography>
-                </Box>
-              );
-            })}
-          </Box>
-          {/* <Box
-            sx={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-            }}
-          >
-            <Box direction={"row"} sx={style.winnerlooserouter3}>
-              <Box sx={style.winnerLooserList3}>
-                <Typography
-                  variant="body1"
-                  color="initial"
-
-                >
-                  {result_rollet}
-                </Typography>
-              </Box>
-            </Box>
-          </Box> */}
-          <TwoToOne
-            isSelectedDropBet={isSelectedDropBet}
-            removeSingleBetFunction={removeSingleBetFunction}
-            // setOpenDialogBox={setOpenDialogBox}
-            bet={bet}
-            setBetFuncton={setBetFuncton}
-            amount={amount}
-          />
-          {/* {useMemo(() => {
-            return (
-              <Box sx={{ width: '110px', height: '110px', background: '#ff000000', backdropFilter: 'blur(5px)', border: `1px solid #6C10ED`, transform: 'rotate(180deg)', display: 'flex', position: 'absolute', bottom: '14%', right: '2%', padding: '5px', borderRadius: '5px' }}>
-                <Box sx={{ width: '70px', height: '100px', background: 'transparent' }}>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      cursor: 'pointer',
-                      mt: '16px'
-                    }}
-
-                  >
-                    <div
-                      className=" !flex !justify-center !items-center animation_image"
-                    >
-                      <img
-                        src={roulette}
-                        className="!h-full !w-full !bg-no-repeat "
-                      />
-                      <Rolletball />
-                    </div>
-                  </Box>
-                </Box>
-                <Box sx={{ width: '30px', height: '100px', background: '#6C10ED', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography onClick={toggleDrawer3(true)} variant="body1" color="initial" sx={{ fontWeight: '500', transform: 'rotate(-90deg)', color: 'white', borderRadius: '5px', }}>View</Typography>
-                </Box>
-              </Box>
-            );
-          }, [])} */}
-          <Box
-            sx={{
-              width: "25px",
-              height: "100%",
-            }}
-          >
-            {preBetHandle && isPreBet === "true" && one_min_time > 10 && (
-              <>
-                <Box
-                  sx={style.naiming10}
-                  component={NavLink}
-                  className={"!ml-10"}
-                >
-                  <Typography
-                    onClick={() => justDouble(bet, setBet, newdata)}
-                    variant="body1"
-                    color="initial"
-                  >
-                    Double
-                  </Typography>
-                </Box>
-                <Box
-                  sx={style.naiming11}
-                  component={NavLink}
-                  className={"!ml-16"}
-                >
-                  <Typography
-                    onClick={() => rebetFuncton(bet, rebet, setBet, newdata)}
-                    variant="body1"
-                    color="initial"
-                  >
-                    Re - bet
-                  </Typography>
-                </Box>
-              </>
-            )}
-            {/* <Box sx={style.naiming}>
-              <Typography variant="body1" color="initial">
-                POINT BALANCE
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {Number(
-                  Number(wallet_amount_data?.wallet || 0) +
-                  Number(wallet_amount_data?.winning || 0)
-                )?.toFixed(2)}
-              </Typography>
-            </Box> */}
-            {/* <Box sx={style.naiming2}>
-              <Typography variant="body1" color="initial">
-                Name
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {isLoading ? (
-                  <CircularProgress className="!text-red-600" size={"small"} />
-                ) : profileData?.full_name ? (
-                  profileData?.full_name?.substring(0, 15)
-                ) : (
-                  "*****"
-                )}
-              </Typography>
-            </Box> */}
-            <Coin
-              mouseClickSound={mouseClickSound}
-              setAmount={setAmount}
-              amount={amount}
-              setisSelectedDropBet={setisSelectedDropBet}
-            />
-
-            {/* <Box
-              sx={style.naiming4}
-              onClick={() => {
-                mouseClickSound();
-                setOpen1(true);
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                LEAVE TABLE
-              </Typography>
-            </Box> */}
-            <ButtonGroup
-              variant="outlined"
-              aria-label="Basic button group"
-              sx={{
-                position: "absolute",
-                bottom: "7%",
-                right: "2%",
-                width: "96%",
-                "&>button": {
-                  py: "10px",
-                  background: "transparent",
-                  "&.Mui-disabled": {
-                    backgroundColor: "transparent",
-                    color: "#757575",
-                    cursor: "not-allowed",
-                    opacity: "0.5",
-                  },
-                  "&:hover": { backgroundColor: "transparent" },
-                },
-                "&>button:nth-child(1)": {
-                  backgroundImage: `url(${btbg1})`,
-                  backgroundSize: "100% 100%",
-                  color: "white",
-                  width: "25%",
-                },
-                "&>button:nth-child(2)": {
-                  backgroundImage: `url(${btbg2})`,
-                  backgroundSize: "100% 100%",
-                  color: "white",
-                  width: "25%",
-                },
-                "&>button:nth-child(3)": {
-                  backgroundImage: `url(${btbg1})`,
-                  backgroundSize: "100% 100%",
-                  color: "white",
-                  width: "25%",
-                },
-                "&>button:nth-child(4)": {
-                  backgroundImage: `url(${btbg3})`,
-                  backgroundSize: "100% 100%",
-                  color: "white",
-                  width: "25%",
-                },
-              }}
-            >
-              <Button
-                disabled={
-                  one_min_time < 10 ||
-                  !(bet?.length > 0 && isAlreadyAppliedBet === "false")
-                }
-                variant="contained"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "11px",
-                  borderRadius: "5px",
-                }}
-                onClick={() => removeBetFunctonAll()}
-              >
-                Remove
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundImage: `url(${btbg3})`,
-                  backgroundSize: "100% 100%",
-                  color: "white !important",
-                  fontSize: "20px",
-                  fontWeight: "700",
-                  "&:hover": { backgroundColor: "transparent" },
-                }}
-                onClick={() => justHalf(bet, setBet, newdata)}
-              >
-                -
-              </Button>
-              <Button
-                onClick={() => {
-                  mouseClickSound();
-                  confirmBet(
-                    setloding,
-                    rebet,
-                    setrebet,
-                    bet,
-                    setBet,
-                    user_id,
-                    newdata,
-                    client
-                  );
-                }}
-                className="text-white w-[25%] !text-center pt-3 !cursor-pointer"
-                sx={{
-                  backgroundImage: `url(${btbg1})`,
-                  backgroundSize: "100% 100%",
-                  "&>div>input": {
-                    color: "white !important",
-                    fontSize: "20px",
-                    fontWeight: "700",
-                  },
-                }}
-              >
-                {bet?.reduce((a, b) => a + Number(b?.amount), 0) ||
-                  Number(total_amount_bet)?.toFixed(2)}
-              </Button>
-
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundImage: `url(${btbg3})`,
-                  backgroundSize: "100% 100%",
-                  color: "white !important",
-                  fontSize: "20px",
-                  fontWeight: "700",
-                  "&:hover": { backgroundColor: "transparent" },
-                }}
-                onClick={() => justDouble(bet, setBet, newdata)}
-              >
-                +
-              </Button>
-              {/* <Button variant="contained" disabled={one_min_time < 10 || !(bet?.length > 0 && isAlreadyAppliedBet === "false")} onClick={() => removeBetFunctonAll()}>Clear Bet</Button> */}
-              {/* <Button variant="contained" disabled={one_min_time < 10} onClick={() => {
-                mouseClickSound();
-                confirmBet(
-                  setloding,
-                  rebet,
-                  setrebet,
-                  bet,
-                  setBet,
-                  user_id,
-                  wallet_amount_data,
-                  client
-                );
-              }}
-              >Confirm</Button> */}
-            </ButtonGroup>
-            {/* {one_min_time > 10 && (
-              <>
-                <Box sx={{ ...style.naiming5 }} className={"!flex !gap-3"}>
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "11px",
-                      borderRadius: "5px",
-                    }}
-                    onClick={() => {
-                      mouseClickSound();
-                      confirmBet(
-                        setloding,
-                        rebet,
-                        setrebet,
-                        bet,
-                        setBet,
-                        user_id,
-                        wallet_amount_data,
-                        client
-                      );
-                    }}
-                    variant="body1"
-                    color="initial"
-                  >
-                    CONFIRM
-                  </Typography>
-                </Box>
-                {bet?.length > 0 && isAlreadyAppliedBet === "false" && (
-                  <>
-                    <Box sx={style.naiming12} className={"!flex !gap-3"}>
-                      <Typography
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "11px",
-                          borderRadius: "5px",
-                        }}
-                        onClick={() => {
-                          setisSelectedDropBet(true);
-                        }}
-                        variant="body1"
-                        color="initial"
-                      >
-                        Remove
-                      </Typography>
-                    </Box>
-                    <Box sx={style.naiming13} className={"!flex "}>
-                      <Typography
-                        onClick={() => removeBetFunctonAll()}
-                        variant="body1"
-                        color="initial"
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "11px",
-                          borderRadius: "5px",
-                        }}
-                      >
-                        CLEAR BET
-                      </Typography>
-                    </Box>
-                  </>
-                )}
-              </>
-            )} */}
-          </Box>
-          <Box
-            component="img"
-            src={dealer}
-            sx={{
-              width: "230px",
-              position: "absolute",
-              bottom: "18%",
-              left: "-3%",
-              filter: "drop-shadow(2px 4px 30px #1B9E6F )",
-            }}
-          ></Box>
-          <Box
-            component="img"
-            src={model2}
-            sx={{
-              width: "90px",
-              position: "absolute",
-              top: "-2%",
-              right: "28%",
-            }}
-          ></Box>
-          <Box
-            // countdown
-            sx={{
-              ...style.countdownOuter,
-              backgroundImage: `url(${watch})`,
-              backgroundSize: "100%",
-            }}
-            className=" !flex !justify-center !items-center"
-          >
-            <div
-              className="!text-white absolute right-[-40px] !text-[10px] transform rotate-90"
-              style={{
-                background: "#BA903B",
-                padding: "5px",
-                marginRight: "-15px",
-                borderRadius: "2px",
-              }}
-            >
-              Time Left: {show_this_one_min_time}
-            </div>
-
-            <SvgCircle />
-          </Box>
-
-          <Drawer
-            sx={{
-              "&>div": {
-                background: "#0000009e",
-                height: "90vh",
-                width: "100%",
-                //  minWidth:'80% important',
-                ...style.flex,
-              },
-            }}
-            anchor="top"
-            open={openDialogBoxhistory}
-            onClose={() => {
-              setopenDialogBoxhistory(!openDialogBoxhistory);
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                height: "55%",
-                // // transform: "rotate(90deg)",
-                // width: "150%",
-                // height: "55%",
-                background: "white",
-                // transform: "rotate(90deg)",
-                borderRadius: "5px",
-                padding: "0px",
-              }}
-            >
-              <Stack direction="row" sx={{ float: "right", mx: 2 }}>
-                <CloseIcon onClick={() => setopenDialogBoxhistory("")} />
-              </Stack>
-              <MyTableComponent res={res} />
-            </Box>
-          </Drawer>
-        </Box>
-      </Box>
-    </Box>
-    </Container>
    
    
   );

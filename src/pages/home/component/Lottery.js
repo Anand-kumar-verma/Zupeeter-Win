@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import avaitorcategory3 from "../../../assets/images/avv.png";
 import lotteryimg from "../../../assets/images/lottery.png";
+import satta from "../../../assets/images/satta.png";
 import lotterycategory1 from "../../../assets/images/lotterycategory1.png";
 import lotterycategory2 from "../../../assets/images/lotterycategory2.png";
 import lotterycategory3 from "../../../assets/images/lotterycategory3.png";
@@ -275,7 +276,7 @@ function Lottery() {
           <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
             <Box
               component="img"
-              src={"https://5starxxx.com/static/media/satta.c9b546d5e66c77e9ff95.jpg"}
+              src={satta}
               sx={{ width: "100px" }}
             ></Box>
           </Box>
