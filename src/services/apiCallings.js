@@ -130,18 +130,7 @@ export const FundReciveHistoryFn = async () => {
 };
 
 
-export const depositHistoryFunction = async () => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.wallet_deposit_history, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
+
 export const bankListFuncton = async () => {
   try {
     const response = await axios.get(endpoint.bank);
@@ -299,28 +288,6 @@ export const returnWinningAmount = (number, amount, result) => {
     return Number(amount_after_3_percent * 2)?.toFixed(2);
   return null;
 };
-
-export const Update_ProfileFn = async (selectedImages, client) => {
-  try {
-    if (selectedImages) {
-      const reqBody = {
-        user_id: deCryptData(localStorage.getItem("user_id")),
-        txtprofile_pic: selectedImages?.[0],
-      };
-      const response = await axios.post(
-        `${endpoint.update_profile_pic}`,
-        reqBody
-      );
-      client.refetchQueries("profile");
-      return response;
-    }
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
-
-
 
 export const showRank = (num) => {
   if (Number(num) === 1) return "Gold Club";

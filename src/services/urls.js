@@ -50,7 +50,6 @@ export const endpoint = {
   ticket_raised_history: `${game_domain}/api/v1/ticket-raised-history`,
   forget_password: `${game_domain}/api/v1/change-password`,
   zp_payout: `${game_domain}/api/v1/zp-user-payout`,
-
   Zp_withdrawal_history: `${game_domain}/api/v1/zp-withdrawal-history`,
   Zp_deposit_history: `${game_domain}/api/v1/zp-deposit-history`,
   zp_own_address: `${game_domain}/api/v1/zp-payin-ownr-address`,
@@ -62,23 +61,14 @@ export const endpoint = {
   get_address_list: `${game_domain}/api/v1/usdt-address-record`,
   withdrawl_usdt_history: `${game_domain}/api/v1/withdrawal-history-usdt`,
   cashback_bonus: `${game_domain}/api/v1/getCashBack-report`,
-
   update_bank_details: `${game_domain}/api/update_bank_details_new`,
   update_upi_details: `${game_domain}/api/update_upi_details`,
-  get_token_price: `${game_domain}/api/token_price`,
-  get_token_price_in_dooler: `${game_domain}/api/get_price_ico`,
   update_password: `${game_domain}/api/update_password`,
   pin_password: `${game_domain}/api/update_pin_password`,
-  insert_ico_purchase: `${game_domain}/api/insert_ico_purchase`,
-  wallet_deposit: `${game_domain}/api/wallet_deposit_insert`,
   wallet_withdrawl: `${game_domain}/api/insert_withdrawal_request_inr_new`,
-  usdt_withdrawl: `${game_domain}/api/insert_withdrawal_request_usdt`,
   payin_response: `${game_domain}/api/payin_response`,
   payin_response_akash: `${game_domain}/api/payin_response_new`,
   payin_response_ico_token_akash: `${game_domain}/api/payin_response_upi_token`,
-
-  indian_insert_deposite: `${game_domain}/api/indian_insert_deposite`,
-
   registration_bonus: `${game_domain}/api/view_direct_referral_income`,
   view_bank_details: `${game_domain}/api/view_bank_details_new`,
   view_upi_details: `${game_domain}/api/view_upi_details`,
@@ -88,18 +78,12 @@ export const endpoint = {
   team_info: `${game_domain}/api/team_count`,
   team_report: `${game_domain}/api/TeamReport`,
   team_data: `${game_domain}/api/get_all`,
-  update_profile_pic: `${game_domain}/api/update_profile_pic`,
-
-  payin_status: `${game_domain}/api/payin_api`,
-  swnl_pay_in_api: `${game_domain}/api/insert_fund_request_vapayout`,
 
   // ovi panel api's
   trx_bet_placed_node: `${game_domain}/api/v1/trx-bet`,
   trx_game_history: `${game_domain}/api/v1/trx-auto-genrated-result`, //////// done in node js
   trx_my_history_new: `${game_domain}/api/v1/trx-getColourBets-temp`, /// done  in node js
 
-  // ticket_raised: `${game_domain}/ticket-raised`,
-  // ticket_raised_history: `${game_domain}/ticket-raised-history`,
 
   node_api: {
     get_leder_data: `${domain}/api/v1/get-ledger-data`,
@@ -133,16 +117,10 @@ export const endpoint = {
     add_bank: game_domain + "/api/v1/add-bank-upi",
     bank_details: game_domain + "/api/v1/user-bank-details",
     withdrawl_history: game_domain + "/api/v1/withdrawal-history",
-    deposit_history: game_domain + "/api/v1/deposit-history",
-    
-    
-   
-      
+    deposit_history: game_domain + "/api/v1/deposit-history",     
   },
 
   rollet: {
-   
     bet_now: game_domain + "/api/v1/betPlacedRoulette",
-    // game_result: game_domain + "/api/roulette-results-history",
   },
 };
