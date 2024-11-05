@@ -66,7 +66,6 @@ const Company = () => {
         <span>Mobile</span>,
         <span>Type</span>,
         <span>Action</span>,
-
     ];
 
     const tablerow = visibleRows?.map((i, index) => {

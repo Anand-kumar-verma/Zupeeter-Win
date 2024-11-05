@@ -325,7 +325,7 @@ function Home() {
   useEffect(() => {
     const handleOneMin = (onemin) => {
       setOne_min_time(onemin);
-
+     
       if (onemin === 58 || onemin === 57) {
         setOpen3(false);
         setIsPreBetHandle(true);

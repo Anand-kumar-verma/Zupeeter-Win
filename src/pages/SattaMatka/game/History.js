@@ -1,4 +1,4 @@
-import { Cancel } from "@mui/icons-material";
+import { ArrowBack, Cancel } from "@mui/icons-material";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import * as React from "react";
@@ -28,7 +28,7 @@ function History() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus: false
     }
   );
   const res = data?.data?.data;
@@ -36,19 +36,19 @@ function History() {
   console.log(res, "THis is response");
 
   return (
-    <Layout > 
+    <Layout >
       <Container
         sx={{
           background: zubgback,
           width: "100%",
           height: "100vh",
           overflow: "auto",
-        
+
         }}
         className="no-scrollbar"
       >
         <CustomCircularProgress isLoading={isLoading} />
-      
+
 
         <Box>
           <Box
@@ -63,6 +63,7 @@ function History() {
             }}
           >
             <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
+            <ArrowBack className="!text-white !mr-5 !cursor-pointer" onClick={() => navigate('/satta/matka')} />
               <Box
                 component="img"
                 src={deposit}
@@ -104,10 +105,10 @@ function History() {
                           {item?.satta_type === "satta_gaziabad"
                             ? "GHAZIABAD"
                             : item?.satta_type === "satta_faridabad"
-                            ? "FARIDABAD"
-                            : item?.satta_type === "satta_gali"
-                            ? "GALI"
-                            : "DESAWAR"}{" "}
+                              ? "FARIDABAD"
+                              : item?.satta_type === "satta_gali"
+                                ? "GALI"
+                                : "DESAWAR"}{" "}
                           <span className="!pl-3 !text-yellow-500">
                             {item?.gamesno}
                           </span>{" "}
@@ -142,8 +143,8 @@ function History() {
                             {Number(j) >= 1000 && Number(j) <= 1009
                               ? (Number(j) % 10) + "*"
                               : Number(j) >= 2000 && Number(j) <= 2009
-                              ? "*" + (Number(j) % 10)
-                              : Number(j)}
+                                ? "*" + (Number(j) % 10)
+                                : Number(j)}
                           </span>
                         ))}
                       </p>
@@ -314,7 +315,7 @@ function History() {
           </Box>
         </Box>
       </Container>
-</Layout>
+    </Layout>
   );
 }
 
