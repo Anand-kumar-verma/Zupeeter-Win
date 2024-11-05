@@ -40,8 +40,10 @@ export const API_URLS = {
     level_bonus_data: `/api/v1/tget-level-income-bonus-admin-data`,
     vip_bonus_data: `/api/v1/vip-bonus-list-admin`,
     cashback_bonus_data: `/api/v1/cash-back-bonus-list-admin`,
-   
-    //chart
+    add_coupon_user: `/api/v1/add-coupon-to-user-by-admin`,
+    add_comapany_promoter: `/api/v1/makeCompanyPromotorbyAdmin`,
+    comapany_promoter: `/api/v1/getCompanyPromotorbyAdmin`,
+    update_company_record: `/api/v1/changePromotorStatus?u_id=`,
     business_chart: `/api/v1/user-business-status-bar-chart`,
     registration_chart: `/api/v1/user-registration-status-bar-chart`,
     trx_chart: `/api/v1/user-trx-status-area-chart`,

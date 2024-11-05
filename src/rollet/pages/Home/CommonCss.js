@@ -442,10 +442,10 @@ export const style = {
   },
 
   naiming10: {
-    transform: "rotate(90deg)",
+    // transform: "rotate(90deg)",
     position: "absolute",
-    top: "21.2%",
-    left: "-14.5%",
+    bottom: "16.2%",
+    left: "-5.5%",
 
     borderRadius: "5px",
     textAlign: "center",
@@ -465,10 +465,10 @@ export const style = {
   },
 
   naiming11: {
-    transform: "rotate(90deg)",
+    // transform: "rotate(90deg)",
     position: "absolute",
-    top: "31.2%",
-    left: "-21%",
+    bottom: "16.2%",
+    right: "3%",
     borderRadius: "5px",
     textAlign: "center",
     border: '3px solid #CEAE5E',
@@ -477,7 +477,7 @@ export const style = {
       color: "black",
       fontSize: "10px",
       fontWeight: "600",
-      padding: "3px",
+      padding: "5px",
       background: "#02FAFD",
       width: "100%",
       textAlign: 'center',

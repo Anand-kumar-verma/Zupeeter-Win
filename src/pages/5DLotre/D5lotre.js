@@ -54,6 +54,7 @@ function D5lotre() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 

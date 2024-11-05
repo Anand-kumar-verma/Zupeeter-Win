@@ -51,6 +51,7 @@ import SvgCircle from "./SvgCircle";
 import MyTableComponent from "./Tablehistory";
 import TwoToOne from "./TwoToOne";
 import { ProfileDataFunction } from "../../../services/apiCallings";
+import Layout from "../../../component/layout/Layout";
 
 function Home() {
   const isAlreadyAppliedBet = localStorage?.getItem("rollet_bet_placed");
@@ -106,6 +107,7 @@ function Home() {
   const { data } = useQuery(["profile_rollet"], () => ProfileDataFunction(), {
     refetchOnMount: false,
     refetchOnReconnect: true,
+    refetchOnWindowFocus:false
   });
 
   const profileData = data?.data?.data || 0;
@@ -128,6 +130,7 @@ function Home() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 
@@ -426,8 +429,7 @@ function Home() {
   };
 
   return (
-    <Container sx={{ background: "#F7F8FF" }}>
-
+    <Container className="!bg-transparent">
     <Box className="home" sx={style.root}>
       <Stack
         direction="row"
@@ -1242,6 +1244,8 @@ function Home() {
       </Box>
     </Box>
     </Container>
+   
+   
   );
 }
 export default Home;

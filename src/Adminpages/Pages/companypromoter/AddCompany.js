@@ -6,43 +6,39 @@ import { useQuery, useQueryClient } from "react-query";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import { candidateName } from "../../Services";
+import Company from "./Company";
 
+const AddCompany = () => {
 
-
-const UserPermission = () => {
-const client = useQueryClient()
+  const client = useQueryClient()
   const [loding, setloding] = useState(false);
   const initialValue = {
-    user_id: "",
     user_id_table: "",
-    profile_type: "",
+    set_prcnt: "",
   };
 
   const fk = useFormik({
     initialValues: initialValue,
     enableReinitialize: true,
     onSubmit: () => {
-      if (!fk.values.profile_type  || !fk.values.profile_type)
-        return toast("Everything is required")
-      ChangeUserPermission(fk.values)
+      if (!fk.values.set_prcnt)
+        return toast("Select percent ");
+      CompanyAdd(fk.values);
     },
   });
 
-  const ChangeUserPermission = async (reqBody) => {
-    setloding(true);
+  async function CompanyAdd(reqBody) {
     const req = {
-      user_id: reqBody?.user_id_table,
-      profile_type: reqBody?.profile_type
-    }
+         u_id: reqBody?.user_id_table,
+        set_prcnt: reqBody?.set_prcnt,
+    };
+    setloding(true);
     try {
-      const res = await axiosInstance.post(
-        API_URLS.user_permission,
-        req
-      );
+      const res = await axiosInstance.post(API_URLS.add_comapany_promoter, req);
       toast.success(res?.data?.msg);
-      if (res?.data?.msg === "Profile Updated Successfully.") {
-        client.refetchQueries("getname")
-       
+      if (res?.data?.msg === "Status Updated Successfully.") {
+      client.refetchQueries("Company_prm")
+        fk.handleReset();
       }
     } catch (e) {
       console.log(e);
@@ -50,8 +46,8 @@ const client = useQueryClient()
     setloding(false);
   }
   const { data } = useQuery(
-    ["getname", fk.values.user_id],
-    () => candidateName({ userid: fk.values.user_id }),
+    ["getname", fk.values.u_id],
+    () => candidateName({ userid: fk.values.u_id}),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
@@ -60,8 +56,8 @@ const client = useQueryClient()
   );
   const result = data?.data?.data;
   useEffect(() => {
-    fk.setFieldValue("user_id_table", result?.id)
-  }, [result])
+    fk.setFieldValue("user_id_table", result?.id);
+  }, [result]);
   if (loding)
     return (
       <div className="w-[100%] h-[100%] flex justify-center items-center">
@@ -69,48 +65,42 @@ const client = useQueryClient()
       </div>
     );
   return (
+ <>
     <div className="!flex justify-center items-center w-full">
       <div className="p-5 lg:w-1/2 md:w-3/4 w-full bg-white !bg-opacity-30 !rounded-lg">
-
-        <p className="!text-center font-bold !py-4 text-lg">Change User Permission</p>
+        <p className="!text-center font-bold !py-4 text-lg">Company Promoter</p>
         <div className="grid grid-cols-1 gap-[6%] gap-y-4">
-
           <div>
-            <p className="font-bold mt-5">User ID </p>
+            <p className="font-bold ">User ID </p>
             <TextField
               fullWidth
-              id="user_id"
-              name="user_id"
+              id="u_id"
+              name="u_id"
               placeholder="User ID"
-              value={fk.values.user_id}
+              value={fk.values.u_id}
               onChange={fk.handleChange}
-            /> {fk.values.user_id ? (
+            />{" "}
+            {fk.values.u_id ? (
               result ? (
-                <div className="no-error">Referral From: {result?.full_name}<span className="!text-black"> ({result?.user_type})</span></div>
+                <div className="no-error flex justify-between">
+                  <span> Referral From: {result?.full_name}</span>
+                </div>
               ) : (
                 <div className="error">Invalid Referral Id</div>
               )
-            ) : null}
-            <p className="font-bold mt-5">Select Profile Type</p>
+            ) : null} 
+          </div>
+          <div>
+            <p className=" font-bold">Percent</p>
             <TextField
               fullWidth
-              select
-              size="small"
-              id="profile_type"
-              name="profile_type"
-              placeholder="Profile Type"
-              value={fk.values.profile_type}
+              id="set_prcnt"
+              name="set_prcnt"
+              placeholder="Percent"
+              value={fk.values.set_prcnt}
               onChange={fk.handleChange}
-            >
-              <MenuItem value={4}>Dummy User</MenuItem>
-
-              <MenuItem value={1}>User</MenuItem>
-              <MenuItem value={2}>Admin</MenuItem>
-              <MenuItem value={3}>Super Admin</MenuItem>
-
-            </TextField>
+            />
           </div>
-
         </div>
         <div className="flex justify-end gap-3 !mt-5">
           <Button
@@ -126,13 +116,13 @@ const client = useQueryClient()
             className="!bg-[#07BC0C]"
           >
             Submit
-            
           </Button>
         </div>
       </div>
     </div>
+     <Company/>
+ </>
   );
 };
 
-export default UserPermission;
-
+export default AddCompany;

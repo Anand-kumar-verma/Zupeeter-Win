@@ -20,6 +20,7 @@ const DownLine = () => {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
   const result = data?.data?.data?.teamMembersByLevel;

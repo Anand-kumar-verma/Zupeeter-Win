@@ -19,7 +19,7 @@ import MyBets from "./MyBets";
 import Top from "./Top";
 import { gray } from "./color";
 import { useSocket } from "../shared/socket/SocketContext";
-import { dummy_aviator, rupees } from "../services/urls";
+import { game_domain, rupees } from "../services/urls";
 import { walletamountAviator } from "../services/apiCallings";
 const PlayGame = () => {
   const client = useQueryClient();
@@ -58,7 +58,7 @@ const PlayGame = () => {
   const resultFunction = async () => {
     try {
       const response = await axios.get(
-        `${dummy_aviator}/api/v1/get-game-history`
+        `${game_domain}/api/v1/get-game-history`
       );
 
       return response;

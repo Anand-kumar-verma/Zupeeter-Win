@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { dummy_aviator, endpoint } from "./urls";
+import { game_domain, endpoint } from "./urls";
 import { deCryptData } from "../shared/secret";
 import CryptoJS from "crypto-js";
 import { apiConnectorGet } from "./apiconnector";
@@ -77,46 +77,7 @@ export const getBalanceFunction = async (setBalance) => {
   }
 };
 
-export const getBetFunction = async (setBet) => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(
-      `${endpoint.total_withdrawal_bet}`,
-      reqBody
-    );
-    setBet(response?.data?.earning);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
 
-// export const My_All_HistoryFn = async (gid) => {
-//   const id = deCryptData(localStorage.getItem("user_id"));
-//   try {
-//     const response = await axios.get(`${endpoint.my_history}?userid=${id}&limit=0&gameid=${gid}`);
-//     return response;
-//   } catch (e) {
-//     toast(e?.message);
-//     console.log(e);
-//   }
-// };
-
-export const MyTeamLevel = async () => {
-  try {
-    const reqBody = {
-      profile_id: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.my_team_level, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
 
 export const registrationBonusFn = async (type) => {
   try {
@@ -167,55 +128,7 @@ export const FundReciveHistoryFn = async () => {
     console.log(e);
   }
 };
-export const zupeeterTOkenHistory = async () => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.view_ico_purchaseing, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
 
-export const upiTOkenHistory = async () => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.view_paying_api, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
-export const ViewSalaryIncomeFunction = async () => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.view_salary_income, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
-export const TokenLaunch = async () => {
-  try {
-    const reqBody = {
-      userid: deCryptData(localStorage.getItem("user_id")),
-    };
-    const response = await axios.post(endpoint.token_launch, reqBody);
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
 
 export const depositHistoryFunction = async () => {
   try {
@@ -343,7 +256,7 @@ export const walletamountAviator = async () => {
   try {
 
     const response = await axios.post(
-      `${dummy_aviator}/api/v1/get-wallet-amount-by-id`,
+      `${game_domain}/api/v1/get-wallet-amount-by-id`,
       { id: user_id }
     );
     return response;
@@ -406,18 +319,7 @@ export const Update_ProfileFn = async (selectedImages, client) => {
     console.log(e);
   }
 };
-export const TimerFn = async (gid) => {
-  const id = deCryptData(localStorage.getItem("user_id"));
-  try {
-    const response = await axios.get(
-      `${endpoint.get_royality_date}?user_id=${id}`
-    );
-    return response;
-  } catch (e) {
-    toast(e?.message);
-    console.log(e);
-  }
-};
+
 
 
 export const showRank = (num) => {

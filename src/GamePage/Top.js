@@ -14,6 +14,7 @@ const Top = () => {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 

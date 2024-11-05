@@ -1,25 +1,18 @@
-export const dummy_aviator = "https://zupeeter-win-timer.onrender.com";
 export const domain = "https://zupeeter-win-timer.onrender.com";
-// export const domain = "http://192.168.18.183:9001";
-export const domain1 = "https://bet.zupeeter.com";
-
-export const domain_ovi_node = "https://bet.zupeeter.com";
 export const game_domain = "https://bet.zupeeter.com";
+
+// export const game_domain = "http://192.168.18.183:9000";
+
+
 export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 export const rupees = "₹";
 export const zubgback = "#F48901";
-export const baseUrl = "https://bet.zupeeter.com";
 export const front_end_domain = "https://play.zupeeter.com";
 export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
-// export const domain1 = "http://192.168.18.183:9000";
-// export const baseUrl = "http://192.168.18.183:9000";
-// export const domain_ovi_node = "http://192.168.18.183:9000";
-// export const game_domain = "http://192.168.18.183:9000";
+
 
 export const endpoint = {
-  get_royality_date: `${domain_ovi_node}/get-royality-date`,
-  usdt_deposit_request: `${baseUrl}/api/insert_coin_payment_gateway`,
   login: `${game_domain}/api/v1/user_login`,
   signup: `${game_domain}/api/v1/signup`,
   get_user_intro_name: `${game_domain}/api/v1/get-sponsor-name`,
@@ -29,9 +22,6 @@ export const endpoint = {
   get_level: `${game_domain}/api/v1/get-level`,
   subordinate_data: `${game_domain}/api/v1/get-subordinate-data-funx`,
   commission_data: `${game_domain}/api/v1/get-commisssion-data-funx`,
-
-  //wingo
-  // bet_placed: `${baseUrl}/api/betnew_color`,
   bet_placed: `${game_domain}/api/v1/bet`,
   my_history: `${game_domain}/api/v1/getbet-game-results`,
   game_history: `${game_domain}/api/v1/colour_result`,
@@ -73,60 +63,43 @@ export const endpoint = {
   withdrawl_usdt_history: `${game_domain}/api/v1/withdrawal-history-usdt`,
   cashback_bonus: `${game_domain}/api/v1/getCashBack-report`,
 
-  total_withdrawal_bet: `${baseUrl}/api/total_withdrawal_bet`,
-  my_team_level: `${baseUrl}/api/my_team`,
-  my_team_level_report_indevidual: `${baseUrl}/api/member_report`,
-  bank: `${baseUrl}/api/bank`,
-  update_bank_details: `${baseUrl}/api/update_bank_details_new`,
-  update_upi_details: `${baseUrl}/api/update_upi_details`,
-  fund_transfer_history: `${baseUrl}/api/view_fund_transfer`,
-  fund_recieve: `${baseUrl}/api/view_fund_receive`,
-  // get_user_intro_name: `${baseUrl}/api/get_intro_name`,
-  insert_fund_transfer: `${baseUrl}/api/insert_fund_transfer`,
-  view_salary_income: `${baseUrl}/api/view_salary_income`,
-  get_token_price: `${baseUrl}/api/token_price`,
-  get_token_price_in_dooler: `${baseUrl}/api/get_price_ico`,
-  update_password: `${baseUrl}/api/update_password`,
-  pin_password: `${baseUrl}/api/update_pin_password`,
-  view_ico_purchaseing: `${baseUrl}/api/view_ico_purchaseing`,
-  insert_ico_purchase: `${baseUrl}/api/insert_ico_purchase`,
+  update_bank_details: `${game_domain}/api/update_bank_details_new`,
+  update_upi_details: `${game_domain}/api/update_upi_details`,
+  get_token_price: `${game_domain}/api/token_price`,
+  get_token_price_in_dooler: `${game_domain}/api/get_price_ico`,
+  update_password: `${game_domain}/api/update_password`,
+  pin_password: `${game_domain}/api/update_pin_password`,
+  insert_ico_purchase: `${game_domain}/api/insert_ico_purchase`,
+  wallet_deposit: `${game_domain}/api/wallet_deposit_insert`,
+  wallet_withdrawl: `${game_domain}/api/insert_withdrawal_request_inr_new`,
+  usdt_withdrawl: `${game_domain}/api/insert_withdrawal_request_usdt`,
+  payin_response: `${game_domain}/api/payin_response`,
+  payin_response_akash: `${game_domain}/api/payin_response_new`,
+  payin_response_ico_token_akash: `${game_domain}/api/payin_response_upi_token`,
 
-  // wallet_deposit_history: `${baseUrl}/api/wallet_deposit`,
+  indian_insert_deposite: `${game_domain}/api/indian_insert_deposite`,
 
-  wallet_deposit: `${baseUrl}/api/wallet_deposit_insert`,
-  wallet_withdrawl: `${baseUrl}/api/insert_withdrawal_request_inr_new`,
-  usdt_withdrawl: `${baseUrl}/api/insert_withdrawal_request_usdt`,
-  // withdrawl_status: `${baseUrl}/api/status`,
-  // payment
-  payin_response: `${baseUrl}/api/payin_response`,
-  payin_response_akash: `${baseUrl}/api/payin_response_new`,
-  payin_response_ico_token_akash: `${baseUrl}/api/payin_response_upi_token`,
+  registration_bonus: `${game_domain}/api/view_direct_referral_income`,
+  view_bank_details: `${game_domain}/api/view_bank_details_new`,
+  view_upi_details: `${game_domain}/api/view_upi_details`,
+  view_usdt_address: `${game_domain}/api/view_wallet_address`,
+  update_usdt_address: `${game_domain}/api/update_usdt_address`,
+  info_promotion: `${game_domain}/api/get_info`,
+  team_info: `${game_domain}/api/team_count`,
+  team_report: `${game_domain}/api/TeamReport`,
+  team_data: `${game_domain}/api/get_all`,
+  update_profile_pic: `${game_domain}/api/update_profile_pic`,
 
-  indian_insert_deposite: `${baseUrl}/api/indian_insert_deposite`,
-
-  registration_bonus: `${baseUrl}/api/view_direct_referral_income`,
-  view_bank_details: `${baseUrl}/api/view_bank_details_new`,
-  view_upi_details: `${baseUrl}/api/view_upi_details`,
-  view_usdt_address: `${baseUrl}/api/view_wallet_address`,
-  update_usdt_address: `${baseUrl}/api/update_usdt_address`,
-  token_launch: `${baseUrl}/api/token_launch`,
-  info_promotion: `${baseUrl}/api/get_info`,
-  team_info: `${baseUrl}/api/team_count`,
-  team_report: `${baseUrl}/api/TeamReport`,
-  team_data: `${baseUrl}/api/get_all`,
-  view_paying_api: `${baseUrl}/api/view_paying_api`,
-  update_profile_pic: `${baseUrl}/api/update_profile_pic`,
-
-  payin_status: `${baseUrl}/api/payin_api`,
-  swnl_pay_in_api: `${baseUrl}/api/insert_fund_request_vapayout`,
+  payin_status: `${game_domain}/api/payin_api`,
+  swnl_pay_in_api: `${game_domain}/api/insert_fund_request_vapayout`,
 
   // ovi panel api's
   trx_bet_placed_node: `${game_domain}/api/v1/trx-bet`,
   trx_game_history: `${game_domain}/api/v1/trx-auto-genrated-result`, //////// done in node js
   trx_my_history_new: `${game_domain}/api/v1/trx-getColourBets-temp`, /// done  in node js
 
-  // ticket_raised: `${domain_ovi_node}/ticket-raised`,
-  // ticket_raised_history: `${domain_ovi_node}/ticket-raised-history`,
+  // ticket_raised: `${game_domain}/ticket-raised`,
+  // ticket_raised_history: `${game_domain}/ticket-raised-history`,
 
   node_api: {
     get_leder_data: `${domain}/api/v1/get-ledger-data`,
@@ -141,26 +114,26 @@ export const endpoint = {
   },
 
   node:{
-    top_two_winners:domain1+"/api/v1/getTopTwo_winner",
-    top_winners:domain1+"/api/v1/getTopWinners",
-    history_my: domain1 + "/api/v1/getMyHistory-roulette",
-     game_result: domain1 + "/api/v1/getRouletteGameHistory",
-     bet_satta: domain1 + "/api/v1/betPlacedSatta",
-    satta_game_Lastfour: domain1 + "/api/v1/getSattaGameHistoryLastFour",
-    satta_game_gamehistory: domain1 + "/api/v1/getSattaGameHistory",
-    satta_game_myhistory: domain1 + "/api/v1/getSattaMyHistory",
-    getStatusSattaMatka: domain1 + "/api/v1/getStatusSattaMatka",
-    referral_bonus: domain1 + "/api/v1/getReferralBonus",
-    level_income: domain1 + "/api/v1/getLevelIncome",
-    cashback_income: domain1 + "/api/v1/cash-back-income",
-    get_bank_list: domain1 + "/api/v1/get-bank-Details",
-    get_upi_list: domain1 + "/api/v1/get-upi-details",
-    deposite_request: domain1 + "/api/v1/payin-request",
-    withdraw_payment: domain1 + "/api/v1/payout-request",
-    add_bank: domain1 + "/api/v1/add-bank-upi",
-    bank_details: domain1 + "/api/v1/user-bank-details",
-    withdrawl_history: domain1 + "/api/v1/withdrawal-history",
-    deposit_history: domain1 + "/api/v1/deposit-history",
+    top_two_winners:game_domain+"/api/v1/getTopTwo_winner",
+    top_winners:game_domain+"/api/v1/getTopWinners",
+    history_my: game_domain + "/api/v1/getMyHistory-roulette",
+     game_result: game_domain + "/api/v1/getRouletteGameHistory",
+     bet_satta: game_domain + "/api/v1/betPlacedSatta",
+    satta_game_Lastfour: game_domain + "/api/v1/getSattaGameHistoryLastFour",
+    satta_game_gamehistory: game_domain + "/api/v1/getSattaGameHistory",
+    satta_game_myhistory: game_domain + "/api/v1/getSattaMyHistory",
+    getStatusSattaMatka: game_domain + "/api/v1/getStatusSattaMatka",
+    referral_bonus: game_domain + "/api/v1/getReferralBonus",
+    level_income: game_domain + "/api/v1/getLevelIncome",
+    cashback_income: game_domain + "/api/v1/cash-back-income",
+    get_bank_list: game_domain + "/api/v1/get-bank-Details",
+    get_upi_list: game_domain + "/api/v1/get-upi-details",
+    deposite_request: game_domain + "/api/v1/payin-request",
+    withdraw_payment: game_domain + "/api/v1/payout-request",
+    add_bank: game_domain + "/api/v1/add-bank-upi",
+    bank_details: game_domain + "/api/v1/user-bank-details",
+    withdrawl_history: game_domain + "/api/v1/withdrawal-history",
+    deposit_history: game_domain + "/api/v1/deposit-history",
     
     
    
@@ -169,7 +142,7 @@ export const endpoint = {
 
   rollet: {
    
-    bet_now: domain1 + "/api/v1/betPlacedRoulette",
-    // game_result: baseUrl + "/api/roulette-results-history",
+    bet_now: game_domain + "/api/v1/betPlacedRoulette",
+    // game_result: game_domain + "/api/roulette-results-history",
   },
 };

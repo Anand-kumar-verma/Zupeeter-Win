@@ -110,7 +110,7 @@ function Wingo1Min() {
       refetchOnReconnect: false,
       // retry: false,
       retryOnMount: false,
-      // refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false,
     }
   );
   React.useEffect(() => {

@@ -15,6 +15,19 @@ export const getCoupon = async (reqBody) => {
     console.log(e);
   }
 };
+export const getCompany = async (reqBody) => {
+  try {
+    const res = await axiosInstance.get(
+      API_URLS?.comapany_promoter,
+      {
+        params: reqBody,
+      }
+    );
+    return res;
+  } catch (e) {
+    console.log(e);
+  }
+};
 export const registrationCahrt = async (reqBody) => {
   try {
     const res = await axiosInstance.get(

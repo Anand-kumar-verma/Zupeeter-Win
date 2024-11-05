@@ -53,6 +53,7 @@ function K3() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 

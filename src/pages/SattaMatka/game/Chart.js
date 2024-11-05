@@ -17,6 +17,7 @@ import { stardarkblue, stargold, stargrad } from "../../../shared/color";
 import one from "../../../pages/SattaMatka/assets/images/Top-Reasons-Why-Satta-Matka-is-so-Famous-1024x538-Photoroom (1).jpg";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { download_app_url, endpoint } from "../../../services/urls";
+import Layout from "../../../component/layout/Layout";
 
 function SattaChart() {
   const progressCircle = useRef(null);
@@ -37,28 +38,12 @@ function SattaChart() {
   const game_history= data?.data?.data|| 0
 
   return (
-        <Container
+    <Layout>
+          <Container
           className="!h-[100%] !overflow-auto no-scrollbar"
           sx={styles.container}
         >
-          <div style={styles.banner}>
-            <div className="px-2 py-2 flex justify-between">
-              <div className="flex items-center gap-2" style={styles.bannerText}>
-                <Box component={NavLink} to="/satta/matka">
-                  <ArrowBack sx={{ color: 'white' }} />
-                </Box>
-                <span className="text-[14px]">Welcome To 5 Star xxx Satta Matka</span>
-              </div>
-              <div
-                className="flex gap-1 items-center cursor-pointer"
-                onClick={() => (document.location.href = `${download_app_url}`)}
-                style={styles.downloadSection}
-              >
-                <CloudDownloadIcon sx={styles.downloadIcon} />
-                <span className="text-[12px]" style={styles.downloadText}></span>
-              </div>
-            </div>
-          </div>
+          
           <Box className="!px-2" pt={2}>
             <Swiper
               spaceBetween={30}
@@ -166,6 +151,8 @@ function SattaChart() {
             </Box>
           </div>
         </Container>
+    </Layout>
+    
     
   );
 }

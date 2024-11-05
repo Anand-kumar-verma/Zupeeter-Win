@@ -15,6 +15,7 @@ import deposit from "../../../assets/history2.png";
 import logo2 from "../../../assets/images/5-Star-XXX-8-29-2024.png";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
+import Layout from "../../../component/layout/Layout";
 
 function History() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function History() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
   const res = data?.data?.data;
@@ -34,20 +36,19 @@ function History() {
   console.log(res, "THis is response");
 
   return (
+    <Layout > 
       <Container
         sx={{
           background: zubgback,
           width: "100%",
           height: "100vh",
           overflow: "auto",
-          mb: 5,
+        
         }}
         className="no-scrollbar"
       >
         <CustomCircularProgress isLoading={isLoading} />
-        <Box sx={style.header} className={"!w-full !flex !justify-center"}>
-          <Box component="img" src={logo2} sx={{ width: "150px" }}></Box>
-        </Box>
+      
 
         <Box>
           <Box
@@ -313,7 +314,7 @@ function History() {
           </Box>
         </Box>
       </Container>
-
+</Layout>
   );
 }
 

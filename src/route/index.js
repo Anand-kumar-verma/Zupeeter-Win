@@ -21,14 +21,6 @@ import TronScanPage from "../pages/trx/component/TronScanPage";
 import BankDetails from "../pages/bank/BankDetails";
 import Banks from "../pages/bank/Banks";
 import UPIDetails from "../pages/upi/UPIDetails";
-import ICOToken from "../pages/ioctoken/ICOToken";
-import FundMain from "../pages/fund/FundMain";
-import FundReport from "../pages/fund/FundReport";
-import FundTransfer from "../pages/fund/FundTransfer";
-import FundRecieve from "../pages/fund/FundRecive";
-import ViewSalaryIncome from "../pages/salaryIncome/ViewSalaryIncome";
-import UPIDepositToken from "../pages/upiDepositToken/UPIDepositToken";
-import ZupeeterTokenReport from "../pages/zupeeterToken/ZupeeterTokenReport";
 import RegistrationBonus from "../pages/income/incomeSubSection/RegistrationBonus";
 import MainPageOFIncome from "../pages/income/MainPageOFIncome";
 import ReferralBonus from "../pages/income/incomeSubSection/ReferralBonus";
@@ -53,12 +45,9 @@ import AccountPassword from "../pages/password/AccountPassword";
 import TransactionPassword from "../pages/password/TransactionPassword";
 import Soon from "../pages/comingsoon/Soon";
 import Ticket from "../pages/Ticket/Ticket";
-import USDTDeposit from "../pages/wallet/Component/USDTDeposit";
 import QRSCREENUSDT from "../pages/wallet/Component/QRSCREENUSDT";
 import UsdtDetails from "../pages/bank/UsdtDetails";
-import USDTWithdrawlRequest from "../pages/wallet/Component/USDTWithdrawlRequest";
 import Wingo from "../pages/wingo/Wingo";
-import AddAddressUsdt from "../pages/wallet/Component/AddAddressUsdt";
 import Gift from "../pages/activity/Gift";
 import P2PTransfer from "../pages/P2ptransfer/p2ptransfer";
 import Zp from "../pages/wallet/Component/ZpDeposit";
@@ -125,18 +114,12 @@ export const routes = [
     path: "/usdt-address",
     element: <UsdtDetails />,
   },
-  {
-    path: "/usdt-withdrawl-request",
-    element: <USDTWithdrawlRequest />,
-  },
+
   {
     path: "/qr-screen-usdt",
     element: <QRSCREENUSDT />,
   },
-  {
-    path: "/usdt-deposit",
-    element: <USDTDeposit />,
-  },
+ 
   {
     path: "/supportPage",
     element: <SupportPage />,
@@ -241,38 +224,7 @@ export const routes = [
     path: "/banks-upi",
     element: <UPIDetails />,
   },
-  {
-    path: "/ico-token",
-    element: <ICOToken />,
-  },
-  {
-    path: "/fund-main",
-    element: <FundMain />,
-  },
-  {
-    path: "/fund-report",
-    element: <FundReport />,
-  },
-  {
-    path: "/fund-transfer",
-    element: <FundTransfer />,
-  },
-  {
-    path: "/fund-recieve",
-    element: <FundRecieve />,
-  },
-  {
-    path: "/view-salary-income",
-    element: <ViewSalaryIncome />,
-  },
-  {
-    path: "/upi-deposit-token",
-    element: <UPIDepositToken />,
-  },
-  {
-    path: "/zupeeter-token",
-    element: <ZupeeterTokenReport />,
-  },
+
   {
     path: "/account/income-main/registration-bonus",
     element: <RegistrationBonus />,
@@ -317,10 +269,7 @@ export const routes = [
     path: "/account/income-main/my-team/levels",
     element: <Tables />,
   },
-  {
-    path: "/usdtaddress",
-    element: <AddAddressUsdt />,
-  },
+ 
   {
     path: "/account/Teamincome",
     element: <TeamIncome />,

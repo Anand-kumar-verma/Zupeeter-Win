@@ -7,10 +7,10 @@ import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import { getCoupon } from "../../Services";
+import { getCompany } from "../../Services";
 import CustomTable from "../../Shared/CustomTable";
 
-const Coupon = () => {
+const Company = () => {
 
     const client = useQueryClient()
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -19,21 +19,21 @@ const Coupon = () => {
     const navigate = useNavigate();
 
     const { isLoading, data } = useQuery(
-        ["coupon"],
-        () => getCoupon(),
+        ["Company_prm"],
+        () => getCompany(),
         {
             refetchOnMount: false,
             refetchOnReconnect: true,
             refetchOnWindowFocus:false
         }
     );
-    const coupon_data = data?.data?.data || [];
+    const company_data = data?.data?.data || [];
 
-   const UpdateCoupon = async (id)=>{
+   const UpdateCompany = async (id)=>{
     try{
-        const res = await axiosInstance.get(API_URLS?.update_coupon_record+id)
+        const res = await axiosInstance.get(API_URLS?.update_company_record+id)
         toast(res?.data?.msg,{id:1})
-        client.refetchQueries("coupon");
+        client.refetchQueries("Company_prm");
     }
     catch(e){
         console.log(e)
@@ -51,21 +51,20 @@ const Coupon = () => {
 
     React.useEffect(() => {
         setVisibleRows(
-            coupon_data?.slice(
+            company_data?.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
             )
         );
-    }, [page, rowsPerPage, coupon_data]);
+    }, [page, rowsPerPage, company_data]);
 
     const tablehead = [
         <span>S.No.</span>,
-        <span>Coupon Code</span>,
-        <span>Amount</span>,
-        <span>Status</span>,
-        <span>Limit</span>,
-        <span>No. of Uses</span>,
-        <span>Date/Time</span>,
+        <span>User Id</span>,
+        <span>Name</span>,
+        <span>Email</span>,
+        <span>Mobile</span>,
+        <span>Type</span>,
         <span>Action</span>,
 
     ];
@@ -73,17 +72,16 @@ const Coupon = () => {
     const tablerow = visibleRows?.map((i, index) => {
         return [
             <span>{index + 1}</span>,
-            <span>{i?.coupon_code}</span>,
-            <span>{i?.coupon_amount}</span>,
-            <span>{i?.coupon_status}</span>,
-            <span>{i?.coupon_limit}</span>,
-            <span>{i?.coupon_uses}</span>,
-            <span>{moment(i?.created_at).format("DD-MM-YYYY HH:mm:ss")}</span>,
+            <span>{i?.username}</span>,
+            <span>{i?.full_name}</span>,
+            <span>{i?.email}</span>,
+            <span>{i?.mobile}</span>,
+            <span>{i?.user_type}</span>,
             <span>
                 <Switch
-                checked={i?.coupon_status==="Active" ? true :false}
+                // checked={i?.coupon_status==="Active" ? true :false}
                     className="!text-green-600"
-                    onChange={()=>UpdateCoupon(i?.id)}
+                    onChange={()=>UpdateCompany(i?.username)}
                 />
             </span>
         ];
@@ -91,22 +89,7 @@ const Coupon = () => {
 
     return (
         <div>
-           <div className="!flex !justify-between">
-           <Button
-             className="!my-5 !bg-white"
-                onClick={() => navigate('/addcouponuser')}
-                endIcon={<Add />}
-            >
-                 Coupon To User
-            </Button>
-           <Button
-             className="!my-5 !bg-white"
-                onClick={() => navigate('/addcoupon')}
-                endIcon={<Add />}
-            >
-                Add Coupon
-            </Button>
-           </div>
+           
             <CustomTable
                 tablehead={tablehead}
                 tablerow={tablerow}
@@ -116,7 +99,7 @@ const Coupon = () => {
             <TablePagination
                 rowsPerPageOptions={[8, 10, 20, 50]}
                 component="div"
-                count={coupon_data?.length}
+                count={company_data?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
@@ -126,4 +109,4 @@ const Coupon = () => {
     );
 };
 
-export default Coupon;
+export default Company;

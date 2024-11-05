@@ -38,6 +38,7 @@ const Chart = ({ gid }) => {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 

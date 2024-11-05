@@ -43,8 +43,6 @@ const DayBookReport = () => {
             game_id: game_id,
             day_book_type: day_book,
         }
-        // console.log(req)
-        // return
         try {
             const res = await axiosInstance.post(API_URLS?.day_book_report,
                 req
@@ -64,6 +62,7 @@ const DayBookReport = () => {
         {
             refetchOnMount: false,
             refetchOnReconnect: true,
+            refetchOnWindowFocus:false
         }
     );
     const result = name?.data?.data;

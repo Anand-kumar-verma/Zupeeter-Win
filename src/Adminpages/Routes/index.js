@@ -41,6 +41,7 @@ export const routes = [
     component: <Genealogy />,
     navItem: "Direct",
   },
+  
   {
     id: 7,
     path: "/genealogy/downline",

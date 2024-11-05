@@ -120,6 +120,7 @@ function Wingo5Min() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
   const { data: my_history_all_new } = useQuery(

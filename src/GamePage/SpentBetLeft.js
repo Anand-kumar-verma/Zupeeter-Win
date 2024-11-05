@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useQuery, useQueryClient } from "react-query";
 import { walletamountAviator } from "../services/apiCallings";
-import { dummy_aviator, rupees } from "../services/urls";
+import { game_domain, rupees } from "../services/urls";
 import { gray } from "./color";
 import { deCryptData, enCryptData } from "../shared/secret";
 
@@ -64,7 +64,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
     else {
       try {
         const response = await axios.post(
-          `${dummy_aviator}/api/v1/apply-bet-aviator-first`,
+          `${game_domain}/api/v1/apply-bet-aviator-first`,
           dataToSend
         );
         console.log(response)
@@ -112,7 +112,7 @@ const SpentBetLeft = ({ milliseconds, seconds, fk, formik }) => {
     };
     try {
       const response = await axios.post(
-        `${dummy_aviator}/api/v1/cash-out-aviator-last`,
+        `${game_domain}/api/v1/cash-out-aviator-last`,
         dataToSend
       );
 

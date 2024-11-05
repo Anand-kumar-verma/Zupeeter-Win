@@ -138,6 +138,7 @@ function Wingo3Min() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 

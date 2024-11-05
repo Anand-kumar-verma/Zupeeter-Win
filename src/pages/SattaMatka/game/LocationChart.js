@@ -41,8 +41,6 @@ function LocationChart() {
   
 
   return (
-  
-     
         <Container
           className="!h-[100%] !overflow-auto no-scrollbar"
           sx={style.container}
@@ -61,12 +59,13 @@ function LocationChart() {
               </Box>
             </Box>
           </Box>
-          <Box sx={style.filterContainer} className="w95 !text-white" mt={4}>
+          <Box sx={style.filterContainer} className=" !text-white" mt={4}>
             <Box sx={{ display: 'flex', width: '100%', gap: '8px' }}  className='!text-white'>
               <TextField
                 label="Start Date"
                 placeholder="Select start date"
                 type="date"
+                className=''
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
                 InputLabelProps={{ shrink: true }}
@@ -110,8 +109,7 @@ function LocationChart() {
             </Box>
           </Box>
         </Container>
-     
-   
+    
 
   )
 }
@@ -120,6 +118,8 @@ export default LocationChart;
 
 const style = {
   root: { background: stardarkblue, pb: 6 },
+  container: { background: stardarkblue },
+
   flexbetween: {
     display: 'flex',
     alignItems: 'center',

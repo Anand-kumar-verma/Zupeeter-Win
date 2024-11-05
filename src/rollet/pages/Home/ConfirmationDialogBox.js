@@ -1,4 +1,4 @@
-import { Box, Drawer } from "@mui/material";
+import { Box, Container, Drawer } from "@mui/material";
 import React from "react";
 
 const ConfirmationDialogBox = ({
@@ -10,11 +10,11 @@ const ConfirmationDialogBox = ({
 }) => {
   return (
     <>
-      <Drawer
+    <Drawer
         sx={{
           "&>div": {
             background: "transparent",
-            width: "400px",
+            // width: "400px",
             height: "85vh",
             ...style.flex,
           },
@@ -58,6 +58,7 @@ const ConfirmationDialogBox = ({
           </div>
         </Box>
       </Drawer>
+      
       <Drawer
         sx={{
           "&>div": {
@@ -87,6 +88,8 @@ const ConfirmationDialogBox = ({
           PLEASE &nbsp; WAIT&nbsp; TO &nbsp;COMPLETE &nbsp; LAST &nbsp; GAME
         </Box>
       </Drawer>
+    
+     
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { BoltRounded, Book, ColorizeRounded, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
+import { BoltRounded, Book, ColorizeRounded, Compare, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
@@ -392,6 +392,17 @@ export const all_Data = [
         <Book color="#15317E" fontSize="medium" />
       </span>
     ),
+  },
+  {
+    id: 44,
+    navLink: "/company_promoter",
+    navItem: "Company Promoter",
+    navIcon: (
+      <span>
+        <Compare color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [],
   },
   {
     id: 14,

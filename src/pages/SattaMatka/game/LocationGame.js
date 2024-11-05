@@ -156,7 +156,7 @@ function Jodi({ betArray, setBetArray }) {
                 amount !== "" &&
                 amount !== 0 &&
                 (Number(amount) < 10
-                  ? toast("Amount should be grater or equal to 10")
+                  ? toast("Amount should be greater or equal to 10")
                   : addNumberINBetArray(selectedNumber, amount));
             }}
             sx={{

@@ -38,6 +38,7 @@ const GameHistory = ({ gid }) => {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 

@@ -4,8 +4,10 @@ import Changepassword from "../Adminpages/Pages/changepassword/Changepassword";
 import ColorPrediction1Min from "../Adminpages/Pages/colorprediction/ColorPrediction1Min";
 import ColorPrediction2Min from "../Adminpages/Pages/colorprediction/ColorPrediction2Min";
 import ColorPrediction3Min from "../Adminpages/Pages/colorprediction/ColorPrediction3Min";
+import AddCompany from "../Adminpages/Pages/companypromoter/AddCompany";
 import AddCoupon from "../Adminpages/Pages/Coupon/addcoupon";
 import Coupon from "../Adminpages/Pages/Coupon/coupon";
+import DirectCoupon from "../Adminpages/Pages/Coupon/directCoupon";
 import Dashboard from "../Adminpages/Pages/dashboard/Dashboard";
 import DayBookReport from "../Adminpages/Pages/DayBookReport/daybookreport";
 import Fund from "../Adminpages/Pages/fund/Fund";
@@ -89,7 +91,18 @@ export const adminroutes = [
     component: <AddCoupon/>,
     navItem: "coupon",
   },
- 
+  {
+    id: 6,
+    path: "/addcouponuser",
+    component: <DirectCoupon />,
+    navItem: "CouponToUser",
+  },
+  {
+    id: 66,
+    path: "/company_promoter",
+    component: <AddCompany />,
+    navItem: "Company Promoter",
+  },
   {
     id: 9,
     path: "/fund",

@@ -75,6 +75,7 @@ function Home() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 
@@ -88,6 +89,7 @@ function Home() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 
@@ -97,6 +99,7 @@ function Home() {
     useQuery(["history_rollet_result"], () => apiConnectorGet(endpoint.node.game_result), {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     });
 
   const bet_result_history_Data = useMemo(() => {

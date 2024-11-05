@@ -20,6 +20,7 @@ const user_id = deCryptData(localStorage.getItem("user_id"))?.UserID;
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
+      refetchOnWindowFocus:false
     }
   );
 
