@@ -40,7 +40,7 @@ const ComingSoon = () => {
       <div className="background"></div>
      
       <div className="content">
-      <NavLink to="/">
+      <NavLink to="/dashboard">
       <img src={backbtn} alt=''  className='mx-5 pb-10' />
         </NavLink>
       

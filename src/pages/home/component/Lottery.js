@@ -208,6 +208,78 @@ function Lottery() {
           ></Box>
         </Box>
       </Box>
+   
+        <Box sx={style.winbox} onClick={() => {
+        if (status?.find((i) => i?.title === "roulette")?.longtext !== 0) {
+          navigate('/rollet')
+        }
+        else {
+          navigate('/comingsoon')
+        }
+      }}>
+          <Box
+            component="img"
+            src={win2}
+            sx={{ width: "100%", height: "70%" }}
+          ></Box>
+          <Box sx={style.positiongame}>
+            <Typography variant="body1" color="initial" sx={style.gameheading}>
+            Roulette{" "}
+            </Typography>
+            <Box sx={{ mt: "15px" }}>
+              <Typography variant="body1" color="initial">
+                Guess Number
+              </Typography>
+              {/* <Typography variant="body1" color="initial ">
+                Casino
+              </Typography> */}
+            </Box>
+          </Box>
+          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
+            <Box
+              component="img"
+              src={"https://5starxxx.com/static/media/casino.92b01e4183f8c11ac495.png"}
+              sx={{ width: "100px" }}
+            ></Box>
+          </Box>
+        </Box>
+      
+  
+        <Box sx={style.winbox} onClick={() => {
+        if (status?.find((i) => i?.title === "satta_matka")?.longtext !== 0) {
+          navigate('/satta/matka')
+        }
+        else {
+          navigate('/comingsoon')
+        }
+      }}>
+          <Box
+            component="img"
+            src={win3}
+            sx={{ width: "100%", height: "70%" }}
+          ></Box>
+          <Box sx={style.positiongame}>
+            <Typography variant="body1" color="initial" sx={style.gameheading}>
+            Satta Matka
+            {" "}
+            </Typography>
+            <Box sx={{ mt: "15px" }}>
+              <Typography variant="body1" color="initial">
+                Guess Number
+              </Typography>
+              {/* <Typography variant="body1" color="initial ">
+               Coin
+              </Typography> */}
+            </Box>
+          </Box>
+          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
+            <Box
+              component="img"
+              src={"https://5starxxx.com/static/media/satta.c9b546d5e66c77e9ff95.jpg"}
+              sx={{ width: "100px" }}
+            ></Box>
+          </Box>
+        </Box>
 
     </Box>
   );
