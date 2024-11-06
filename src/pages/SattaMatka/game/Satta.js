@@ -37,6 +37,7 @@ function Satta() {
     }
   );
   const game_history = data?.data?.data || 0;
+  
   const { data: statta_matka_staus } = useQuery(
     ["status_of_satta_matka"],
     () => apiConnectorGet(endpoint?.node?.getStatusSattaMatka),
@@ -163,9 +164,9 @@ function Satta() {
                     Last result was : {game_history?.[0]?.gaziyabad}
                   </Typography>
                 </Box>
-                {!statta_matka_staus_result?.find(
+                {statta_matka_staus_result?.find(
                   (i) => i?.title === "satta_gajiyabad"
-                )?.status ? (
+                )?.longtext === "0" ? (
                   <Box sx={styles.buttonContainer}>
                     <Typography
                       variant="body1"
@@ -246,9 +247,9 @@ function Satta() {
                   </Typography>
                 </Box>
 
-                {!statta_matka_staus_result?.find(
+                {statta_matka_staus_result?.find(
                   (i) => i?.title === "satta_faridabad"
-                )?.status ? (
+                )?.longtext === "0" ? (
                   <Box sx={styles.buttonContainer}>
                     <Typography
                       variant="body1"
@@ -328,9 +329,9 @@ function Satta() {
                   </Typography>
                 </Box>
                 {/* <Box sx={styles.buttonContainer}> */}
-                {!statta_matka_staus_result?.find(
+                {statta_matka_staus_result?.find(
                   (i) => i?.title === "satta_gali"
-                )?.status ? (
+                )?.longtext === "0" ? (
                   <Box sx={styles.buttonContainer}>
                     <Typography
                       variant="body1"
@@ -411,9 +412,9 @@ function Satta() {
                     Last result was : {game_history?.[0]?.disawar}
                   </Typography>
                 </Box>
-                {!statta_matka_staus_result?.find(
+                {statta_matka_staus_result?.find(
                   (i) => i?.title === "satta_disawar"
-                )?.status ? (
+                )?.longtext === "0" ? (
                   <Box sx={styles.buttonContainer}>
                     <Typography
                       variant="body1"

@@ -1,4 +1,4 @@
-import { BoltRounded, Book, ColorizeRounded, Compare, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
+import { Ballot, BoltRounded, Book, ColorizeRounded, Compare, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
@@ -75,7 +75,7 @@ export const all_Data = [
 
   {
     id: 6,
-    navLink: "/welcomebonus",
+    navLink: "/selfdepositBonus",
     navItem: "Income",
     navIcon: (
       <span>
@@ -276,6 +276,69 @@ export const all_Data = [
     ],
   },
   {
+    id: 55,
+    navLink: "/roulette_result",
+    navItem: "Roulette",
+    navIcon: (
+      <span>
+        <Ballot color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [],
+  },
+  {
+    id: 111,
+    navLink: "/satta_desawar",
+    navItem: "Satta Matka",
+    navIcon: (
+      <span>
+        <Games color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [
+      {
+        id: 111.1,
+        navLink: "/satta_desawar",
+        navItem: "Desawar",
+        navIcon: (
+          <span>
+            <PlayCircleFilledSharp color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 111.2,
+        navLink: "/satta_gali",
+        navItem: "Gali",
+        navIcon: (
+          <span>
+            <ColorizeRounded color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 111.3,
+        navLink: "/satta_faridabad",
+        navItem: "Faridabad",
+        navIcon: (
+          <span>
+            <HistoryEdu color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 111.4,
+        navLink: "/satta_ghaziyabad",
+        navItem: "Ghaziabad",
+        navIcon: (
+          <span>
+            <HistoryEdu color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+    ],
+  },
+  {
     id: 11,
     navLink: "/zp_token",
     navItem: "Zp Token",
@@ -404,6 +467,7 @@ export const all_Data = [
     ),
     subcomponent: [],
   },
+ 
   {
     id: 14,
     navLink: "/user_permission",

@@ -1,6 +1,8 @@
 import { Box, Stack } from "@mui/material";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import SweetAlert from "sweetalert2";
+import { useSocket } from "../../../shared/socket/SocketContext";
 import pr0 from "../../Assets/number/0.png";
 import pr1 from "../../Assets/number/11.png";
 import pr2 from "../../Assets/number/22.png";
@@ -11,13 +13,13 @@ import pr6 from "../../Assets/number/6.png";
 import pr7 from "../../Assets/number/7.png";
 import pr8 from "../../Assets/number/8.png";
 import pr9 from "../../Assets/number/9.png";
-import { useSocket } from "../../../shared/socket/SocketContext";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import SweetAlert from "sweetalert2"; 
+
 
 
 const ColorPrediction2Min = () => {
+  let preValue = 0;
   const socket = useSocket();
   const [amount, setAmount] = useState([]);
   const [data, setData] = useState();
@@ -38,7 +40,12 @@ const ColorPrediction2Min = () => {
 
   React.useEffect(() => {
     const handleThreeMin = (onemin) => {
-      let threemin = `${2 - (new Date()?.getMinutes() % 3)}_${onemin}`;
+      const t = Number(String(onemin)?.split("_")?.[1]);
+      const min = Number(String(onemin)?.split("_")?.[0]);
+      const time_to_be_intro = t > 0 ? 60 - t : t;
+      let threemin = `${2 - (Number(t === 0 ? preValue : min) % 3)
+        }_${time_to_be_intro}`;
+      preValue = min;
       setThree_min_time(threemin);
     };
     const handleThreeMinAmount = (threemin) => {
@@ -93,7 +100,7 @@ const ColorPrediction2Min = () => {
             <Stack direction="row" className="!text-2xl">
               <Box className="timerBoxone">{show_this_three_min_time_min?.substring(0, 1)}</Box>
               <Box className="timerBox">{show_this_three_min_time_min?.substring(1, 2)}</Box>
-              <Box className={"!-mt-2 !font-bold"}>:</Box>
+              <Box className={" !font-bold"}>:</Box>
               <Box className="timerBox">
                 {show_this_three_min_time_sec?.substring(0, 1)}
               </Box>
@@ -112,7 +119,7 @@ const ColorPrediction2Min = () => {
           return <>
             <div >
               <img src={item} alt="" className="w-[70px] !cursor-pointer"
-               onClick={() => handleImageClick(index)} />
+                onClick={() => handleImageClick(index)} />
               <p className="border-black border  mt-5 text-center">{amount?.[index]?.mid_amount || 0}</p></div>
           </>
         })}

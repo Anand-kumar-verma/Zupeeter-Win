@@ -33,6 +33,11 @@ import Player from "../Adminpages/Pages/player/Player";
 import AviatorReport from "../Adminpages/Pages/Report/AvaitorReport";
 import TrxReport from "../Adminpages/Pages/Report/TrxReport";
 import WingoReport from "../Adminpages/Pages/Report/WingoReport";
+import RouletteResult from "../Adminpages/Pages/Roulette/Roulette";
+import DesawarResult from "../Adminpages/Pages/sattamatka/Desawar";
+import FaridabadResult from "../Adminpages/Pages/sattamatka/Faridabad";
+import GaliResult from "../Adminpages/Pages/sattamatka/Gali";
+import GhaziabadResult from "../Adminpages/Pages/sattamatka/Ghaziabad";
 import SetBonus from "../Adminpages/Pages/SetBonus/SetBonus";
 import DownlineTeam from "../Adminpages/Pages/Team/DownlineTeam";
 import UplineTeam from "../Adminpages/Pages/Team/UplineTeam";
@@ -276,6 +281,36 @@ export const adminroutes = [
     path: "/zp_token_payout",
     component: <ZpTokenPayout/>,
     navItem: "Payout",
+  },
+  {
+    id: 37,
+    path: "/roulette_result",
+    component: <RouletteResult/>,
+    navItem: "Roulette",
+  },
+  {
+    id: 38,
+    path: "/satta_desawar",
+    component: <DesawarResult/>,
+    navItem: "Desawar",
+  },
+  {
+    id: 39,
+    path: "/satta_gali",
+    component: <GaliResult/>,
+    navItem: "Gali",
+  },
+  {
+    id: 40,
+    path: "/satta_faridabad",
+    component: <FaridabadResult/>,
+    navItem: "Faridabad",
+  },
+  {
+    id: 41,
+    path: "/satta_ghaziyabad",
+    component: <GhaziabadResult/>,
+    navItem: "Ghaziabad",
   },
 ];
 

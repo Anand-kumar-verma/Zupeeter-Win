@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/material";
 import React, { useState } from "react";
-import { useQueryClient } from "react-query";
 import toast from "react-hot-toast";
-import SweetAlert from "sweetalert2"; 
+import SweetAlert from "sweetalert2";
+import { useSocket } from "../../../shared/socket/SocketContext";
 import pr0 from "../../Assets/number/0.png";
 import pr1 from "../../Assets/number/11.png";
 import pr2 from "../../Assets/number/22.png";
@@ -15,7 +15,7 @@ import pr8 from "../../Assets/number/8.png";
 import pr9 from "../../Assets/number/9.png";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import { useSocket } from "../../../shared/socket/SocketContext";
+
 
 const ColorPrediction1Min = () => {
   const socket = useSocket();
@@ -23,13 +23,14 @@ const ColorPrediction1Min = () => {
   const [amount, setAmount] = useState([]);
   const [data, setData] = useState();
   const show_this_one_min_time = String(one_min_time).padStart(2, "0");
-  const client = useQueryClient();
 
   React.useEffect(() => {
     const handleOneMin = (onemin) => {
-      setOne_min_time(onemin);
+      const t = Number(String(onemin)?.split("_")?.[1]);
+      const time_to_be_intro = t > 0 ? 60 - t : t;
+      setOne_min_time(time_to_be_intro);
     };
-
+   
     const handleOneMinAmount = (onemin) => {
       setAmount(JSON.parse(onemin));
     };
@@ -86,7 +87,7 @@ const ColorPrediction1Min = () => {
             <Stack direction="row" className="!text-2xl">
               <Box className="timerBoxone">0</Box>
               <Box className="timerBox">0</Box>
-              <Box className={"!-mt-2 !font-bold"}>:</Box>
+              <Box className={" !font-bold"}>:</Box>
               <Box className="timerBox">
                 {show_this_one_min_time?.substring(0, 1)}
               </Box>
@@ -99,14 +100,15 @@ const ColorPrediction1Min = () => {
         {data && (
           <div className="font-bold bg-white w-fit py-1 px-2">Number: {data}</div>
         )}
+       
       </div>
 
       <div className="!mt-5 flex flex-wrap justify-center gap-10">
         {image_array?.map((item, index) => (
           <div key={index}>
-            <img 
-              src={item} 
-              alt="" 
+            <img
+              src={item}
+              alt=""
               className="w-[70px] !cursor-pointer"
               onClick={() => handleImageClick(index)} // Use SweetAlert here
             />

@@ -211,7 +211,7 @@ function Lottery() {
       </Box>
    
         <Box sx={style.winbox} onClick={() => {
-        if (status?.find((i) => i?.title === "roulette")?.longtext !== 0) {
+        if (status?.find((i) => i?.title === "roulette")?.longtext !== "0") {
           navigate('/rollet')
         }
         else {
@@ -247,7 +247,7 @@ function Lottery() {
       
   
         <Box sx={style.winbox} onClick={() => {
-        if (status?.find((i) => i?.title === "satta_matka")?.longtext !== 0) {
+        if (status?.find((i) => i?.title === "satta_matka")?.longtext !== "0") {
           navigate('/satta/matka')
         }
         else {

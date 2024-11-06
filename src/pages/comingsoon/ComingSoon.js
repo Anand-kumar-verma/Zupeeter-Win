@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom';
 const ComingSoon = () => {
   const [countdown, setCountdown] = useState('');
 
-  const targetDate = new Date('sep 1, 2024 00:00:00').getTime();
+  const targetDate = new Date('jan 1, 2025 00:00:00').getTime();
 
   useEffect(() => {
     const interval = setInterval(() => {

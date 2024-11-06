@@ -44,7 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const Master = () => {
 
     const client = useQueryClient()
-    const { data } = useQuery(["status"],
+    const { data } = useQuery(["game_status"],
         () => apiConnectorGet(endpoint.status), {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
@@ -52,13 +52,25 @@ const Master = () => {
     })
     const status = data?.data?.data
 
+    const { data: statta_matka_staus } = useQuery(
+        ["status_of_satta_matka"],
+        () => apiConnectorGet(endpoint?.node?.getStatusSattaMatka),
+        {
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: false,
+        }
+    );
+    const statta_matka_staus_result = statta_matka_staus?.data?.data || [];
+
     const [loading, setLoading] = useState(false);
     const MasterFunction = async (id) => {
         setLoading(true)
         try {
             const res = await axiosInstance.get(API_URLS?.set_game_status + `?t_id=${id}`)
             toast(res?.data?.msg, { id: 1 })
-            client.refetchQueries()
+            client.refetchQueries("game_status")
+            client.refetchQueries("status_of_satta_matka")
             setLoading(false)
         }
         catch (e) {
@@ -81,6 +93,22 @@ const Master = () => {
         {
             id: 21,
             name: "SATTA MATKA",
+        },
+        {
+            id: 23,
+            name: "DESAWAR",
+        },
+        {
+            id: 24,
+            name: "GALI",
+        },
+        {
+            id: 25,
+            name: "FARIDABAD",
+        },
+        {
+            id: 26,
+            name: "GHAZIABAD",
         },
         {
             id: 22,
@@ -112,11 +140,19 @@ const Master = () => {
                 component="th"
                 scope="row"
                 className="capitalize !text-center !py-[10px]">
-                <Switch
-                    checked={status?.find((i)=>i?.id===item?.id)?.longtext==="1" ? true :false}
-                    className="!text-green-600"
-                    onChange={() => MasterFunction(item?.id)}
-                />
+                {[23, 24, 25, 26].includes(item?.id) ? (
+                    <Switch
+                        checked={statta_matka_staus_result?.find((i) => i?.id === item?.id)?.longtext === "1" ? true : false}
+                        className="!text-green-600"
+                        onChange={() => MasterFunction(item?.id)}
+                    />
+                ) : (
+                    <Switch
+                        checked={status?.find((i) => i?.id === item?.id)?.longtext === "1" ? true : false}
+                        className="!text-green-600"
+                        onChange={() => MasterFunction(item?.id)}
+                    />
+                )}
             </StyledTableCell>
         </StyledTableRow>
     ));
