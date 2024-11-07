@@ -13,9 +13,6 @@ import CustomTable from "../../Shared/CustomTable";
 const Coupon = () => {
 
     const client = useQueryClient()
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [page, setPage] = React.useState(0);
-    const [visibleRows, setVisibleRows] = React.useState([]);
     const navigate = useNavigate();
 
     const { isLoading, data } = useQuery(
@@ -40,24 +37,6 @@ const Coupon = () => {
     }    
  }
 
-   const handleChangePage = (newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    React.useEffect(() => {
-        setVisibleRows(
-            coupon_data?.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-            )
-        );
-    }, [page, rowsPerPage, coupon_data]);
-
     const tablehead = [
         <span>S.No.</span>,
         <span>Coupon Code</span>,
@@ -70,7 +49,7 @@ const Coupon = () => {
 
     ];
 
-    const tablerow = visibleRows?.map((i, index) => {
+    const tablerow = coupon_data?.map((i, index) => {
         return [
             <span>{index + 1}</span>,
             <span>{i?.coupon_code}</span>,
@@ -111,16 +90,6 @@ const Coupon = () => {
                 tablehead={tablehead}
                 tablerow={tablerow}
                 isLoading={isLoading}
-            />
-            
-            <TablePagination
-                rowsPerPageOptions={[8, 10, 20, 50]}
-                component="div"
-                count={coupon_data?.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </div>
     );

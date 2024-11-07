@@ -1,10 +1,7 @@
-import { Add } from "@mui/icons-material";
-import { Button, Switch, TablePagination } from "@mui/material";
-import moment from "moment";
+import { Switch } from "@mui/material";
 import React from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import { getCompany } from "../../Services";
@@ -13,10 +10,6 @@ import CustomTable from "../../Shared/CustomTable";
 const Company = () => {
 
     const client = useQueryClient()
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [page, setPage] = React.useState(0);
-    const [visibleRows, setVisibleRows] = React.useState([]);
-    const navigate = useNavigate();
 
     const { isLoading, data } = useQuery(
         ["Company_prm"],
@@ -40,24 +33,6 @@ const Company = () => {
     }    
  }
 
-   const handleChangePage = (newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    React.useEffect(() => {
-        setVisibleRows(
-            company_data?.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-            )
-        );
-    }, [page, rowsPerPage, company_data]);
-
     const tablehead = [
         <span>S.No.</span>,
         <span>User Id</span>,
@@ -68,7 +43,7 @@ const Company = () => {
         <span>Action</span>,
     ];
 
-    const tablerow = visibleRows?.map((i, index) => {
+    const tablerow = company_data?.map((i, index) => {
         return [
             <span>{index + 1}</span>,
             <span>{i?.username}</span>,
@@ -95,15 +70,6 @@ const Company = () => {
                 isLoading={isLoading}
             />
             
-            <TablePagination
-                rowsPerPageOptions={[8, 10, 20, 50]}
-                component="div"
-                count={company_data?.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import { FilterAlt } from "@mui/icons-material";
-import { Button, Switch, TextField } from "@mui/material";
+import { Button, Switch, TablePagination, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CustomTable from "../../Shared/CustomTable";
@@ -7,9 +7,6 @@ import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 
 const Player = () => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [page, setPage] = React.useState(0);
-  const [visibleRows, setVisibleRows] = React.useState([]);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [from_date, setFrom_date] = useState("");
@@ -37,12 +34,6 @@ const Player = () => {
   useEffect(() => {
     userListFunction();
   }, []);
-
-  React.useEffect(() => {
-    setVisibleRows(
-      data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    );
-  }, [page, rowsPerPage, data]);
 
   const changePlayerStatusFunction = async (id) => {
     try {
@@ -75,7 +66,7 @@ const Player = () => {
     <span>Status</span>,
   ];
 
-  const tablerow = visibleRows?.map((i, index) => {
+  const tablerow = data?.map((i, index) => {
     return [
       <span>{index + 1}</span>,
       <span>{i?.full_name}</span>,
@@ -134,7 +125,7 @@ const Player = () => {
           Filter
         </Button>
       </div>
-      <CustomTable tablehead={tablehead} tablerow={tablerow} />
+      <CustomTable tablehead={tablehead} tablerow={tablerow} isLoading={loding} />
     </div>
   );
 };

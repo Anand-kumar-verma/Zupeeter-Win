@@ -9,9 +9,6 @@ import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 
 const AviatorReport = () => {
   const [loding, setloding] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [page, setPage] = React.useState(0);
-  const [visibleRows, setVisibleRows] = React.useState([]);
   const [data, setData] = useState([]);
    const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
@@ -30,20 +27,6 @@ const AviatorReport = () => {
     aviatorReportFunction();
   }, []);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  React.useEffect(() => {
-    setVisibleRows(
-      data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    );
-  }, [page, rowsPerPage, data]);
 
   const tablehead = [
     <span>S.No.</span>,
@@ -55,7 +38,7 @@ const AviatorReport = () => {
     <span>Status</span>,
   ];
 
-  const tablerow = visibleRows?.map((i, index) => {
+  const tablerow = data?.map((i, index) => {
     return [
       <span>{index + 1}</span>,
       <span>{i?.trading_amount}</span>,
@@ -102,15 +85,7 @@ const AviatorReport = () => {
         tablerow={tablerow}
         isLoading={loding}
       />
-      <TablePagination
-        rowsPerPageOptions={[8, 10, 20, 50]}
-        component="div"
-        count={data?.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      
     </div>
   );
 };

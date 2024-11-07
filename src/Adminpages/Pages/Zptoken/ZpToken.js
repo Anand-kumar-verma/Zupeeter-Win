@@ -9,9 +9,6 @@ import moment from "moment";
 
 
 const ZpToken = () => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [page, setPage] = React.useState(0);
-  const [visibleRows, setVisibleRows] = React.useState([]);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [from_date, setFrom_date] = useState("");
@@ -38,29 +35,6 @@ const ZpToken = () => {
   };
 
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  React.useEffect(() => {
-    const filteredRows = data.filter((row) =>
-      Object.values(row).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-
-    setVisibleRows(
-      filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    );
-  }, [page, rowsPerPage, data, search]);
-
 
   const tablehead = [
     <span>S.No</span>,
@@ -75,7 +49,7 @@ const ZpToken = () => {
     <span>Date</span>,
   ];
 
-  const tablerow = visibleRows?.map((i,index) => {
+  const tablerow = data?.map((i,index) => {
     return [
       <span>{index+1}</span>,
       <span>{i?.full_name}</span>,
@@ -124,6 +98,7 @@ const ZpToken = () => {
       <CustomTable
         tablehead={tablehead}
         tablerow={tablerow}
+        isLoading={loding}
       />
       
     </div>

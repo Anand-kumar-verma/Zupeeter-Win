@@ -31,7 +31,7 @@ function BettingBonus() {
   };
 
   const { isLoading, data } = useQuery(
-    ["weekly_salary_bonus"],
+    ["refferral_salary_bonus"],
     () => apiConnectorGet(endpoint?.recharge_income),
     {
       refetchOnMount: false,

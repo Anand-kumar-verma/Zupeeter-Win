@@ -50,8 +50,6 @@ const DesawarResult = () => {
             console.log(e);
         }
     }
-
-
     const handleImageClick = (index) => {
         SweetAlert.fire({
             title: 'Are you sure?',

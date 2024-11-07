@@ -45,7 +45,6 @@ const LogInApproval = () => {
     <span>Name</span>,
     <span>Action</span>,
   ];
-
   const tablerow = [
     {
       id: result?.id,
@@ -53,7 +52,7 @@ const LogInApproval = () => {
       full_name: result?.full_name,
       mobile: result?.mobile,
     },
-  ]?.map((i, index) => {
+  ] ?.map((i, index) => {
     return [
       <span>{index + 1}</span>,
       <span>{i?.username}</span>,
@@ -71,7 +70,6 @@ const LogInApproval = () => {
 
   return (
     <div>
-      <CustomCircularProgress isLoading={isLoding} />
       <div className="flex px-2 gap-5 !justify-start py-2">
         <TextField
           className="!h-[10%]"
@@ -89,7 +87,7 @@ const LogInApproval = () => {
           Filter
         </Button>
       </div>
-      <CustomTable tablehead={tablehead} tablerow={tablerow} />
+      <CustomTable tablehead={tablehead} tablerow={tablerow}  isLoading={isLoding}/>
     </div>
   );
 };
