@@ -4,12 +4,12 @@ export const game_domain = "https://bet.zupeeter.com";
 // export const game_domain = "http://192.168.18.183:9000";
 
 
-export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 export const rupees = "₹";
 export const zubgback = "#F48901";
 export const front_end_domain = "https://play.zupeeter.com";
-export const usdt_base_url = "https://zupeegame.info";
 export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
+export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
+
 
 
 export const endpoint = {
@@ -39,7 +39,6 @@ export const endpoint = {
   deposit_history: `${game_domain}/api/v1/deposit-history-inr`,
   deposit_history_usdt: `${game_domain}/api/v1/deposit-history-usdt`,
   admin_qr_address: `${game_domain}/api/v1/admin-qr-address`,
-  deposite_usdt_payin: `${game_domain}/api/v1/payin-request`,
   bank_details: `${game_domain}/api/v1/user-bank-details`,
   get_claim_card: `${game_domain}/api/v1/clame-bonus`,
   get_card: `${game_domain}/api/v1/get-gift-card-list`,
@@ -56,10 +55,6 @@ export const endpoint = {
   zp_paying: `${game_domain}/api/v1/zp-payin-request`,
   view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
-  withdrawal_request_usdt: `${game_domain}/api/v1/payout-request`,
-  withdrawal_address_usdt: `${game_domain}/api/v1/add-usdt-address`,
-  get_address_list: `${game_domain}/api/v1/usdt-address-record`,
-  withdrawl_usdt_history: `${game_domain}/api/v1/withdrawal-history-usdt`,
   cashback_bonus: `${game_domain}/api/v1/getCashBack-report`,
   update_bank_details: `${game_domain}/api/update_bank_details_new`,
   update_upi_details: `${game_domain}/api/update_upi_details`,

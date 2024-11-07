@@ -13,22 +13,6 @@ const RouletteResult = () => {
     const [amountdata, setAmount] = useState([]);
     const [data, setData] = useState();
     const show_this_one_min_time = String(one_min_time).padStart(2, "0");
-
-    const dummy = [
-        {
-            number: 2,
-            amount: "10"
-        },
-        {
-            number: 5,
-            amount: "88"
-        },
-        {
-            number: 0,
-            amount: "64"
-        }
-    ]
-
     React.useEffect(() => {
         const handleOneMin = (onemin) => {
             setOne_min_time(onemin);
@@ -48,11 +32,10 @@ const RouletteResult = () => {
 
     async function manuallyWinningAPI(num_type) {
         const newreqBody = {
-            gid: 1,
             release_no: num_type,
         };
         try {
-            const res = await axiosInstance.post(API_URLS.wingo_result_api, newreqBody);
+            const res = await axiosInstance.post(API_URLS.rollet_result, newreqBody);
             toast(res?.data?.msg);
             setData(res?.data?.releaseNo);
             console.log(res?.data?.msg);
@@ -76,7 +59,7 @@ const RouletteResult = () => {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                // manuallyWinningAPI(String(index));
+                manuallyWinningAPI(String(index));
             }
         });
     };

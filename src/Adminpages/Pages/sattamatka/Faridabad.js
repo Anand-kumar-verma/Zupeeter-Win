@@ -40,11 +40,11 @@ const FaridabadResult = () => {
 
     async function manuallyWinningAPI(num_type) {
         const newreqBody = {
-            gid: 1,
+            gid: 2,
             release_no: num_type,
         };
         try {
-            const res = await axiosInstance.post(API_URLS.wingo_result_api, newreqBody);
+            const res = await axiosInstance.post(API_URLS.satka_matka_result, newreqBody);
             toast(res?.data?.msg);
             setData(res?.data?.releaseNo);
             console.log(res?.data?.msg);
@@ -68,7 +68,7 @@ const FaridabadResult = () => {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                // manuallyWinningAPI(String(index));
+                manuallyWinningAPI(String(index));
             }
         });
     };
@@ -91,12 +91,12 @@ const FaridabadResult = () => {
             </div>
 
             <div className="!mt-5 flex flex-wrap justify-center gap-10">
-                {Array?.from(new Array(100))?.map((_, i, index) => (
-                    <div key={index} className="!flex justify-between !cursor-pointer border border-black text-center"
-                    onClick={() => handleImageClick(index)}>
-                        <p className="border-r px-1 border-black">{i}</p>
-                        <p className="px-1">{amountdata?.find((i)=>i?.number===index)?.amount ||"0"}</p>
-                    </div>
+                {Array?.from(new Array(100))?.map((_, index) => (
+                   <div key={index} className="!flex justify-between  !cursor-pointer border border-black  text-center"
+                   onClick={() => handleImageClick(index)} >
+                   <p className="border-r px-1 border-black">{index}</p>
+                   <p className="px-1">{amountdata?.find((i) => Number(i?.number) === index)?.amount || 0}</p>
+               </div>
                 ))}
             </div>
 

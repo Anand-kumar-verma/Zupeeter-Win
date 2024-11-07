@@ -19,7 +19,7 @@ import CryptoJS from "crypto-js";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import backbtn from "../../assets/images/backBtn.png";
 import invite from "../../assets/images/invite.png";
 import email from "../../assets/images/logemaildeactive.png";
@@ -36,10 +36,10 @@ import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 
 function Login() {
-
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const refParam = params.get("ref");
   const [visitorId, setVisitorId] = useState(null);
-  const url = new URL(window.location.href);
-  const [refParam, setrefParam] = useState(url.searchParams.get("ref") || "");
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -58,7 +58,7 @@ function Login() {
     name: "",
     pass: "",
     confirmpass: "",
-    refid: refParam || "",
+    refid: refParam,
   };
 
   const fk = useFormik({
@@ -78,7 +78,6 @@ function Login() {
         name: fk.values.name,
         u_finger_id:visitorId,
         through: 2,
-       
       };
       signupFunction(reqbody);
     },

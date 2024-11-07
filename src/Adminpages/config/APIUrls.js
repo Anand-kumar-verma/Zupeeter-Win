@@ -55,6 +55,9 @@ export const API_URLS = {
     add_coupon: `/api/v1/add-admin-coupon-list`,
     update_coupon_record: `/api/v1/update-admin-coupon-list?t_id=`,
     set_game_status:`api/v1/set-game-status`,
+    rollet_result: `api/v1/update-roulette-result`,
+    satka_matka_result: `api/v1/update-satta-matka-result`,
+
 
     //close
     get_next_gameid_one_min: `/api/v1/get-bet-one-min-next-id`,
