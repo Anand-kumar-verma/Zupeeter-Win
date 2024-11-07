@@ -132,6 +132,7 @@ return (
               <Typography className="text-white !text-xs">| </Typography>
               <Typography className="text-white !text-xs">{profile?.username} <CopyAll fontSize="small" /> </Typography>
             </Box>
+            <Typography className="text-white !text-xs">{profile?.is_company_promotor===1? <p>Company Promoter</p> :""} </Typography>
           
           </Box>
         </Box>

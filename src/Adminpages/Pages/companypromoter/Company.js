@@ -55,7 +55,7 @@ const Company = () => {
                 <Switch
                 // checked={i?.coupon_status==="Active" ? true :false}
                     className="!text-green-600"
-                    onChange={()=>UpdateCompany(i?.username)}
+                    onChange={()=>UpdateCompany(i?.id)}
                 />
             </span>
         ];
