@@ -8,7 +8,8 @@ import Layout from "../../component/layout/Layout";
 import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-
+import { alpha, styled } from "@mui/material/styles";
+import { green, pink } from "@mui/material/colors";
 const zubgback = "#F48901";
 const zubgmid = "#F48901";
 const zubgbackgrad = "#F48901";
@@ -24,7 +25,7 @@ function AllLevelOfTeam() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
     }
   );
   const result = data?.data?.data;
@@ -70,7 +71,7 @@ function AllLevelOfTeam() {
           </Box>
           <p className="!font-bold !text-xl"> Subordinate Data</p>
         </Box>
-        <Box >
+        <Box>
           <Box
             className="!mb-10"
             sx={{
@@ -92,24 +93,50 @@ function AllLevelOfTeam() {
               },
             }}
           >
-            <div style={{ paddingTop: '16px', color: "white", background: "#F48901", padding: '10px', borderRadius: '5px' }} className="!grid !grid-cols-6   !place-items-center ">
+            <div
+              style={{
+                paddingTop: "16px",
+                color: "white",
+                background: "#F48901",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+              className="!grid !grid-cols-6   !place-items-center "
+            >
               <span>S.No.</span>
               {/* <span>User Id</span> */}
               <span className="!col-span-2">Name</span>
               <span className="!col-span-2">Mobile No</span>
               <span className="">A/D</span>
             </div>
-            {result?.filter((j) => j?.LEVEL === 1)?.map((i, index) => {
-              return (
-                <div style={{ color: 'white', background: "#F48901", color: 'white', borderRadius: '5px', padding: '10px 20px', }} className="!grid !grid-cols-6   !place-items-center">
-                  <span >{index + 1}</span>
-                  {/* <span>{i?.username}</span> */}
-                  <span className="!text-center !col-span-2">{i?.full_name || "No data found"}</span>
-                  <span className="!col-span-2">{i?.mobile || "987654210"}</span>
-                  <span className="!bg-white"><Switch className="!text-green-800" checked= {i?.deposit_amount==="0.0000"? false : true} /></span>
-                </div>
-              );
-            })}
+            {result
+              ?.filter((j) => j?.LEVEL === 1)
+              ?.map((i, index) => {
+                return (
+                  <div
+                    style={{
+                      color: "white",
+                      background: "#F48901",
+                      color: "white",
+                      borderRadius: "5px",
+                      padding: "10px 20px",
+                    }}
+                    className="!grid !grid-cols-6   !place-items-center"
+                  >
+                    <span>{index + 1}</span>
+                    {/* <span>{i?.username}</span> */}
+                    <span className="!text-center !col-span-2">
+                      {i?.full_name || "No data found"}
+                    </span>
+                    <span className="!col-span-2">
+                      {i?.mobile || "987654210"}
+                    </span>
+                    <span className="">
+                      <PinkSwitch  {...label} checked={Number(i?.deposit_amount) > 0?true:false} />
+                    </span>
+                  </div>
+                );
+              })}
           </Box>
         </Box>
       </Container>
@@ -118,7 +145,19 @@ function AllLevelOfTeam() {
 }
 
 export default AllLevelOfTeam;
+const label = { inputProps: { 'aria-label': 'Color switch demo' } };
 
+const PinkSwitch = styled(Switch)(({ theme }) => ({
+  "& .MuiSwitch-switchBase.Mui-checked": {
+    color: green[600],
+    "&:hover": {
+      backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
+    },
+  },
+  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+    backgroundColor: green[600],
+  },
+}));
 const style = {
   header: {
     padding: "15px 8px",

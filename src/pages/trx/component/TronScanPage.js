@@ -30,7 +30,7 @@ function TronScanPage() {
       <iframe
         className="!mb-[10%]"
         title="External Website"
-        src={`https://tronscan.io/#/block/${data}`}
+        src={`https://tronscan.org/#/block/${data}`}
         width={"100%"}
         height={"100%"}
       ></iframe>
