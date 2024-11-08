@@ -73,7 +73,7 @@ const Rule = ({ setOpen2, open2, style }) => {
            <br/>  * If the ball lands on any number from 1 to 36: The payout is x35 of the bet amount.
            <br/> * If the ball lands on a Black slot: The payout is x2 of the bet amount.
            <br/> * If the ball lands on a Red slot: The payout is x2 of the bet amount.
-           <br/> * If the ball lands on a Blue slot: The payout is x2 of the bet amount.
+           <br/> * If the ball lands on a Blue slot: The payout is x5 of the bet amount.
           </p>
           <p className="text-[10px] py-2 ">
           5. Betting Restrictions

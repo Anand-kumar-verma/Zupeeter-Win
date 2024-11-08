@@ -40,6 +40,7 @@ const Company = () => {
         <span>Email</span>,
         <span>Mobile</span>,
         <span>Type</span>,
+        <span>Percent</span>,
         <span>Action</span>,
     ];
 
@@ -51,9 +52,10 @@ const Company = () => {
             <span>{i?.email}</span>,
             <span>{i?.mobile}</span>,
             <span>{i?.user_type}</span>,
+            <span>{Number(i?.x_percent_from_downline)?.toFixed(2)}</span>,
             <span>
                 <Switch
-                // checked={i?.coupon_status==="Active" ? true :false}
+                checked={true}
                     className="!text-green-600"
                     onChange={()=>UpdateCompany(i?.id)}
                 />

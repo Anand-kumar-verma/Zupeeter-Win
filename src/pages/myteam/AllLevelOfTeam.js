@@ -1,5 +1,5 @@
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Switch } from "@mui/material";
 import * as React from "react";
 import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -97,6 +97,7 @@ function AllLevelOfTeam() {
               {/* <span>User Id</span> */}
               <span className="!col-span-2">Name</span>
               <span className="!col-span-2">Mobile No</span>
+              <span className="">A/D</span>
             </div>
             {result?.filter((j) => j?.LEVEL === 1)?.map((i, index) => {
               return (
@@ -105,6 +106,7 @@ function AllLevelOfTeam() {
                   {/* <span>{i?.username}</span> */}
                   <span className="!text-center !col-span-2">{i?.full_name || "No data found"}</span>
                   <span className="!col-span-2">{i?.mobile || "987654210"}</span>
+                  <span className="!bg-white"><Switch className="!text-green-800" checked= {i?.deposit_amount==="0.0000"? false : true} /></span>
                 </div>
               );
             })}

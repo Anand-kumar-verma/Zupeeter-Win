@@ -135,6 +135,7 @@ function Wingo1Min() {
     dispatch(trx_game_image_index_function(array));
   }, [game_history?.data?.result]);
 
+  
   const handlePlaySoundLast = async () => {
     try {
       if (audioRefMusiclast?.current?.pause && true) {

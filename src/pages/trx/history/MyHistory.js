@@ -63,7 +63,7 @@ const MyHistory = ({ gid}) => {
                           height: "45px",
                           borderRadius: "10px",
                         }}
-                        className={`flexcenter
+                        className={`!flex !justify-center !items-center
                                      ${
                                        (i?.number === "0" &&
                                          "transparentColorRedPurpleBGTOP") ||
@@ -82,12 +82,12 @@ const MyHistory = ({ gid}) => {
                                          i?.number === "30") &&
                                          "!bg-[#fb6161]") ||
                                        (i?.number === "50" &&
-                                         "!bg-[#468ce8]") ||
-                                       (i?.number === "40" &&
                                          "!bg-[#ffc300]") ||
+                                       (i?.number === "40" &&
+                                         "!bg-[#468ce8]") ||
                                        (i?.number === "20" && "!bg-[#c86eff]")
                                      }
-                                  font-bold text-xl !text-center !pt-2
+                                  !font-extrabold text-xl 
 
                                         `}
                       >
@@ -100,9 +100,9 @@ const MyHistory = ({ gid}) => {
                           {i?.number === "10" ? (
                             ""
                           ) : i?.number === "50" ? (
-                            "small"
+                            "Small"
                           ) : i?.number === "40" ? (
-                            "big"
+                            "Big"
                           ) : i?.number === "30" ? (
                             ""
                           ) : i?.number === "20" ? (
@@ -245,8 +245,8 @@ const MyHistory = ({ gid}) => {
                       i?.result === "8" ||
                       i?.result === "30") &&
                       "bg-gradient-to-tl from-red-400 to-red-900") ||
-                    (i?.result === "50" && "bg-[#3183ee]") ||
-                    (i?.result === "40" && "bg-[#f1be24]") ||
+                    (i?.result === "50" && "!bg-[#ffc300]") ||
+                    (i?.result === "40" && "!bg-[#468ce8]") ||
                     (i?.result === "20" && "bg-[#eb2feb]")
                   }
                   transparentColor font-bold text-xl
