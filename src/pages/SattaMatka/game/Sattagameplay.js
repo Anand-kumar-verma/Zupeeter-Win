@@ -229,7 +229,7 @@ function Sattagameplay() {
             <Box
               //  className="w95 !fixed !bottom-14 bg-[#0A001B] !py-2 !px-3  !flex !justify-between"
 
-              className=" !fixed !bottom-4 bg-[#0A001B] !py-2 !px-3  !flex gap-40 !justify-between"
+              className=" !fixed !bottom-4 bg-[#0A001B] !py-2 !px-3 "
               sx={style.flexbetween}
             >
               <Box className="">
@@ -252,7 +252,7 @@ function Sattagameplay() {
                 </Typography>
               </Box>
               <Button
-                    className="!bg-[#24cc3b] !text-white "
+                    className="!bg-[#24cc3b] !text-white !ml-5"
                     onClick={() => placeBet()}
                   >
                     Place Bid
