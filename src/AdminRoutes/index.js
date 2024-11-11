@@ -27,6 +27,7 @@ import SelfDepositBonus from "../Adminpages/Pages/genealogy/SelfDepositBonus";
 import TeamReferral from "../Adminpages/Pages/genealogy/TeamRefferral";
 import VipBonus from "../Adminpages/Pages/genealogy/VipBonus";
 import WeeklyBonus from "../Adminpages/Pages/genealogy/WeeklyBonus";
+import WelcomeBonus from "../Adminpages/Pages/genealogy/Welcomebonus";
 import Master from "../Adminpages/Pages/Master/MAster";
 import UserPermission from "../Adminpages/Pages/Permission/Userpermission";
 import LogInApproval from "../Adminpages/Pages/player/LogInApproval";
@@ -144,6 +145,12 @@ export const adminroutes = [
     path: "/selfdepositBonus",
     component: <SelfDepositBonus/>,
     navItem: "First Deposit Bonus",
+  },
+  {
+    id: 116,
+    path: "/welcomebonus",
+    component: <WelcomeBonus/>,
+    navItem: "Welcome Bonus",
   },
   {
     id: 1115,

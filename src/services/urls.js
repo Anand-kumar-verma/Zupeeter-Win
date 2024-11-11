@@ -34,6 +34,7 @@ export const endpoint = {
   incom_gift: `${game_domain}/api/v1/gift-bonus-list`,
   recharge_income: `${game_domain}/api/v1/team-recharge-bonus`,
   company_promoter_income: `${game_domain}/api/v1/company-promoter-bonus`,
+  welcomebonus_income: `${game_domain}/api/v1/welcome-bonus-list`,
   payment: `${game_domain}/api/v1/payment`,
   payment_request: `${game_domain}/api/deposit-request`,
   deposit_history: `${game_domain}/api/v1/deposit-history-inr`,

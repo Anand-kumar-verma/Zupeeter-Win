@@ -36,6 +36,7 @@ export const API_URLS = {
     gift_bonus_data: `/api/v1/gift-bonus-list-admin`,
     salary_bonus_data: `/api/v1/tget-daily-salary-bonus-admin-data`,
     weekly_bonus_data: `/api/v1/tget-weekly-recovery-admin-data`,
+    welcome_bonus_data: `/api/v1/tget-wlcm-bonus-admin-data`,
     bet_bonus_data: `/api/v1/tget-bet-income-bonus-admin-data`,
     level_bonus_data: `/api/v1/tget-level-income-bonus-admin-data`,
     vip_bonus_data: `/api/v1/vip-bonus-list-admin`,

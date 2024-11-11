@@ -123,6 +123,16 @@ export const all_Data = [
         ),
       },
       {
+        id: 6.2,
+        navLink: "/welcomebonus",
+        navItem: "Welcome Bonus",
+        navIcon: (
+          <span>
+            <RowingSharp color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
         id: 6.7,
         navLink: "/levelBonus",
         navItem: "Team Trading Bonus",

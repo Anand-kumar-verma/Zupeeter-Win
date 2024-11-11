@@ -1,4 +1,3 @@
-import D5lotre from "../pages/5DLotre/D5lotre";
 import Contactus from "../pages/Contact/Contactus";
 import ServiceCollections from "../pages/Contact/component/ServiceCollection";
 import SupportPage from "../pages/Contact/component/SupportPage";
@@ -6,7 +5,6 @@ import Account from "../pages/account/Account";
 import RiskDisclosureAgreement from "../pages/auth/Component/RiskDisclosureAgreement";
 import ComingSoon from "../pages/comingsoon/ComingSoon";
 import Dashboard from "../pages/home/Dashboard";
-import K3 from "../pages/k3lotre/K3";
 import Promotion from "../pages/promotion/Promotion";
 import TRX from "../pages/trx/TRX";
 import AddBankAccount from "../pages/wallet/Component/AddBankAccount";
@@ -64,6 +62,7 @@ import Sattagameplay from "../pages/SattaMatka/game/Sattagameplay";
 import AnderBaherChart from "../pages/SattaMatka/game/AnderBaherChart";
 import LocationListChart from "../pages/SattaMatka/game/LocationListChart";
 import CompanyPromoter from "../pages/income/incomeSubSection/CompanyPromoter";
+import WelcomeBonus from "../pages/income/incomeSubSection/Welcomebonus";
 
 export const routes = [
 
@@ -174,14 +173,6 @@ export const routes = [
     element: <TRX />,
   },
   {
-    path: "/k3",
-    element: <K3 />,
-  },
-  {
-    path: "/D5lotre",
-    element: <D5lotre />,
-  },
-  {
     path: "/CustomerService",
     element: <Contactus />,
   },
@@ -269,6 +260,10 @@ export const routes = [
   {
     path: "/account/income-main/company_promoter",
     element: <CompanyPromoter />,
+  },
+  {
+    path: "/account/income-main/welcomebonus",
+    element: <WelcomeBonus />,
   },
   {
     path: "/account/income-main/my-team/levels",

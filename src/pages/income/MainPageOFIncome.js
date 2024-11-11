@@ -103,7 +103,16 @@ function MainPageOFIncome() {
         />
       ),
     },
-    
+    {
+      to: "/account/income-main/welcomebonus",
+      name: "Welcome Bonus",
+      logo: (
+        <Diversity2
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
   ];
   return (
     <Layout>
