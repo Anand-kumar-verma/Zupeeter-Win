@@ -63,6 +63,7 @@ import LocationChart from "../pages/SattaMatka/game/LocationChart";
 import Sattagameplay from "../pages/SattaMatka/game/Sattagameplay";
 import AnderBaherChart from "../pages/SattaMatka/game/AnderBaherChart";
 import LocationListChart from "../pages/SattaMatka/game/LocationListChart";
+import CompanyPromoter from "../pages/income/incomeSubSection/CompanyPromoter";
 
 export const routes = [
 
@@ -264,6 +265,10 @@ export const routes = [
   {
     path: "/account/income-main/my-team",
     element: <AllLevelOfTeam />,
+  },
+  {
+    path: "/account/income-main/company_promoter",
+    element: <CompanyPromoter />,
   },
   {
     path: "/account/income-main/my-team/levels",

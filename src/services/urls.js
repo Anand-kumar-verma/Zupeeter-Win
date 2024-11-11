@@ -3,7 +3,6 @@ export const game_domain = "https://bet.zupeeter.com";
 
 // export const game_domain = "http://192.168.18.183:9000";
 
-
 export const rupees = "₹";
 export const zubgback = "#F48901";
 export const front_end_domain = "https://play.zupeeter.com";
@@ -34,6 +33,7 @@ export const endpoint = {
   vip_income: `${game_domain}/api/v1/vip-bonus`,
   incom_gift: `${game_domain}/api/v1/gift-bonus-list`,
   recharge_income: `${game_domain}/api/v1/team-recharge-bonus`,
+  company_promoter_income: `${game_domain}/api/v1/company-promoter-bonus`,
   payment: `${game_domain}/api/v1/payment`,
   payment_request: `${game_domain}/api/deposit-request`,
   deposit_history: `${game_domain}/api/v1/deposit-history-inr`,

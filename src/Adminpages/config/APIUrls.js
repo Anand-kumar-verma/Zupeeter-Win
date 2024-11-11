@@ -42,7 +42,7 @@ export const API_URLS = {
     cashback_bonus_data: `/api/v1/cash-back-bonus-list-admin`,
     add_coupon_user: `/api/v1/add-coupon-to-user-by-admin`,
     add_comapany_promoter: `/api/v1/makeCompanyPromotorbyAdmin`,
-    comapany_promoter: `/api/v1/getCompanyPromotorbyAdmin`,
+    comapany_promoter_list: `/api/v1/company-promoter-bonus-list-admin-active`,
     update_company_record: `/api/v1/changePromotorStatus?u_id=`,
     business_chart: `/api/v1/user-business-status-bar-chart`,
     registration_chart: `/api/v1/user-registration-status-bar-chart`,
@@ -57,6 +57,7 @@ export const API_URLS = {
     set_game_status:`api/v1/set-game-status`,
     rollet_result: `api/v1/update-roulette-result`,
     satka_matka_result: `api/v1/update-satta-matka-result`,
+    comapany_promoter: `/api/v1/company-promoter-bonus-list-admin`,
 
 
     //close

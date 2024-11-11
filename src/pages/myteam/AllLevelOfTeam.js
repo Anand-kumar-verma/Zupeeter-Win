@@ -10,6 +10,7 @@ import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { alpha, styled } from "@mui/material/styles";
 import { green, pink } from "@mui/material/colors";
+import moment from "moment";
 const zubgback = "#F48901";
 const zubgmid = "#F48901";
 const zubgbackgrad = "#F48901";
@@ -107,7 +108,8 @@ function AllLevelOfTeam() {
               {/* <span>User Id</span> */}
               <span className="!col-span-2">Name</span>
               <span className="!col-span-2">Mobile No</span>
-              <span className="">A/D</span>
+              <span className="">Amount</span>
+              <span className="">Date</span>
             </div>
             {result
               ?.filter((j) => j?.LEVEL === 1)
@@ -132,7 +134,10 @@ function AllLevelOfTeam() {
                       {i?.mobile || "987654210"}
                     </span>
                     <span className="">
-                      <PinkSwitch  {...label} checked={Number(i?.deposit_amount) > 0?true:false} />
+                      {Number(i?.deposit_amount ) >= 0?true:false} 
+                    </span>
+                    <span className="">
+                      {moment(i?.deposit_date)?.format("YYYY-MM-DD")} 
                     </span>
                   </div>
                 );

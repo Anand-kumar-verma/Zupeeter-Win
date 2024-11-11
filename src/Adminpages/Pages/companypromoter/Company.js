@@ -32,7 +32,6 @@ const Company = () => {
         console.log(e)
     }    
  }
-
     const tablehead = [
         <span>S.No.</span>,
         <span>User Id</span>,
@@ -65,13 +64,11 @@ const Company = () => {
 
     return (
         <div>
-           
             <CustomTable
                 tablehead={tablehead}
                 tablerow={tablerow}
                 isLoading={isLoading}
-            />
-            
+            />  
         </div>
     );
 };

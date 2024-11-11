@@ -18,7 +18,7 @@ export const getCoupon = async (reqBody) => {
 export const getCompany = async (reqBody) => {
   try {
     const res = await axiosInstance.get(
-      API_URLS?.comapany_promoter,
+      API_URLS?.comapany_promoter_list,
       {
         params: reqBody,
       }

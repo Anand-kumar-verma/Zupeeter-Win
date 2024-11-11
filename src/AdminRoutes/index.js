@@ -18,6 +18,7 @@ import GameWithdrawlRequest from "../Adminpages/Pages/gamewithdrawlrequest/GameW
 import PendingRequest from "../Adminpages/Pages/gamewithdrawlrequest/PendingRequest";
 import RejectRequest from "../Adminpages/Pages/gamewithdrawlrequest/RejectRequest";
 import CashbackBonus from "../Adminpages/Pages/genealogy/CashbackBonus";
+import CompanyPromoterBonus from "../Adminpages/Pages/genealogy/CompanyPromoter";
 import DownLine from "../Adminpages/Pages/genealogy/DownLine";
 import GiftBonus from "../Adminpages/Pages/genealogy/GiftBonus";
 import LevelBonus from "../Adminpages/Pages/genealogy/LevelBonus";
@@ -143,6 +144,12 @@ export const adminroutes = [
     path: "/selfdepositBonus",
     component: <SelfDepositBonus/>,
     navItem: "First Deposit Bonus",
+  },
+  {
+    id: 1115,
+    path: "/companypromoter",
+    component: <CompanyPromoterBonus/>,
+    navItem: "Company Promoter Bonus",
   },
   {
     id: 15,

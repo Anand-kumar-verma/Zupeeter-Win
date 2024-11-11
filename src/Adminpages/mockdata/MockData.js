@@ -30,6 +30,16 @@ export const all_Data = [
     subcomponent: [],
   },
   {
+    id: 12,
+    navLink: "/dashboard",
+    navItem: "User Panel",
+    navIcon: (
+      <span>
+        <ViewCarouselIcon color="#15317E" fontSize="medium" />
+      </span>
+    ),
+  },
+  {
     id: 31,
     navLink: "/signUp",
     navItem: "Registration",
@@ -161,6 +171,17 @@ export const all_Data = [
         navIcon: (
           <span>
             <WheelchairPickupOutlined color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+       
+      {
+        id: 6.1,
+        navLink: "/companypromoter",
+        navItem: "Company Promoter Bonus",
+        navIcon: (
+          <span>
+            <SelfImprovement color="#15317E" fontSize="medium" />
           </span>
         ),
       },
@@ -491,14 +512,5 @@ export const all_Data = [
     subcomponent: [],
   },
   
-  {
-    id: 12,
-    navLink: "/dashboard",
-    navItem: "User Panel",
-    navIcon: (
-      <span>
-        <ViewCarouselIcon color="#15317E" fontSize="medium" />
-      </span>
-    ),
-  },
+ 
 ];

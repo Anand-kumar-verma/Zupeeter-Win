@@ -8,6 +8,7 @@ import { Box, Container } from "@mui/material";
 import * as React from "react";
 import { NavLink} from "react-router-dom";
 import Layout from "../../component/layout/Layout";
+import { Diversity2 } from "@mui/icons-material";
 
 function MainPageOFIncome() {
 
@@ -82,21 +83,21 @@ function MainPageOFIncome() {
         />
       ),
     },
-    // {
-    //   to: "/account/income-main/ico-level-bonus",
-    //   name: "Gift Bonus",
-    //   logo: (
-    //     <Diversity2Icon
-    //       className="!w-[40px] !h-[40px] !text-[#F48901]"
-    //       color="#8f5206"
-    //     />
-    //   ),
-    // },
     {
       to: "/account/income-main/cashback-bonus",
       name: "Cashback Bonus",
       logo: (
         <StoreIcon
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
+      {
+      to: "/account/income-main/company_promoter",
+      name: "Company Promoter Bonus",
+      logo: (
+        <Diversity2
           className="!w-[40px] !h-[40px] !text-[#F48901]"
           color="#8f5206"
         />
