@@ -2,12 +2,9 @@ import { FilterAltOutlined } from "@mui/icons-material";
 import { Button, Switch, TextField } from "@mui/material";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-// import { candidateName } from "../../Services";
 import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 
 const LogInApproval = () => {
   const [search, setSearch] = useState("");
