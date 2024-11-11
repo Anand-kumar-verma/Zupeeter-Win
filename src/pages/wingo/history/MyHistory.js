@@ -1,4 +1,3 @@
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { Box, Stack, TablePagination, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";

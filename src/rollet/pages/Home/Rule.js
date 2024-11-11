@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import rule from "../../assets/images/rule.png";
 import { Box, Drawer } from "@mui/material";
 
 const Rule = ({ setOpen2, open2, style }) => {

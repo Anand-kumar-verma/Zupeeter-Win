@@ -1,5 +1,5 @@
 import { Box, Stack, TablePagination, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 const Chart = ({ gid }) => {
@@ -8,7 +8,7 @@ const Chart = ({ gid }) => {
   const [cor, setcor] = React.useState([]);
   const game_history = useSelector((state) => state.aviator.gameHistory_trx_one_min);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 

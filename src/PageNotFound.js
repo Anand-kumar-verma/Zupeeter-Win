@@ -1,26 +1,3 @@
-// import React, { useEffect } from 'react';
-// import { Navigate, useLocation } from 'react-router-dom';
-
-// const DelayedRedirect = ({ to, delay }) => {
-//   const [shouldRedirect, setShouldRedirect] = React.useState(false);
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     // Check if the current URL contains 'https://zupeeter.com'
-//     if (location?.href?.includes('https://zupeeter.com')) {
-//       const timer = setTimeout(() => {
-//         setShouldRedirect(true);
-//       }, delay);
-
-//       return () => clearTimeout(timer);
-//     }
-//   }, [delay, location.href]);
-
-//   return shouldRedirect ? <Navigate to={to} replace /> : null;
-// };
-
-// export default DelayedRedirect;
-
 import { Button } from "@mui/material";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router";
