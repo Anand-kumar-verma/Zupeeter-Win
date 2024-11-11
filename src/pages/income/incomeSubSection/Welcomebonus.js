@@ -73,7 +73,7 @@ function WelcomeBonus() {
             <Box component={NavLink} onClick={goBack}>
               <KeyboardArrowLeftOutlinedIcon />
             </Box>
-            <p>Welcome Bonus</p>
+            <p>Registration Bonus</p>
           </Box>
           <div>
             <img className="" src={nodatafoundimage} alt="" />
@@ -97,7 +97,7 @@ function WelcomeBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Welcome Bonus</p>
+          <p>Registration Bonus</p>
         </Box>
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>

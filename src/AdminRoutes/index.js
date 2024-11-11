@@ -150,7 +150,7 @@ export const adminroutes = [
     id: 116,
     path: "/welcomebonus",
     component: <WelcomeBonus/>,
-    navItem: "Welcome Bonus",
+    navItem: "Registration Bonus",
   },
   {
     id: 1115,

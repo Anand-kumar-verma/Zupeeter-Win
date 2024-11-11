@@ -105,7 +105,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/welcomebonus",
-      name: "Welcome Bonus",
+      name: "Registration Bonus",
       logo: (
         <Diversity2
           className="!w-[40px] !h-[40px] !text-[#F48901]"

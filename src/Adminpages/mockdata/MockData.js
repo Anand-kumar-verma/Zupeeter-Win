@@ -125,7 +125,7 @@ export const all_Data = [
       {
         id: 6.2,
         navLink: "/welcomebonus",
-        navItem: "Welcome Bonus",
+        navItem: "Registration Bonus",
         navIcon: (
           <span>
             <RowingSharp color="#15317E" fontSize="medium" />
