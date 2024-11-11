@@ -41,7 +41,7 @@ function CompanyPromoter() {
     }
   );
   const res = data?.data?.data;
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = ( newPage) => {
     setPage(newPage);
   };
 
@@ -59,28 +59,28 @@ function CompanyPromoter() {
     );
   }, [page, rowsPerPage, res]);
   if (!isLoading && !res)
-  return (
-    <Layout>
-      <Container
-        sx={{
-          width: "100%",
-          height: "100vh",
-          overflow: "auto",
-          mb: 5,
-        }}
-      >
-        <Box sx={style.header}>
-          <Box component={NavLink} onClick={goBack}>
-            <KeyboardArrowLeftOutlinedIcon />
+    return (
+      <Layout>
+        <Container
+          sx={{
+            width: "100%",
+            height: "100vh",
+            overflow: "auto",
+            mb: 5,
+          }}
+        >
+          <Box sx={style.header}>
+            <Box component={NavLink} onClick={goBack}>
+              <KeyboardArrowLeftOutlinedIcon />
+            </Box>
+            <p>Company Promoter Bonus</p>
           </Box>
-          <p>Company Promoter Bonus</p>
-        </Box>
-        <div>
-          <img className="" src={nodatafoundimage} />
-        </div>
-      </Container>
-    </Layout>
-  );
+          <div>
+            <img className="" src={nodatafoundimage} alt="" />
+          </div>
+        </Container>
+      </Layout>
+    );
   return (
     <Layout>
       <Container
@@ -102,22 +102,30 @@ function CompanyPromoter() {
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>
             <TableHead>
-            <TableRow >
-                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r  !text-center !border-b !border-white" id="tablepadding">S.No</TableCell>
-                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Date/Time</TableCell>
-                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Amount</TableCell>
-                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r !text-center  !border-b !border-white" id="tablepadding">Description</TableCell>
+              <TableRow >
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r 
+                 !text-center !border-b !border-white" id="tablepadding">S.No</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r 
+                !text-center  !border-b !border-white" id="tablepadding">Date/Time</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r
+                 !text-center  !border-b !border-white" id="tablepadding">Amount</TableCell>
+                <TableCell sx={{ color: 'white' }} className="!p-2 !font-bold !border !text-xs !border-r 
+                !text-center  !border-b !border-white" id="tablepadding">Description</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {visibleRows?.map((i, index) => (
                 <TableRow key={i?.id}>
-                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center !mt-5  !border-b !border-white">{index + 1}</TableCell>
-                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center 
+                  !mt-5  !border-b !border-white">{index + 1}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center 
+                   !border-b !border-white">
                     {moment(i?.l01_date).format("DD-MM-YYYY HH:mm:ss")}
                   </TableCell>
-                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">{i?.l01_amount}</TableCell>
-                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center !border-b !border-white">{i?.l01_transection_type}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center 
+                   !border-b !border-white">{i?.l01_amount}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center 
+                  !border-b !border-white">{i?.l01_transection_type}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

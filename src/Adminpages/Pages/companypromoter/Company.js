@@ -17,28 +17,27 @@ const Company = () => {
         {
             refetchOnMount: false,
             refetchOnReconnect: true,
-            refetchOnWindowFocus:false
+            refetchOnWindowFocus: false
         }
     );
     const company_data = data?.data?.data || [];
 
-   const UpdateCompany = async (id)=>{
-    try{
-        const res = await axiosInstance.get(API_URLS?.update_company_record+id)
-        toast(res?.data?.msg,{id:1})
-        client.refetchQueries("Company_prm");
+    const UpdateCompany = async (id) => {
+        try {
+            const res = await axiosInstance.get(API_URLS?.update_company_record + id)
+            toast(res?.data?.msg, { id: 1 })
+            client.refetchQueries("Company_prm");
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
-    catch(e){
-        console.log(e)
-    }    
- }
     const tablehead = [
         <span>S.No.</span>,
         <span>User Id</span>,
         <span>Name</span>,
         <span>Email</span>,
         <span>Mobile</span>,
-        <span>Type</span>,
         <span>Percent</span>,
         <span>Action</span>,
     ];
@@ -50,13 +49,12 @@ const Company = () => {
             <span>{i?.full_name}</span>,
             <span>{i?.email}</span>,
             <span>{i?.mobile}</span>,
-            <span>{i?.user_type}</span>,
             <span>{Number(i?.x_percent_from_downline)?.toFixed(2)}</span>,
             <span>
                 <Switch
-                checked={true}
+                    checked={true}
                     className="!text-green-600"
-                    onChange={()=>UpdateCompany(i?.id)}
+                    onChange={() => UpdateCompany(i?.id)}
                 />
             </span>
         ];
@@ -68,7 +66,7 @@ const Company = () => {
                 tablehead={tablehead}
                 tablerow={tablerow}
                 isLoading={isLoading}
-            />  
+            />
         </div>
     );
 };

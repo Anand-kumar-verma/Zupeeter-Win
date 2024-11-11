@@ -1,4 +1,4 @@
-import { Button, CircularProgress, MenuItem, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -22,7 +22,7 @@ const AddCompany = () => {
     enableReinitialize: true,
     onSubmit: () => {
       if (!fk.values.set_prcnt)
-        return toast("Select percent ");
+        return toast("Select Percentage");
       CompanyAdd(fk.values);
     },
   });
