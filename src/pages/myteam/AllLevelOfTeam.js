@@ -1,5 +1,6 @@
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import { Box, Container, Switch } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import moment from "moment";
 import * as React from "react";
 import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -8,9 +9,6 @@ import Layout from "../../component/layout/Layout";
 import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-import { alpha, styled } from "@mui/material/styles";
-import { green, pink } from "@mui/material/colors";
-import moment from "moment";
 const zubgback = "#F48901";
 const zubgmid = "#F48901";
 const zubgbackgrad = "#F48901";
@@ -49,7 +47,7 @@ function AllLevelOfTeam() {
             <p> Subordinate data</p>
           </Box>
           <div>
-            <img className="" src={nodatafoundimage} />
+            <img className="" src={nodatafoundimage} alt="" />
           </div>
         </Container>
       </Layout>
@@ -102,14 +100,14 @@ function AllLevelOfTeam() {
                 padding: "10px",
                 borderRadius: "5px",
               }}
-              className="!grid !grid-cols-6   !place-items-center "
+              className="!grid !grid-cols-9   !place-items-center "
             >
               <span>S.No.</span>
               {/* <span>User Id</span> */}
               <span className="!col-span-2">Name</span>
               <span className="!col-span-2">Mobile No</span>
-              <span className="">Amount</span>
-              <span className="">Date</span>
+              <span className="!col-span-2">Amount</span>
+              <span className="!col-span-2">Date</span>
             </div>
             {result
               ?.filter((j) => j?.LEVEL === 1)
@@ -123,21 +121,21 @@ function AllLevelOfTeam() {
                       borderRadius: "5px",
                       padding: "10px 20px",
                     }}
-                    className="!grid !grid-cols-6   !place-items-center"
+                    className="!grid !grid-cols-9   !place-items-center"
                   >
                     <span>{index + 1}</span>
                     {/* <span>{i?.username}</span> */}
-                    <span className="!text-center !col-span-2">
-                      {i?.full_name || "No data found"}
+                    <span className="!text-center !text-xs !col-span-2">
+                      {i?.full_name || "N/A"}
                     </span>
-                    <span className="!col-span-2">
-                      {i?.mobile || "987654210"}
+                    <span className="!col-span-2 !text-xs">
+                      {i?.mobile}
                     </span>
-                    <span className="">
-                      {Number(i?.deposit_amount ) >= 0?true:false} 
+                    <span className="!col-span-2 !text-xs">
+                      {i?.deposit_amount || "0"}
                     </span>
-                    <span className="">
-                      {moment(i?.deposit_date)?.format("YYYY-MM-DD")} 
+                    <span className="!col-span-2 !text-xs">
+                      {moment(i?.deposit_date).format("DD-MM-YYYY HH:mm:ss")}
                     </span>
                   </div>
                 );
@@ -150,19 +148,7 @@ function AllLevelOfTeam() {
 }
 
 export default AllLevelOfTeam;
-const label = { inputProps: { 'aria-label': 'Color switch demo' } };
 
-const PinkSwitch = styled(Switch)(({ theme }) => ({
-  "& .MuiSwitch-switchBase.Mui-checked": {
-    color: green[600],
-    "&:hover": {
-      backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
-    },
-  },
-  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-    backgroundColor: green[600],
-  },
-}));
 const style = {
   header: {
     padding: "15px 8px",

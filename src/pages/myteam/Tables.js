@@ -7,10 +7,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Container,
-  Switch,
+  Container
 } from "@mui/material";
 import "jspdf-autotable";
+import moment from "moment";
 import * as React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -19,8 +19,6 @@ import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint, zubgback } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
-import { alpha, styled } from "@mui/material/styles";
-import { green, pink } from "@mui/material/colors";
 export default function Tables() {
   const navigate = useNavigate();
 
@@ -122,14 +120,15 @@ export default function Tables() {
                       <Box sx={style.accordian}>
                         <div
                           style={{ color: "black" }}
-                          className="!grid !grid-cols-7"
+                          className="!grid !grid-cols-9"
                         >
                           <span className="!text-center">S.No.</span>
-                          <span className="!col-span-3 !text-center">
+                          <span className="!col-span-2 !text-center">
                             User Id
                           </span>
                           <span className="!text-center !col-span-2">Name</span>
-                          <span className="!text-center !col-span-1">A/D</span>
+                          <span className="!text-center !col-span-2">Amount</span>
+                          <span className="!text-center !col-span-2">Date</span>
                         </div>
                         <div className="h-[2px] w-full "></div>
                         {result
@@ -144,24 +143,20 @@ export default function Tables() {
                                   borderRadius: "5px",
                                   padding: "10px 20px",
                                 }}
-                                className="!grid !grid-cols-7  "
+                                className="!grid !grid-cols-9  "
                               >
                                 <span>{index + 1}</span>
-                                <span className="!col-span-3">
-                                  {i?.username || "No data found"}
+                                <span className="!col-span-2 !text-xs">
+                                  {i?.username || "N/A"}
                                 </span>
-                                <span className="!col-span-2">
-                                  {i?.full_name || "No data found"}
+                                <span className="!col-span-2 !text-xs !text-center">
+                                  {i?.full_name || "N/A"}
                                 </span>
-                                <span className="">
-                                  <PinkSwitch
-                                    {...label}
-                                    checked={
-                                      Number(i?.deposit_amount) > 0
-                                        ? true
-                                        : false
-                                    }
-                                  />
+                                <span className="!col-span-2 !text-xs !text-center">
+                                  {Number(i?.deposit_amount)}
+                                </span>
+                                <span className="!col-span-2 !text-xs !text-center">
+                                  {moment(i?.deposit_date).format("DD-MM-YYYY HH:mm:ss")}
                                 </span>
                               </div>
                             );
@@ -178,19 +173,6 @@ export default function Tables() {
     </Layout>
   );
 }
-const label = { inputProps: { "aria-label": "Color switch demo" } };
-
-const PinkSwitch = styled(Switch)(({ theme }) => ({
-  "& .MuiSwitch-switchBase.Mui-checked": {
-    color: green[600],
-    "&:hover": {
-      backgroundColor: alpha(green[600], theme.palette.action.hoverOpacity),
-    },
-  },
-  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-    backgroundColor: green[600],
-  },
-}));
 const style = {
   header: {
     padding: "15px 8px",
