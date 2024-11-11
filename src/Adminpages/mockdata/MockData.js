@@ -1,4 +1,12 @@
-import { Ballot, BoltRounded, Book, ColorizeRounded, Compare, ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu, LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp, MonetizationOn, Money, People, PlayCircleFilledSharp, Report, ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp, SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined } from "@mui/icons-material";
+import {
+  Ballot, BoltRounded, Book, ColorizeRounded, Compare,
+  ContactSupportOutlined, DownhillSkiing, Games, HistoryEdu,
+  LeaderboardSharp, LeakRemoveOutlined, LoginOutlined, LoginSharp,
+  MonetizationOn, Money, People, PlayCircleFilledSharp, Report,
+  ReportGmailerrorred, ReportOff, ReportProblem, RowingSharp,
+  SelfImprovement, Transcribe, UpcomingSharp, WheelchairPickupOutlined
+}
+  from "@mui/icons-material";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
@@ -93,7 +101,7 @@ export const all_Data = [
       </span>
     ),
     subcomponent: [
-     
+
       {
         id: 6.3,
         navLink: "/selfdepositBonus",
@@ -174,7 +182,7 @@ export const all_Data = [
           </span>
         ),
       },
-       
+
       {
         id: 6.1,
         navLink: "/companypromoter",
@@ -196,7 +204,7 @@ export const all_Data = [
         <BoltRounded color="#15317E" fontSize="medium" />
       </span>
     ),
-    subcomponent: [ ],
+    subcomponent: [],
   },
   {
     id: 38,
@@ -207,7 +215,7 @@ export const all_Data = [
         <ContactSupportOutlined color="#15317E" fontSize="medium" />
       </span>
     ),
-    subcomponent: [ ],
+    subcomponent: [],
   },
   {
     id: 8,
@@ -251,8 +259,8 @@ export const all_Data = [
       },
     ],
   },
- 
-  
+
+
   {
     id: 11,
     navLink: "/color-prediction-1-min",
@@ -293,7 +301,7 @@ export const all_Data = [
           </span>
         ),
       },
-    
+
     ],
   },
   {
@@ -389,7 +397,7 @@ export const all_Data = [
           </span>
         ),
       },
-    
+
     ],
   },
 
@@ -488,7 +496,7 @@ export const all_Data = [
     ),
     subcomponent: [],
   },
- 
+
   {
     id: 14,
     navLink: "/user_permission",
@@ -511,6 +519,6 @@ export const all_Data = [
     ),
     subcomponent: [],
   },
-  
- 
+
+
 ];
