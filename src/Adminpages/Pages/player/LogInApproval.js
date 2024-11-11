@@ -34,6 +34,7 @@ const LogInApproval = () => {
         `${API_URLS?.login_approval}?t_id=${id}`
       );
       toast.success(res?.data?.msg);
+      setResult([])
     } catch (e) {
       console.log(e);
     }
