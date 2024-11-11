@@ -24,6 +24,7 @@ export const API_URLS = {
     user_permission: `/api/v1/change-user-permisson`,
     day_book_report: `/api/v1/day-book-report`,
     get_name_code: `/api/v1/get-sponsor-name`,
+    login_approval: `/api/v1/other-browser-approval-by-admin`,
     Change_Password:`api/v1/change-user-password`,
     up_team:`api/v1/get-up-team`,
     down_team:`api/v1/get-downline-team`,
