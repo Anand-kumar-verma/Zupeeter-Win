@@ -132,10 +132,10 @@ function AllLevelOfTeam() {
                       {i?.mobile}
                     </span>
                     <span className="!col-span-2 !text-xs">
-                      {i?.deposit_amount || "0"}
+                      {i?.deposit_amount === null || i?.deposit_amount=== 0 ? "--" : i?.deposit_amount}
                     </span>
                     <span className="!col-span-2 !text-xs">
-                      {moment(i?.deposit_date).format("DD-MM-YYYY HH:mm:ss")}
+                    { i?.deposit_date ? moment(i.deposit_date)?.format("DD-MM-YYYY HH:mm:ss") : 'D' }
                     </span>
                   </div>
                 );
