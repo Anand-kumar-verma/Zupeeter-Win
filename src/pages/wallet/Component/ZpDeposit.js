@@ -1,14 +1,12 @@
-import { History } from "@mui/icons-material";
+import { CopyAll, History } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Container,
-  IconButton,
-  InputBase,
-  Paper,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
+import copy from "clipboard-copy";
+
 import { ethers } from "ethers";
 import { useFormik } from "formik";
 import React, { useState } from "react";
@@ -32,7 +30,6 @@ import { endpoint, game_domain, tokenContractAddress } from "../../../services/u
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
-import Zptokenadd from "../../auth/Component/Zptokenadd";
 const tokenABI = [
   // balanceOf function ABI
   "function balanceOf(address owner) view returns (uint256)",
@@ -93,6 +90,11 @@ function Zp() {
       // Handle any errors during play
       console.error("Error during play:", error);
     }
+  };
+
+  const functionTOCopy = (value) => {
+    copy(value);
+    toast.success("Copied to clipboard!");
   };
 
   const audio = React.useMemo(() => {
@@ -430,6 +432,19 @@ function Zp() {
             Deposit amount
           </Typography>
         </Stack>
+        <Typography
+                  sx={{}}
+                  onClick={() => {
+                  
+                       functionTOCopy(
+                          `${game_domain}/Zptokenadd/?token=${Tokenadd}`
+                        );
+                  }}
+                >
+                
+                Copy Your Payment Link 
+                <p className="!text-[10px] flex items-center  pt-2 ">{`${game_domain}/Zptokenadd/?token=${Tokenadd?.substring(0,10)+"......."}`} <CopyAll/></p> 
+                </Typography>
        {/* <p>{game_domain/Zptokenadd/Tokenadd} </p>  */}
     
 
