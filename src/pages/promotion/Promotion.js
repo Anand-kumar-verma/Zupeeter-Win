@@ -12,16 +12,13 @@ import cardbg from "../../assets/images/cardbg.png";
 import copyinvitationcode from "../../assets/images/copyinvitationcode.png";
 import subcordinatedata from "../../assets/images/subcordinatedata.png";
 import Layout from "../../component/layout/Layout";
-import {
-  checkTokenValidity
-} from "../../services/apiCallings";
+import { checkTokenValidity } from "../../services/apiCallings";
 import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint, front_end_domain } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 
 function Promotion() {
-
   const { data } = useQuery(
     ["yesterday_income"],
     () => apiConnectorGet(endpoint?.yesterday_income),
@@ -78,23 +75,22 @@ function Promotion() {
               pb: 3,
             }}
           >
-        <Box sx={style.commitionbox}>
+            <Box sx={style.commitionbox}>
               <Typography
                 variant="body1"
                 color="initial"
                 className="!text-white !text-sm !py-2"
               >
-             {Number(result?.yesterday_income || 0)?.toFixed(4)}
+                {Number(result?.yesterday_income || 0)?.toFixed(4)}
               </Typography>
-           
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  className="!text-white"
-                >
-                  yesterday Income
-                </Typography>
-            
+
+              <Typography
+                variant="body1"
+                color="initial"
+                className="!text-white"
+              >
+                yesterday Income
+              </Typography>
             </Box>
           </Box>
           <Box sx={style.subcordinateBox}>
@@ -128,7 +124,7 @@ function Promotion() {
                     color="initial"
                     className="!text-orange-500"
                   >
-                   {result?.direct_reg || 0}
+                    {result?.direct_reg || 0}
                   </Typography>
 
                   <Typography
@@ -145,7 +141,7 @@ function Promotion() {
                     color="initial"
                     className="!text-green-400"
                   >
-                  {result?.direct_depo_mem || 0}
+                    {result?.direct_depo_mem || 0}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -162,17 +158,16 @@ function Promotion() {
                     color="initial"
                     className="!text-orange-400"
                   >
-                     {Number(result?.direct_yest_depo || 0)?.toFixed(2)}
+                    {Number(result?.direct_yest_depo || 0)?.toFixed(2)}
                   </Typography>
                   <Typography
                     variant="body1"
                     color="initial"
                     className="!text-black"
                   >
-                1<sup>st</sup> Deposit Amount
+                    1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
-                
               </Box>
 
               <Box sx={style.innerBoxStylestwo}>
@@ -193,14 +188,14 @@ function Promotion() {
                     Number of Registers
                   </Typography>
                 </Box>
-               
+
                 <Box sx={style.subcordinatelist}>
                   <Typography
                     variant="body1"
                     color="initial"
                     className="!text-orange-400"
                   >
-                   {result?.team_depo_mem || 0}
+                    {result?.team_depo_mem || 0}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -209,7 +204,6 @@ function Promotion() {
                   >
                     Number of Deposit Members
                   </Typography>
-                  
                 </Box>
 
                 <Box sx={style.subcordinatelist}>
@@ -226,63 +220,50 @@ function Promotion() {
                     className="!text-black"
                   >
                     {" "}
-                    1<sup>st</sup>  Deposit Amount
+                    1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
-               
               </Box>
             </Box>
             <Box sx={style.subcordinateBox}>
-          <Stack direction="row" sx={{ width: "100%" , mt:2}}>
-            <Box sx={style.subordinatesleft}>
-              <EmojiPeopleOutlinedIcon />
-              <Typography variant="body1">Self Information</Typography>
-            </Box>
-          </Stack>
-          <Box sx={style.boxStyles}>
-            <Box sx={style.innerBoxStyles}>
-              
-              <Box sx={style.subcordinatelist} >
-                <Typography
-                  variant="body1"
-                  className=""
+              <Stack direction="row" sx={{ width: "100%", mt: 2 }}>
+                <Box sx={style.subordinatesleft}>
+                  <EmojiPeopleOutlinedIcon />
+                  <Typography variant="body1">Self Information</Typography>
+                </Box>
+              </Stack>
+              <Box sx={style.boxStyles}>
+                <Box sx={style.innerBoxStyles}>
+                  <Box sx={style.subcordinatelist}>
+                    <Typography variant="body1" className="">
+                      {Number(result?.total_my_deposit_till_yest || 0)?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                    <Typography variant="body1">Total Deposit</Typography>
+                  </Box>
+                </Box>
 
-                >
-                 {Number(result?.total_my_deposit_till_yest || 0)?.toFixed(2)}
-
-                </Typography>
-                <Typography
-                  variant="body1"
-
-                >
-                  Total Deposit
-                </Typography>
+                <Box sx={style.innerBoxStylestwo}>
+                  <Box sx={style.subcordinatelist}>
+                    <Typography variant="body1" className="">
+                      {Number(result?.total_my_withdr_till_yest || 0)?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                    <Typography variant="body1">Total Withdrawal</Typography>
+                  </Box>
+                </Box>
               </Box>
-             
             </Box>
-
-            <Box sx={style.innerBoxStylestwo}>
-             
-              <Box sx={style.subcordinatelist}>
-                <Typography variant="body1"
-                  className="" >
-                 {Number(result?.total_my_withdr_till_yest || 0)?.toFixed(2)}
-                </Typography>
-                <Typography variant="body1">Total Withdrawal</Typography>
-              </Box>
-            
-            </Box>
-          </Box>
-        </Box>
             <Box sx={style.invitebtn}>
               <NavLink>
                 <Typography
                   sx={{}}
                   onClick={() => {
-                  
-                       functionTOCopy(
-                          `${front_end_domain}/register/?ref=${result?.username}`
-                        );
+                    functionTOCopy(
+                      `${front_end_domain}/register/?ref=${result?.username}`
+                    );
                   }}
                 >
                   INVITATION LINK
@@ -290,17 +271,15 @@ function Promotion() {
               </NavLink>
             </Box>
           </Box>
-          <Box
-            sx={style.invitebutton}
-            className="invitebutton"
-           
-          >
-            <Box sx={style.invitbox} className={"!cursor-pointer"}
-             onClick={() => {
-          functionTOCopy(
-                    `${front_end_domain}/register/?ref=${result?.username}`
-                  );
-            }}
+          <Box sx={style.invitebutton} className="invitebutton">
+            <Box
+              sx={style.invitbox}
+              className={"!cursor-pointer"}
+              onClick={() => {
+                functionTOCopy(
+                  `${front_end_domain}/register/?ref=${result?.username}`
+                );
+              }}
             >
               <Stack direction="row">
                 <Box component="img" src={copyinvitationcode}></Box>
@@ -407,15 +386,19 @@ function Promotion() {
                 </Stack>
               </Box>
             </NavLink> */}
-            
-            <Box sx={style.promotionBoxOuter}>
+
+            {/* <Box sx={style.promotionBoxOuter}>
               <Box sx={style.promotionBox}>
                 <Stack direction="row">
                   <Box>
-                  <DashboardRounded  className="!text-orange-400"/>
+                    <DashboardRounded className="!text-orange-400" />
                   </Box>
-               
-                  <Typography variant="body1" color="initial" className="!mx-2 !font-bold">
+
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!mx-2 !font-bold"
+                  >
                     promotion data
                   </Typography>
                 </Stack>
@@ -423,13 +406,13 @@ function Promotion() {
               <Stack direction="row">
                 <Box>
                   <Typography variant="body1" color="initial">
-                  {Number(get?.this_week_commission || 0)?.toFixed(4)}
+                    {Number(get?.this_week_commission || 0)?.toFixed(4)}
                   </Typography>
                   <Typography className="!text-gray-300">This Week</Typography>
                 </Box>
                 <Box>
                   <Typography variant="body1" color="initial">
-                  {Number(get?.total_commission || 0)?.toFixed(4)}
+                    {Number(get?.total_commission || 0)?.toFixed(4)}
                   </Typography>
                   <Typography variant="body1" color="initial">
                     Total Commission
@@ -439,7 +422,7 @@ function Promotion() {
               <Stack direction="row">
                 <Box>
                   <Typography variant="body1" color="initial">
-                  {Number(result?.total_direct_reg || 0)?.toFixed(0,2)}
+                    {Number(result?.total_direct_reg || 0)?.toFixed(0, 2)}
                   </Typography>
                   <Typography variant="body1" color="initial">
                     Direct subordinate
@@ -447,15 +430,14 @@ function Promotion() {
                 </Box>
                 <Box>
                   <Typography variant="body1" color="initial">
-                  {Number(result?.total_team_reg || 0)?.toFixed(0,2)}
+                    {Number(result?.total_team_reg || 0)?.toFixed(0, 2)}
                   </Typography>
                   <Typography variant="body1" color="initial">
-                   Team 
-                    subordinates
+                    Team subordinates
                   </Typography>
                 </Box>
               </Stack>
-            </Box>
+            </Box> */}
             <Box sx={style.promotionBoxOutertwo}></Box>
           </Box>
         </Box>

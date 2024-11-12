@@ -7,7 +7,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Container
+  Container,
 } from "@mui/material";
 import "jspdf-autotable";
 import moment from "moment";
@@ -23,7 +23,7 @@ export default function AllLevelOfTeam() {
   const navigate = useNavigate();
   const [selectedLevel, setSelectedLevel] = React.useState(null);
   const { isLoading, data } = useQuery(
-    ["get_all_level"], 
+    ["get_all_level"],
     () => apiConnectorGet(endpoint?.get_level),
     {
       refetchOnMount: false,
@@ -31,10 +31,10 @@ export default function AllLevelOfTeam() {
       refetchOnWindowFocus: false,
     }
   );
-  const result =  data?.data?.data;
- 
-  const { levelloading, data:leveldata } = useQuery(
-    ["get_level", selectedLevel], 
+  const result = data?.data?.data;
+
+  const { isLoading: levelloading, data: leveldata } = useQuery(
+    ["get_level", selectedLevel],
     () => apiConnectorGet(endpoint?.get_level + `?level_id=${selectedLevel}`),
     {
       refetchOnMount: false,
@@ -44,8 +44,7 @@ export default function AllLevelOfTeam() {
     }
   );
 
- const  result_level = leveldata?.data?.data
-
+  const result_level = leveldata?.data?.data;
 
   return (
     <Layout>
@@ -58,7 +57,7 @@ export default function AllLevelOfTeam() {
         }}
         className="no-scrollbar"
       >
-        <CustomCircularProgress isLoading={isLoading ? isLoading : levelloading} />
+        <CustomCircularProgress isLoading={isLoading || levelloading} />
 
         <Box>
           <Box sx={style.header}>
@@ -68,7 +67,7 @@ export default function AllLevelOfTeam() {
             >
               <KeyboardArrowLeftOutlined />
             </Box>
-            <p className="!font-bold !text-xl"> Team Data</p>
+            <p className="!font-bold !text-xl">Subordinates Data</p>
           </Box>
           {
             <Accordion className="!rounded-lg">
@@ -87,61 +86,67 @@ export default function AllLevelOfTeam() {
               </AccordionSummary>
             </Accordion>
           }
-          {result?.map((i) => {
-            return (
-              <Box
-              key={i?.level_id}
-                sx={{
-                  width: "95%",
-                  margin: "10px 2.5% 10px 2.5%",
-                  borderRadius: "5px",
-                }}
-              >
-                <Accordion className="!rounded-lg" onClick={() => setSelectedLevel(i?.level_id?.split(" ")?.[1])}>
-                  <AccordionSummary
-                    
-                    aria-controls="panel1-content"
-                    id="panel1-header"
-                    sx={{
-                      background: theme.palette.primary.light,
-                      color: "white",
-                      borderRadius: "0px",
-                    }}
+          {result
+            ?.filter((k) => k?.level_id?.split(" ")?.[1] === "1")
+            ?.map((i) => {
+              return (
+                <Box
+                  key={i?.level_id}
+                  sx={{
+                    width: "95%",
+                    margin: "10px 2.5% 10px 2.5%",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <Accordion
+                    className="!rounded-lg"
+                    onClick={() =>
+                      setSelectedLevel(i?.level_id?.split(" ")?.[1])
+                    }
                   >
-                    <div className="w-full grid grid-cols-4 ">
-                      <p className="!text-center">{i?.level_id}</p>
-                      <p className="!text-center">
-                        {i?.cnt}
-                      </p>
-                      <p className="!text-center">
+                    <AccordionSummary
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                      sx={{
+                        background: theme.palette.primary.light,
+                        color: "white",
+                        borderRadius: "0px",
+                      }}
+                    >
+                      <div className="w-full grid grid-cols-4 ">
+                        <p className="!text-center">{i?.level_id}</p>
+                        <p className="!text-center">{i?.cnt}</p>
+                        <p className="!text-center">
                           {Number(i?.total_deposit)?.toFixed(4)}
-                      </p>
-                      <p className="!text-center">{Number(i?.total_bet)?.toFixed(0,2)}</p>
-                    </div>
-                  </AccordionSummary>
-                  <AccordionDetails
-                    sx={{
-                      background: "white",
-                      color: "white",
-                    }}
-                  >
-                    <Box>
-                      <Box sx={style.accordian}>
-                        <div
-                          style={{ color: "black" }}
-                          className="!grid !grid-cols-9 gap-2 !text-xs !text-center"
-                        >
-                          <span className=""> User Id</span>
-                          <span className="col-span-2"> Spon Id</span>
-                          <span className="">Spon Name</span>
-                          <span className="">Name</span>
-                          <span className="">Mob No.</span>
-                          <span className="">Reg. Date</span>
-                          <span className="">Act. Amnt</span>
-                          <span className="">Act. Date</span>
-                        </div>
-                        <div className="h-[2px] w-full "></div>
-                        {result_level?.map((item, index) => {
+                        </p>
+                        <p className="!text-center">
+                          {Number(i?.total_bet)?.toFixed(0, 2)}
+                        </p>
+                      </div>
+                    </AccordionSummary>
+                    <AccordionDetails
+                      sx={{
+                        background: "white",
+                        color: "white",
+                      }}
+                    >
+                      <Box>
+                        <Box sx={style.accordian}>
+                          <div
+                            style={{ color: "black" }}
+                            className="!grid !grid-cols-9 gap-2 !text-xs !text-center"
+                          >
+                            <span className=""> User Id</span>
+                            <span className="col-span-2"> Spon Id</span>
+                            <span className="">Spon Name</span>
+                            <span className="">Name</span>
+                            <span className="">Mob No.</span>
+                            <span className="">Reg. Date</span>
+                            <span className="">Act. Amnt</span>
+                            <span className="">Act. Date</span>
+                          </div>
+                          <div className="h-[2px] w-full "></div>
+                          {result_level?.map((item, index) => {
                             return (
                               <div
                                 style={{
@@ -160,33 +165,46 @@ export default function AllLevelOfTeam() {
                                   {item?.spon_id || "N/A"}
                                 </span>
                                 <span className="">
-                                  {item?.spon_name || "N/A"}
+                                  {item?.spon_name?.substring(0, 6) + ".." ||
+                                    "N/A"}
                                 </span>
                                 <span className="">
-                                  {item?.full_name || "N/A"}
+                                  {item?.full_name?.substring(0, 6) + ".." ||
+                                    "N/A"}
                                 </span>
                                 <span className="col-span-2">
                                   {item?.mobile || "N/A"}
                                 </span>
                                 <span className="col-span-2">
-                                  {item?.registr_date ? moment.utc(item?.registr_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
+                                  {item?.registr_date
+                                    ? moment
+                                        .utc(item?.registr_date)
+                                        ?.format("DD-MM-YYYY HH:mm:ss")
+                                    : "D"}
                                 </span>
                                 <span className="">
-                                  {item?.first_deposit_amnt=== null || item?.first_deposit_amnt === "0" ? "--" : item?.first_deposit_amnt}
+                                  {item?.first_deposit_amnt === null ||
+                                  item?.first_deposit_amnt === "0"
+                                    ? "--"
+                                    : item?.first_deposit_amnt}
                                 </span>
                                 <span className="">
-                                  {item?.first_depo_date ? moment.utc(item?.first_depo_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
+                                  {item?.first_depo_date
+                                    ? moment
+                                        .utc(item?.first_depo_date)
+                                        ?.format("DD-MM-YYYY HH:mm:ss")
+                                    : "D"}
                                 </span>
                               </div>
                             );
                           })}
+                        </Box>
                       </Box>
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
-              </Box>
-            );
-          })}
+                    </AccordionDetails>
+                  </Accordion>
+                </Box>
+              );
+            })}
         </Box>
       </Container>
     </Layout>
