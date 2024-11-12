@@ -169,26 +169,10 @@ function Promotion() {
                     color="initial"
                     className="!text-black"
                   >
-                    Deposit Amount
+                1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
-                <Box sx={style.subcordinatelist}>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    className="!text-green-400"
-                  >
-                 {result?.no_of_direct_people_making_first_depo || 0}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    className="!text-black"
-                  >
-                    {" "}
-                    No of people making first deposit
-                  </Typography>
-                </Box>
+                
               </Box>
 
               <Box sx={style.innerBoxStylestwo}>
@@ -242,33 +226,17 @@ function Promotion() {
                     className="!text-black"
                   >
                     {" "}
-                    Deposit Amount
+                    1<sup>st</sup>  Deposit Amount
                   </Typography>
                 </Box>
-                <Box sx={style.subcordinatelist}>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    className="!text-orange-400"
-                  >
-                 {result?.no_of_team_people_making_first_depo || 0}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="initial"
-                    className="!text-black"
-                  >
-                    {" "}
-                    No of people making first deposit
-                  </Typography>
-                </Box>
+               
               </Box>
             </Box>
             <Box sx={style.subcordinateBox}>
           <Stack direction="row" sx={{ width: "100%" , mt:2}}>
             <Box sx={style.subordinatesleft}>
               <EmojiPeopleOutlinedIcon />
-              <Typography variant="body1">Total commission</Typography>
+              <Typography variant="body1">Self Information</Typography>
             </Box>
           </Stack>
           <Box sx={style.boxStyles}>
@@ -280,29 +248,17 @@ function Promotion() {
                   className=""
 
                 >
-                 {Number(get?.daily_salary_today || 0)?.toFixed(2)}
+                 {Number(result?.total_my_deposit_till_yest || 0)?.toFixed(2)}
 
                 </Typography>
                 <Typography
                   variant="body1"
 
                 >
-                  Today salary
+                  Total Deposit
                 </Typography>
               </Box>
-              <Box sx={style.subcordinatelist}>
-                <Typography
-                  variant="body1"
-                  className=""
-
-                >
-                  {Number(get?.daily_salary_total || 0)?.toFixed(2)}
-                </Typography>
-                <Typography
-                  variant="body1" >
-                  Total salary
-                </Typography>
-              </Box>
+             
             </Box>
 
             <Box sx={style.innerBoxStylestwo}>
@@ -310,21 +266,11 @@ function Promotion() {
               <Box sx={style.subcordinatelist}>
                 <Typography variant="body1"
                   className="" >
-                 {Number(get?.today_withdrawal || 0)?.toFixed(2)}
+                 {Number(result?.total_my_withdr_till_yest || 0)?.toFixed(2)}
                 </Typography>
-                <Typography variant="body1">Today withdrawal</Typography>
+                <Typography variant="body1">Total Withdrawal</Typography>
               </Box>
-              <Box sx={style.subcordinatelist}>
-                <Typography
-                  variant="body1"
-                  className=""
-
-                >
-                  {Number(get?.total_withdrawal || 0)?.toFixed(2)}
-                  
-                </Typography>
-                <Typography variant="body1">Total withdrawal</Typography>
-              </Box>
+            
             </Box>
           </Box>
         </Box>

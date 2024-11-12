@@ -21,9 +21,9 @@ import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 export default function Tables() {
   const navigate = useNavigate();
-
+  const [selectedLevel, setSelectedLevel] = React.useState(null);
   const { isLoading, data } = useQuery(
-    ["get_level"],
+    ["get_all_level"], 
     () => apiConnectorGet(endpoint?.get_level),
     {
       refetchOnMount: false,
@@ -31,7 +31,21 @@ export default function Tables() {
       refetchOnWindowFocus: false,
     }
   );
-  const result = data?.data?.data;
+  const result =  data?.data?.data;
+ 
+  const { levelloading, data:leveldata } = useQuery(
+    ["get_level", selectedLevel], 
+    () => apiConnectorGet(endpoint?.get_level + `?level_id=${selectedLevel}`),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      enabled: !!selectedLevel,
+    }
+  );
+
+ const  result_level = leveldata?.data?.data
+
 
   return (
     <Layout>
@@ -44,7 +58,8 @@ export default function Tables() {
         }}
         className="no-scrollbar"
       >
-        <CustomCircularProgress isLoading={isLoading} />
+        <CustomCircularProgress isLoading={isLoading ? isLoading : levelloading} />
+
         <Box>
           <Box sx={style.header}>
             <Box
@@ -63,28 +78,28 @@ export default function Tables() {
                 sx={{ background: "#F48901", color: "white", mt: 2 }}
                 className="!rounded-lg"
               >
-                <div className="w-full grid grid-cols-3 pr-2">
-                  <span className="">Levels</span>
-                  <p className="">Members</p>
-                  <p className="">Deposit Amount</p>
+                <div className="w-full grid grid-cols-4 ">
+                  <span className="!text-center">Levels</span>
+                  <p className="!text-center">Members</p>
+                  <p className="!text-center">Dep. Amnt.</p>
+                  <p className="!text-center">Total Bet</p>
                 </div>
               </AccordionSummary>
             </Accordion>
           }
-          {[1, 2, 3, 4, 5, 6]?.map((i) => {
+          {result?.map((i) => {
             return (
               <Box
+              key={i?.level_id}
                 sx={{
                   width: "95%",
                   margin: "10px 2.5% 10px 2.5%",
                   borderRadius: "5px",
                 }}
               >
-                <Accordion className="!rounded-lg">
+                <Accordion className="!rounded-lg" onClick={() => setSelectedLevel(i?.level_id?.split(" ")?.[1])}>
                   <AccordionSummary
-                    expandIcon={
-                      <ArrowDownwardOutlined className="!text-white" />
-                    }
+                    
                     aria-controls="panel1-content"
                     id="panel1-header"
                     sx={{
@@ -93,21 +108,15 @@ export default function Tables() {
                       borderRadius: "0px",
                     }}
                   >
-                    <div className="w-full grid grid-cols-3 pr-2">
-                      <span className="">Level: {i}</span>
-                      <p className="">
-                        {result?.filter((j) => j?.LEVEL === i)?.length}
+                    <div className="w-full grid grid-cols-4 ">
+                      <p className="!text-center">{i?.level_id}</p>
+                      <p className="!text-center">
+                        {i?.cnt}
                       </p>
-                      <p className="">
-                        <span className="text-green-200">
-                          {result
-                            ?.filter((j) => j?.LEVEL === i)
-                            ?.reduce(
-                              (a, b) => a + Number(b?.deposit_amount || 0),
-                              0
-                            ) || 0}
-                        </span>{" "}
+                      <p className="!text-center">
+                          {Number(i?.total_deposit)?.toFixed(4)}
                       </p>
+                      <p className="!text-center">{Number(i?.total_bet)?.toFixed(0,2)}</p>
                     </div>
                   </AccordionSummary>
                   <AccordionDetails
@@ -120,20 +129,18 @@ export default function Tables() {
                       <Box sx={style.accordian}>
                         <div
                           style={{ color: "black" }}
-                          className="!grid !grid-cols-9"
+                          className="!grid !grid-cols-8 gap-2 !text-xs !text-center"
                         >
-                          <span className="!text-center">S.No.</span>
-                          <span className="!col-span-2 !text-center">
-                            User Id
-                          </span>
-                          <span className="!text-center !col-span-2">Name</span>
-                          <span className="!text-center !col-span-2">Amount</span>
-                          <span className="!text-center !col-span-2">Date</span>
+                          <span className=""> User Id</span>
+                          <span className="col-span-2"> Sponsor Id</span>
+                          <span className="">Sponsor Name</span>
+                          <span className="">Name</span>
+                          <span className="">Reg. Date</span>
+                          <span className="">Act. Amnt</span>
+                          <span className="">Act. Date</span>
                         </div>
                         <div className="h-[2px] w-full "></div>
-                        {result
-                          ?.filter((j) => j?.LEVEL === i)
-                          ?.map((i, index) => {
+                        {result_level?.map((item, index) => {
                             return (
                               <div
                                 style={{
@@ -141,22 +148,31 @@ export default function Tables() {
                                   background: "#F48901",
                                   color: "white",
                                   borderRadius: "5px",
-                                  padding: "10px 20px",
+                                  padding: "5px 10px",
                                 }}
-                                className="!grid !grid-cols-9  "
+                                className="!grid !grid-cols-8 gap-2 !text-[8px] !text-center"
                               >
-                                <span>{index + 1}</span>
-                                <span className="!col-span-2 !text-xs">
-                                  {i?.username || "N/A"}
+                                <span className="">
+                                  {item?.username || "N/A"}
                                 </span>
-                                <span className="!col-span-2 !text-xs !text-center">
-                                  {i?.full_name || "N/A"}
+                                <span className="col-span-2">
+                                  {item?.spon_id || "N/A"}
                                 </span>
-                                <span className="!col-span-2 !text-xs !text-center">
-                                  {i?.deposit_amount=== null || i?.deposit_amount===0 ? "--" : i?.deposit_amount}
+                                <span className="">
+                                  {item?.spon_name || "N/A"}
                                 </span>
-                                <span className="!col-span-2 !text-xs !text-center">
-                                  {i?.deposit_date ? moment(i?.deposit_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
+                                <span className="">
+                                  {item?.full_name || "N/A"}
+                                </span>
+                              
+                                <span className="">
+                                  {item?.registr_date ? moment.utc(item?.registr_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
+                                </span>
+                                <span className="">
+                                  {item?.first_deposit_amnt=== null || item?.first_deposit_amnt === "0" ? "--" : item?.first_deposit_amnt}
+                                </span>
+                                <span className="">
+                                  {item?.first_depo_date ? moment.utc(item?.first_depo_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
                                 </span>
                               </div>
                             );

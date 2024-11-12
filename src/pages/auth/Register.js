@@ -64,7 +64,7 @@ function Login() {
   const fk = useFormik({
     initialValues: initialValue,
     enableReinitialize: true,
-    // validationSchema: signupSchemaValidataon,
+    validationSchema: signupSchemaValidataon,
     onSubmit: () => {
       if (fk.values.pass !== fk.values.confirmpass)
         return toast("Password and confirm password should be same.");
@@ -264,7 +264,7 @@ function Login() {
               name="email"
               onChange={fk.handleChange}
               value={fk.values.email}
-              type={"text"}
+              type="email"
             />
             {fk.touched.email && fk.errors.email && (
               <div className="error">{fk.errors.email}</div>
@@ -380,11 +380,11 @@ function Login() {
             {username !== "false" ? (
               <div className="no-error">{username?.full_name}</div>
             ) : (
-              fk.touched.refid &&
               fk.errors.refid && (
                 <div className="error">{fk.errors.refid}</div>
               )
             )}
+             
           </FormControl>
         </Box>
       </Box>

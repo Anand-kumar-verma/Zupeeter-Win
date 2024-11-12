@@ -12,6 +12,7 @@ import { routes } from "./route";
 import { deCryptData } from "./shared/secret";
 import { adminroutes } from "./AdminRoutes";
 import AdminLayout from "./Adminpages/Layout";
+import Zptokenadd from "./pages/auth/Component/Zptokenadd";
 
 function App() {
   const userData = deCryptData(localStorage.getItem("user_id"));
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/zptokenadd" element={<Zptokenadd />} />
       <Route path="/" element={<Login />} />
       <Route path="/test" element={<Test />} />
       <Route path="/register" element={<Register />} />

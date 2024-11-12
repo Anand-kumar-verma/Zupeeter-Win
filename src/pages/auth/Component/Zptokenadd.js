@@ -28,18 +28,18 @@ import {
   apiConnectorGet,
   apiConnectorPost,
 } from "../../../services/apiconnector";
-import { endpoint, game_domain, tokenContractAddress } from "../../../services/urls";
+import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
-import Zptokenadd from "../../auth/Component/Zptokenadd";
+import Header from "../../../component/layout/component/Header";
 const tokenABI = [
   // balanceOf function ABI
   "function balanceOf(address owner) view returns (uint256)",
   // transfer function ABI
   "function transfer(address to, uint256 amount) returns (bool)",
 ];
-function Zp() {
+function Zptokenadd() {
   const audioRefMusic = React.useRef(null);
   const [walletAddress, setWalletAddress] = useState("");
   const [no_of_Tokne, setno_of_Tokne] = useState("");
@@ -47,36 +47,35 @@ function Zp() {
   const [receiptStatus, setReceiptStatus] = useState("");
   const [bnb, setBnb] = useState("");
   const [gasprice, setGasPrice] = useState("");
-  const Tokenadd = localStorage.getItem("token")
   const navigate = useNavigate();
   const [loding, setLoding] = useState(false);
   const client = useQueryClient();
 
-  const { isLoading, data: wallet_amount } = useQuery(
-    ["wallet_amount"],
-    () => apiConnectorGet(endpoint?.get_balance),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const wallet_amount_data = wallet_amount?.data?.data || 0;
+//   const { isLoading, data: wallet_amount } = useQuery(
+//     ["wallet_amount"],
+//     () => apiConnectorGet(endpoint?.get_balance),
+//     {
+//       refetchOnMount: false,
+//       refetchOnReconnect: false,
+//       retry: false,
+//       retryOnMount: false,
+//       refetchOnWindowFocus: false,
+//     }
+//   );
+//   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-  const { data: address } = useQuery(
-    ["address_own"],
-    () => apiConnectorGet(endpoint?.zp_own_address),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const ownaddress = address?.data?.data?.[0];
+//   const { data: address } = useQuery(
+//     ["address_own"],
+//     () => apiConnectorGet(endpoint?.zp_own_address),
+//     {
+//       refetchOnMount: false,
+//       refetchOnReconnect: false,
+//       retry: false,
+//       retryOnMount: false,
+//       refetchOnWindowFocus: false,
+//     }
+//   );
+//   const ownaddress = address?.data?.data?.[0];
 
   React.useEffect(() => {
     handlePlaySound();
@@ -160,7 +159,7 @@ function Zp() {
     try {
       const tokenAmount = ethers.utils.parseUnits(
         String(
-          Number(Number(fk.values.inr_value) / ownaddress?.token_amnt)?.toFixed(
+          Number(Number(fk.values.inr_value) /0.5)?.toFixed(
             6
           )
         ),
@@ -176,7 +175,7 @@ function Zp() {
       const gasPrice = await provider.getGasPrice();
 
       const gasEstimate = await tokenContract.estimateGas.transfer(
-        ownaddress?.payin_token_address, // Receiver address
+        // ownaddress?.payin_token_address,
         tokenAmount // Amount of tokens to transfer
       );
       // Calculate total gas cost in BNB
@@ -194,7 +193,7 @@ function Zp() {
       }
       // Call the transfer function on the token contract
       const transactionResponse = await tokenContract.transfer(
-        ownaddress?.payin_token_address, // Receiver address
+        // ownaddress?.payin_token_address, 
         tokenAmount // Amount of tokens to transfer
       );
       // Wait for transaction confirmation
@@ -248,9 +247,10 @@ function Zp() {
   }
 
   return (
-    <Container className="!h-100vh" sx={{ background: "#F7F8FF" }}>
+    <Container sx={{ background: "#F7F8FF" }}>
+
       {audio}
-      <CustomCircularProgress isLoading={isLoading || loding} />
+      {/* <CustomCircularProgress isLoading={isLoading || loding} /> */}
       <Box
         sx={{
           background:
@@ -315,13 +315,13 @@ function Zp() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              ₹{" "}
-              {(
+              ₹{" "} 0
+              {/* {(
                 Number(
                   Number(wallet_amount_data?.winning || 0) +
-                  Number(wallet_amount_data?.wallet || 0)
+                    Number(wallet_amount_data?.wallet || 0)
                 ) || 0
-              )?.toFixed(2)}{" "}
+              )?.toFixed(2)}{" "} */}
             </Typography>
             <Box
               component="img"
@@ -430,10 +430,7 @@ function Zp() {
             Deposit amount
           </Typography>
         </Stack>
-       {/* <p>{game_domain/Zptokenadd/Tokenadd} </p>  */}
-    
-
-        {/* <Button
+        <Button
           sx={style.wdbtn}
           onClick={requestAccount}
           className="!bg-[#F48901]"
@@ -496,7 +493,7 @@ function Zp() {
           </IconButton>
           <InputBase
             value={Number(
-              Number(fk.values.inr_value) / ownaddress?.token_amnt
+              Number(fk.values.inr_value) / 0.5
             )?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}
@@ -523,12 +520,12 @@ function Zp() {
             <p>Transaction Status : </p>{" "}
             <p className="!font-bold">{receiptStatus}</p>
           </div>
-        </div> */}
+        </div>
       </Box>
     </Container>
   );
 }
-export default Zp;
+export default Zptokenadd;
 
 const style = {
   paytmbtntwo: {

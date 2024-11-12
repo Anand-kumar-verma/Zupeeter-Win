@@ -1,25 +1,29 @@
-import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import { Box, Container } from "@mui/material";
+import {
+  ArrowDownwardOutlined,
+  KeyboardArrowLeftOutlined,
+} from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container
+} from "@mui/material";
+import "jspdf-autotable";
 import moment from "moment";
 import * as React from "react";
 import { useQuery } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
-import nodatafoundimage from "../../assets/images/nodatafoundimage.png";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../component/layout/Layout";
 import { apiConnectorGet } from "../../services/apiconnector";
-import { endpoint } from "../../services/urls";
+import { endpoint, zubgback } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
-const zubgback = "#F48901";
-const zubgmid = "#F48901";
-const zubgbackgrad = "#F48901";
-function AllLevelOfTeam() {
+import theme from "../../utils/theme";
+export default function AllLevelOfTeam() {
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
-
+  const [selectedLevel, setSelectedLevel] = React.useState(null);
   const { isLoading, data } = useQuery(
-    ["get_level"],
+    ["get_all_level"], 
     () => apiConnectorGet(endpoint?.get_level),
     {
       refetchOnMount: false,
@@ -27,31 +31,22 @@ function AllLevelOfTeam() {
       refetchOnWindowFocus: false,
     }
   );
-  const result = data?.data?.data;
+  const result =  data?.data?.data;
+ 
+  const { levelloading, data:leveldata } = useQuery(
+    ["get_level", selectedLevel], 
+    () => apiConnectorGet(endpoint?.get_level + `?level_id=${selectedLevel}`),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      enabled: !!selectedLevel,
+    }
+  );
 
-  if (!isLoading && !result)
-    return (
-      <Layout>
-        <Container
-          sx={{
-            width: "100%",
-            height: "100vh",
-            overflow: "auto",
-            mb: 5,
-          }}
-        >
-          <Box sx={style.header}>
-            <Box component={NavLink} onClick={goBack}>
-              <KeyboardArrowLeftOutlinedIcon />
-            </Box>
-            <p> Subordinate data</p>
-          </Box>
-          <div>
-            <img className="" src={nodatafoundimage} alt="" />
-          </div>
-        </Container>
-      </Layout>
-    );
+ const  result_level = leveldata?.data?.data
+
+
   return (
     <Layout>
       <Container
@@ -63,92 +58,140 @@ function AllLevelOfTeam() {
         }}
         className="no-scrollbar"
       >
-        <CustomCircularProgress isLoading={isLoading} />
-        <Box sx={style.header}>
-          <Box component={NavLink} onClick={goBack}>
-            <KeyboardArrowLeftOutlinedIcon />
-          </Box>
-          <p className="!font-bold !text-xl"> Subordinate Data</p>
-        </Box>
-        <Box>
-          <Box
-            className="!mb-10"
-            sx={{
-              background: "white",
-              boxShadow: "#fff",
+        <CustomCircularProgress isLoading={isLoading ? isLoading : levelloading} />
 
-              padding: "20px 16px",
-              "&>div": { mb: 1 },
-              "&>div>div:nth-child(1)": {
-                borderRight: "1px solid black",
-                width: "50%",
-                textAlign: "center",
-              },
-              "&>div>div:nth-child(2)": { width: "50%", textAlign: "center" },
-              "&>div>div>p": {
-                color: "white",
-                fontSize: "14px",
-                fontWeight: 500,
-              },
-            }}
-          >
-            <div
-              style={{
-                paddingTop: "16px",
-                color: "white",
-                background: "#F48901",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
-              className="!grid !grid-cols-9   !place-items-center "
+        <Box>
+          <Box sx={style.header}>
+            <Box
+              className="!cursor-pointer !text-white"
+              onClick={() => navigate("/promotion")}
             >
-              <span>S.No.</span>
-              {/* <span>User Id</span> */}
-              <span className="!col-span-2">Name</span>
-              <span className="!col-span-2">Mobile No</span>
-              <span className="!col-span-2">Amount</span>
-              <span className="!col-span-2">Date</span>
-            </div>
-            {result
-              ?.filter((j) => j?.LEVEL === 1)
-              ?.map((i, index) => {
-                return (
-                  <div
-                    style={{
-                      color: "white",
-                      background: "#F48901",
-                      color: "white",
-                      borderRadius: "5px",
-                      padding: "10px 20px",
-                    }}
-                    className="!grid !grid-cols-9   !place-items-center"
-                  >
-                    <span>{index + 1}</span>
-                    {/* <span>{i?.username}</span> */}
-                    <span className="!text-center !text-xs !col-span-2">
-                      {i?.full_name || "N/A"}
-                    </span>
-                    <span className="!col-span-2 !text-xs">
-                      {i?.mobile}
-                    </span>
-                    <span className="!col-span-2 !text-xs">
-                      {i?.deposit_amount === null || i?.deposit_amount=== 0 ? "--" : i?.deposit_amount}
-                    </span>
-                    <span className="!col-span-2 !text-xs">
-                    { i?.deposit_date ? moment(i.deposit_date)?.format("DD-MM-YYYY HH:mm:ss") : 'D' }
-                    </span>
-                  </div>
-                );
-              })}
+              <KeyboardArrowLeftOutlined />
+            </Box>
+            <p className="!font-bold !text-xl"> Team Data</p>
           </Box>
+          {
+            <Accordion className="!rounded-lg">
+              <AccordionSummary
+                aria-controls="panel1-content"
+                id="panel1-header"
+                sx={{ background: "#F48901", color: "white", mt: 2 }}
+                className="!rounded-lg"
+              >
+                <div className="w-full grid grid-cols-4 ">
+                  <span className="!text-center">Levels</span>
+                  <p className="!text-center">Members</p>
+                  <p className="!text-center">Dep. Amnt.</p>
+                  <p className="!text-center">Total Bet</p>
+                </div>
+              </AccordionSummary>
+            </Accordion>
+          }
+          {result?.map((i) => {
+            return (
+              <Box
+              key={i?.level_id}
+                sx={{
+                  width: "95%",
+                  margin: "10px 2.5% 10px 2.5%",
+                  borderRadius: "5px",
+                }}
+              >
+                <Accordion className="!rounded-lg" onClick={() => setSelectedLevel(i?.level_id?.split(" ")?.[1])}>
+                  <AccordionSummary
+                    
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    sx={{
+                      background: theme.palette.primary.light,
+                      color: "white",
+                      borderRadius: "0px",
+                    }}
+                  >
+                    <div className="w-full grid grid-cols-4 ">
+                      <p className="!text-center">{i?.level_id}</p>
+                      <p className="!text-center">
+                        {i?.cnt}
+                      </p>
+                      <p className="!text-center">
+                          {Number(i?.total_deposit)?.toFixed(4)}
+                      </p>
+                      <p className="!text-center">{Number(i?.total_bet)?.toFixed(0,2)}</p>
+                    </div>
+                  </AccordionSummary>
+                  <AccordionDetails
+                    sx={{
+                      background: "white",
+                      color: "white",
+                    }}
+                  >
+                    <Box>
+                      <Box sx={style.accordian}>
+                        <div
+                          style={{ color: "black" }}
+                          className="!grid !grid-cols-9 gap-2 !text-xs !text-center"
+                        >
+                          <span className=""> User Id</span>
+                          <span className="col-span-2"> Spon Id</span>
+                          <span className="">Spon Name</span>
+                          <span className="">Name</span>
+                          <span className="">Mob No.</span>
+                          <span className="">Reg. Date</span>
+                          <span className="">Act. Amnt</span>
+                          <span className="">Act. Date</span>
+                        </div>
+                        <div className="h-[2px] w-full "></div>
+                        {result_level?.map((item, index) => {
+                            return (
+                              <div
+                                style={{
+                                  color: "white",
+                                  background: "#F48901",
+                                  color: "white",
+                                  borderRadius: "5px",
+                                  padding: "5px 10px",
+                                }}
+                                className="!grid !grid-cols-12 gap-2 !text-[8px] !text-center"
+                              >
+                                <span className="col-span-2">
+                                  {item?.username || "N/A"}
+                                </span>
+                                <span className="col-span-2">
+                                  {item?.spon_id || "N/A"}
+                                </span>
+                                <span className="">
+                                  {item?.spon_name || "N/A"}
+                                </span>
+                                <span className="">
+                                  {item?.full_name || "N/A"}
+                                </span>
+                                <span className="col-span-2">
+                                  {item?.mobile || "N/A"}
+                                </span>
+                                <span className="col-span-2">
+                                  {item?.registr_date ? moment.utc(item?.registr_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
+                                </span>
+                                <span className="">
+                                  {item?.first_deposit_amnt=== null || item?.first_deposit_amnt === "0" ? "--" : item?.first_deposit_amnt}
+                                </span>
+                                <span className="">
+                                  {item?.first_depo_date ? moment.utc(item?.first_depo_date)?.format("DD-MM-YYYY HH:mm:ss") : "D"}
+                                </span>
+                              </div>
+                            );
+                          })}
+                      </Box>
+                    </Box>
+                  </AccordionDetails>
+                </Accordion>
+              </Box>
+            );
+          })}
         </Box>
       </Container>
     </Layout>
   );
 }
-
-export default AllLevelOfTeam;
-
 const style = {
   header: {
     padding: "15px 8px",
@@ -167,70 +210,17 @@ const style = {
       fontSize: "35px",
     },
   },
-  wthui: {
-    textAlign: "center",
-    width: "32%",
-    minHeight: "15vh",
-    background: zubgmid,
-    borderRadius: "10px",
-    mb: "10px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    "&>div>p": { color: "white" },
-  },
-  paymentlink: {
-    width: "32%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "15vh",
-    background: zubgmid,
-    borderRadius: "10px",
-    mb: "10px",
-    "&>p": {
-      color: "white",
-      fontSize: "12px",
-      fontWeight: "500",
-      textAlign: "center",
-      mt: "5px",
+  accordian: {
+    backgroundColor: "zubgwhite",
+    "&>div": { mb: 1 },
+    "&>div>div:nth-child(1)": {
+      borderRight: "1px solid black",
     },
-  },
-  paymentBoxOuter: {
-    width: "95%",
-    margin: "auto",
-    my: "10px",
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  paytmbtn: {
-    mb: 2,
-    background: zubgback,
-    color: "white !important",
-    width: "31%",
-    border: "1px solid white",
-    padding: "10px",
-    "&:hover": { background: zubgbackgrad, border: "1px solid transparent" },
-  },
-  paytmbtntwo: {
-    borderRadius: "5px",
-    textTransform: "capitalize",
-    mb: 2,
-    background: zubgbackgrad,
-    color: "white !important",
-    width: "100%",
-    mt: 2,
-    border: "1px solid white",
-    padding: "10px",
-    "&:hover": { background: zubgbackgrad, border: "1px solid transparent" },
-  },
-  rechargeinstext: {
-    mb: "10px",
-    alignItems: "center",
-    justifyContent: "start",
-    "&>p": { marginLeft: "10px", color: "white !important", fontSize: "14px" },
+    "&>div>div:nth-child(2)": {},
+    "&>div>div>p": {
+      color: "white",
+      fontSize: "14px",
+      fontWeight: 500,
+    },
   },
 };
