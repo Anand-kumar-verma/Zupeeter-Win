@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { game_domain, endpoint } from "./urls";
+import { endpoint, aviatordomain } from "./urls";
 import { deCryptData } from "../shared/secret";
 import CryptoJS from "crypto-js";
 import { apiConnectorGet } from "./apiconnector";
@@ -245,7 +245,7 @@ export const walletamountAviator = async () => {
   try {
 
     const response = await axios.post(
-      `${game_domain}/api/v1/get-wallet-amount-by-id`,
+      `${aviatordomain}/api/v1/get-wallet-amount-by-id`,
       { id: user_id }
     );
     return response;

@@ -7,7 +7,7 @@ import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useQuery, useQueryClient } from "react-query";
 
 import { walletamountAviator } from "../services/apiCallings";
-import { game_domain, rupees } from "../services/urls";
+import { aviatordomain, rupees } from "../services/urls";
 import { gray } from "./color";
 import { deCryptData } from "../shared/secret";
 
@@ -63,7 +63,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
     else {
       try {
         const response = await axios.post(
-          `${game_domain}/api/v1/apply-bet`,
+          `${aviatordomain}/api/v1/apply-bet`,
           reqbody
         );
         if (response?.data?.msg === "Data save successfully") {
@@ -122,7 +122,7 @@ const SpentBetRight = ({ milliseconds, seconds, fk, formik }) => {
 
     try {
       const response = await axios.post(
-        `${game_domain}/api/v1/cash-out`,
+        `${aviatordomain}/api/v1/cash-out`,
         reqbody
       );
 

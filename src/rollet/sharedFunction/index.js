@@ -410,7 +410,7 @@ export const justDouble = (bet, setBet, wallet_amount_data) => {
   )
     return toast(
       <span
-        className="!py-2 !px-4 !text-white !border-2  !rounded-full"
+        className="!py-2 !px-4 !text-black !border-2  !rounded-full"
         style={{ display: "inline-block" }}
       >
         Insufficient Wallet Amount
@@ -463,7 +463,7 @@ export const justHalf = (bet, setBet, wallet_amount_data) => {
   ) {
     return toast(
       <span
-        className=" !py-2 !px-4 !text-white !border-2  !rounded-full"
+        className=" !py-2 !px-4 !text-black !border-2  !rounded-full"
         style={{ display: "inline-block" }}
       >
         Insufficient Wallet Amount
@@ -504,7 +504,7 @@ export const rebetFuncton = (bet, rebet, setBet, wallet_amount_data) => {
   )
     return toast(
       <span
-        className=" !py-2 !px-4 !text-white"
+        className=" !py-2 !px-4 !text-black"
         style={{ display: "inline-block" }}
       >
         Insufficient Wallet Amount
