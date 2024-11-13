@@ -36,7 +36,6 @@ import Howtoplay from "./component/Howtoplay";
 import { apiConnectorPost } from "../../services/apiconnector";
 
 const BetNumber = ({ random, gid }) => {
-  const user_id = deCryptData(localStorage.getItem("user_id"));
   const [opend, setOpend] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectNumber, setSelectNumber] = useState("");

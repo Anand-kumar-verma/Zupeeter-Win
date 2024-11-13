@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { baseUrl } from "../../URls";
 
 const axiosInstance = axios.create({
-  baseURL:baseUrl
+  baseURL: baseUrl,
 });
 
 axiosInstance.interceptors.request.use(

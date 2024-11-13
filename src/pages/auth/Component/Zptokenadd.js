@@ -23,12 +23,13 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import {
-  apiConnectorGet,
-  apiConnectorPost,
+  apiConnectorGetWithoutToken,
+  apiConnectorPOSTWithoutToken,
 } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 const tokenABI = [
   // balanceOf function ABI
   "function balanceOf(address owner) view returns (uint256)",
@@ -52,7 +53,7 @@ function Zptokenadd() {
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => apiConnectorGet(endpoint?.get_balance, {}, tokenParam),
+    () => apiConnectorGetWithoutToken(endpoint?.get_balance, {}, tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -63,9 +64,9 @@ function Zptokenadd() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-  const { data: address } = useQuery(
+  const { isLoading: addressLoding, data: address } = useQuery(
     ["address_own"],
-    () => apiConnectorGet(endpoint?.zp_own_address, {}, tokenParam),
+    () => apiConnectorGetWithoutToken(endpoint?.zp_own_address, {}, tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -223,6 +224,7 @@ function Zptokenadd() {
   }
 
   async function PayinZp(gasPrice, tr_hash, status) {
+    setLoding(true);
     const reqbody = {
       req_amount: fk.values.inr_value,
       u_user_wallet_address: walletAddress,
@@ -233,9 +235,13 @@ function Zptokenadd() {
       gas_price: gasPrice,
     };
     try {
-      const res = await apiConnectorPost(endpoint?.zp_paying, {
-        payload: enCryptData(reqbody),
-      });
+      const res = await apiConnectorPOSTWithoutToken(
+        endpoint?.zp_paying,
+        {
+          payload: enCryptData(reqbody),
+        },
+        tokenParam
+      );
       toast(res?.data?.msg);
       client.refetchQueries("wallet_amount_amount");
       client.refetchQueries("wallet_amount");
@@ -243,12 +249,14 @@ function Zptokenadd() {
     } catch (e) {
       console.log(e);
     }
+    setLoding(false);
   }
-
   return (
     <Container sx={{ background: "#F7F8FF" }}>
       {audio}
-      {/* <CustomCircularProgress isLoading={isLoading || loding} /> */}
+      <CustomCircularProgress
+        isLoading={isLoading || loding || addressLoding}
+      />
       <Box
         sx={{
           background:
@@ -424,9 +432,7 @@ function Zptokenadd() {
             <p className="text-[#F48901] !text-sm !font-bold"> ZP </p>
           </IconButton>
           <InputBase
-            value={Number(
-              Number(fk.values.inr_value) / Number(ownaddress?.token_amnt)
-            )?.toFixed(4)}
+            value={Number(Number(fk.values.inr_value) / Number(ownaddress?.token_amnt))?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}
           />
