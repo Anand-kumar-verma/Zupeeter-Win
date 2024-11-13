@@ -130,15 +130,17 @@ export default function Tables() {
                       <Box sx={style.accordian}>
                         <div
                           style={{ color: "black" }}
-                          className="!grid !grid-cols-8 gap-2 !text-xs !text-center"
+                          className="!grid !grid-cols-11 gap-2 !text-xs !text-center"
                         >
+                          <span className=""> S.No</span>
                           <span className=""> User Id</span>
+                          <span className="col-span-2">User Name</span>
                           <span className="col-span-2"> Sponsor Id</span>
-                          <span className="">Sponsor Name</span>
-                          <span className="">Name</span>
+                          <span className="col-span-2">Sponsor Name</span>
                           <span className="">Reg. Date</span>
-                          <span className="">Act. Amnt</span>
                           <span className="">Act. Date</span>
+                          <span className="">Act. Amnt</span>
+
                         </div>
                         <div className="h-[2px] w-full "></div>
                         {result_level?.map((item, index) => {
@@ -151,25 +153,32 @@ export default function Tables() {
                                 borderRadius: "5px",
                                 padding: "5px 10px",
                               }}
-                              className="!grid !grid-cols-8 gap-2 !text-[8px] !text-center"
+                              className="!grid !grid-cols-12 gap-2 !text-[8px] !text-center"
                             >
-                              <span className="">
+                          <span className="">{index+1}</span>
+                              <span className="col-span-2">
                                 {item?.username || "N/A"}
+                              </span>
+                              <span className="col-span-2">
+                                {item?.full_name || "N/A"}
                               </span>
                               <span className="col-span-2">
                                 {item?.spon_id || "N/A"}
                               </span>
-                              <span className="">
+                              <span className="col-span-2">
                                 {item?.spon_name || "N/A"}
                               </span>
-                              <span className="">
-                                {item?.full_name || "N/A"}
-                              </span>
-
                               <span className="">
                                 {item?.registr_date
                                   ? moment
                                       .utc(item?.registr_date)
+                                      ?.format("DD-MM-YYYY HH:mm:ss")
+                                  : "D"}
+                              </span>
+                              <span className="">
+                                {item?.first_depo_date
+                                  ? moment
+                                      .utc(item?.first_depo_date)
                                       ?.format("DD-MM-YYYY HH:mm:ss")
                                   : "D"}
                               </span>
@@ -179,13 +188,8 @@ export default function Tables() {
                                   ? "--"
                                   : item?.first_deposit_amnt}
                               </span>
-                              <span className="">
-                                {item?.first_depo_date
-                                  ? moment
-                                      .utc(item?.first_depo_date)
-                                      ?.format("DD-MM-YYYY HH:mm:ss")
-                                  : "D"}
-                              </span>
+                             
+                             
                             </div>
                           );
                         })}

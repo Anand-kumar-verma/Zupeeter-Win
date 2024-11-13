@@ -134,16 +134,15 @@ export default function AllLevelOfTeam() {
                         <Box sx={style.accordian}>
                           <div
                             style={{ color: "black" }}
-                            className="!grid !grid-cols-9 gap-2 !text-xs !text-center"
+                            className="!grid !grid-cols-7 gap-2 !text-xs !text-center"
                           >
+                            <span className=""> S.No</span>
                             <span className=""> User Id</span>
-                            <span className="col-span-2"> Spon Id</span>
-                            <span className="">Spon Name</span>
-                            <span className="">Name</span>
+                            <span className="">User Name</span>
                             <span className="">Mob No.</span>
                             <span className="">Reg. Date</span>
-                            <span className="">Act. Amnt</span>
                             <span className="">Act. Date</span>
+                            <span className="">Act. Amnt</span>
                           </div>
                           <div className="h-[2px] w-full "></div>
                           {result_level?.map((item, index) => {
@@ -156,17 +155,13 @@ export default function AllLevelOfTeam() {
                                   borderRadius: "5px",
                                   padding: "5px 10px",
                                 }}
-                                className="!grid !grid-cols-12 gap-2 !text-[8px] !text-center"
+                                className="!grid !grid-cols-10 gap-2 !text-[8px] !text-center"
                               >
+                                 <span className="">
+                                  {index+1}
+                                </span>
                                 <span className="col-span-2">
                                   {item?.username || "N/A"}
-                                </span>
-                                <span className="col-span-2">
-                                  {item?.spon_id || "N/A"}
-                                </span>
-                                <span className="">
-                                  {item?.spon_name?.substring(0, 6) + ".." ||
-                                    "N/A"}
                                 </span>
                                 <span className="">
                                   {item?.full_name?.substring(0, 6) + ".." ||
@@ -183,18 +178,19 @@ export default function AllLevelOfTeam() {
                                     : "D"}
                                 </span>
                                 <span className="">
-                                  {item?.first_deposit_amnt === null ||
-                                  item?.first_deposit_amnt === "0"
-                                    ? "--"
-                                    : item?.first_deposit_amnt}
-                                </span>
-                                <span className="">
                                   {item?.first_depo_date
                                     ? moment
                                         .utc(item?.first_depo_date)
                                         ?.format("DD-MM-YYYY HH:mm:ss")
                                     : "D"}
                                 </span>
+                                <span className="">
+                                  {item?.first_deposit_amnt === null ||
+                                  item?.first_deposit_amnt === "0"
+                                    ? "--"
+                                    : item?.first_deposit_amnt}
+                                </span>
+                               
                               </div>
                             );
                           })}
