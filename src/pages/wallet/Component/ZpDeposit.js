@@ -26,7 +26,7 @@ import {
   apiConnectorGet,
   apiConnectorPost,
 } from "../../../services/apiconnector";
-import { endpoint, front_end_domain, game_domain, tokenContractAddress } from "../../../services/urls";
+import { endpoint, front_end_domain, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
