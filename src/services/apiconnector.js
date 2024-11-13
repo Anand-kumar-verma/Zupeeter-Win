@@ -44,30 +44,4 @@ export const apiConnectorPost = async (endpoint, reqBody) => {
     };
   }
 };
-export const apiConnectorGetWithoutToken = async (endpoint, param, token) => {
-  try {
-    const response = await axios?.get(
-      endpoint,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-      {
-        params: param,
-      }
-    );
-    if (response?.data?.msg === "Invalid Token.") {
-      toast("Login in another device ", { id: 1 });
-      localStorage.clear();
-      sessionStorage.clear();
-      window.location.href = `${front_end_domain}`;
-      return;
-    }
-    return response;
-  } catch (e) {
-    return {
-      msg: e?.message,
-    };
-  }
-};
+
