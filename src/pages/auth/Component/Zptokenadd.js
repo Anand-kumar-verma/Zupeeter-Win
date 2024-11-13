@@ -24,7 +24,6 @@ import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import {
   apiConnectorGet,
-  apiConnectorGet,
   apiConnectorPost,
 } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
