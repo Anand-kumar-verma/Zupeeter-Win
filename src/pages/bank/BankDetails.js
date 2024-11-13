@@ -3,6 +3,7 @@ import { Box, Container } from "@mui/material";
 import * as React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Layout from "../../component/layout/Layout";
+import { CurrencyExchange } from "@mui/icons-material";
 const zubgback = "#F48901";
 const zubgmid = "#F48901";
 
@@ -13,29 +14,19 @@ function BankDetails() {
   };
 
   const data_array = [
-    // {
-    //   to: "/banks-details",
-    //   name: "Bank Details",
-    //   logo: (
-    //     <CurrencyExchangeIcon
-    //       className="!w-[40px] !h-[40px] !text-[#F48901]"
-    //       color="#8f5206"
-    //     />
-    //   ),
-    // },
-    // {
-    //   to: "/banks-upi",
-    //   name: "UPI Details",
-    //   logo: (
-    //     <RedeemIcon
-    //       className="!w-[40px] !h-[40px] !text-[#F48901]"
-    //       color="#8f5206"
-    //     />
-    //   ),
-    // },
     {
-      to: "/usdt-address",
-      name: "ZP Token  Address",
+      to: "/banks-details",
+      name: "Bank Details",
+      logo: (
+        <CurrencyExchange
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
+    {
+      to: "/addbank",
+      name: "AddBank",
       logo: (
         <RedeemIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"
@@ -43,6 +34,7 @@ function BankDetails() {
         />
       ),
     },
+   
   ];
   return (
     <Layout>

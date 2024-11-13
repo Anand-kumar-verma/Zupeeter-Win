@@ -68,14 +68,14 @@ const TeamIncome = () => {
             Income
           </span>
         </Box>
-        {/* <Box sx={style.fx}>
+        <Box sx={style.fx}>
           <span
             className="!text-blue-500 cursor-pointer"
             onClick={() => navigate("/bank")}
           >
             Bank
           </span>
-        </Box> */}
+        </Box>
         <Box sx={style.fx}>
           <span
             className="!text-blue-500 cursor-pointer"

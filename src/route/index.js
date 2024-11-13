@@ -63,6 +63,7 @@ import AnderBaherChart from "../pages/SattaMatka/game/AnderBaherChart";
 import LocationListChart from "../pages/SattaMatka/game/LocationListChart";
 import CompanyPromoter from "../pages/income/incomeSubSection/CompanyPromoter";
 import WelcomeBonus from "../pages/income/incomeSubSection/Welcomebonus";
+import AddBankDetails from "../pages/bank/AddBankdetail";
 
 export const routes = [
 
@@ -329,5 +330,9 @@ export const routes = [
   {
     path: "/account/income-main/cashback-bonus",
     element: <CashBackBonus />,
+  },
+  {
+    path: "/addbank",
+    element: <AddBankDetails />,
   },
 ];

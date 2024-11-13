@@ -1,13 +1,13 @@
 import { History } from "@mui/icons-material";
 import {
-  Box,
-  Button,
-  Container,
-  IconButton,
-  InputBase,
-  Paper,
-  Stack,
-  Typography
+    Box,
+    Button,
+    Container,
+    IconButton,
+    InputBase,
+    Paper,
+    Stack,
+    Typography
 } from "@mui/material";
 import { ethers } from "ethers";
 import { useFormik } from "formik";
@@ -16,15 +16,13 @@ import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
-import atmchip from "../../../assets/images/atmchip.png";
 import wallet from "../../../assets/images/atmw.png";
 import backbtn from "../../../assets/images/backBtn.png";
 import audiovoice from "../../../assets/images/bankvoice.mp3";
 import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
-import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet, apiConnectorGetWithoutToken, apiConnectorPost, apiConnectorPOSTWithoutToken } from "../../../services/apiconnector";
+import { apiConnectorGetWithoutToken, apiConnectorPOSTWithoutToken } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
