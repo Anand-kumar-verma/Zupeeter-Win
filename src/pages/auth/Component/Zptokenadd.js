@@ -432,7 +432,7 @@ function Zptokenadd() {
           </IconButton>
           <InputBase
             value={Number(
-              Number(fk.values.inr_value) / 0.5
+              Number(fk.values.inr_value) / Number(ownaddress?.token_amnt)
             )?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}

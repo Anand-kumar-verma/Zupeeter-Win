@@ -26,7 +26,7 @@ import {
   apiConnectorGet,
   apiConnectorPost,
 } from "../../../services/apiconnector";
-import { endpoint, game_domain, tokenContractAddress } from "../../../services/urls";
+import { endpoint, front_end_domain, game_domain, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
@@ -437,13 +437,13 @@ function Zp() {
           onClick={() => {
 
             functionTOCopy(
-              `${game_domain}/zptokenadd/?token=${Tokenadd}`
+              `${front_end_domain}/zptokenadd/?token=${Tokenadd}`
             );
           }}
         >
 
           Copy Your Payment Link
-          <p className="!text-[10px] flex items-center  pt-2 ">{`${game_domain}/zptokenadd/?token=${Tokenadd?.substring(0, 10) + "......."}`} <CopyAll /></p>
+          <p className="!text-[10px] flex items-center  pt-2 ">{`${front_end_domain}/zptokenadd/?token=${Tokenadd?.substring(0, 10) + "......."}`} <CopyAll /></p>
         </Typography>
 
 
