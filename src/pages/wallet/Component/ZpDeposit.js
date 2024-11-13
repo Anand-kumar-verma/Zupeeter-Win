@@ -6,12 +6,9 @@ import {
   Typography
 } from "@mui/material";
 import copy from "clipboard-copy";
-
-import { ethers } from "ethers";
-import { useFormik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
@@ -23,31 +20,16 @@ import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
 import {
-  apiConnectorGet,
-  apiConnectorPost,
+  apiConnectorGet
 } from "../../../services/apiconnector";
-import { endpoint, front_end_domain, tokenContractAddress } from "../../../services/urls";
+import { endpoint, front_end_domain } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
-const tokenABI = [
-  // balanceOf function ABI
-  "function balanceOf(address owner) view returns (uint256)",
-  // transfer function ABI
-  "function transfer(address to, uint256 amount) returns (bool)",
-];
+
 function Zp() {
   const audioRefMusic = React.useRef(null);
-  const [walletAddress, setWalletAddress] = useState("");
-  const [no_of_Tokne, setno_of_Tokne] = useState("");
-  const [transactionHash, setTransactionHash] = useState("");
-  const [receiptStatus, setReceiptStatus] = useState("");
-  const [bnb, setBnb] = useState("");
-  const [gasprice, setGasPrice] = useState("");
   const Tokenadd = localStorage.getItem("token")
   const navigate = useNavigate();
-  const [loding, setLoding] = useState(false);
-  const client = useQueryClient();
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
@@ -61,19 +43,6 @@ function Zp() {
     }
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
-
-  const { data: address } = useQuery(
-    ["address_own"],
-    () => apiConnectorGet(endpoint?.zp_own_address),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const ownaddress = address?.data?.data?.[0];
 
   React.useEffect(() => {
     handlePlaySound();
@@ -105,154 +74,10 @@ function Zp() {
     );
   }, []);
 
-  const fk = useFormik({
-    initialValues: {
-      inr_value: "",
-    },
-  });
-
-  async function requestAccount() {
-    setLoding(true);
-    if (window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const userAccount = accounts[0];
-        setWalletAddress(userAccount);
-        // Create a provider
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-        // Get the native token balance (BNB)
-        const nativeBalance = await provider.getBalance(userAccount);
-        setBnb(ethers.utils.formatEther(nativeBalance));
-        // Create a contract instance for the ZP token
-        const tokenContract = new ethers.Contract(
-          tokenContractAddress,
-          tokenABI,
-          provider
-        );
-        // Get the balance of the ZP token for the user account
-        const tokenBalance = await tokenContract.balanceOf(userAccount);
-        setno_of_Tokne(ethers.utils.formatUnits(tokenBalance, 18));
-      } catch (error) {
-        toast("Error connecting...", error);
-      }
-    } else {
-      toast("MetaMask not detected.");
-    }
-    setLoding(false);
-  }
-
-  async function sendTokenTransaction() {
-    if (!walletAddress) return toast("Plese Connect your wallet.");
-    setLoding(true);
-    if (!window.ethereum) {
-      toast("MetaMask not detected");
-      setLoding(false);
-      return;
-    }
-
-    if (!fk.values.inr_value) {
-      setLoding(false);
-      return toast("Enter Your Amount.");
-    }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    try {
-      const tokenAmount = ethers.utils.parseUnits(
-        String(
-          Number(Number(fk.values.inr_value) / ownaddress?.token_amnt)?.toFixed(
-            6
-          )
-        ),
-        18
-      ); // Sending 1 ZP token
-
-      // Create a contract instance for the ZP token
-      const tokenContract = new ethers.Contract(
-        tokenContractAddress,
-        tokenABI,
-        signer
-      );
-      const gasPrice = await provider.getGasPrice();
-
-      const gasEstimate = await tokenContract.estimateGas.transfer(
-        ownaddress?.payin_token_address, // Receiver address
-        tokenAmount // Amount of tokens to transfer
-      );
-      // Calculate total gas cost in BNB
-      const totalGasCost = gasEstimate.mul(gasPrice);
-      setGasPrice(ethers.utils.formatEther(totalGasCost));
-      const bnbBalance = await provider.getBalance(await signer.getAddress());
-      // console.log("BNB Balance:", ethers.utils.formatEther(bnbBalance));
-      if (bnbBalance.lt(totalGasCost)) {
-        setLoding(false);
-        return toast(
-          `Insufficient BNB for gas fees. You need at least ${ethers.utils.formatEther(
-            totalGasCost
-          )} BNB.`
-        );
-      }
-      // Call the transfer function on the token contract
-      const transactionResponse = await tokenContract.transfer(
-        ownaddress?.payin_token_address, // Receiver address
-        tokenAmount // Amount of tokens to transfer
-      );
-      // Wait for transaction confirmation
-      const receipt = await transactionResponse.wait();
-      // Update UI with transaction status
-      setTransactionHash(transactionResponse.hash);
-      setReceiptStatus(receipt.status === 1 ? "Success" : "Failure");
-      if (receipt.status === 1) {
-        PayinZp(
-          ethers.utils.formatEther(totalGasCost),
-          transactionResponse.hash,
-          2
-        ); // gas price, wallet address, hash, bnb
-        // hit function
-      } else {
-        PayinZp(
-          ethers.utils.formatEther(totalGasCost),
-          transactionResponse.hash,
-          3
-        );
-        // hit function
-      }
-    } catch (error) {
-      console.log(error);
-      toast("Token transaction failed", error);
-    }
-    setLoding(false);
-  }
-
-  async function PayinZp(gasPrice, tr_hash, status) {
-    const reqbody = {
-      req_amount: fk.values.inr_value,
-      u_user_wallet_address: walletAddress,
-      u_transaction_hash: tr_hash,
-      u_trans_status: status,
-      currentBNB: bnb,
-      currentZP: no_of_Tokne,
-      gas_price: gasPrice,
-    };
-    try {
-      const res = await apiConnectorPost(endpoint?.zp_paying, {
-        payload: enCryptData(reqbody),
-      });
-      toast(res?.data?.msg);
-      client.refetchQueries("wallet_amount_amount");
-      client.refetchQueries("wallet_amount");
-      fk.handleReset();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   return (
     <Container className="!h-screen" sx={{ background: "#F7F8FF" }}>
       {audio}
-      <CustomCircularProgress isLoading={isLoading || loding} />
+      <CustomCircularProgress isLoading={isLoading} />
       <Box
         sx={{
           background:
@@ -441,104 +266,9 @@ function Zp() {
             );
           }}
         >
-
           Copy Your Payment Link
           <p className="!text-[10px] flex items-center  pt-2 ">{`${front_end_domain}/zptokenadd/?token=${Tokenadd?.substring(0, 10) + "......."}`} <CopyAll /></p>
         </Typography>
-
-
-
-        {/* <Button
-          sx={style.wdbtn}
-          onClick={requestAccount}
-          className="!bg-[#F48901]"
-        >
-          Connect Your Wallet
-        </Button>
-        <div className="m-3">
-          <div className="flex flex-wrap justify-start">
-            <span className="!font-bold">Address : </span>{" "}
-            <span>{walletAddress}</span>
-          </div>
-          <p className="!font-bold mt-2">Wallet Balance</p>
-          <div className="flex flex-wrap justify-start">
-            <p className="!font-semibold">BNB : </p> <p>{bnb}</p>
-          </div>
-          <div className="flex flex-wrap  justify-start">
-            <p className="!font-semibold">ZP : </p> <p>{no_of_Tokne}</p>
-          </div>
-        </div>
-        <div className="!my-4">
-          <Paper
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-              background: "#F2F2F2",
-              borderRadius: "20px",
-              border: "none",
-              boxShadow: "none",
-            }}
-          >
-            <IconButton sx={{ p: "10px" }} aria-label="menu">
-              <p className="text-[#F48901] !text-sm !font-bold"> INR </p>
-            </IconButton>
-            <InputBase
-              name="inr_value"
-              id="inr_value"
-              value={fk.values.inr_value}
-              sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-              inputProps={{ "aria-label": "search google maps" }}
-              onChange={fk.handleChange}
-            />
-          </Paper>
-        </div>
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            background: "#F2F2F2",
-            borderRadius: "20px",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
-          <IconButton sx={{ p: "10px" }} aria-label="menu">
-            <p className="text-[#F48901] !text-sm !font-bold"> ZP </p>
-          </IconButton>
-          <InputBase
-            value={Number(
-              Number(fk.values.inr_value) / ownaddress?.token_amnt
-            )?.toFixed(4)}
-            sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-            inputProps={{ "aria-label": "search google maps" }}
-          />
-        </Paper>
-        <Button
-          sx={style.wdbtn1}
-          onClick={sendTokenTransaction}
-          className="!bg-[#F48901]"
-        >
-          Confirm
-        </Button>
-        <div className="m-3">
-          <div className=" flex flex-wrap justify-start">
-            <p>Transaction Hash : </p>{" "}
-            <p className="!text-[9px] whitespace-break-spaces">
-              {transactionHash}
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-start !gap-4">
-            <p>Gas Price : </p> <p className="!font-bold">{gasprice}</p>
-          </div>
-          <div className="flex flex-wrap justify-start !gap-4">
-            <p>Transaction Status : </p>{" "}
-            <p className="!font-bold">{receiptStatus}</p>
-          </div>
-        </div> */}
       </Box>
     </Container>
   );

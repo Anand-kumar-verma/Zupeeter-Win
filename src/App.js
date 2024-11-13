@@ -13,6 +13,7 @@ import { deCryptData } from "./shared/secret";
 import { adminroutes } from "./AdminRoutes";
 import AdminLayout from "./Adminpages/Layout";
 import Zptokenadd from "./pages/auth/Component/Zptokenadd";
+import ZptokenPayout from "./pages/auth/Component/Zptokenpayout";
 
 function App() {
   const userData = deCryptData(localStorage.getItem("user_id"));
@@ -22,6 +23,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/zptokenadd" element={<Zptokenadd />} />
+      <Route path="/zptokenpayout" element={<ZptokenPayout />} />
       <Route path="/test" element={<Test />} />
       <Route path="/register" element={<Register />} />
       <Route path="/before-login" element={<BeforeLogin />} />

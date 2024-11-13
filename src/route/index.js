@@ -269,7 +269,7 @@ export const routes = [
     path: "/account/income-main/my-team/levels",
     element: <Tables />,
   },
- 
+
   {
     path: "/account/Teamincome",
     element: <TeamIncome />,

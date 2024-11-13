@@ -1,15 +1,20 @@
-import { CopyAll, History } from "@mui/icons-material";
+import { History } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Container,
+  IconButton,
+  InputBase,
+  Paper,
   Stack,
   Typography
 } from "@mui/material";
-import copy from "clipboard-copy";
-import React from "react";
+import { ethers } from "ethers";
+import { useFormik } from "formik";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useQuery, useQueryClient } from "react-query";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
 import wallet from "../../../assets/images/atmw.png";
@@ -19,20 +24,35 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet } from "../../../services/apiconnector";
-import { endpoint, front_end_domain } from "../../../services/urls";
+import { apiConnectorGet, apiConnectorGetWithoutToken, apiConnectorPost, apiConnectorPOSTWithoutToken } from "../../../services/apiconnector";
+import { endpoint, tokenContractAddress } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
+import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
 
-function ZpWithdrawal() {
-
-  const Tokenadd = localStorage.getItem("token")
+const tokenABI = [
+  // balanceOf function ABI
+  "function balanceOf(address owner) view returns (uint256)",
+  // transfer function ABI
+  "function transfer(address to, uint256 amount) returns (bool)",
+];
+function ZptokenPayout() {
+    const location = useLocation();
+    const params = new URLSearchParams(location?.search);
+    const tokenParam = params?.get("token");
   const audioRefMusic = React.useRef(null);
+  const [address, setAddress] = useState();
+  const [transactionhash, setTransactionHash] = useState();
+  const [status, setStatus] = useState();
+  const [loding, setLoding] = useState(false);
+
+
   const navigate = useNavigate();
+  const client = useQueryClient()
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => apiConnectorGet(endpoint?.get_balance),
+    () => apiConnectorGetWithoutToken(endpoint?.get_balance , {} , tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -43,16 +63,84 @@ function ZpWithdrawal() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-  
-  const functionTOCopy = (value) => {
-    copy(value);
-    toast.success("Copied to clipboard!");
-  };
+  const { data: walletaddress } = useQuery(
+    ["address_own"],
+    () => apiConnectorGetWithoutToken(endpoint?.zp_own_address , {} ,tokenParam), {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    retryOnMount: false,
+    refetchOnWindowFocus: false,
+  }
+  )
+  const ownaddress = walletaddress?.data?.data?.[0]
 
   React.useEffect(() => {
     handlePlaySound();
   }, []);
 
+  const fk = useFormik({
+    initialValues: {
+      inr_value: "",
+    },
+  });
+  async function requestAccount() {
+    setLoding(true);
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const userAccount = accounts[0];
+        setAddress(userAccount);
+        // Create a provider
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const tokenContract = new ethers.Contract(
+          tokenContractAddress,
+          tokenABI,
+          provider
+        );
+      } catch (error) {
+        toast("Error connecting...", error);
+      }
+    } else {
+      toast("MetaMask not detected.");
+    }
+    setLoding(false);
+  }
+  async function PayinZp() {
+    if (!address)
+      return toast("Please connect Your Wallet")
+    setLoding(true)
+
+    if (!fk.values.inr_value) {
+      setLoding(false);
+      return toast("Enter Amount")
+    }
+    const reqbody = {
+      inr_amount: fk.values.inr_value,
+      receiver_kay: address,
+    }
+
+    try {
+      const res = await apiConnectorPOSTWithoutToken(endpoint?.zp_payout,
+        {
+          payload: enCryptData(reqbody),
+        },
+        tokenParam
+      );
+      toast(res?.data?.msg);
+      setTransactionHash(res?.data?.transaction_hash)
+      setStatus(res?.data?.transaction_status)
+      client.refetchQueries("wallet_amount_amount")
+      client.refetchQueries("zp_withdrawl_history")
+      setLoding(false);
+      fk.handleReset();
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause) {
@@ -76,9 +164,9 @@ function ZpWithdrawal() {
 
 
   return (
-    <Container className="h-screen" sx={{ background: "#F7F8FF" }}>
+    <Container sx={{ background: "#F7F8FF" }}>
       {audio}
-      <CustomCircularProgress isLoading={isLoading} />
+      <CustomCircularProgress isLoading={isLoading || loding} />
       <Box
         sx={{
           background:
@@ -159,74 +247,6 @@ function ZpWithdrawal() {
         </Box>
       </Box>
 
-
-      <Box sx={{ mt: 2, px: 2 }}>
-        <Stack direction="row">
-          <Stack
-            onClick={() => navigate("/withdraw")}
-            sx={{
-              width: "120px",
-              background: "#FFFFFF",
-              padding: 2,
-              borderRadius: 2,
-              mr: 2,
-              boxShadow:
-                " rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
-            }}
-          >
-            <Box
-              component="img"
-              src={atmchip}
-              width={40}
-              sx={{ margin: "0px auto" }}
-            ></Box>
-            <Typography
-              variant="body1"
-              sx={{
-                color: "gray",
-                fontSize: "14px",
-                fontWeight: "500",
-                textAlign: "center",
-                mt: 1,
-              }}
-            >
-              BANK CARD
-            </Typography>
-          </Stack>
-          <Stack
-
-            className={"!cursor-pointer"}
-            sx={{
-              background:
-                "-webkit-linear-gradient(top, #e97e0f 0%, #fcbc42 100%)",
-              padding: 2,
-              borderRadius: 2,
-              mr: 2,
-              width: "120px",
-            }}
-          >
-            <Box
-              component="img"
-              src={zp}
-              width={40}
-              sx={{ margin: "0px auto" }}
-            ></Box>
-            <Typography
-              variant="body1"
-              sx={{
-                color: "gray",
-                fontSize: "14px",
-                fontWeight: "500",
-                textAlign: "center",
-                mt: 1,
-              }}
-            >
-              ZP
-            </Typography>
-          </Stack>
-        </Stack>
-      </Box>
-
       <Box
         sx={{
           width: "92%",
@@ -254,20 +274,7 @@ function ZpWithdrawal() {
             Withdrawal amount
           </Typography>
         </Stack>
-        <Typography
-          sx={{}}
-          onClick={() => {
-
-            functionTOCopy(
-              `${front_end_domain}/zptokenpayout/?token=${Tokenadd}`
-            );
-          }}
-        >
-          Copy Your Payment Link
-          <p className="!text-[10px] flex items-center  pt-2 ">{`${front_end_domain}/zptokenpayout/?token=${Tokenadd?.substring(0, 10) + "......."}`} <CopyAll /></p>
-        </Typography>
-
-        {/* <Button
+        <Button
           sx={style.wdbtn}
           onClick={requestAccount}
           className="!bg-[#F48901]"
@@ -346,13 +353,13 @@ function ZpWithdrawal() {
           <div className="flex justify-start !font-bold !gap-4">
             <p>Transaction Status</p> <p>{status}</p>
           </div>
-        </div> */}
+        </div>
       </Box>
 
     </Container>
   );
 }
-export default ZpWithdrawal;
+export default ZptokenPayout;
 
 const style = {
   paytmbtntwo: {
