@@ -164,7 +164,7 @@ function Home() {
     )
       return toast(
         <span
-          className=" !py-2 !px-4 !text-white"
+          className=" !py-2 !px-4 !text-orange-400"
           style={{ display: "inline-block" }}
         >
           Insufficient Wallet Amount

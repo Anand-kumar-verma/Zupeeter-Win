@@ -250,7 +250,7 @@ function Zp() {
   }
 
   return (
-    <Container className="!h-100vh" sx={{ background: "#F7F8FF" }}>
+    <Container className="!h-screen" sx={{ background: "#F7F8FF" }}>
       {audio}
       <CustomCircularProgress isLoading={isLoading || loding} />
       <Box
@@ -433,20 +433,20 @@ function Zp() {
           </Typography>
         </Stack>
         <Typography
-                  sx={{}}
-                  onClick={() => {
-                  
-                       functionTOCopy(
-                          `${game_domain}/Zptokenadd/?token=${Tokenadd}`
-                        );
-                  }}
-                >
-                
-                Copy Your Payment Link 
-                <p className="!text-[10px] flex items-center  pt-2 ">{`${game_domain}/Zptokenadd/?token=${Tokenadd?.substring(0,10)+"......."}`} <CopyAll/></p> 
-                </Typography>
-       {/* <p>{game_domain/Zptokenadd/Tokenadd} </p>  */}
-    
+          sx={{}}
+          onClick={() => {
+
+            functionTOCopy(
+              `${game_domain}/zptokenadd/?token=${Tokenadd}`
+            );
+          }}
+        >
+
+          Copy Your Payment Link
+          <p className="!text-[10px] flex items-center  pt-2 ">{`${game_domain}/zptokenadd/?token=${Tokenadd?.substring(0, 10) + "......."}`} <CopyAll /></p>
+        </Typography>
+
+
 
         {/* <Button
           sx={style.wdbtn}

@@ -224,13 +224,13 @@ export const confirmBet = async (
   const isAlreadyAppliedBet = localStorage.getItem("rollet_bet_placed");
   if (isAlreadyAppliedBet === "true")
     return toast(
-      <span className="!px-4 !py-2 !bg-blue-700 !text-white !border-2 !border-red-700  !rounded-full">
+      <span className="!px-4 !py-2  !text-orange-400 !rounded-full">
         Bid Already Placed.
       </span>
     );
   if (bet?.length <= 0)
     return toast(
-      <span className="!px-4 !py-2 !bg-blue-700 !text-white !border-2 !border-red-700  !rounded-full">
+      <span className="!px-4 !py-2 !bg-blue-700 !text-orange-400  !rounded-full">
         Please Select Your Bet First.
       </span>
     );
@@ -304,7 +304,7 @@ export const confirmBet = async (
       });
       toast(
         <span
-          className="  !rounded-full"
+          className="!text-orange-400  !rounded-full"
           style={{ display: "inline-block" }}
         >
           {res?.data?.msg}
@@ -410,7 +410,7 @@ export const justDouble = (bet, setBet, wallet_amount_data) => {
   )
     return toast(
       <span
-        className="!py-2 !px-4 !text-black !border-2  !rounded-full"
+        className="!py-2 !px-4 !text-orange-400 !border-2  !rounded-full"
         style={{ display: "inline-block" }}
       >
         Insufficient Wallet Amount
@@ -463,7 +463,7 @@ export const justHalf = (bet, setBet, wallet_amount_data) => {
   ) {
     return toast(
       <span
-        className=" !py-2 !px-4 !text-black !border-2  !rounded-full"
+        className=" !py-2 !px-4 !text-orange-400 !border-2  !rounded-full"
         style={{ display: "inline-block" }}
       >
         Insufficient Wallet Amount
@@ -504,7 +504,7 @@ export const rebetFuncton = (bet, rebet, setBet, wallet_amount_data) => {
   )
     return toast(
       <span
-        className=" !py-2 !px-4 !text-black"
+        className=" !py-2 !px-4 !text-orange-400"
         style={{ display: "inline-block" }}
       >
         Insufficient Wallet Amount

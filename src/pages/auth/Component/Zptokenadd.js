@@ -14,7 +14,7 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
 import atmchip from "../../../assets/images/atmchip.png";
 import wallet from "../../../assets/images/atmw.png";
@@ -40,6 +40,9 @@ const tokenABI = [
   "function transfer(address to, uint256 amount) returns (bool)",
 ];
 function Zptokenadd() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search)
+  const tokenParam = params.get("token")
   const audioRefMusic = React.useRef(null);
   const [walletAddress, setWalletAddress] = useState("");
   const [no_of_Tokne, setno_of_Tokne] = useState("");
@@ -51,31 +54,31 @@ function Zptokenadd() {
   const [loding, setLoding] = useState(false);
   const client = useQueryClient();
 
-//   const { isLoading, data: wallet_amount } = useQuery(
-//     ["wallet_amount"],
-//     () => apiConnectorGet(endpoint?.get_balance),
-//     {
-//       refetchOnMount: false,
-//       refetchOnReconnect: false,
-//       retry: false,
-//       retryOnMount: false,
-//       refetchOnWindowFocus: false,
-//     }
-//   );
-//   const wallet_amount_data = wallet_amount?.data?.data || 0;
+  const { isLoading, data: wallet_amount } = useQuery(
+    ["wallet_amount"],
+    () => apiConnectorGet(endpoint?.get_balance , {} , tokenParam),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-//   const { data: address } = useQuery(
-//     ["address_own"],
-//     () => apiConnectorGet(endpoint?.zp_own_address),
-//     {
-//       refetchOnMount: false,
-//       refetchOnReconnect: false,
-//       retry: false,
-//       retryOnMount: false,
-//       refetchOnWindowFocus: false,
-//     }
-//   );
-//   const ownaddress = address?.data?.data?.[0];
+  const { data: address } = useQuery(
+    ["address_own"],
+    () => apiConnectorGet(endpoint?.zp_own_address , {} , tokenParam),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const ownaddress = address?.data?.data?.[0];
 
   React.useEffect(() => {
     handlePlaySound();
@@ -159,7 +162,7 @@ function Zptokenadd() {
     try {
       const tokenAmount = ethers.utils.parseUnits(
         String(
-          Number(Number(fk.values.inr_value) /0.5)?.toFixed(
+          Number(Number(fk.values.inr_value) /Number(ownaddress?.token_amnt))?.toFixed(
             6
           )
         ),
@@ -175,7 +178,7 @@ function Zptokenadd() {
       const gasPrice = await provider.getGasPrice();
 
       const gasEstimate = await tokenContract.estimateGas.transfer(
-        // ownaddress?.payin_token_address,
+        ownaddress?.payin_token_address,
         tokenAmount // Amount of tokens to transfer
       );
       // Calculate total gas cost in BNB
@@ -193,7 +196,7 @@ function Zptokenadd() {
       }
       // Call the transfer function on the token contract
       const transactionResponse = await tokenContract.transfer(
-        // ownaddress?.payin_token_address, 
+        ownaddress?.payin_token_address, 
         tokenAmount // Amount of tokens to transfer
       );
       // Wait for transaction confirmation
@@ -294,6 +297,49 @@ function Zptokenadd() {
       </Box>
 
     
+      <Box sx={{ mt: 2, px: 2 }}>
+        <Box
+          sx={{
+            backgroundImage: `url(${atm})`,
+            backgroundSize: "100% 100%",
+            padding: "20px 16px",
+          }}
+        >
+          <Stack direction="row">
+            <Box component="img" src={wallet} width={20} sx={{ mr: 2 }}></Box>
+            <Typography
+              variant="body1"
+              sx={{ color: "white", fontSize: "14px", fontWeight: "500" }}
+            >
+              Available balance
+            </Typography>
+          </Stack>
+          <Stack direction="row" alignItems={"center"} mt={1}>
+            <Typography
+              variant="body1"
+              sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
+            >
+              ₹{" "}
+              {(
+                Number(
+                  Number(wallet_amount_data?.winning || 0) +
+                  Number(wallet_amount_data?.wallet || 0)
+                ) || 0
+              )?.toFixed(2)}{" "}
+            </Typography>
+            <Box
+              component="img"
+              src={refresh}
+              width={20}
+              height={16}
+              sx={{ ml: 2 }}
+            ></Box>
+          </Stack>
+          <Stack direction="row" alignItems={"center"} mt={3}>
+            <Box component="img" src={cip} width={40} height={25}></Box>
+          </Stack>
+        </Box>
+      </Box>
      
 
       <Box

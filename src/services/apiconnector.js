@@ -2,13 +2,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { front_end_domain } from "./urls";
 
-export const apiConnectorGet = async (endpoint, param) => {
+export const apiConnectorGet = async (endpoint, param , token) => {
   try {
     const response = await axios?.get(
       endpoint,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`|| `Bearer ${token}`,
         },
       },
       {
