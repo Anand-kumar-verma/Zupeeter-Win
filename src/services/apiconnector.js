@@ -2,13 +2,14 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { front_end_domain } from "./urls";
 
-export const apiConnectorGet = async (endpoint, param , token) => {
+export const apiConnectorGet = async (endpoint, param, token) => {
   try {
     const response = await axios?.get(
       endpoint,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`|| `Bearer ${token}`,
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}` || `Bearer ${token}`,
         },
       },
       {
@@ -16,15 +17,14 @@ export const apiConnectorGet = async (endpoint, param , token) => {
       }
     );
     if (response?.data?.msg === "Invalid Token.") {
-      toast("Login in another device ", { id: 1 })
+      toast("Login in another device ", { id: 1 });
       localStorage.clear();
       sessionStorage.clear();
-      window.location.href=`${front_end_domain}`
-      return
+      window.location.href = `${front_end_domain}`;
+      return;
     }
     return response;
   } catch (e) {
-    
     return {
       msg: e?.message,
     };
@@ -32,15 +32,38 @@ export const apiConnectorGet = async (endpoint, param , token) => {
 };
 export const apiConnectorPost = async (endpoint, reqBody) => {
   try {
-    const response = await axios?.post(
+    const response = await axios?.post(endpoint, reqBody, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response;
+  } catch (e) {
+    return {
+      msg: e?.message,
+    };
+  }
+};
+export const apiConnectorGetWithoutToken = async (endpoint, param, token) => {
+  try {
+    const response = await axios?.get(
       endpoint,
-      reqBody,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
-      }   
+      },
+      {
+        params: param,
+      }
     );
+    if (response?.data?.msg === "Invalid Token.") {
+      toast("Login in another device ", { id: 1 });
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = `${front_end_domain}`;
+      return;
+    }
     return response;
   } catch (e) {
     return {

@@ -20,8 +20,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/zptokenadd" element={<Zptokenadd />} />
       <Route path="/" element={<Login />} />
+      <Route path="/zptokenadd" element={<Zptokenadd />} />
       <Route path="/test" element={<Test />} />
       <Route path="/register" element={<Register />} />
       <Route path="/before-login" element={<BeforeLogin />} />
@@ -30,8 +30,7 @@ function App() {
         path="/playgame"
         element={<LayoutAviator component={<PlayGame />} />}
       />
- 
-     
+
       {isAuthenticated ? (
         routes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />
@@ -40,7 +39,9 @@ function App() {
         <Route path="/" element={<Login />} />
       )}
 
-      {isAuthenticated && (userData.user_type === "Admin" || userData.user_type === "Super Admin") ? (
+      {isAuthenticated &&
+      (userData.user_type === "Admin" ||
+        userData.user_type === "Super Admin") ? (
         adminroutes.map((route) => (
           <Route
             key={route.id}

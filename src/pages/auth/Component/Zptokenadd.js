@@ -16,23 +16,19 @@ import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import atm from "../../../assets/images/atm.png";
-import atmchip from "../../../assets/images/atmchip.png";
 import wallet from "../../../assets/images/atmw.png";
 import backbtn from "../../../assets/images/backBtn.png";
 import audiovoice from "../../../assets/images/bankvoice.mp3";
 import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
-import zp from "../../../assets/images/zptoken.png";
 import {
-  apiConnectorGet,
+  apiConnectorGetWithoutToken,
   apiConnectorPost,
 } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
-import Header from "../../../component/layout/component/Header";
 const tokenABI = [
   // balanceOf function ABI
   "function balanceOf(address owner) view returns (uint256)",
@@ -41,8 +37,8 @@ const tokenABI = [
 ];
 function Zptokenadd() {
   const location = useLocation();
-  const params = new URLSearchParams(location.search)
-  const tokenParam = params.get("token")
+  const params = new URLSearchParams(location?.search);
+  const tokenParam = params?.get("token");
   const audioRefMusic = React.useRef(null);
   const [walletAddress, setWalletAddress] = useState("");
   const [no_of_Tokne, setno_of_Tokne] = useState("");
@@ -56,7 +52,7 @@ function Zptokenadd() {
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => apiConnectorGet(endpoint?.get_balance , {} , tokenParam),
+    () => apiConnectorGetWithoutToken(endpoint?.get_balance, {}, tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -69,7 +65,7 @@ function Zptokenadd() {
 
   const { data: address } = useQuery(
     ["address_own"],
-    () => apiConnectorGet(endpoint?.zp_own_address , {} , tokenParam),
+    () => apiConnectorGetWithoutToken(endpoint?.zp_own_address, {}, tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -162,9 +158,9 @@ function Zptokenadd() {
     try {
       const tokenAmount = ethers.utils.parseUnits(
         String(
-          Number(Number(fk.values.inr_value) /Number(ownaddress?.token_amnt))?.toFixed(
-            6
-          )
+          Number(
+            Number(fk.values.inr_value) / Number(ownaddress?.token_amnt)
+          )?.toFixed(6)
         ),
         18
       ); // Sending 1 ZP token
@@ -196,7 +192,7 @@ function Zptokenadd() {
       }
       // Call the transfer function on the token contract
       const transactionResponse = await tokenContract.transfer(
-        ownaddress?.payin_token_address, 
+        ownaddress?.payin_token_address,
         tokenAmount // Amount of tokens to transfer
       );
       // Wait for transaction confirmation
@@ -251,7 +247,6 @@ function Zptokenadd() {
 
   return (
     <Container sx={{ background: "#F7F8FF" }}>
-
       {audio}
       {/* <CustomCircularProgress isLoading={isLoading || loding} /> */}
       <Box
@@ -296,7 +291,6 @@ function Zptokenadd() {
         </Stack>
       </Box>
 
-    
       <Box sx={{ mt: 2, px: 2 }}>
         <Box
           sx={{
@@ -323,7 +317,7 @@ function Zptokenadd() {
               {(
                 Number(
                   Number(wallet_amount_data?.winning || 0) +
-                  Number(wallet_amount_data?.wallet || 0)
+                    Number(wallet_amount_data?.wallet || 0)
                 ) || 0
               )?.toFixed(2)}{" "}
             </Typography>
@@ -340,7 +334,6 @@ function Zptokenadd() {
           </Stack>
         </Box>
       </Box>
-     
 
       <Box
         sx={{
@@ -431,9 +424,7 @@ function Zptokenadd() {
             <p className="text-[#F48901] !text-sm !font-bold"> ZP </p>
           </IconButton>
           <InputBase
-            value={Number(
-              Number(fk.values.inr_value) / 0.5
-            )?.toFixed(4)}
+            value={Number(Number(fk.values.inr_value) / 0.5)?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}
           />

@@ -1,4 +1,4 @@
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
@@ -37,11 +37,9 @@ import { storeCookies } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
 import { deCryptData } from "../../shared/secret";
 
-
 function Login() {
   const [visitorId, setVisitorId] = useState(null);
   const [value, setValue] = useState("one");
-  const user_id = deCryptData(localStorage.getItem("user_id"));
   const navigate = useNavigate();
   const [country, setCountry] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -72,7 +70,7 @@ function Login() {
         username: value === "one" ? String(fk.values.mobile) : fk.values.email,
         password: fk.values.password,
         ipAddress: "",
-        u_finger_id:visitorId,
+        u_finger_id: visitorId,
       };
       if (!reqBody.password || !reqBody.username)
         return toast("Plese enter all fields");
@@ -96,19 +94,23 @@ function Login() {
         localStorage.setItem(
           "user_id",
           CryptoJS.AES.encrypt(
-            JSON.stringify({ UserID: response?.data?.UserID ,user_type:response?.data?.user_type }),
+            JSON.stringify({
+              UserID: response?.data?.UserID,
+              user_type: response?.data?.user_type,
+            }),
             "anand"
           )?.toString()
         );
-        localStorage.setItem("token",value)
+        localStorage.setItem("token", value);
         sessionStorage.setItem("isAvailableUser", true);
         sessionStorage.setItem("isAvailableCricketUser", true);
         setloding(false);
         storeCookies();
-        response?.data?.user_type==="User" 
-        ?navigate("/before-login"): 
-       (["Admin","Super Admin"]?.includes(response?.data?.user_type)) && navigate("/master");
-          window.location.reload();
+        response?.data?.user_type === "User"
+          ? navigate("/before-login")
+          : ["Admin", "Super Admin"]?.includes(response?.data?.user_type) &&
+            navigate("/master");
+        window.location.reload();
       }
     } catch (e) {
       toast.error(e?.message);
@@ -118,7 +120,7 @@ function Login() {
   };
 
   // useEffect(() => {
-  //   user_id && 
+  //   user_id &&
   //   navigate("/before-login");
   // }, [user_id]);
 
@@ -431,7 +433,10 @@ function Login() {
               "&:hover": { background: "#b6bad0" },
             }}
             disableElevation
-            className={`${(fk.values.email || fk.values.password || fk.values.mobile) && "!bg-orange-400"} `}
+            className={`${
+              (fk.values.email || fk.values.password || fk.values.mobile) &&
+              "!bg-orange-400"
+            } `}
           >
             Log in
           </Button>
@@ -475,7 +480,6 @@ function Login() {
 
 export default Login;
 
-
 const style = {
   inputfield: {
     mt: 2,
@@ -488,10 +492,7 @@ const style = {
     "&>div>div>fieldset ": { border: "none !important" },
     "&>div>div>input:focus": { outline: "1px solid #F18401" },
     // "sub>active>button":{background:"#eb8a1f"},
-
   },
-
-
 
   passwordfield: {
     "&>div>input": { padding: 3 },
