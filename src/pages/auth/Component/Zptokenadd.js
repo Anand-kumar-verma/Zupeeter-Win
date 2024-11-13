@@ -23,7 +23,8 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import {
-  apiConnectorGetWithoutToken,
+  apiConnectorGet,
+  apiConnectorGet,
   apiConnectorPost,
 } from "../../../services/apiconnector";
 import { endpoint, tokenContractAddress } from "../../../services/urls";
@@ -52,7 +53,7 @@ function Zptokenadd() {
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
-    () => apiConnectorGetWithoutToken(endpoint?.get_balance, {}, tokenParam),
+    () => apiConnectorGet(endpoint?.get_balance, {}, tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -65,7 +66,7 @@ function Zptokenadd() {
 
   const { data: address } = useQuery(
     ["address_own"],
-    () => apiConnectorGetWithoutToken(endpoint?.zp_own_address, {}, tokenParam),
+    () => apiConnectorGet(endpoint?.zp_own_address, {}, tokenParam),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -424,7 +425,9 @@ function Zptokenadd() {
             <p className="text-[#F48901] !text-sm !font-bold"> ZP </p>
           </IconButton>
           <InputBase
-            value={Number(Number(fk.values.inr_value) / 0.5)?.toFixed(4)}
+            value={Number(
+              Number(fk.values.inr_value) / Number(ownaddress?.token_amnt)
+            )?.toFixed(4)}
             sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
             inputProps={{ "aria-label": "search google maps" }}
           />
