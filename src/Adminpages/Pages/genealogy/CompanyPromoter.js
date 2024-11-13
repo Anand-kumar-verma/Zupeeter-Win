@@ -1,7 +1,7 @@
 import { FilterAlt } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import CustomTable from "../../Shared/CustomTable";
@@ -31,7 +31,10 @@ const CompanyPromoterBonus = () => {
         }
         setloding(false);
       };
-  
+      useEffect(() => {
+        CompanyPromoter()
+    }, [])
+      
     const tablehead = [
         <span>S.No.</span>,
         <span>User Id</span>,

@@ -17,11 +17,10 @@ import * as React from "react";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
-// import { withdrawAmountSchemaValidaton } from "../../../Shared/Validation";
-
 import Layout from "../../component/layout/Layout";
 import { endpoint } from "../../services/urls";
 import { apiConnectorPost } from "../../services/apiconnector";
+import { withdrawAmountSchemaValidaton } from "../../services/validation";
 
 function AddBankDetails() {
   const login_data =
@@ -43,40 +42,36 @@ function AddBankDetails() {
     mobile: "",
     bank_name: "",
     name: "",
-    ifsc: "",
+    ifsc_code: "",
     account_number: "",
   };
 
   const fk = useFormik({
     initialValues: initialValues,
-    // validationSchema: withdrawAmountSchemaValidaton,
+    validationSchema: withdrawAmountSchemaValidaton,
     onSubmit: () => {
       console.log(fk.values);
-      const capitalizedIFSC = fk.values.ifsc.toUpperCase();
+      const capitalizedIFSC = fk.values.ifsc_code.toUpperCase();
       const reqbody = {
         email: fk.values.email,
         bank_name: fk.values.bank_name,
         name: fk.values.name,
-        email: fk.values.email,
-        user_id: user_id,
         mobile: fk.values.mobile,
         ifsc_code: capitalizedIFSC,
         account_number: fk.values.account_number,
       }
-
       addbankDetailsFunction(reqbody);
-
     },
   });
 
   const addbankDetailsFunction = async (reqbody) => {
     try {
 
-      const response = await apiConnectorPost(`${endpoint?.bank_details}`, reqbody)
+      const response = await apiConnectorPost(`${endpoint?.user_bank_add}`, reqbody)
       toast(response?.data?.msg);
       client.refetchQueries("bank_list_details");
       if (response?.data?.msg) {
-        navigate("/bank-details");
+        navigate("/banks-details");
       }
     } catch (e) {
       toast(e?.message);
@@ -123,7 +118,7 @@ function AddBankDetails() {
               <FormControl fullWidth sx={{ mt: "1px" }}>
                 <Stack direction="row" >
                   <Typography>
-                    Account holder name <span className="!text-red-600">*</span>
+                    Account holder name <span className="!text-red-600 ">*</span>
                   </Typography>
                 </Stack>
                 <TextField
@@ -209,17 +204,17 @@ function AddBankDetails() {
                   </Typography>
                 </Stack>
                 <TextField
-                  id="ifsc"
-                  name="ifsc"
+                  id="ifsc_code"
+                  name="ifsc_code"
                   type="text"
-                  value={fk.values.ifsc}
+                  value={fk.values.ifsc_code}
                   onChange={fk.handleChange}
                   placeholder="Enter IFSC code *"
                   className=""
                   onKeyDown={(e) => e.key === "Enter" && fk.handleSubmit()}
                 />
-                {fk.touched.ifsc && fk.errors.ifsc && (
-                  <div className="error">{fk.errors.ifsc}</div>
+                {fk.touched.ifsc_code && fk.errors.ifsc_code && (
+                  <div className="error">{fk.errors.ifsc_code}</div>
                 )}
               </FormControl>
               <FormControl fullWidth sx={{ mt: "10px" }}>

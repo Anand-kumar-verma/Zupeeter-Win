@@ -1,13 +1,13 @@
 import { FilterAlt } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import CustomTable from "../../Shared/CustomTable";
 
 const WelcomeBonus = () => {
-  const [loding, setloding] = useState(false);
+    const [loding, setloding] = useState(false);
     const [data, setData] = useState([]);
     const [from_date, setFrom_date] = useState("");
     const [to_date, setTo_date] = useState("");
@@ -16,23 +16,26 @@ const WelcomeBonus = () => {
     const WelcomeBonusFn = async () => {
         setloding(true);
         try {
-          const res = await axiosInstance.post(API_URLS?.welcome_bonus_data, {
-            start_date: from_date,
-            end_date: to_date,
-            username: search,
-          });
-          setData(res?.data?.data || []);
-          if (res) {
-            setTo_date("");
-            setFrom_date("");
-          }
+            const res = await axiosInstance.post(API_URLS?.welcome_bonus_data, {
+                start_date: from_date,
+                end_date: to_date,
+                username: search,
+            });
+            setData(res?.data?.data || []);
+            if (res) {
+                setTo_date("");
+                setFrom_date("");
+            }
         } catch (e) {
-          console.log(e);
+            console.log(e);
         }
         setloding(false);
-      };
- 
+    };
 
+
+    useEffect(() => {
+        WelcomeBonusFn()
+    }, [])
     const tablehead = [
         <span>S.No.</span>,
         <span>User Id</span>,

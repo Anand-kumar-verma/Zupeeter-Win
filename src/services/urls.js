@@ -1,9 +1,9 @@
 export const domain = "https://zupeeter-win-timer.onrender.com";
-export const game_domain = "https://bet.zupeeter.com";
+// export const game_domain = "https://bet.zupeeter.com";
 export const aviatordomain = "https://zupeeter-win-timer.onrender.com";
 
 
-// export const game_domain = "http://192.168.18.183:9000";
+export const game_domain = "http://192.168.18.183:9000";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
@@ -37,12 +37,13 @@ export const endpoint = {
   recharge_income: `${game_domain}/api/v1/team-recharge-bonus`,
   company_promoter_income: `${game_domain}/api/v1/company-promoter-bonus`,
   welcomebonus_income: `${game_domain}/api/v1/welcome-bonus-list`,
-  payment: `${game_domain}/api/v1/payment`,
+  payment_inr: `${game_domain}/api/v1/inr-payin-request`,
   payment_request: `${game_domain}/api/deposit-request`,
   deposit_history: `${game_domain}/api/v1/deposit-history-inr`,
   deposit_history_usdt: `${game_domain}/api/v1/deposit-history-usdt`,
   admin_qr_address: `${game_domain}/api/v1/admin-qr-address`,
-  bank_details: `${game_domain}/api/v1/user-bank-details`,
+  user_bank_details: `${game_domain}/api/v1/user-bank-details`,
+  user_bank_add: `${game_domain}/api/v1/bank-add`,
   get_claim_card: `${game_domain}/api/v1/clame-bonus`,
   get_card: `${game_domain}/api/v1/get-gift-card-list`,
   level_income: `${game_domain}/api/v1/level-income`,

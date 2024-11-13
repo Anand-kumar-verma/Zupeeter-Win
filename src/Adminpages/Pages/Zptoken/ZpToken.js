@@ -34,7 +34,9 @@ const ZpToken = () => {
     setloding(false);
   };
 
-
+useEffect(()=>{
+  ZpFunction()
+},[])
 
   const tablehead = [
     <span>S.No</span>,

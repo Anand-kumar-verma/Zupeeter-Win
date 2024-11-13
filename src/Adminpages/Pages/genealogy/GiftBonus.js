@@ -1,7 +1,7 @@
 import { FilterAlt } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import CustomTable from "../../Shared/CustomTable";
@@ -32,6 +32,10 @@ const GiftBonus = () => {
         }
         setloding(false);
       };
+
+      useEffect(() => {
+        giftBonus()
+    }, []) 
 
     const tablehead = [
         <span>S.No.</span>,

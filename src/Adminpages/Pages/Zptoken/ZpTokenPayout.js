@@ -34,6 +34,10 @@ const ZpTokenPayout = () => {
     setloding(false);
   };
 
+
+  useEffect(()=>{
+    ZpFunction()
+  },[])
   const tablehead = [
     <span>S.No</span>,
     <span>Name</span>,

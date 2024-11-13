@@ -1,7 +1,7 @@
 import { FilterAlt } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import CustomTable from "../../Shared/CustomTable";
@@ -13,7 +13,7 @@ const WeeklyBonus = () => {
     const [to_date, setTo_date] = useState("");
     const [search, setSearch] = useState("");
 
-    const WeeklyBonus = async () => {
+    const WeeklyBonusFn = async () => {
         setloding(true);
         try {
           const res = await axiosInstance.post(API_URLS?.weekly_bonus_data, {
@@ -32,6 +32,10 @@ const WeeklyBonus = () => {
         setloding(false);
       };
  
+
+      useEffect(() => {
+        WeeklyBonusFn()
+    }, []) 
 
     const tablehead = [
         <span>S.No.</span>,
@@ -79,7 +83,7 @@ const WeeklyBonus = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button
-                    onClick={() => WeeklyBonus()}
+                    onClick={() => WeeklyBonusFn()}
                     variant="contained"
                     startIcon={<FilterAlt />}
                 >

@@ -24,12 +24,13 @@ import Layout from "../../component/layout/Layout";
 import { endpoint } from "../../services/urls";
 import { ContentCopy } from "@mui/icons-material";
 import { apiConnectorGet } from "../../services/apiconnector";
+import moment from "moment/moment";
 
 function BankList() {
 
   const {data } = useQuery(
     ["bank_list_details"],
-    () => apiConnectorGet(endpoint?.bank_details),
+    () => apiConnectorGet(endpoint?.user_bank_details),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
@@ -47,14 +48,14 @@ function BankList() {
           width: "100%",
           height: "100vh",
           overflow: "auto",
-          mb: 4,
+          mb: 6,
         }}
       >
         <Box sx={style.header}>
           <Box component={NavLink}  to="/bank">
             <KeyboardArrowLeftOutlinedIcon  />
           </Box>
-          <Typography variant="body1">
+          <Typography >
            Bank Details
           </Typography>
           <Box
@@ -63,12 +64,12 @@ function BankList() {
             
           </Box>
         </Box>
-        {/* {visibleData?.map((i, index) => {
-        return ( */}
+        {result?.map((i, index) => {
+        return (
           <Box
-            // key={index}
+            key={index}
             sx={{
-              mb: 2,
+                mb: 2,
               padding: "10px",
               borderRadius: "10px",
               background: "#fff",
@@ -101,7 +102,6 @@ function BankList() {
                   fontWeight: "600",
                 }}
               >
-                {/* {i?.call_back_status} */}
               </Box>
             </Stack>
             <Stack
@@ -123,11 +123,16 @@ function BankList() {
                 },
               }}
             >
-              <Typography variant="body1" color="initial">
-                Balance
+              <Typography >
+                Account Number
               </Typography>
-              <Typography variant="body1">
-                {/* ₹ {i?.amount} */}
+              <Typography sx={{
+                  color: "#888",
+                  textTransform: "capitalize",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                }}>
+                 {i?.account}
 
               </Typography>
             </Stack>
@@ -144,13 +149,11 @@ function BankList() {
                 },
               }}
             >
-              <Typography variant="body1" color="initial">
-                Type
+              <Typography >
+                Bank Name
               </Typography>
-              <Typography variant="body1" color="initial">
-                {/* {i?.withdrawal_type === "USDT" ?
-                "ZP Token" :
-                i?.withdrawal_type} */}
+              <Typography >
+                {i?.bank_name}
               </Typography>
             </Stack>
             <Stack
@@ -166,32 +169,8 @@ function BankList() {
                 },
               }}
             >
-              <Typography variant="body1" color="initial">
-                Time
-              </Typography>
-              <Typography
-                variant="body1"
-                color="initial"
-                className="!text-green-500"
-              >
-                {/* {moment(i?.response_date)?.format("DD-MM-YYYY HH:mm:ss")} */}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Order number
+              <Typography >
+              Account Holder Name
               </Typography>
               <Stack
                 direction="row"
@@ -211,15 +190,94 @@ function BankList() {
                   },
                 }}
               >
-                <Typography variant="body1" color="initial">
-                  {/* {i?.transaction_no} */}
+                <Typography >
+                  {i?.holder_name}
                 </Typography>
                 
               </Stack>
             </Stack>
+            <Stack
+              direction="row"
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                "&>p:nth-child(1)": {
+                  color: "#888",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  py: 1,
+                },
+                "&>p:nth-child(2)": {
+                  // color: theme.palette.primary.main,
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  py: 1,
+                },
+              }}
+            >
+              <Typography >
+              Mobile Number
+              </Typography>
+              <Typography 
+              sx={{
+                color: "#888",
+                textTransform: "capitalize",
+                fontSize: "14px",
+                fontWeight: "600",
+              }}>
+                {/* ₹ */}
+                 {i?.mobile}
+
+              </Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                "&>p": {
+                  color: "#888",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  py: 1,
+                },
+              }}
+            >
+              <Typography >
+              IFSC
+              </Typography>
+              <Typography >
+                {i?.ifsc}
+              </Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                "&>p": {
+                  color: "#888",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  py: 1,
+                },
+              }}
+            >
+              <Typography >
+                Time
+              </Typography>
+              <Typography
+                
+                color="initial"
+                className="!text-green-500"
+              >
+                {moment(i?.created_at)?.format("DD-MM-YYYY HH:mm:ss")}
+              </Typography>
+            </Stack>
+        
           </Box>
-        {/* );
-      })} */}
+        );
+      })} 
       </Container>
     </Layout>
   );

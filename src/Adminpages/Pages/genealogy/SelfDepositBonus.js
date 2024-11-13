@@ -1,7 +1,7 @@
 import { FilterAlt } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import CustomTable from "../../Shared/CustomTable";
@@ -13,7 +13,7 @@ const SelfDepositBonus = () => {
     const [to_date, setTo_date] = useState("");
     const [search, setSearch] = useState("");
 
-    const SelfDepositBonus = async () => {
+    const SelfDepositBonusFn = async () => {
         setloding(true);
         try {
           const res = await axiosInstance.post(API_URLS?.self_deposit_bonus_data, {
@@ -32,6 +32,11 @@ const SelfDepositBonus = () => {
         setloding(false);
       };
   
+      
+      useEffect(() => {
+        SelfDepositBonusFn()
+    }, []) 
+
     const tablehead = [
         <span>S.No.</span>,
         <span>User Id</span>,
@@ -78,7 +83,7 @@ const SelfDepositBonus = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button
-                    onClick={() => SelfDepositBonus()}
+                    onClick={() => SelfDepositBonusFn()}
                     variant="contained"
                     startIcon={<FilterAlt />}
                 >

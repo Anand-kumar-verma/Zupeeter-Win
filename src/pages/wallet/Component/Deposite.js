@@ -72,91 +72,38 @@ function Deposite() {
     }
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
-  const initialValues = {
-    amount: 0,
-    all_data: { t_id: "", amount: "", date: "" },
-  };
 
-  const fk = useFormik({
-    initialValues: initialValues,
-    onSubmit: () => {
-      const transaction_id = `${Date.now()}${user_id}`;
-      // setT_id(transaction_id);
-      const fd = new FormData();
-      fd.append("UserID", "7704002732");
-      fd.append("Email", "mailto:sunlottery@gmail.com");
-      fd.append("txtamt", fk.values.amount);
-      fd.append("Name", "");
-      fd.append("TransactionID", transaction_id);
-
-      // return toast("We are upgrading for smooth and fast payin please wait...");
-
-      paymentRequest(fd, fk.values.amount);
-      fk.setFieldValue("all_data", {
-        t_id: fd.get("TransactionID") || "",
-        amount: fk.values.amount,
-        date: new Date(),
-      });
-      localStorage.removeItem("amount_set");
-    },
-  });
-
-  // sajid api
-  async function paymentRequest(fd, amnt) {
-    if (!amnt) {
-      toast("Please Enter the amount");
-      return;
-
-    }
-    const reqbody = {
-      amount: amnt || 1000,
-      transection_id: fd.get("TransactionID"),
-    };
-    const fdata = new FormData();
-    fdata.append("user_id", reqbody.user_id);
-    fdata.append("type_gateway", selectedGateway === "Gateway1" ? "1" : "2");
-    fdata.append("amount", reqbody.amount);
-    fdata.append("transection_id", reqbody.transection_id);
-    fdata.append("Deposit_type", "Null");
-    fdata.append("server_provider", "Null");
-    try {
-      const res = await apiConnectorPost(`${endpoint.payment_request}`, fdata);
-      const qr_url =
-        (res?.data?.data && JSON.parse(res?.data?.data)?.upi_deep_link) || "";
-      // const qr_url = JSON.parse(res?.data?.data) || "";
-      console.log(res);
-      if (qr_url) {
-        setDeposit_req_data(qr_url);
-      } else {
-        res?.data?.msg ? toast(res?.data?.msg) : toast("Something went wrong");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    setloding(false);
-  }
   const initialValuesss = {
-    amount: 10,
+    amount: 101,
   };
 
   const formik = useFormik({
     initialValues: initialValuesss,
     onSubmit: () => {
-      const fd = new FormData();
-      payment(formik.values.amount);
+      const reqbody = {
+        u_req_amount: formik.values.amount,
+        u_gateway_type: "2"
+      }
+      payment(reqbody);
     },
   });
-  async function payment(amnt) {
+  async function payment(reqbody) {
     setloding(true);
-    if (!amnt) {
+    if (!reqbody) {
       toast("Please Enter the amount");
       return;
     }
-    const formdata = {
-      amount: Number(amnt),
-    };
-    const response = await apiConnectorPost(`${endpoint.payment}`, formdata);
-
+    const res = await apiConnectorPost(`${endpoint.payment_inr}`, reqbody);
+    console.log(res)
+    const qr_url =
+      (res?.data?.data && (res?.data?.data)?.payment_link) || "";
+    // const qr_url = JSON.parse(res?.data?.data) || "";
+    console.log(res);
+    if (qr_url) {
+      setDeposit_req_data(qr_url);
+    } else {
+      res?.data?.msg ? toast(res?.data?.msg) : toast("Something went wrong");
+    }
     setloding(false);
   }
   const navigate = useNavigate();
@@ -190,11 +137,11 @@ function Deposite() {
     );
   }, []);
 
-  if (deposit_req_data) {
-    return (
-      <QRScreen deposit_req_data={deposit_req_data} show_time={show_time} />
-    );
-  }
+  // if (deposit_req_data) {
+  //   return (
+  //     <QRScreen deposit_req_data={deposit_req_data} show_time={show_time} />
+  //   );
+  // }
 
   return (
     <Container sx={{ background: "#F7F8FF" }}>
@@ -447,8 +394,8 @@ function Deposite() {
         </Paper>
         <Button
           sx={style.wdbtn}
-          onClick={fk.handleSubmit}
-          className={`${fk.values.amount ? "!bg-[#F48901]" : "!bg-gray-400"}`}
+          onClick={formik.handleSubmit}
+          className={`${formik.values.amount ? "!bg-[#F48901]" : "!bg-gray-400"}`}
         >
           Deposit
         </Button>
