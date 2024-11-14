@@ -38,9 +38,8 @@ function Deposite() {
   const [isAllValue, setIsAllValue] = useState(false);
   const [visibleData, setvisibleData] = useState([]);
   const audioRefMusic = React.useRef(null);
-  const [selectedGateway, setSelectedGateway] = React.useState("");
+  const [OrderData, setOrderData] = React.useState("");
   const [loding, setloding] = useState(false);
-  const [show_time, set_show_time] = React.useState("0_0");
   const [deposit_req_data, setDeposit_req_data] = React.useState();
   const { isLoading: history, data } = useQuery(
     ["deposit_history"],
@@ -94,13 +93,11 @@ function Deposite() {
       return;
     }
     const res = await apiConnectorPost(`${endpoint.payment_inr}`, reqbody);
-    console.log(res)
-    const qr_url =
-      (res?.data?.data && (res?.data?.data)?.payment_link) || "";
-    // const qr_url = JSON.parse(res?.data?.data) || "";
-    console.log(res);
+    const qr_url = (res?.data?.data && (res?.data?.data)?.payment_link) || "";
+    const orderdata = (res?.data?.order_id) || "";
     if (qr_url) {
       setDeposit_req_data(qr_url);
+      setOrderData(orderdata)
     } else {
       res?.data?.msg ? toast(res?.data?.msg) : toast("Something went wrong");
     }
@@ -112,9 +109,9 @@ function Deposite() {
   }, []);
 
 
-  if (deposit_req_data) {
-    window.open(deposit_req_data);
-  }
+  // if (deposit_req_data) {
+  //   window.open(deposit_req_data);
+  // }
 
   const handlePlaySound = async () => {
     try {
@@ -137,11 +134,11 @@ function Deposite() {
     );
   }, []);
 
-  // if (deposit_req_data) {
-  //   return (
-  //     <QRScreen deposit_req_data={deposit_req_data} show_time={show_time} />
-  //   );
-  // }
+  if (deposit_req_data) {
+    return (
+      <QRScreen deposit_req_data={deposit_req_data} OrderData={OrderData}/>
+    );
+  }
 
   return (
     <Container sx={{ background: "#F7F8FF" }}>

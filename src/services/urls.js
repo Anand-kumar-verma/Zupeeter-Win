@@ -38,6 +38,7 @@ export const endpoint = {
   company_promoter_income: `${game_domain}/api/v1/company-promoter-bonus`,
   welcomebonus_income: `${game_domain}/api/v1/welcome-bonus-list`,
   payment_inr: `${game_domain}/api/v1/inr-payin-request`,
+  call_back_url: `${game_domain}/api/v1/inr-payin-request-inr-call-back-user-screen`,
   payment_request: `${game_domain}/api/deposit-request`,
   deposit_history: `${game_domain}/api/v1/deposit-history-inr`,
   deposit_history_usdt: `${game_domain}/api/v1/deposit-history-usdt`,
