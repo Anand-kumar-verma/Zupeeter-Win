@@ -9,10 +9,12 @@ import { endpoint } from "../../../services/urls";
 import { apiConnectorPost } from "../../../services/apiconnector";
 import CustomCircularProgress from "../../../shared/CustomDialogBox";
 import toast from "react-hot-toast";
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import { ClientJS } from 'clientjs';
+
 
 
 const SignUp = () => {
+  const client = new ClientJS();
   const navigate = useNavigate();
   const [loding, setloding] = useState(false);
   const [visitorId, setVisitorId] = useState(null);
@@ -67,13 +69,15 @@ const SignUp = () => {
 useEffect(() => {
   // Initialize FingerprintJS and fetch the visitor ID
   const fetchVisitorId = async () => {
-    const fp = await FingerprintJS.load();
-    const result = await fp.get();
-    setVisitorId(result.visitorId);
+    const fingerprint = client.getFingerprint();
+    // const result = await fp.get();
+    setVisitorId(fingerprint);
+    // console.log(fingerprint);
   };
 
+
   fetchVisitorId().catch(console.error);
-}, []); 
+}, []);
 
   const { data } = useQuery(
     ["getname", fk.values.refid],

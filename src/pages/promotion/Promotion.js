@@ -1,4 +1,3 @@
-import { DashboardRounded } from "@mui/icons-material";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 import Groups2OutlinedIcon from "@mui/icons-material/Groups2Outlined";
@@ -19,7 +18,7 @@ import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
 
 function Promotion() {
-  const { data } = useQuery(
+  const { isLoading, data } = useQuery(
     ["yesterday_income"],
     () => apiConnectorGet(endpoint?.yesterday_income),
     {
@@ -29,17 +28,6 @@ function Promotion() {
     }
   );
   const result = data?.data?.data || [];
-
-  const { isLoading, data: level } = useQuery(
-    ["get_level_general"],
-    () => apiConnectorGet(endpoint?.get_level_general),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const get = level?.data?.data?.[0] || [];
 
   const functionTOCopy = (value) => {
     copy(value);

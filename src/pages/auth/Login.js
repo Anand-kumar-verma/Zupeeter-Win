@@ -1,4 +1,3 @@
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
@@ -35,9 +34,10 @@ import password from "../../assets/images/password.png";
 import phoneaa from "../../assets/images/phoneaa.png";
 import { storeCookies } from "../../services/apiCallings";
 import { endpoint } from "../../services/urls";
-import { deCryptData } from "../../shared/secret";
+import { ClientJS } from 'clientjs';
 
 function Login() {
+  const client = new ClientJS();
   const [visitorId, setVisitorId] = useState(null);
   const [value, setValue] = useState("one");
   const navigate = useNavigate();
@@ -139,10 +139,12 @@ function Login() {
   useEffect(() => {
     // Initialize FingerprintJS and fetch the visitor ID
     const fetchVisitorId = async () => {
-      const fp = await FingerprintJS.load();
-      const result = await fp.get();
-      setVisitorId(result.visitorId);
+      const fingerprint = client.getFingerprint();
+      // const result = await fp.get();
+      setVisitorId(fingerprint);
+      // console.log(fingerprint);
     };
+ 
 
     fetchVisitorId().catch(console.error);
   }, []);

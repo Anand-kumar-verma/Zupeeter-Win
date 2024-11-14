@@ -78,7 +78,6 @@ export const getBalanceFunction = async (setBalance) => {
 };
 
 
-
 export const registrationBonusFn = async (type) => {
   try {
     const reqBody = {

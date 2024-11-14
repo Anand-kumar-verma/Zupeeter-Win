@@ -23,7 +23,7 @@ import zp from "../../assets/zptoken.png";
 import Layout from "../../component/layout/Layout";
 import { ProfileDataFunction, logOutFunction } from "../../services/apiCallings";
 import { apiConnectorGet } from "../../services/apiconnector";
-import { endpoint, front_end_domain } from "../../services/urls";
+import { endpoint, front_end_domain, game_domain } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { deCryptData } from "../../shared/secret";
 import ImageSelectorModal from "./ImageSelectorModal";
@@ -69,22 +69,43 @@ function Account() {
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
 
+  // async function sendUrlCallBackToBackend(transactionId) {
+  //   try {
+  //     const res = await axios.get(
+  //       `${endpoint?.payin_response_akash}?orderid=${transactionId}`
+  //     );
+
+  //     if (res?.data?.status === "200") {
+  //       window.location.href = `${front_end_domain}/account`
+  //     }
+  //     console.log(res);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+//   client.removeQueries("profile");
+//   client.removeQueries("wallet_amount_amount");
+// }
   async function sendUrlCallBackToBackend(transactionId) {
     try {
       const res = await axios.get(
-        `${endpoint?.payin_response_akash}?orderid=${transactionId}`
+        `${game_domain}/api/deposit-collback?order_id=${transactionId}`
       );
-
       if (res?.data?.status === "200") {
-        window.location.href = `${front_end_domain}/account`
+        window.location.href = `${front_end_domain}/account`;
       }
-      console.log(res);
     } catch (e) {
       console.log(e);
-    }
+    }  
     client.removeQueries("profile");
     client.removeQueries("wallet_amount_amount");
   }
+  // useEffect(() => {
+  //   client.removeQueries("profile");
+  //   client.removeQueries("wallet_amount_amount");
+  //   if (transactionId) {
+  //     sendUrlCallBackToBackend(transactionId);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (transactionId) {

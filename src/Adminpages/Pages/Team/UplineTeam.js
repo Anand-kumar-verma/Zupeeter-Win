@@ -1,20 +1,15 @@
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { Button, TablePagination, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 import { getUplineTeam } from "../../Services";
 import CustomTable from "../../Shared/CustomTable";
 
 const UplineTeam = () => {
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [page, setPage] = useState(0);
-    const [visibleRows, setVisibleRows] = useState([]);
     const [search, setSearch] = useState("");
     const [downlinedata, setdownlinedata] = useState([]);
     const [loding, setloding] = useState(false);
-    const client = useQueryClient();
-
     const getUplineTeamfunction = async (value) => {
         setloding(true)
         try {
@@ -30,20 +25,9 @@ const UplineTeam = () => {
         setloding(false)
     }
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    useEffect(() => {
-        setVisibleRows(
-            downlinedata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        );
-    }, [page, rowsPerPage, downlinedata]);
+  useEffect(()=>{
+    getUplineTeamfunction()
+  },[])
 
     const tablehead = [
         <span>S.No.</span>,
@@ -55,7 +39,7 @@ const UplineTeam = () => {
         <span>Type</span>
     ];
 
-    const tablerow = visibleRows.map((i, index) => [
+    const tablerow = downlinedata?.map((i, index) => [
         <span>{index + 1}</span>,
         <span>{i?.level_id}</span>,
         <span>{i?.username}</span>,
@@ -95,15 +79,7 @@ const UplineTeam = () => {
                 tablerow={tablerow}
                 isLoading={loding}
             />
-            <TablePagination
-                rowsPerPageOptions={[8, 10, 20, 50]}
-                component="div"
-                count={downlinedata.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+         
         </div>
     );
 };

@@ -7,13 +7,9 @@ import { getDownlineTeam } from "../../Services";
 import CustomTable from "../../Shared/CustomTable";
 
 const DownlineTeam = () => {
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [page, setPage] = useState(0);
-    const [visibleRows, setVisibleRows] = useState([]);
     const [search, setSearch] = useState("");
     const [downlinedata, setdownlinedata] = useState([]);
     const [loding, setloding] = useState(false);
-    const client = useQueryClient();
 
     const getDownlineTeamfunction = async (value) => {
         setloding(true)
@@ -30,20 +26,9 @@ const DownlineTeam = () => {
         setloding(false)
     }
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    useEffect(() => {
-        setVisibleRows(
-            downlinedata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        );
-    }, [page, rowsPerPage, downlinedata]);
+    useEffect(()=>{
+        getDownlineTeamfunction()
+    },[])
 
     const tablehead = [
         <span>S.No.</span>,
@@ -55,7 +40,7 @@ const DownlineTeam = () => {
         <span>Type</span>
     ];
 
-    const tablerow = visibleRows.map((i, index) => [
+    const tablerow = downlinedata?.map((i, index) => [
         <span>{index + 1}</span>,
         <span>{i?.level_id}</span>,
         <span>{i?.username}</span>,
@@ -95,15 +80,7 @@ const DownlineTeam = () => {
                 tablerow={tablerow}
                 isLoading={loding}
             />
-            <TablePagination
-                rowsPerPageOptions={[8, 10, 20, 50]}
-                component="div"
-                count={downlinedata.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+      
         </div>
     );
 };
