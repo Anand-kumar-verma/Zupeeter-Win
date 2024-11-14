@@ -85,7 +85,9 @@ function Depositehistory() {
             className={
               value === 2 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(2)}
+            onClick={() => {handleChange(2)
+              navigate('/depositehistory')
+            }}
           >
             {value === 2 ?
               <Box component='img' src={bankcardinactive} width={20} mr={1}></Box>
@@ -98,9 +100,11 @@ function Depositehistory() {
             className={
               value === 3 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(3)}
+            onClick={() => {handleChange(3)
+              navigate('/zpdeposit')
+            }}
           >
-            <Box component='img' src={zp} width={20} mr={1}></Box>
+            <Box component='img' src={zp} width={20} mr={1} ></Box>
                ZP  
           </Button>
         </Stack>
@@ -188,7 +192,7 @@ function Depositehistory() {
                 Type
               </Typography>
               <Typography variant="body1" color="initial">
-                {i?.type}
+                {i?.Deposit_type}
               </Typography>
             </Stack>
             <Stack

@@ -22,7 +22,7 @@ const AddCompany = () => {
     enableReinitialize: true,
     onSubmit: () => {
       if (!fk.values.set_prcnt)
-        return toast("Select Percentage");
+        return toast("Enter Percentage");
       CompanyAdd(fk.values);
     },
   });

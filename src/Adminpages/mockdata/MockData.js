@@ -379,6 +379,39 @@ export const all_Data = [
   },
   {
     id: 11,
+    navLink: "/inr_Paying",
+    navItem: "INR",
+    navIcon: (
+      <span>
+        <Games color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [
+      {
+        id: 11.1,
+        navLink: "/inr_Paying",
+        navItem: "INR Paying",
+        navIcon: (
+          <span>
+            <PlayCircleFilledSharp color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      // {
+      //   id: 11.2,
+      //   navLink: "/inr_Payout",
+      //   navItem: "INR Payout",
+      //   navIcon: (
+      //     <span>
+      //       <ColorizeRounded color="#15317E" fontSize="medium" />
+      //     </span>
+      //   ),
+      // },
+
+    ],
+  },
+  {
+    id: 11,
     navLink: "/zp_token",
     navItem: "Zp Token",
     navIcon: (

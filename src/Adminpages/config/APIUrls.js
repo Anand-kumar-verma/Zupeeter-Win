@@ -13,6 +13,8 @@ export const API_URLS = {
     user_list: `/api/v1/user-list`,
     token_zp: `/api/v1/zp-token-payin-admin`,
     token_zp_payout: `/api/v1/zp-token-payout-admin`,
+    inr_payingdata: `/api/v1/gt-inr-fund-request-list`,
+
     update_user_status: `/api/v1//update-user-status`,
     wingo_result_api: `/api/v1/update-wingo-result`,
     add_fund: `/api/v1/add-fund-to-user`,
@@ -53,6 +55,7 @@ export const API_URLS = {
     avaitor_chart: `/api/v1/user-aviator-status-area-chart`,
     bonus_set: `/api/v1/set-income-amount`,
     zp_Amount: `/api/v1/set-zp-amount`,
+    private_key_data: `/api/v1/aasdfjasfasjfhkjahfkjhaskdaf-ajdfhafjkljhf-ajsfhkahkljdasfhkl`,
     coupon: `/api/v1/get-admin-coupon-list`,
     add_coupon: `/api/v1/add-admin-coupon-list`,
     update_coupon_record: `/api/v1/update-admin-coupon-list?t_id=`,

@@ -1,4 +1,4 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { History } from "@mui/icons-material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import {
   Box,
@@ -11,8 +11,7 @@ import {
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import { useFormik } from "formik";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -24,40 +23,18 @@ import audiovoice from "../../../assets/images/bankvoice.mp3";
 import cip from "../../../assets/images/cip.png";
 import user from "../../../assets/images/instruction.png";
 import refresh from "../../../assets/images/refwhite.png";
-import withdravalhistory from "../../../assets/images/withdrawalhistory.png";
 import zp from "../../../assets/images/zptoken.png";
-import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import theme from "../../../utils/theme";
-import { History } from "@mui/icons-material";
 import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
-import { deCryptData } from "../../../shared/secret";
+import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
+import theme from "../../../utils/theme";
 import QRScreen from "./QRScreen";
 function Deposite() {
-  const user_id = deCryptData(localStorage.getItem("user_id"));
-  const [isAllValue, setIsAllValue] = useState(false);
-  const [visibleData, setvisibleData] = useState([]);
   const audioRefMusic = React.useRef(null);
   const [OrderData, setOrderData] = React.useState("");
   const [loding, setloding] = useState(false);
   const [deposit_req_data, setDeposit_req_data] = React.useState();
-  const { isLoading: history, data } = useQuery(
-    ["deposit_history"],
-    () => apiConnectorGet(endpoint.deposit_history),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
 
-  const res = data?.data?.data || [];
-
-  useEffect(() => {
-    isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
-  }, [isAllValue, res]);
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
@@ -143,7 +120,7 @@ function Deposite() {
   return (
     <Container sx={{ background: "#F7F8FF" }}>
       {audio}
-      <CustomCircularProgress isLoading={isLoading || loding || history} />
+      <CustomCircularProgress isLoading={isLoading || loding } />
       <Box
         sx={{
           background:
@@ -493,184 +470,7 @@ function Deposite() {
         </Box>
       </Box>
 
-      <Stack direction="row" sx={{ alignItems: "center", margin: "20px" }}>
-        <Box component="img" src={withdravalhistory} width={30}></Box>
-        <Typography
-          variant="body1"
-          color="initial"
-          sx={{
-            fontSize: "15px ",
-            color: "#888",
-            ml: "10px",
-            fontWeight: "600",
-          }}
-        >
-          Deposit history
-        </Typography>
-      </Stack>
-
-      {visibleData?.map((i, index) => {
-        return (
-          <Box
-            key={index}
-            sx={{
-              mb: 2,
-              padding: "10px",
-              borderRadius: "10px",
-              background: "#fff",
-              width: "92%",
-              margin: "auto",
-              mt: 2,
-            }}
-          >
-            <Stack
-              direction="row"
-              sx={{
-                paddingBottom: "10px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderBottom: "1px solid #efefef",
-              }}
-            >
-              <Box>
-                <Typography className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center">
-                  Deposit
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  color: "#888",
-                  textTransform: "capitalize",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                {i?.tr15_status}
-              </Box>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p:nth-child(1)": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-                "&>p:nth-child(2)": {
-                  color: theme.palette.primary.main,
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Balance
-              </Typography>
-              <Typography variant="body1">₹ {i?.tr15_amt}</Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Type
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {i?.type}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Time
-              </Typography>
-              <Typography
-                variant="body1"
-                color="initial"
-                className="!text-green-500"
-              >
-                {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Order number
-              </Typography>
-              <Stack
-                direction="row"
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  "&>p:nth-child(1)": {
-                    color: "#888",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    py: 1,
-                  },
-                  "&>p:nth-child(2)": {
-                    color: theme.palette.primary.main,
-                    fontSize: "13px",
-                    fontWeight: "600",
-                  },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  {i?.tr15_trans}
-                </Typography>
-                <IconButton sx={{ padding: 0 }}>
-                  <ContentCopyIcon
-                    sx={{ color: "#888", width: "15px", ml: 1 }}
-                  />
-                </IconButton>
-              </Stack>
-            </Stack>
-          </Box>
-        );
-      })}
-
-      <Button
-        sx={style.paytmbtntwo}
-        variant="outlined"
-        onClick={() => setIsAllValue(!isAllValue)}
-      >
-        {isAllValue ? "Show Less" : " All history"}
-      </Button>
+  
     </Container>
   );
 }

@@ -28,6 +28,8 @@ import TeamReferral from "../Adminpages/Pages/genealogy/TeamRefferral";
 import VipBonus from "../Adminpages/Pages/genealogy/VipBonus";
 import WeeklyBonus from "../Adminpages/Pages/genealogy/WeeklyBonus";
 import WelcomeBonus from "../Adminpages/Pages/genealogy/Welcomebonus";
+import INRPaying from "../Adminpages/Pages/INRPayment/INRPaying";
+import INRPayout from "../Adminpages/Pages/INRPayment/INRPayout";
 import Master from "../Adminpages/Pages/Master/MAster";
 import UserPermission from "../Adminpages/Pages/Permission/Userpermission";
 import LogInApproval from "../Adminpages/Pages/player/LogInApproval";
@@ -325,6 +327,18 @@ export const adminroutes = [
     path: "/satta_ghaziyabad",
     component: <GhaziabadResult/>,
     navItem: "Ghaziabad",
+  },
+  {
+    id: 42,
+    path: "/inr_Paying",
+    component: <INRPaying/>,
+    navItem: "INR Paying",
+  },
+  {
+    id: 43,
+    path: "/inr_Payout",
+    component: <INRPayout/>,
+    navItem: "INR Payout",
   },
 ];
 

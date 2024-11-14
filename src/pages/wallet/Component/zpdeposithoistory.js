@@ -60,7 +60,7 @@ function Zpdeposithistory() {
             </Box>
           </NavLink>
           <Box sx={{ position: 'absolute', left: '30%', top: '10%' }}>
-            <Typography variant="body1" sx={{ color: 'white', fontSize: '16px', fontWeight: '600' }}>Deposit history</Typography>
+            <Typography variant="body1" sx={{ color: 'white', fontSize: '16px', fontWeight: '600' }}>ZP Deposit history</Typography>
           </Box>
           <NavLink >
           </NavLink>
@@ -85,7 +85,9 @@ function Zpdeposithistory() {
             className={
               value === 2 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(2)}
+            onClick={() => {handleChange(2)
+              navigate('/depositehistory')
+            }}
           >
             {value === 2 ?
               <Box component='img' src={bankcardinactive} width={20} mr={1}></Box>
@@ -98,13 +100,16 @@ function Zpdeposithistory() {
             className={
               value === 3 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(3)}
+            onClick={() => {handleChange(3)
+              navigate('/zpdeposit')
+            }}
           >
-            <Box component='img' src={zp} width={20} mr={1}></Box>
+            <Box component='img' src={zp} width={20} mr={1} ></Box>
                ZP  
           </Button>
         </Stack>
       </Box>
+
 
       {visibleData?.map((i, index) => {
         return (
