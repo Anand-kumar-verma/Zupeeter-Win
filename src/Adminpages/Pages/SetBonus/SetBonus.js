@@ -91,7 +91,7 @@ const SetBonus = () => {
         setLoading1(true);
         const reqbody = {
             t_id: id,
-            updateZPPVTKEY: String(key[id]) || 0,
+            pvt_key: String(key[id]) || 0,
         };
         try {
             const res = await axiosInstance.post(`${API_URLS?.private_key_data}`,

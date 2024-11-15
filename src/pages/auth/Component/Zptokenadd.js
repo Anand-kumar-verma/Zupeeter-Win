@@ -149,10 +149,9 @@ function Zptokenadd() {
       setLoding(false);
       return;
     }
-
-    if (!fk.values.inr_value) {
+    if (!fk.values.inr_value || fk.values.inr_value < 100) {
       setLoding(false);
-      return toast("Enter Your Amount.");
+      return toast("Enter Amount, Greater than 100");
     }
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();

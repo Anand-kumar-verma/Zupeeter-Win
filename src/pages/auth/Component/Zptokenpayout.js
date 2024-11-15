@@ -336,7 +336,7 @@ function ZptokenPayout() {
         </Paper>
         <Button
           sx={style.wdbtn1}
-          // onClick={PayinZp}
+          onClick={PayinZp}
           className="!bg-[#F48901]"
         >
           Confirm
