@@ -39,7 +39,7 @@ function Withdrawlhistory() {
     }
   );
 
-  const res = data?.data?.earning?.info || [];
+  const res = data?.data?.data || [];
 
   const navigate = useNavigate();
   const goBack = () => {
@@ -104,7 +104,9 @@ function Withdrawlhistory() {
             className={
               value === 2 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(2)}
+            onClick={() => {handleChange(2)
+              navigate("/withdrawlhistory")}
+            }
           >
             {value === 2 ? (
               <Box
@@ -122,7 +124,9 @@ function Withdrawlhistory() {
             className={
               value === 3 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(3)}
+            onClick={() =>{ handleChange(3)
+              navigate("/zpwithdraw")}
+            }
           >
             <Box component="img" src={zp} width={20} mr={1}></Box>
             ZP 
@@ -185,7 +189,7 @@ function Withdrawlhistory() {
                   fontWeight: "600",
                 }}
               >
-                {i?.call_back_status}
+                {i?.tr15_status}
               </Box>
             </Stack>
             <Stack
@@ -210,7 +214,7 @@ function Withdrawlhistory() {
               <Typography variant="body1" color="initial">
                 Balance
               </Typography>
-              <Typography variant="body1">₹ {i?.amount}</Typography>
+              <Typography variant="body1">₹ {i?.tr15_amt}</Typography>
             </Stack>
             <Stack
               direction="row"
@@ -229,9 +233,7 @@ function Withdrawlhistory() {
                 Type
               </Typography>
               <Typography variant="body1" color="initial">
-                {i?.withdrawal_type === "USDT" ?
-                "ZP Token" :
-                i?.withdrawal_type}
+                {i?.Deposit_type}
               </Typography>
             </Stack>
             <Stack
@@ -293,7 +295,7 @@ function Withdrawlhistory() {
                 }}
               >
                 <Typography variant="body1" color="initial">
-                  {i?.transaction_no}
+                  {i?.tr15_trans}
                 </Typography>
                 <IconButton sx={{ padding: 0 }}>
                   <ContentCopyIcon

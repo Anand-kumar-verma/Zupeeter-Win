@@ -33,9 +33,9 @@ function ZpWithdrawlhistory() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false
     }
   );
 
@@ -104,7 +104,11 @@ function ZpWithdrawlhistory() {
             className={
               value === 2 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(2)}
+            onClick={() => {
+              handleChange(2)
+              navigate('/withdrawlhistory')
+            }
+            }
           >
             {value === 2 ? (
               <Box
@@ -122,15 +126,19 @@ function ZpWithdrawlhistory() {
             className={
               value === 3 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => handleChange(3)}
+            onClick={() => {
+              handleChange(3)
+              navigate('/zpwithdraw')
+            }
+            }
           >
             <Box component="img" src={zp} width={20} mr={1}></Box>
-            ZP 
+            ZP
           </Button>
         </Stack>
       </Box>
       <CustomCircularProgress isLoading={isLoading} />
-  
+
       {visibleData?.map((i, index) => {
         return (
           <Box
@@ -154,9 +162,9 @@ function ZpWithdrawlhistory() {
                 borderBottom: "1px solid #efefef",
               }}
             >
-          <Box>
+              <Box>
                 <Typography
-                 className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
+                  className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
                 >
                   Withdrawl
                 </Typography>
@@ -197,17 +205,17 @@ function ZpWithdrawlhistory() {
               <Typography variant="body1">₹ {i?.tr15_amt}</Typography>
             </Stack>
             <Stack
-               direction="row"
-               sx={{
-                 alignItems: "center",
-                 justifyContent: "space-between",
-                 "&>p": {
-                   color: "#888",
-                   fontSize: "13px",
-                   fontWeight: "600",
-                   py: 1,
-                 },
-               }}
+              direction="row"
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                "&>p": {
+                  color: "#888",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  py: 1,
+                },
+              }}
             >
               <Typography variant="body1" color="initial">
                 Token
@@ -272,7 +280,7 @@ function ZpWithdrawlhistory() {
               }}
             >
               <Typography variant="body1" color="initial">
-               Tansaction Hash
+                Tansaction Hash
               </Typography>
               <Stack
                 direction="row"
@@ -293,10 +301,10 @@ function ZpWithdrawlhistory() {
                 }}
               >
                 <Typography variant="body1" color="initial">
-                {i?.transaction_hash?.substring(0,25)} 
-                  <br/>
-                  {i?.transaction_hash?.substring(25,48)}
-                  <br/>
+                  {i?.transaction_hash?.substring(0, 25)}
+                  <br />
+                  {i?.transaction_hash?.substring(25, 48)}
+                  <br />
                   {i?.transaction_hash?.substring(48)}
                 </Typography>
                 <IconButton sx={{ padding: 0 }}>
