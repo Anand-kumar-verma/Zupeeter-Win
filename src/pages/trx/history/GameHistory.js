@@ -121,10 +121,14 @@ const GameHistory = ({ gid }) => {
             {visibleRows?.map((i) => {
               return (
                 <TableRow className="!w-[95%]">
-                  <TableCell
+                  <TableCell 
                     sx={{ verticalAlign: "bottom", textAlign: "center" }}
                   >
-                    <p>{i?.tr_transaction_id}</p>
+                    {i?.tr_transaction_id
+                      ? i.tr_transaction_id?.split("@")?.[0]?.substring(0, 3) +
+                      "**" +
+                     i?.tr_transaction_id?.split("@")?.[0]?.substring(i?.tr_transaction_id?.split("@")?.[0]?.length - 4): "**" }
+                    {/* <p>{i?.tr_transaction_id}</p> */}
                   </TableCell>
                   <TableCell sx={{ verticalAlign: "top", textAlign: "center" }}>
                     <Stack>
