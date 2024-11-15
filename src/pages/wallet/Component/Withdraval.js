@@ -1,6 +1,5 @@
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import LockIcon from "@mui/icons-material/Lock";
 import {
   Box,
   Button,
@@ -11,7 +10,6 @@ import {
 } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
-import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -30,6 +28,7 @@ import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnecto
 import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
+import { History } from "@mui/icons-material";
 function Withdraval() {
   const client = useQueryClient();
   const audioRefMusic = React.useRef(null);
@@ -163,7 +162,7 @@ function Withdraval() {
               variant="body1"
               sx={{ color: "white", fontSize: "16px", fontWeight: "600" }}
             >
-              Withdraw
+              Withdrawal
             </Typography>
           </Box>
           <NavLink to="/withdrawlhistory">
@@ -172,7 +171,7 @@ function Withdraval() {
               color="initial"
               sx={{ fontSize: "11px", color: "white" }}
             >
-              Withdrawal history
+              <History/>
             </Typography>
           </NavLink>
         </Stack>
@@ -605,7 +604,7 @@ const style = {
     fontWeight: "700",
     fontSize: "15px",
     height: "0.93333rem",
-    width: "100%",
+    // width: "100%",
     // background:
     //   "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
     backgroundSize: "100% 100%, 100% 100%",

@@ -85,37 +85,7 @@ function Account() {
 //   client.removeQueries("profile");
 //   client.removeQueries("wallet_amount_amount");
 // }
-  async function sendUrlCallBackToBackend(transactionId) {
-    try {
-      const res = await axios.get(
-        `${game_domain}/api/deposit-collback?order_id=${transactionId}`
-      );
-      if (res?.data?.status === "200") {
-        window.location.href = `${front_end_domain}/account`;
-      }
-    } catch (e) {
-      console.log(e);
-    }  
-    client.removeQueries("profile");
-    client.removeQueries("wallet_amount_amount");
-  }
-  // useEffect(() => {
-  //   client.removeQueries("profile");
-  //   client.removeQueries("wallet_amount_amount");
-  //   if (transactionId) {
-  //     sendUrlCallBackToBackend(transactionId);
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    if (transactionId) {
-      sendUrlCallBackToBackend(transactionId);
-    }
-  }, []);
-
  
-
-
 return (
   <Layout header={false}>
     <Container>

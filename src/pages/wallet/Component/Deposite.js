@@ -29,6 +29,9 @@ import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
 import QRScreen from "./QRScreen";
+import data from "../../../assets/images/payment.png";
+
+
 function Deposite() {
   const audioRefMusic = React.useRef(null);
   const [OrderData, setOrderData] = React.useState("");
@@ -278,7 +281,7 @@ function Deposite() {
         className="!cursor-pointer"
       >
         <Stack direction="row" sx={{ alignItems: "center", mb: "20px" }}>
-          <Box component="img" src={payment} width={30}></Box>
+          <Box component="img" src={data} width={30}></Box>
           <Typography
             variant="body1"
             color="initial"

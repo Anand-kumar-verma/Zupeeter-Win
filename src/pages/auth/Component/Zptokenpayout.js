@@ -1,15 +1,14 @@
 import { History } from "@mui/icons-material";
 import {
-    Box,
-    Button,
-    Container,
-    IconButton,
-    InputBase,
-    Paper,
-    Stack,
-    Typography
+  Box,
+  Button,
+  Container,
+  IconButton,
+  InputBase,
+  Paper,
+  Stack,
+  Typography
 } from "@mui/material";
-import { ethers } from "ethers";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -23,19 +22,15 @@ import cip from "../../../assets/images/cip.png";
 import payment from "../../../assets/images/payment.png";
 import refresh from "../../../assets/images/refwhite.png";
 import { apiConnectorGetWithoutToken, apiConnectorPOSTWithoutToken } from "../../../services/apiconnector";
-import { endpoint, tokenContractAddress } from "../../../services/urls";
+import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
 
-const tokenABI = [
-  "function balanceOf(address owner) view returns (uint256)",
-  "function transfer(address to, uint256 amount) returns (bool)",
-];
 function ZptokenPayout() {
-    const location = useLocation();
-    const params = new URLSearchParams(location?.search);
-    const tokenParam = params?.get("token");
+  const location = useLocation();
+  const params = new URLSearchParams(location?.search);
+  const tokenParam = params?.get("token");
   const audioRefMusic = React.useRef(null);
   const [address, setAddress] = useState();
   const [transactionhash, setTransactionHash] = useState();
@@ -88,14 +83,7 @@ function ZptokenPayout() {
           method: "eth_requestAccounts",
         });
         const userAccount = accounts[0];
-        setAddress(userAccount);
-        // Create a provider
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const tokenContract = new ethers.Contract(
-          tokenContractAddress,
-          tokenABI,
-          provider
-        );
+        setAddress(userAccount);     
       } catch (error) {
         toast("Error connecting...", error);
       }
@@ -378,7 +366,7 @@ const style = {
     fontWeight: "700",
     fontSize: "15px",
     height: "0.93333rem",
-    width: "100%",
+    // width: "100%",
     backgroundPosition: "center, center",
     backgroundRepeat: "no-repeat, no-repeat",
     textShadow: "0 0.02667rem 0.01333rem #afb0be",
@@ -395,7 +383,7 @@ const style = {
     fontWeight: "700",
     fontSize: "15px",
     height: "0.93333rem",
-    width: "100%",
+    // width: "100%",
     // background:
     //   "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
     backgroundSize: "100% 100%, 100% 100%",
