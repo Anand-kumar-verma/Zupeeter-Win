@@ -1,4 +1,3 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LockIcon from "@mui/icons-material/Lock";
@@ -14,8 +13,7 @@ import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { useFormik } from "formik";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "react-query";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -26,76 +24,19 @@ import backbtn from "../../../assets/images/backBtn.png";
 import bankicon from "../../../assets/images/bankicon.png";
 import cip from "../../../assets/images/cip.png";
 import refresh from "../../../assets/images/refwhite.png";
-import withdravalhistory from "../../../assets/images/withdrawalhistory.png";
 import withdrawol_voice from "../../../assets/images/withdrawol_voice.mp3";
 import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet } from "../../../services/apiconnector";
+import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import { deCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
 function Withdraval() {
   const client = useQueryClient();
-  const user_id = deCryptData(localStorage.getItem("user_id"));
   const audioRefMusic = React.useRef(null);
-  const [isAllValue, setIsAllValue] = useState(false);
-  const [visibleData, setvisibleData] = useState([]);
   const navigate = useNavigate();
   const [loding, setloding] = useState(false);
-  const [status, setStatus] = useState({});
-  const initialValue = {
-    amount: "",
-    t_password: "",
-  };
 
-  const fk = useFormik({
-    initialValues: initialValue,
-    enableReinitialize: true,
-    onSubmit: () => {
-      if (Number(fk.values.amount) > 10000)
-        return toast("Amount should be less 10,000");
-      const reqBody = {
-        userid: user_id,
-        txtamount: fk.values.amount,
-        pwd: fk.values.t_password,
-        txttype: "2",
-      };
-      // console.log(reqBody);
-      if (!reqBody.txtamount) return toast("Plese enter all data");
-      if (status?.withdrawal_status === "0")
-        return toast(
-          <span className=" !text-red-600 rounded-lg p-2">
-            We are currently working on ZP token integration, leading to the
-            temporary suspension of our payment gateway services. We apologize
-            for any inconvenience caused. Please bear with us until the next
-            update. Thank you for your understanding.
-          </span>
-        );
-      withdraolFunction(reqBody);
-    },
-  });
-
-  async function withdraolFunction(reqBody) {
-    setloding(true);
-    try {
-      const res = await axios.post(endpoint?.wallet_withdrawl, reqBody);
-      toast(res?.data?.earning?.msg);
-      client.refetchQueries("wallet_amount");
-      client.refetchQueries("withdrawl_history");
-      client.refetchQueries("wallet_amount_amount");
-      client.refetchQueries("profile");
-      // navigate("/account");
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
-    setloding(false);
-  }
-
-  const goBack = () => {
-    navigate(-1);
-  };
-  const { isLoading: getbalance, data: wallet_amount } = useQuery(
+  const {  data: wallet_amount } = useQuery(
     ["wallet_amount"],
     () => apiConnectorGet(endpoint?.get_balance),
     {
@@ -108,39 +49,63 @@ function Withdraval() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-  const { isLoading, data } = useQuery(
-    ["withdrawl_history"],
-    () => apiConnectorGet(endpoint.withdrwal_history),
+  const initialValue = {
+    amount: "",
+    bank_id: "",
+  };
+
+  const fk = useFormik({
+    initialValues: initialValue,
+    enableReinitialize: true,
+    onSubmit: () => {
+      const data = bank?.[0];
+      if (!data) return toast("Bank Not Added.");
+      const reqBody = {
+        bank_id: data?.id,
+        u_req_amount : fk.values.amount,
+      };
+      // console.log(reqBody);
+      if (!reqBody.u_req_amount ) return toast("Plese enter all data");
+      // if (status?.withdrawal_status === "0")
+      //   return toast(
+      //     <span className=" !text-red-600 rounded-lg p-2">
+      //       We are currently working on ZP token integration, leading to the
+      //       temporary suspension of our payment gateway services. We apologize
+      //       for any inconvenience caused. Please bear with us until the next
+      //       update. Thank you for your understanding.
+      //     </span>
+      //   );
+      withdraolFunction(reqBody);
+    },
+  });
+
+  async function withdraolFunction(reqBody) {
+    setloding(true);
+    try {
+      const res = await apiConnectorPost(endpoint?.wallet_withdrawl, reqBody);
+      toast(res?.data?.msg);
+      client.refetchQueries("wallet_amount");
+      client.refetchQueries("withdrawl_history");
+      client.refetchQueries("profile");
+      // navigate("/account");
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+    setloding(false);
+  }
+
+  const {data } = useQuery(
+    ["bank_list_details"],
+    () => apiConnectorGet(endpoint?.user_bank_details),
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false
     }
   );
+  const bank = React.useMemo(() => data?.data?.data, [data]);
 
-  const res = data?.data?.data || [];
-
-  const { data: game_history } = useQuery(
-    ["bank_details"],
-    () => apiConnectorGet(endpoint?.bank_details),
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      retryOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-  const game_history_data = React.useMemo(
-    () => game_history?.data?.data?.[0],
-    [game_history?.data?.data]
-  );
-
-  useEffect(() => {
-    isAllValue ? setvisibleData(res) : setvisibleData(res?.slice(0, 3));
-  }, [isAllValue, res]);
 
   React.useEffect(() => {
     handlePlaySound();
@@ -170,7 +135,7 @@ function Withdraval() {
   return (
     <Container sx={{ background: "#F7F8FF" }}>
       {audio}
-      <CustomCircularProgress isLoading={isLoading || getbalance || loding} />
+      <CustomCircularProgress isLoading={ loding} />
       <Box
         sx={{
           background:
@@ -235,7 +200,7 @@ function Withdraval() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              {/* ₹ {wallet_amount_data || 0} */}
+              ₹ {wallet_amount_data?.wallet || 0}
             </Typography>
             <Box
               component="img"
@@ -339,7 +304,7 @@ function Withdraval() {
               color="initial"
               sx={{ fontSize: "15px", fontWeight: "500", mt: 1 }}
             >
-              {game_history_data?.BANKNAME?.substring(0, 8) + "****"}
+              {bank?.[0]?.bank_name?.substring(0, 8) + "****"}
             </Typography>
           </Box>
           <Stack
@@ -353,7 +318,7 @@ function Withdraval() {
               color="initial"
               sx={{ fontSize: "13px", fontWeight: "600" }}
             >
-              {game_history_data?.account_number?.substring(0, 5) + "****"}
+              {bank?.[0]?.account?.substring(0, 5) + "****"}
             </Typography>
             <KeyboardArrowRightIcon />
           </Stack>
@@ -394,33 +359,7 @@ function Withdraval() {
             inputProps={{ "aria-label": "search google maps" }}
           />
         </Paper>
-        <Paper
-          component="form"
-          sx={{
-            marginTop: "3px",
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            background: "#F2F2F2",
-            borderRadius: "20px",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
-          <IconButton sx={{ p: "10px" }} aria-label="menu">
-            <LockIcon sx={{ color: theme.palette.primary.main }} />
-          </IconButton>
-          <InputBase
-            id="t_password"
-            name="t_password"
-            type="password"
-            onChange={fk.handleChange}
-            value={fk.values.t_password}
-            sx={{ px: 1, flex: 1, borderLeft: "1px solid #888" }}
-            placeholder="Transaction Password"
-            inputProps={{ "aria-label": "search google maps" }}
-          />
-        </Paper>
+       
         <Stack
           direction="row"
           alignItems="center"
@@ -444,7 +383,7 @@ function Withdraval() {
                 ml: 1,
               }}
             >
-              {/* ₹{wallet_amount_data || 0} */}
+              ₹{wallet_amount_data?.winning || 0}
             </Typography>
           </Stack>
 
@@ -490,7 +429,7 @@ function Withdraval() {
         <Button
           sx={style.wdbtn}
           className={`${
-            fk.values.amount || fk.values.t_password
+            fk.values.amount 
               ? "!bg-[#F39E2A]"
               : "!bg-gray-400"
           }`}
@@ -608,186 +547,7 @@ function Withdraval() {
             </Typography>
           </Stack>
         </Box>
-      </Box>
-
-      <Stack direction="row" sx={{ alignItems: "center", margin: "20px" }}>
-        <Box component="img" src={withdravalhistory} width={30}></Box>
-        <Typography
-          variant="body1"
-          color="initial"
-          sx={{
-            fontSize: "15px ",
-            color: "#888",
-            ml: "10px",
-            fontWeight: "600",
-          }}
-        >
-          Withdrawl history
-        </Typography>
-      </Stack>
-
-      {visibleData?.map((i, index) => {
-        return (
-          <Box
-            key={index}
-            sx={{
-              mb: 2,
-              padding: "10px",
-              borderRadius: "10px",
-              background: "#fff",
-              width: "92%",
-              margin: "auto",
-              mt: 2,
-            }}
-          >
-            <Stack
-              direction="row"
-              sx={{
-                paddingBottom: "10px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderBottom: "1px solid #efefef",
-              }}
-            >
-              <Box>
-                <Typography className="!bg-orange-400 !text-white rounded px-2 py-1 ">
-                  Withdrawl
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  color: "#888",
-                  textTransform: "capitalize",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              >
-                {i?.call_back_status}
-              </Box>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p:nth-child(1)": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-                "&>p:nth-child(2)": {
-                  color: theme.palette.primary.main,
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Balance
-              </Typography>
-              <Typography variant="body1">₹ {i?.amount}</Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Type
-              </Typography>
-              <Typography variant="body1" color="initial">
-                {i?.withdrawal_type}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Time
-              </Typography>
-              <Typography
-                variant="body1"
-                color="initial"
-                className="!text-green-500"
-              >
-                {moment(i?.response_date)?.format("DD-MM-YYYY HH:mm:ss")}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Order number
-              </Typography>
-              <Stack
-                direction="row"
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  "&>p:nth-child(1)": {
-                    color: "#888",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    py: 1,
-                  },
-                  "&>p:nth-child(2)": {
-                    color: theme.palette.primary.main,
-                    fontSize: "13px",
-                    fontWeight: "600",
-                  },
-                }}
-              >
-                <Typography variant="body1" color="initial">
-                  {i?.transaction_no}
-                </Typography>
-                <IconButton sx={{ padding: 0 }}>
-                  <ContentCopyIcon
-                    sx={{ color: "#888", width: "15px", ml: 1 }}
-                  />
-                </IconButton>
-              </Stack>
-            </Stack>
-          </Box>
-        );
-      })}
-
-      <Button
-        sx={style.paytmbtntwo}
-        variant="outlined"
-        onClick={() => setIsAllValue(!isAllValue)}
-      >
-        {isAllValue ? "Show Less" : " All history"}
-      </Button>
+      </Box>  
     </Container>
   );
 }

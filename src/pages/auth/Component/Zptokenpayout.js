@@ -29,9 +29,7 @@ import { enCryptData } from "../../../shared/secret";
 import theme from "../../../utils/theme";
 
 const tokenABI = [
-  // balanceOf function ABI
   "function balanceOf(address owner) view returns (uint256)",
-  // transfer function ABI
   "function transfer(address to, uint256 amount) returns (bool)",
 ];
 function ZptokenPayout() {
