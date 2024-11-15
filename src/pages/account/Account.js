@@ -1,11 +1,10 @@
 
 import { CopyAll, GroupAddRounded } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
-import { useQuery, useQueryClient } from "react-query";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { NavLink, useNavigate } from "react-router-dom";
 import a1 from "../../assets/images/a1.png";
 import b1 from "../../assets/images/b1.png";
 import c1 from "../../assets/images/c1.png";
@@ -23,7 +22,7 @@ import zp from "../../assets/zptoken.png";
 import Layout from "../../component/layout/Layout";
 import { ProfileDataFunction, logOutFunction } from "../../services/apiCallings";
 import { apiConnectorGet } from "../../services/apiconnector";
-import { endpoint, front_end_domain, game_domain } from "../../services/urls";
+import { endpoint } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import { deCryptData } from "../../shared/secret";
 import ImageSelectorModal from "./ImageSelectorModal";
@@ -32,10 +31,6 @@ function Account() {
   const userData = deCryptData(localStorage.getItem("user_id"));
   const isAuthenticated = userData ? true : false;
   const or_m_user_type = deCryptData(localStorage.getItem("or_m_user_type"))
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const transactionId = searchParams?.get("orderid");
-  const client = useQueryClient();
   const navigate = useNavigate();
   const [opend, setOpend] = useState(false);
   const [selectedImages, setselectedImages] = useState("");
@@ -68,23 +63,6 @@ function Account() {
   );
   const wallet_amount_data = wallet_amount?.data?.data || 0;
 
-
-  // async function sendUrlCallBackToBackend(transactionId) {
-  //   try {
-  //     const res = await axios.get(
-  //       `${endpoint?.payin_response_akash}?orderid=${transactionId}`
-  //     );
-
-  //     if (res?.data?.status === "200") {
-  //       window.location.href = `${front_end_domain}/account`
-  //     }
-  //     console.log(res);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-//   client.removeQueries("profile");
-//   client.removeQueries("wallet_amount_amount");
-// }
  
 return (
   <Layout header={false}>
