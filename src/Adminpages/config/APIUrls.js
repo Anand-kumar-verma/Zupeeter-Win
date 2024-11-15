@@ -1,8 +1,6 @@
 
 export const API_URLS = {
 
-    //new api
-
     dashboard_counter: `/api/v1/dashboard-api`,
     withdrawl_Request: `/api/v1/inr-payout-request-list`,
     withdrawl_approved: `/api/v1/inr-payout-request-approval`,
@@ -14,6 +12,7 @@ export const API_URLS = {
     token_zp: `/api/v1/zp-token-payin-admin`,
     token_zp_payout: `/api/v1/zp-token-payout-admin`,
     inr_payingdata: `/api/v1/gt-inr-fund-request-list`,
+    inr_payoutdata: `/api/v1/gt-inr-payout-request-list`,
 
     update_user_status: `/api/v1//update-user-status`,
     wingo_result_api: `/api/v1/update-wingo-result`,

@@ -18,10 +18,10 @@ const INRPayout = () => {
   const INRPayoutFunction = async () => {
     setloding(true);
     try {
-      const res = await axiosInstance.post(API_URLS?.token_zp  ,{
+      const res = await axiosInstance.post(API_URLS?.inr_payoutdata  ,{
         start_date: from_date,
         end_date: to_date,
-        search : search
+        username : search
     });
       setData(res?.data?.data || []);
       if (res) {

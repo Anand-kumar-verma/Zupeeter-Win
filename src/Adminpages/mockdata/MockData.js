@@ -397,16 +397,16 @@ export const all_Data = [
           </span>
         ),
       },
-      // {
-      //   id: 11.2,
-      //   navLink: "/inr_Payout",
-      //   navItem: "INR Payout",
-      //   navIcon: (
-      //     <span>
-      //       <ColorizeRounded color="#15317E" fontSize="medium" />
-      //     </span>
-      //   ),
-      // },
+      {
+        id: 11.2,
+        navLink: "/inr_Payout",
+        navItem: "INR Payout",
+        navIcon: (
+          <span>
+            <ColorizeRounded color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
 
     ],
   },
