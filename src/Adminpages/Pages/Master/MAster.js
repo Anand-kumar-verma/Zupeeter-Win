@@ -18,6 +18,7 @@ import axiosInstance from "../../config/axios";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
 import { useQuery, useQueryClient } from "react-query";
+import { Refresh } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.MuiTableCell-head`]: {
@@ -64,6 +65,7 @@ const Master = () => {
     const statta_matka_staus_result = statta_matka_staus?.data?.data || [];
 
     const [loading, setLoading] = useState(false);
+
     const MasterFunction = async (id) => {
         setLoading(true)
         try {
@@ -77,7 +79,23 @@ const Master = () => {
             console.log(e)
         }
     }
+    const RefreshFunction = async (id) => {
+        setLoading(true)
+        try {
+            const res = await axiosInstance.get(API_URLS?.refresh_status + `?t_id=${id}`)
+            toast(res?.data?.msg, { id: 1 })
+            setLoading(false)
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
     const MasterData = [
+        {
+            id: 1,
+            name: "Approve For Login ",
+        },
         {
             id: 15,
             name: "TRX",
@@ -134,9 +152,37 @@ const Master = () => {
                 component="th"
                 scope="row"
                 className="capitalize !text-center !py-[10px]">{item.name}</StyledTableCell>
-
-
             <StyledTableCell
+                component="th"
+                scope="row"
+                className="capitalize !text-center !py-[10px]"
+            >
+                {item?.id === 1 ? (
+                    <Refresh 
+                    className="!text-green-600" onClick={() => RefreshFunction(item?.id)} />
+
+                ) : [23, 24, 25, 26].includes(item?.id) ? (
+                    <Switch
+                        checked={
+                            statta_matka_staus_result?.find((i) => i?.id === item?.id)
+                                ?.longtext === "1"
+                        }
+                        className="!text-green-600"
+                        onChange={() => MasterFunction(item?.id)}
+                    />
+                ) : (
+                    <Switch
+                        checked={
+                            status?.find((i) => i?.id === item?.id)?.longtext === "1"
+                        }
+                        className="!text-green-600"
+                        onChange={() => MasterFunction(item?.id)}
+                    />
+                )}
+            </StyledTableCell>
+
+
+            {/* <StyledTableCell
                 component="th"
                 scope="row"
                 className="capitalize !text-center !py-[10px]">
@@ -152,8 +198,15 @@ const Master = () => {
                         className="!text-green-600"
                         onChange={() => MasterFunction(item?.id)}
                     />
+                ):(
+                    ye tab hit jb id 1 ho 
+                    <Switch
+                        // checked={status?.find((i) => i?.id === item?.id)?.longtext === "1" ? true : false}
+                        className="!text-green-600"
+                        onChange={() => RefreshFunction(item?.id)}
+                    />
                 )}
-            </StyledTableCell>
+            </StyledTableCell> */}
         </StyledTableRow>
     ));
 

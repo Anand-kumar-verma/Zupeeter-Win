@@ -59,6 +59,7 @@ export const API_URLS = {
     add_coupon: `/api/v1/add-admin-coupon-list`,
     update_coupon_record: `/api/v1/update-admin-coupon-list?t_id=`,
     set_game_status:`api/v1/set-game-status`,
+    refresh_status:`api/v1/approve-all-users`,
     rollet_result: `api/v1/update-roulette-result`,
     satka_matka_result: `api/v1/update-satta-matka-result`,
     comapany_promoter: `/api/v1/company-promoter-bonus-list-admin`,
