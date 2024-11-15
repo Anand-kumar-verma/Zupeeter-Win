@@ -1,34 +1,23 @@
-import HistoryIcon from "@mui/icons-material/History";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import {
   Box,
-  Button,
-  colors,
   Container,
-  FormControl,
-  IconButton,
   Stack,
-  TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-import axios from "axios";
-import CryptoJS from "crypto-js";
-import { useFormik } from "formik";
 import * as React from "react";
-import toast from "react-hot-toast";
-import { useQuery, useQueryClient } from "react-query";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { NavLink } from "react-router-dom";
 // import { withdrawAmountSchemaValidaton } from "../../../Shared/Validation";
 
-import Layout from "../../component/layout/Layout";
-import { endpoint } from "../../services/urls";
-import { ContentCopy } from "@mui/icons-material";
-import { apiConnectorGet } from "../../services/apiconnector";
 import moment from "moment/moment";
+import Layout from "../../component/layout/Layout";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 
 function BankList() {
 
-  const {data } = useQuery(
+  const { data } = useQuery(
     ["bank_list_details"],
     () => apiConnectorGet(endpoint?.user_bank_details),
     {
@@ -52,126 +41,58 @@ function BankList() {
         }}
       >
         <Box sx={style.header}>
-          <Box component={NavLink}  to="/bank">
-            <KeyboardArrowLeftOutlinedIcon  />
+          <Box component={NavLink} to="/bank">
+            <KeyboardArrowLeftOutlinedIcon />
           </Box>
           <Typography >
-           Bank Details
+            Bank Details
           </Typography>
           <Box
-           
+
           >
-            
+
           </Box>
         </Box>
         {result?.map((i, index) => {
-        return (
-          <Box
-            key={index}
-            sx={{
-                mb: 2,
-              padding: "10px",
-              borderRadius: "10px",
-              background: "#fff",
-              width: "92%",
-              margin: "auto",
-              mt: 2,
-            }}
-          >
-            <Stack
-              direction="row"
+          return (
+            <Box
+              key={index}
               sx={{
-                paddingBottom: "10px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderBottom: "1px solid #efefef",
+                mb: 2,
+                padding: "10px",
+                borderRadius: "10px",
+                background: "#fff",
+                width: "92%",
+                margin: "auto",
+                mt: 2,
               }}
             >
-          <Box>
-                <Typography
-                 className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
-                >
-                   Bank List
-                </Typography>
-              </Box>
-              <Box
+              <Stack
+                direction="row"
                 sx={{
-                  color: "#888",
-                  textTransform: "capitalize",
-                  fontSize: "14px",
-                  fontWeight: "600",
+                  paddingBottom: "10px",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  borderBottom: "1px solid #efefef",
                 }}
               >
-              </Box>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p:nth-child(1)": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-                "&>p:nth-child(2)": {
-                  // color: theme.palette.primary.main,
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography >
-                Account Number
-              </Typography>
-              <Typography sx={{
-                  color: "#888",
-                  textTransform: "capitalize",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}>
-                 {i?.account}
-
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography >
-                Bank Name
-              </Typography>
-              <Typography >
-                {i?.bank_name}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography >
-              Account Holder Name
-              </Typography>
+                <Box>
+                  <Typography
+                    className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
+                  >
+                    Bank List
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    color: "#888",
+                    textTransform: "capitalize",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                </Box>
+              </Stack>
               <Stack
                 direction="row"
                 sx={{
@@ -187,97 +108,165 @@ function BankList() {
                     // color: theme.palette.primary.main,
                     fontSize: "13px",
                     fontWeight: "600",
+                    py: 1,
                   },
                 }}
               >
                 <Typography >
-                  {i?.holder_name}
+                  Account Number
                 </Typography>
-                
-              </Stack>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p:nth-child(1)": {
+                <Typography sx={{
                   color: "#888",
-                  fontSize: "13px",
+                  textTransform: "capitalize",
+                  fontSize: "14px",
                   fontWeight: "600",
-                  py: 1,
-                },
-                "&>p:nth-child(2)": {
-                  // color: theme.palette.primary.main,
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography >
-              Mobile Number
-              </Typography>
-              <Typography 
-              sx={{
-                color: "#888",
-                textTransform: "capitalize",
-                fontSize: "14px",
-                fontWeight: "600",
-              }}>
-                {/* ₹ */}
-                 {i?.mobile}
+                }}>
+                  {i?.account}
 
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography >
-              IFSC
-              </Typography>
-              <Typography >
-                {i?.ifsc}
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography >
-                Time
-              </Typography>
-              <Typography
-                
-                color="initial"
-                className="!text-green-500"
+                </Typography>
+              </Stack>
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
               >
-                {moment(i?.created_at)?.format("DD-MM-YYYY HH:mm:ss")}
-              </Typography>
-            </Stack>
-        
-          </Box>
-        );
-      })} 
+                <Typography >
+                  Bank Name
+                </Typography>
+                <Typography >
+                  {i?.bank_name}
+                </Typography>
+              </Stack>
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
+              >
+                <Typography >
+                  Account Holder Name
+                </Typography>
+                <Stack
+                  direction="row"
+                  sx={{
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    "&>p:nth-child(1)": {
+                      color: "#888",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      py: 1,
+                    },
+                    "&>p:nth-child(2)": {
+                      // color: theme.palette.primary.main,
+                      fontSize: "13px",
+                      fontWeight: "600",
+                    },
+                  }}
+                >
+                  <Typography >
+                    {i?.holder_name}
+                  </Typography>
+
+                </Stack>
+              </Stack>
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p:nth-child(1)": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                  "&>p:nth-child(2)": {
+                    // color: theme.palette.primary.main,
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
+              >
+                <Typography >
+                  Mobile Number
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#888",
+                    textTransform: "capitalize",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}>
+                  {/* ₹ */}
+                  {i?.mobile}
+
+                </Typography>
+              </Stack>
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
+              >
+                <Typography >
+                  IFSC
+                </Typography>
+                <Typography >
+                  {i?.ifsc}
+                </Typography>
+              </Stack>
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
+              >
+                <Typography >
+                  Time
+                </Typography>
+                <Typography
+
+                  color="initial"
+                  className="!text-green-500"
+                >
+                  {moment(i?.created_at)?.format("DD-MM-YYYY HH:mm:ss")}
+                </Typography>
+              </Stack>
+
+            </Box>
+          );
+        })}
       </Container>
     </Layout>
   );
@@ -287,7 +276,7 @@ export default BankList;
 
 const style = {
   header: {
-    color:"white !important" ,
+    color: "white !important",
     padding: "10px 8px",
     background: "#F48901",
     display: "flex",
@@ -311,7 +300,7 @@ const style = {
     fontWeight: "700",
     fontSize: "15px",
     height: "0.93333rem",
-    width: "100%",
+    // width: "100%",
     background:
       "#F48901",
     backgroundSize: "100% 100%, 100% 100%",
