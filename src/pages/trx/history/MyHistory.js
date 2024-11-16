@@ -8,7 +8,7 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import { rupees, zubgback } from "../../../services/urls";
 
-const MyHistory = ({ gid}) => {
+const MyHistory = ({ gid }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const handleChangePage = (event, newPage) => {
@@ -19,8 +19,9 @@ const MyHistory = ({ gid}) => {
     setPage(0);
   };
 
-  const my_history = useSelector((state) => state.aviator.myHistory_trx_one_min);
-
+  const my_history = useSelector(
+    (state) => state.aviator.myHistory_trx_one_min
+  );
 
   const visibleRows = React.useMemo(() => {
     const overAllArray = my_history?.slice(
@@ -28,12 +29,8 @@ const MyHistory = ({ gid}) => {
       page * rowsPerPage + rowsPerPage
     );
     return overAllArray;
-  }, [
-    page,
-    rowsPerPage,
-    my_history
-    ]);
-   
+  }, [page, rowsPerPage, my_history]);
+
   return (
     <Box mt={2}>
       <Stack direction="row" className="onegotextbox"></Stack>
