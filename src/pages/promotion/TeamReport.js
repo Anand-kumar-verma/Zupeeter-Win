@@ -93,7 +93,7 @@ const team =data?.data?.earning || [];
         </NavLink>
           </Typography>
           <Typography variant="body1" color="initial" className="!text-white">
-            Subordinate data
+          Referral data
           </Typography>
           <Box>
 

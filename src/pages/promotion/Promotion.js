@@ -288,7 +288,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                    Subordinate Data
+                  Referral Data
                   </Typography>
                 </Stack>
                 <Stack direction="row">
@@ -327,7 +327,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                    Subordinates Income
+                  Referral Income
                   </Typography>
                 </Stack>
                 <Stack direction="row">

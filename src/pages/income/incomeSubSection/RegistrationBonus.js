@@ -115,7 +115,7 @@ function RegistrationBonus() {
                   <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">
                     {moment(i?.l01_date).format("DD-MM-YYYY HH:mm:ss")}
                   </TableCell>
-                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">{i?.l01_amount}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">{Number(i?.l01_amount)?.toFixed(2)}</TableCell>
                   <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center !border-b !border-white">{i?.l01_transection_type}</TableCell>
                 </TableRow>
               ))}

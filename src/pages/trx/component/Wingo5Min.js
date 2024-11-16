@@ -67,7 +67,7 @@ function Wingo5Min() {
   };
   const fk = useFormik({
     initialValues: initialValue,
-    onSubmit: () => {},
+    onSubmit: () => { },
   });
 
   React.useEffect(() => {
@@ -75,9 +75,8 @@ function Wingo5Min() {
       const t = Number(String(onemin)?.split("_")?.[1]);
       const min = Number(String(onemin)?.split("_")?.[0]);
       const time_to_be_intro = t > 0 ? 60 - t : t;
-      let fivemin = `${
-        4 - (Number(t === 0 ? preValue : min) % 5)
-      }_${time_to_be_intro}`;
+      let fivemin = `${4 - (Number(t === 0 ? preValue : min) % 5)
+        }_${time_to_be_intro}`;
       preValue = min;
       setOne_min_time(fivemin);
       fk.setFieldValue("show_this_one_min_time", fivemin);
@@ -120,7 +119,7 @@ function Wingo5Min() {
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus: false
     }
   );
   const { data: my_history_all_new } = useQuery(
@@ -142,13 +141,21 @@ function Wingo5Min() {
   }, [my_history_all_new?.data?.data]);
 
   React.useEffect(() => {
-    dispatch(
-      updateNextCounter(
-        game_history?.data?.result
-          ? Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1
-          : 1
-      )
-    );
+    const gamedata = game_history?.data?.result
+      ? String(Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1)
+      : '1';
+
+    const format = gamedata
+      ? gamedata.split('@')[0].substring(0, 3) + "**" + gamedata.split('@')[0].substring(gamedata.split('@')[0].length - 4)
+      : "**";
+    dispatch(updateNextCounter(format));
+    // dispatch(
+    //   updateNextCounter(
+    //     game_history?.data?.result
+    //       ? Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1
+    //       : 1
+    //   )
+    // );
     const tr_digit =
       game_history?.data?.result && game_history?.data?.result?.[0]?.tr_digits;
     let array = [];

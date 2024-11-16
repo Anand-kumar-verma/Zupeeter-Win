@@ -236,7 +236,7 @@ function Withdrawlhistory() {
                 {i?.Deposit_type}
               </Typography>
             </Stack>
-            <Stack
+            {/* <Stack
               direction="row"
               sx={{
                 alignItems: "center",
@@ -259,7 +259,7 @@ function Withdrawlhistory() {
               >
                 {moment(i?.response_date)?.format("DD-MM-YYYY HH:mm:ss")}
               </Typography>
-            </Stack>
+            </Stack> */}
             <Stack
               direction="row"
               sx={{

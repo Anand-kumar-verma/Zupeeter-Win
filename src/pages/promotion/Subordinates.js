@@ -70,7 +70,7 @@ function Subordinates() {
                     <Box component={NavLink} to='/promotion/'>
                         <KeyboardArrowLeftOutlined sx={{ color: "white" }} />
                     </Box>
-                    <Typography variant="body1" sx={{ color: "white" }}>Subordinates Income</Typography>
+                    <Typography variant="body1" sx={{ color: "white" }}>Referral Income</Typography>
                     <Typography variant="body1" sx={{ color: "white" }}> </Typography>
                 </Box>
                 <Stack direction="row" justifyContent={"space-between"} className='!mt-5 !mx-3 ' sx={{ pb: 2 }}>

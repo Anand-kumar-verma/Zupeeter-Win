@@ -67,7 +67,7 @@ export default function AllLevelOfTeam() {
             >
               <KeyboardArrowLeftOutlined />
             </Box>
-            <p className="!font-bold !text-xl">Subordinates Data</p>
+            <p className="!font-bold !text-xl">Referral Data</p>
           </Box>
           {
             <Accordion className="!rounded-lg">
