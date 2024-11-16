@@ -59,7 +59,7 @@ function Wingo1Min() {
   };
   const fk = useFormik({
     initialValues: initialValue,
-    onSubmit: () => { },
+    onSubmit: () => {},
   });
 
   React.useEffect(() => {
@@ -68,13 +68,6 @@ function Wingo1Min() {
       const time_to_be_intro = t > 0 ? 60 - t : t;
       setOne_min_time(time_to_be_intro);
       fk.setFieldValue("show_this_one_min_time", time_to_be_intro);
-      if (
-        time_to_be_intro === 5 ||
-        time_to_be_intro === 4 ||
-        time_to_be_intro === 3 ||
-        time_to_be_intro === 2
-      ) {
-      }
 
       if (time_to_be_intro <= 10) {
         fk.setFieldValue("openTimerDialog", true);
@@ -85,13 +78,12 @@ function Wingo1Min() {
       } else {
         fk.setFieldValue("openTimerDialog", false);
       }
-      if (time_to_be_intro === 58) {
-        client.refetchQueries("wallet_amount");
-      }
+
       if (time_to_be_intro === 58) {
         client.refetchQueries("myAll_trx_history_new_1");
         client.refetchQueries("trx_gamehistory");
-        dispatch(dummycounterFun());
+        client.refetchQueries("wallet_amount");
+        // dispatch(dummycounterFun());
       }
     };
 
@@ -114,7 +106,6 @@ function Wingo1Min() {
     }
   );
   React.useEffect(() => {
-
     const gamedata = game_history?.data?.result
       ? String(Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1)
       : '1';
@@ -123,6 +114,7 @@ function Wingo1Min() {
       ? gamedata.split('@')[0].substring(0, 3) + "**" + gamedata.split('@')[0].substring(gamedata.split('@')[0].length - 4)
       : "**";
     dispatch(updateNextCounter(format));
+    
     // dispatch(
     //   updateNextCounter(
     //     game_history?.data?.result
@@ -143,8 +135,6 @@ function Wingo1Min() {
     dispatch(gameHistory_trx_one_minFn(game_history?.data?.result));
     dispatch(trx_game_image_index_function(array));
   }, [game_history?.data?.result]);
-
-
 
   const handlePlaySoundLast = async () => {
     try {
@@ -177,8 +167,16 @@ function Wingo1Min() {
 
   React.useEffect(() => {
     dispatch(myHistory_trx_one_minFn(my_history_all_new?.data?.data));
+    if (my_history_all_new?.data?.data?.[0]?.status !== "0")
+      dispatch(dummycounterFun());
+    else
+      setTimeout(() => {
+        my_history_all_new?.data?.data?.[0]?.status !== "0" &&
+          dispatch(dummycounterFun());
+      }, 3000);
   }, [my_history_all_new?.data?.data]);
-
+   
+     
   const handlePlaySound = async () => {
     try {
       if (audioRefMusic?.current?.pause && true) {
