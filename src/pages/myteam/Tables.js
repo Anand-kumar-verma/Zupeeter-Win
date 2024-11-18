@@ -22,6 +22,12 @@ import theme from "../../utils/theme";
 export default function Tables() {
   const navigate = useNavigate();
   const [selectedLevel, setSelectedLevel] = React.useState(null);
+  const [expanded, setExpanded] = React.useState(null); // State to track expanded accordion
+
+  const handleChange = (levelId) => {
+    setExpanded(expanded === levelId ? null : levelId); // Toggle between expanded and closed
+  };
+
   const { isLoading, data } = useQuery(
     ["get_all_level"],
     () => apiConnectorGet(endpoint?.get_level),
@@ -97,6 +103,8 @@ export default function Tables() {
                 }}
               >
                 <Accordion
+                 expanded={expanded === i?.level_id} // Open this accordion if it's the selected one
+                 onChange={() => handleChange(i?.level_id)} // Toggle the accordion
                   className="!rounded-lg"
                   onClick={() => setSelectedLevel(i?.level_id?.split(" ")?.[1])}
                 >
