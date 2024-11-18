@@ -7,7 +7,7 @@ import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import { candidateName } from "../../Services";
 
-const Fund = () => {
+const DebitFund = () => {
   const [loding, setloding] = useState(false);
   const initialValue = {
     wallet_type: "Select Wallet Type",
@@ -21,11 +21,11 @@ const Fund = () => {
     onSubmit: () => {
       if (!fk.values.u_req_amount || !fk.values.wallet_type)
         return toast("Select amount ");
-      FundAdd(fk.values);
+      Funddebitfn(fk.values);
     },
   });
 
-  async function FundAdd(reqBody) {
+  async function Funddebitfn(reqBody) {
     const req = {
       user_id: reqBody?.user_id_table,
       u_req_amount: reqBody?.u_req_amount,
@@ -33,7 +33,7 @@ const Fund = () => {
     };
     setloding(true);
     try {
-      const res = await axiosInstance.post(API_URLS.add_fund, req);
+      const res = await axiosInstance.post(API_URLS.debit_fund, req);
       toast.success(res?.data?.msg);
       if (res?.data?.msg === "Amount Added successfully.") {
         fk.handleReset();
@@ -65,7 +65,7 @@ const Fund = () => {
   return (
     <div className="!flex justify-center items-center w-full">
       <div className="p-5 lg:w-1/2 md:w-3/4 w-full bg-white !bg-opacity-30 !rounded-lg">
-        <p className="!text-center font-bold !py-4 text-lg">Credit Fund</p>
+        <p className="!text-center font-bold !py-4 text-lg">Debit Fund</p>
         <div className="grid grid-cols-1 gap-[6%] gap-y-4">
           <div>
             <p className="font-bold ">User ID </p>
@@ -143,4 +143,4 @@ const Fund = () => {
   );
 };
 
-export default Fund;
+export default DebitFund;

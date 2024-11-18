@@ -19,6 +19,7 @@ import { apiConnectorGet } from "../../services/apiconnector";
 import { endpoint, zubgback } from "../../services/urls";
 import CustomCircularProgress from "../../shared/loder/CustomCircularProgress";
 import theme from "../../utils/theme";
+
 export default function AllLevelOfTeam() {
   const navigate = useNavigate();
   const [selectedLevel, setSelectedLevel] = React.useState(null);
@@ -134,7 +135,7 @@ export default function AllLevelOfTeam() {
                         <Box sx={style.accordian}>
                           <div
                             style={{ color: "black" }}
-                            className="!grid !grid-cols-7 gap-2 !text-xs !text-center"
+                            className="!grid !grid-cols-8 gap-2 !text-xs !text-center"
                           >
                             <span className=""> S.No</span>
                             <span className=""> User Id</span>
@@ -143,6 +144,7 @@ export default function AllLevelOfTeam() {
                             <span className="">Reg. Date</span>
                             <span className="">Act. Date</span>
                             <span className="">Act. Amnt</span>
+                            <span className="">Today Bet</span>
                           </div>
                           <div className="h-[2px] w-full "></div>
                           {result_level?.map((item, index) => {
@@ -155,7 +157,7 @@ export default function AllLevelOfTeam() {
                                   borderRadius: "5px",
                                   padding: "5px 10px",
                                 }}
-                                className="!grid !grid-cols-10 gap-2 !text-[8px] !text-center"
+                                className="!grid !grid-cols-11 gap-2 !text-[8px] !text-center"
                               >
                                  <span className="">
                                   {index+1}
@@ -190,7 +192,9 @@ export default function AllLevelOfTeam() {
                                     ? "--"
                                     : item?.first_deposit_amnt}
                                 </span>
-                               
+                                <span className="">
+                                  {item?.today_betting_by_user || "0"}
+                                </span>
                               </div>
                             );
                           })}

@@ -1,4 +1,4 @@
-import { FilterAlt } from "@mui/icons-material";
+import { FilterAlt, Lock } from "@mui/icons-material";
 import { Button, Switch, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,25 +18,38 @@ const INRPaying = () => {
   const INRPayingFunction = async () => {
     setloding(true);
     try {
-      const res = await axiosInstance.post(API_URLS?.inr_payingdata  ,{
+      const res = await axiosInstance.post(API_URLS?.inr_payingdata, {
         start_date: from_date,
         end_date: to_date,
-        username : search
-    });
+        username: search
+      });
       setData(res?.data?.data || []);
       if (res) {
         setTo_date("");
         setFrom_date("");
-    }
+      }
     } catch (e) {
       console.log(e);
     }
     setloding(false);
   };
 
-useEffect(()=>{
+  const changeStatusApprovedFunction = async (id) => {
+    try {
+      const res = await axiosInstance.get(
+        `${API_URLS?.approval_payin}?order_id=${id}`
+      );
+      if (res) INRPayingFunction();
+      toast(res?.data?.msg);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
     INRPayingFunction()
-},[])
+  }, [])
 
   const tablehead = [
     <span>S.No</span>,
@@ -47,18 +60,34 @@ useEffect(()=>{
     <span>Status</span>,
     <span>UTR Number</span>,
     <span>Date</span>,
+    <span >Action</span>,
+
   ];
 
-  const tablerow = data?.map((i,index) => {
+  const tablerow = data?.map((i, index) => {
     return [
-      <span>{index+1}</span>,
+      <span>{index + 1}</span>,
       <span>{i?.full_name}</span>,
       <span>{i?.username}</span>,
       <span>{i?.mobile}</span>,
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{i?.tr15_status==="Pending" ?"--" : moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
+      <span className="">{i?.tr15_status === "Pending" ? "--" : moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
+
+      <span>
+        {i?.tr15_status === "Pending" ?
+          <Button
+            variant="contained"
+            className="!bg-[#198754]"
+            onClick={() => changeStatusApprovedFunction(i?.tr15_trans)}
+          >
+            Approve
+
+          </Button> : <Lock/>}
+
+      </span>
+
 
     ];
   });
@@ -66,7 +95,7 @@ useEffect(()=>{
   return (
     <div>
       <div className="flex px-2 gap-5 !justify-start py-2">
-      <span className="font-bold">From:</span>
+        <span className="font-bold">From:</span>
         <TextField
           type="date"
           value={from_date}
@@ -78,9 +107,9 @@ useEffect(()=>{
           value={to_date}
           onChange={(e) => setTo_date(e.target.value)}
         />
-         <TextField
+        <TextField
           type="search"
-         
+
           placeholder="Search by user id"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -98,7 +127,7 @@ useEffect(()=>{
         tablerow={tablerow}
         isLoading={loding}
       />
-      
+
     </div>
   );
 };

@@ -72,7 +72,7 @@ function BettingBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Referral Bonus /  Team Recharge Bonus</p>
+          <p>Referral /  Team Recharge Bonus</p>
         </Box>
         <div>
           <img className="" src={nodatafoundimage} />
@@ -96,7 +96,7 @@ function BettingBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Referral Bonus /  Team Recharge Bonus</p>
+          <p>Referral  /  Team Recharge Bonus</p>
         </Box>
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>

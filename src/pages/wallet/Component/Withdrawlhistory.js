@@ -33,9 +33,9 @@ function Withdrawlhistory() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false
     }
   );
 
@@ -104,8 +104,10 @@ function Withdrawlhistory() {
             className={
               value === 2 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => {handleChange(2)
-              navigate("/withdrawlhistory")}
+            onClick={() => {
+              handleChange(2)
+              navigate("/withdrawlhistory")
+            }
             }
           >
             {value === 2 ? (
@@ -124,12 +126,14 @@ function Withdrawlhistory() {
             className={
               value === 3 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() =>{ handleChange(3)
-              navigate("/zpwithdraw")}
+            onClick={() => {
+              handleChange(3)
+              navigate("/zpwithdraw")
+            }
             }
           >
             <Box component="img" src={zp} width={20} mr={1}></Box>
-            ZP 
+            ZP
           </Button>
         </Stack>
       </Box>
@@ -174,9 +178,9 @@ function Withdrawlhistory() {
                 borderBottom: "1px solid #efefef",
               }}
             >
-          <Box>
+              <Box>
                 <Typography
-                 className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
+                  className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
                 >
                   Withdrawl
                 </Typography>
@@ -236,30 +240,56 @@ function Withdrawlhistory() {
                 {i?.Deposit_type}
               </Typography>
             </Stack>
-            {/* <Stack
-              direction="row"
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                "&>p": {
-                  color: "#888",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  py: 1,
-                },
-              }}
-            >
-              <Typography variant="body1" color="initial">
-                Time
-              </Typography>
-              <Typography
-                variant="body1"
-                color="initial"
-                className="!text-green-500"
+            <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
               >
-                {moment(i?.response_date)?.format("DD-MM-YYYY HH:mm:ss")}
-              </Typography>
-            </Stack> */}
+                <Typography variant="body1" color="initial">
+                 Date/Time
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  className="!text-green-500"
+                >
+                  {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
+                </Typography>
+              </Stack>
+            {i?.tr15_status === "Pending" ? "" :
+              <Stack
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  "&>p": {
+                    color: "#888",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    py: 1,
+                  },
+                }}
+              >
+                <Typography variant="body1" color="initial">
+                Success Date/Time
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="initial"
+                  className="!text-green-500"
+                >
+                  {moment(i?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}
+                </Typography>
+              </Stack>
+            }
             <Stack
               direction="row"
               sx={{

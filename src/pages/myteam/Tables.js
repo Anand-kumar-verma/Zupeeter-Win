@@ -34,7 +34,7 @@ export default function Tables() {
   const result = data?.data?.data;
 
   const { isLoading: levelloading, data: leveldata } = useQuery(
-    ["get_level", selectedLevel],
+    [`get_level_${selectedLevel || 1}`, selectedLevel],
     () => apiConnectorGet(endpoint?.get_level + `?level_id=${selectedLevel}`),
     {
       refetchOnMount: false,

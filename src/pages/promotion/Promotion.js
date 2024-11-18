@@ -243,6 +243,29 @@ function Promotion() {
                   </Box>
                 </Box>
               </Box>
+              <Box sx={style.boxStyles}>
+                <Box sx={style.innerBoxStyles}>
+                  <Box sx={style.subcordinatelist}>
+                    <Typography variant="body1" className="">
+                      {Number(result?.today_betting_by_user || 0)?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                    <Typography variant="body1">Today Bet</Typography>
+                  </Box>
+                </Box>
+
+                <Box sx={style.innerBoxStylestwo}>
+                  <Box sx={style.subcordinatelist}>
+                    <Typography variant="body1" className="">
+                      {Number(result?.total_betting_by_user || 0)?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                    <Typography variant="body1">Total Bet</Typography>
+                  </Box>
+                </Box>
+              </Box>
             </Box>
             <Box sx={style.invitebtn}>
               <NavLink>

@@ -106,7 +106,7 @@ function Login() {
         sessionStorage.setItem("isAvailableCricketUser", true);
         setloding(false);
         storeCookies();
-        response?.data?.user_type === "User"
+        ["User", "Dummy User" ,"Support Agent"]?.includes(response?.data?.user_type)
           ? navigate("/before-login")
           : ["Admin", "Super Admin"]?.includes(response?.data?.user_type) &&
             navigate("/master");
