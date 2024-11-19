@@ -118,7 +118,7 @@ export default function AllLevelOfTeam() {
                         <p className="!text-center">{i?.level_id}</p>
                         <p className="!text-center">{i?.cnt}</p>
                         <p className="!text-center">
-                          {Number(i?.total_deposit)?.toFixed(4)}
+                          {Number(i?.total_deposit)?.toFixed(2)}
                         </p>
                         <p className="!text-center">
                           {Number(i?.total_bet)?.toFixed(0, 2)}
@@ -190,10 +190,10 @@ export default function AllLevelOfTeam() {
                                   {item?.first_deposit_amnt === null ||
                                   item?.first_deposit_amnt === "0"
                                     ? "--"
-                                    : item?.first_deposit_amnt}
+                                    : Number(item?.first_deposit_amnt)?.toFixed(2)}
                                 </span>
                                 <span className="">
-                                  {item?.today_betting_by_user || "0"}
+                                  {Number(item?.today_betting_by_user)?.toFixed(0,2) || "0"}
                                 </span>
                               </div>
                             );

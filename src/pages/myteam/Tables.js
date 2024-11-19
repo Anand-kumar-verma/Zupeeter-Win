@@ -121,7 +121,7 @@ export default function Tables() {
                       <p className="!text-center">{i?.level_id}</p>
                       <p className="!text-center">{i?.cnt}</p>
                       <p className="!text-center">
-                        {Number(i?.total_deposit)?.toFixed(4)}
+                        {Number(i?.total_deposit)?.toFixed(2)}
                       </p>
                       <p className="!text-center">
                         {Number(i?.total_bet)?.toFixed(0, 2)}
@@ -194,7 +194,7 @@ export default function Tables() {
                                 {item?.first_deposit_amnt === null ||
                                 item?.first_deposit_amnt === "0"
                                   ? "--"
-                                  : item?.first_deposit_amnt}
+                                  : Number(item?.first_deposit_amnt)?.toFixed(2)}
                               </span>
                              
                              
