@@ -102,7 +102,7 @@ const CustomTable = ({ tablehead, tablerow, className, isLoading , isTotal}) => 
                       <StyledTableCell
                         component="th"
                         scope="row"
-                        className="capitalize !text-center !py-[10px]"
+                        className=" !text-center !py-[10px]"
                       >
                         {i}
                       </StyledTableCell>

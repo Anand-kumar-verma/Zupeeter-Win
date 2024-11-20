@@ -47,16 +47,8 @@ function Promotion() {
         <CustomCircularProgress isLoading={isLoading} />
         <Box sx={style.header}>
           <Typography variant="body1" color="initial"></Typography>
-          <Typography variant="body1" color="initial" className="!text-white">
-            <span className="">{result?.username}  </span>
-            <br />
-            <span>
-              ₹ {(
-                Number(
-                  Number(result?.winning || 0) + Number(result?.wallet || 0)
-                ) || 0
-              )?.toFixed(2)}{" "}
-            </span>
+          <Typography variant="body1" color="initial" className="!text-white !text-sm ">
+            <span className="">{result?.username}  </span> / <span>{result?.full_name}</span>
           </Typography>
           <Box component={NavLink} to="/promotion/Subordinate/"></Box>
         </Box>
@@ -164,6 +156,22 @@ function Promotion() {
                     1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
+                <Box sx={style.subcordinatelist}>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-orange-400"
+                  >
+                    {Number(result?.total_direct_topup || 0)?.toFixed(2)}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-black"
+                  >
+                    Total Deposit Amount
+                  </Typography>
+                </Box>
               </Box>
 
               <Box sx={style.innerBoxStylestwo}>
@@ -217,6 +225,26 @@ function Promotion() {
                   >
                     {" "}
                     1<sup>st</sup> Deposit Amount
+                  </Typography>
+                </Box>
+                
+                <Box sx={style.subcordinatelist}>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-green-400"
+                  >
+
+                    {Number(Number(result?.total_direct_topup || 0)+ Number(result?.total_team_topup || 0))?.toFixed(2)}
+                  
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-black"
+                  >
+                    {" "}
+                   Total Deposit Amount
                   </Typography>
                 </Box>
               </Box>

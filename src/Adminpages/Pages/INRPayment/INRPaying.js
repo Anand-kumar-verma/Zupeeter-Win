@@ -62,7 +62,8 @@ const INRPaying = () => {
     <span>Amount</span>,
     <span>Status</span>,
     <span>UTR Number</span>,
-    <span>Date</span>,
+    <span>Req Date</span>,
+    <span>Success Date</span>,
     <span >Action</span>,
 
   ];
@@ -76,6 +77,7 @@ const INRPaying = () => {
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
+      <span className="">{moment(i?.tr15_date)?.format("YYYY-MM-DD")}</span>,
       <span className="">{i?.tr15_status === "Pending" ? "--" : moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
 
       <span>
