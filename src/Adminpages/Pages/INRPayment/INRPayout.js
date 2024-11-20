@@ -11,6 +11,7 @@ import moment from "moment";
 const INRPayout = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [totalamount, setTotalamount] = useState([]);
   const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
   const [loding, setloding] = useState(false);
@@ -18,25 +19,26 @@ const INRPayout = () => {
   const INRPayoutFunction = async () => {
     setloding(true);
     try {
-      const res = await axiosInstance.post(API_URLS?.inr_payoutdata  ,{
+      const res = await axiosInstance.post(API_URLS?.inr_payoutdata, {
         start_date: from_date,
         end_date: to_date,
-        username : search
-    });
+        username: search
+      });
       setData(res?.data?.data || []);
+      setTotalamount(res?.data?.total)
       if (res) {
         setTo_date("");
         setFrom_date("");
-    }
+      }
     } catch (e) {
       console.log(e);
     }
     setloding(false);
   };
 
-useEffect(()=>{
+  useEffect(() => {
     INRPayoutFunction()
-},[])
+  }, [])
 
   const tablehead = [
     <span>S.No</span>,
@@ -46,21 +48,21 @@ useEffect(()=>{
     <span>Token</span>,
     <span>Amount</span>,
     <span>Status</span>,
-    <span>Transaction Hash</span>,
+    <span>UTR No.</span>,
     <span>Deposit Type</span>,
     <span>Date</span>,
   ];
 
-  const tablerow = data?.map((i,index) => {
+  const tablerow = data?.map((i, index) => {
     return [
-      <span>{index+1}</span>,
+      <span>{index + 1}</span>,
       <span>{i?.full_name}</span>,
       <span>{i?.username}</span>,
       <span>{i?.mobile}</span>,
       <span>{i?.zp_token}</span>,
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
-      <span className="!text-[10px]">{i?.transaction_hash}</span>,
+      <span className="">{i?.tr15_trans}</span>,
       <span className="">{i?.Deposit_type}</span>,
       <span className="">{moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
 
@@ -70,7 +72,7 @@ useEffect(()=>{
   return (
     <div>
       <div className="flex px-2 gap-5 !justify-start py-2">
-      <span className="font-bold">From:</span>
+        <span className="font-bold">From:</span>
         <TextField
           type="date"
           value={from_date}
@@ -82,9 +84,9 @@ useEffect(()=>{
           value={to_date}
           onChange={(e) => setTo_date(e.target.value)}
         />
-         <TextField
+        <TextField
           type="search"
-         
+
           placeholder="Search by user id"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -98,11 +100,12 @@ useEffect(()=>{
         </Button>
       </div>
       <CustomTable
+         isTotal ={<div className="bg-white my-2 p-2 px-5 !text-right">Total Amount : <span className="!font-bold">{totalamount}</span></div>}
         tablehead={tablehead}
         tablerow={tablerow}
         isLoading={loding}
       />
-      
+
     </div>
   );
 };

@@ -48,7 +48,15 @@ function Promotion() {
         <Box sx={style.header}>
           <Typography variant="body1" color="initial"></Typography>
           <Typography variant="body1" color="initial" className="!text-white">
-            Agency
+            <span className="">{result?.username}  </span>
+            <br />
+            <span>
+              ₹ {(
+                Number(
+                  Number(result?.winning || 0) + Number(result?.wallet || 0)
+                ) || 0
+              )?.toFixed(2)}{" "}
+            </span>
           </Typography>
           <Box component={NavLink} to="/promotion/Subordinate/"></Box>
         </Box>
@@ -311,7 +319,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                  Referral Data
+                    Referral Data
                   </Typography>
                 </Stack>
                 <Stack direction="row">
@@ -350,7 +358,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                  Referral Income
+                    Referral Income
                   </Typography>
                 </Stack>
                 <Stack direction="row">

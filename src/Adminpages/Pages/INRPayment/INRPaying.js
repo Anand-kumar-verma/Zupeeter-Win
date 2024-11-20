@@ -11,6 +11,7 @@ import moment from "moment";
 const INRPaying = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [totalamount, setTotalamount] = useState([]);
   const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
   const [loding, setloding] = useState(false);
@@ -24,6 +25,8 @@ const INRPaying = () => {
         username: search
       });
       setData(res?.data?.data || []);
+      setTotalamount(res?.data?.total)
+
       if (res) {
         setTo_date("");
         setFrom_date("");
@@ -84,7 +87,7 @@ const INRPaying = () => {
           >
             Approve
 
-          </Button> : <Lock/>}
+          </Button> : <Lock />}
 
       </span>
 
@@ -109,7 +112,6 @@ const INRPaying = () => {
         />
         <TextField
           type="search"
-
           placeholder="Search by user id"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -123,11 +125,11 @@ const INRPaying = () => {
         </Button>
       </div>
       <CustomTable
+       isTotal ={<div className="bg-white my-2 p-2 px-5 !text-right">Total Amount : <span className="!font-bold">{totalamount}</span></div>}
         tablehead={tablehead}
         tablerow={tablerow}
         isLoading={loding}
       />
-
     </div>
   );
 };

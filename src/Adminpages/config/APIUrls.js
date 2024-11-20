@@ -14,7 +14,8 @@ export const API_URLS = {
     inr_payingdata: `/api/v1/gt-inr-fund-request-list`,
     inr_payoutdata: `/api/v1/gt-inr-payout-request-list`,
 
-    update_user_status: `/api/v1//update-user-status`,
+    update_user_name: `/api/v1/update-user-name`,
+    update_user_status: `/api/v1/update-user-status`,
     wingo_result_api: `/api/v1/update-wingo-result`,
     add_fund: `/api/v1/add-fund-to-user`,
     debit_fund: `/api/v1/fund-debited-by-admin`,

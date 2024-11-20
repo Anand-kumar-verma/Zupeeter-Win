@@ -14,6 +14,8 @@ const ZpTokenPayout = () => {
   const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
   const [loding, setloding] = useState(false);
+  const [totalamount, setTotalamount] = useState([]);
+
 
   const ZpFunction = async () => {
     setloding(true);
@@ -24,6 +26,8 @@ const ZpTokenPayout = () => {
         search : search
     });
       setData(res?.data?.data || []);
+      setTotalamount(res?.data?.total)
+
       if (res) {
         setTo_date("");
         setFrom_date("");
@@ -98,6 +102,7 @@ const ZpTokenPayout = () => {
         </Button>
       </div>
       <CustomTable
+        isTotal ={<div className="bg-white my-2 p-2 px-5 !text-right">Total Amount : <span className="!font-bold">{totalamount}</span></div>}
         tablehead={tablehead}
         tablerow={tablerow}
         isLoading={loding}
