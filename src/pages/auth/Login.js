@@ -459,8 +459,7 @@ function Login() {
         <Box sx={{ mt: 3 }}></Box>
         <Box
           sx={{ width: "80%", margin: "auto" }}
-          component={NavLink}
-          to="/CustomerService"
+         
         >
           <Box
             component="img"
@@ -472,7 +471,7 @@ function Login() {
             color="initial"
             sx={{ textAlign: "center" }}
           >
-            Customer Service
+          New Version
           </Typography>
         </Box>
       </Box>

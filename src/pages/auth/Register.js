@@ -431,6 +431,7 @@ function Login() {
               I have an account <span> Login</span>
             </Button>
           </NavLink>
+          <Box className="!text-center !text-gray-500">New Version</Box>
         </Box>
 
       </Box>

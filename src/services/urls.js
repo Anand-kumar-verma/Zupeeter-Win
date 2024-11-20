@@ -7,7 +7,7 @@ export const aviatordomain = "https://zupeeter-win-timer.onrender.com";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
-export const front_end_domain = "https://play.zupeeter.com";
+export const front_end_domain = "https://zupeeter.com";
 export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
 export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 
