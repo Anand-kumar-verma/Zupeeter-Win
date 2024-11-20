@@ -475,7 +475,7 @@ function Login() {
             Customer Service
           </Typography>
         </Box>
-        <Box className="!text-center !text-gray-500">New Version</Box>
+        <Box className="!text-center !text-gray-500"> Version 1.1</Box>
       </Box>
     </Container>
   );
