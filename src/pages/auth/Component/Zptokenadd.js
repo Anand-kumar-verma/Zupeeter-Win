@@ -253,7 +253,6 @@ function Zptokenadd() {
   }
 
   async function PayinZpDummy() {
-    setLoding(true);
     const reqbody = {
       req_amount: fk.values.inr_value,
       u_user_wallet_address: walletAddress,
@@ -271,14 +270,10 @@ function Zptokenadd() {
         },
         tokenParam
       );
-      toast(res?.data?.msg);
-      client.refetchQueries("wallet_amount_amount");
-      client.refetchQueries("wallet_amount");
-      fk.handleReset();
+
     } catch (e) {
       console.log(e);
     }
-    setLoding(false);
   }
   return (
     <Container sx={{ background: "#F7F8FF" }}>
