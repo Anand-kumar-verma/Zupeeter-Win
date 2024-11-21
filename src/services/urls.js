@@ -58,6 +58,7 @@ export const endpoint = {
   Zp_deposit_history: `${game_domain}/api/v1/zp-deposit-history`,
   zp_own_address: `${game_domain}/api/v1/zp-payin-ownr-address`,
   zp_paying: `${game_domain}/api/v1/zp-payin-request`,
+  zp_paying_dummy: `${game_domain}/api/v1/zp-payin-request_dummy_entry`,
   view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
   wallet_withdrawl: `${game_domain}/api/v1/inr-payout-request`,
