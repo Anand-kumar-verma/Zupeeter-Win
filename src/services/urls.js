@@ -2,16 +2,14 @@ export const domain = "https://zupeeter-win-timer.onrender.com";
 // export const game_domain = "https://bet.zupeeter.com";
 export const aviatordomain = "https://zupeeter-win-timer.onrender.com";
 
-
 export const game_domain = "http://192.168.18.183:9000";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
 export const front_end_domain = "https://play.zupeeter.com";
 export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
-export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
-
-
+export const tokenContractAddress =
+  "0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
 
 export const endpoint = {
   login: `${game_domain}/api/v1/user_login`,
@@ -84,7 +82,6 @@ export const endpoint = {
   trx_game_history: `${game_domain}/api/v1/trx-auto-genrated-result`, //////// done in node js
   trx_my_history_new: `${game_domain}/api/v1/trx-getColourBets-temp`, /// done  in node js
 
-
   node_api: {
     get_leder_data: `${domain}/api/v1/get-ledger-data`,
     my_history: `${domain}/api/v1/my-history-by-user-id`,
@@ -97,12 +94,12 @@ export const endpoint = {
     main_wallet: "",
   },
 
-  node:{
-    top_two_winners:game_domain+"/api/v1/getTopTwo_winner",
-    top_winners:game_domain+"/api/v1/getTopWinners",
+  node: {
+    top_two_winners: game_domain + "/api/v1/getTopTwo_winner",
+    top_winners: game_domain + "/api/v1/getTopWinners",
     history_my: game_domain + "/api/v1/getMyHistory-roulette",
-     game_result: game_domain + "/api/v1/getRouletteGameHistory",
-     bet_satta: game_domain + "/api/v1/betPlacedSatta",
+    game_result: game_domain + "/api/v1/getRouletteGameHistory",
+    bet_satta: game_domain + "/api/v1/betPlacedSatta",
     satta_game_Lastfour: game_domain + "/api/v1/getSattaGameHistoryLastFour",
     satta_game_gamehistory: game_domain + "/api/v1/getSattaGameHistory",
     satta_game_myhistory: game_domain + "/api/v1/getSattaMyHistory",
@@ -117,7 +114,7 @@ export const endpoint = {
     add_bank: game_domain + "/api/v1/add-bank-upi",
     // bank_details: game_domain + "/api/v1/user-bank-details",
     withdrawl_history: game_domain + "/api/v1/withdrawal-history",
-    deposit_history: game_domain + "/api/v1/deposit-history",     
+    deposit_history: game_domain + "/api/v1/deposit-history",
   },
 
   rollet: {
