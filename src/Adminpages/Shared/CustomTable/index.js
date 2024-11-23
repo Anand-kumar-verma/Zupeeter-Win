@@ -7,13 +7,19 @@ import {
   TableContainer,
   TableHead,
   TablePagination,
-  TableRow
+  TableRow,
 } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import React from "react";
 
-const CustomTable = ({ tablehead, tablerow, className, isLoading , isTotal}) => {
+const CustomTable = ({
+  tablehead,
+  tablerow,
+  className,
+  isLoading,
+  isTotal,
+}) => {
   // console.log(tablerow)
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
@@ -30,7 +36,6 @@ const CustomTable = ({ tablehead, tablerow, className, isLoading , isTotal}) => 
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
       color: theme.palette.common.white,
-
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
@@ -48,17 +53,12 @@ const CustomTable = ({ tablehead, tablerow, className, isLoading , isTotal}) => 
     },
   }));
   const visibleRows = React.useMemo(
-    () =>
-      tablerow?.slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
+    () => tablerow?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [page, rowsPerPage, tablerow]
   );
   return (
     <>
-
-      <TableContainer sx={{}} >
+      <TableContainer sx={{}}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead className="!bg-white !bg-opacity-50">
             <TableRow>
@@ -114,9 +114,7 @@ const CustomTable = ({ tablehead, tablerow, className, isLoading , isTotal}) => 
           </TableBody>
         </Table>
       </TableContainer>
-      {
-        isTotal && isTotal
-      }
+      {isTotal && isTotal}
       <Box sx={{ background: "white", mt: 3 }}>
         <Stack spacing={2}>
           <TablePagination

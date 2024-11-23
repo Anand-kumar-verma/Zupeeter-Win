@@ -1,13 +1,22 @@
-
 import { Edit, FilterAlt } from "@mui/icons-material";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Switch, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Switch,
+  TextField,
+} from "@mui/material";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { getComparator } from "../../../services/sortingFunctoins";
 const Player = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -18,13 +27,15 @@ const Player = () => {
   const [from_amount, setFrom_amount] = useState("");
   const [open, setOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("total_amount");
 
   const fk = useFormik({
     initialValues: {
       user_name: "",
-      user_id: ""
-    }
-  })
+      user_id: "",
+    },
+  });
 
   const userListFunction = async () => {
     setloding(true);
@@ -34,7 +45,7 @@ const Player = () => {
         end_date: to_date,
         search: search,
         to_amount: to_amount,
-        from_amount: from_amount
+        from_amount: from_amount,
       });
       setData(res?.data?.data || []);
       if (res) {
@@ -51,6 +62,7 @@ const Player = () => {
     userListFunction();
   }, []);
 
+  useEffect(() => {}, []);
   const changePlayerStatusFunction = async (id) => {
     try {
       const res = await axiosInstance.get(
@@ -67,10 +79,11 @@ const Player = () => {
     try {
       const req = {
         u_user_id: currentUser.id,
-        u_user_name: fk.values.user_name
+        u_user_name: fk.values.user_name,
       };
       const res = await axiosInstance.post(
-        `${API_URLS?.update_user_name}`, req
+        `${API_URLS?.update_user_name}`,
+        req
       );
       toast.success(res?.data?.msg);
       userListFunction();
@@ -81,38 +94,115 @@ const Player = () => {
     }
   };
 
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const visibleRows = React.useMemo(() => {
+    return [...data].sort(getComparator(order, orderBy));
+  }, [data, order, orderBy]);
+
   const tablehead = [
-    <span>Id</span>,
+    <span key={"id"}>Id</span>,
     <span>Action</span>,
-    <span>Name</span>,
+    <span>
+      Name{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "full_name")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
     <span>User Id</span>,
     <span>Sponsor Id</span>,
     <span>Mobile</span>,
     <span>Email</span>,
     <span>Password</span>,
-    <span>Wallet</span>,
-    <span>Winning Wallet</span>,
+    <span>
+      Wallet{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "wallet")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Winning Wallet{" "}
+      <IconButton
+        onClick={(event) => handleRequestSort(event, "winning_wallet")}
+      >
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Total{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "total_amount")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
     <span>Active/Deactive</span>,
-    <span>Total Deposit</span>,
-    <span>Total Withdrawal</span>,
+    <span>
+      Total Deposit{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "total_payin")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Total Withdrawal{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "total_payout")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
     <span>Type</span>,
-    <span>Yesterday Income</span>,
-    <span>Direct Reg.</span>,
-    <span>Team Reg.</span>,
-    <span>Bet</span>,
-    <span>Total Bet</span>,
-    <span>Status</span>,
+    <span>
+      Yesterday Income{" "}
+      <IconButton
+        onClick={(event) => handleRequestSort(event, "yesterday_income")}
+      >
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Direct Reg.{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "direct_reg")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Team Reg.{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "team_reg")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Bet{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "need_to_bet")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Total Bet{" "}
+      <IconButton
+        onClick={(event) => handleRequestSort(event, "total_betting_by_user")}
+      >
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
+    <span>
+      Status{" "}
+      <IconButton onClick={(event) => handleRequestSort(event, "status")}>
+        <FilterAltIcon />
+      </IconButton>
+    </span>,
   ];
 
-  const tablerow = data?.map((i, index) => {
+  const tablerow = visibleRows?.map((i, index) => {
     return [
       <span>{index + 1}</span>,
       <span>
         <Edit
           className="!text-green-500 cursor-pointer"
           onClick={() => {
-            setCurrentUser(i); 
-            fk.setFieldValue('user_name', i.full_name); 
+            setCurrentUser(i);
+            fk.setFieldValue("user_name", i.full_name);
             setOpen(true);
           }}
         />
@@ -123,17 +213,22 @@ const Player = () => {
       <span>{i?.mobile}</span>,
       <span>{i?.email}</span>,
       <span>{i?.password}</span>,
-      <span>{i?.wallet}</span>,
-      <span>{i?.winning_wallet}</span>,
+      <span>{Number(i?.wallet || 0)?.toFixed(2)}</span>,
+      <span>{Number(i?.winning_wallet || 0)?.toFixed(2)}</span>,
+      <span>
+        {Number(
+          Number(i?.winning_wallet || 0) + Number(i?.wallet || 0)
+        )?.toFixed(2)}
+      </span>,
       <span>{String(i?.status) === "1" ? "Active" : "Inactive"}</span>,
-      <span>{i?.total_payin}</span>,
-      <span>{i?.total_payout}</span>,
+      <span>{Number(i?.total_payin || 0)?.toFixed(2)}</span>,
+      <span>{Number(i?.total_payout || 0)?.toFixed(2)}</span>,
       <span>{i?.user_type}</span>,
-      <span>{i?.yesterday_income}</span>,
+      <span>{Number(i?.yesterday_income || 0)?.toFixed(2)}</span>,
       <span>{i?.direct_reg}</span>,
       <span>{i?.team_reg}</span>,
-      <span>{i?.need_to_bet}</span>,
-      <span>{i?.total_betting_by_user}</span>,
+      <span>{Number(i?.need_to_bet || 0)?.toFixed(2)}</span>,
+      <span>{Number(i?.total_betting_by_user || 0)?.toFixed(2)}</span>,
       <span>
         <Switch
           className="!text-green-500"
@@ -187,16 +282,20 @@ const Player = () => {
           Filter
         </Button>
       </div>
-      <CustomTable tablehead={tablehead} tablerow={tablerow} isLoading={loding} />
+      <CustomTable
+        tablehead={tablehead}
+        tablerow={tablerow}
+        isLoading={loding}
+      />
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Edit Name</DialogTitle>
         <DialogContent>
           <TextField
-          className="!mt-2"
+            className="!mt-2"
             label="Name"
             fullWidth
             value={fk.values.user_name}
-            onChange={(e) => fk.setFieldValue('user_name', e.target.value)}
+            onChange={(e) => fk.setFieldValue("user_name", e.target.value)}
           />
         </DialogContent>
         <DialogActions>
