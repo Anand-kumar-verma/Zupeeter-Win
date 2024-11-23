@@ -66,35 +66,34 @@ import WelcomeBonus from "../pages/income/incomeSubSection/Welcomebonus";
 import AddBankDetails from "../pages/bank/AddBankdetail";
 
 export const routes = [
-
   {
     path: "/rollet",
     element: <Home />,
   },
   {
     path: "/SattaChart",
-    element: <SattaChart />
-},
-{
+    element: <SattaChart />,
+  },
+  {
     path: "/satta/play",
-    element: <Sattagameplay />
-},
-{
+    element: <Sattagameplay />,
+  },
+  {
     path: "/history",
-    element: <History />
-},
-{
+    element: <History />,
+  },
+  {
     path: "/anderbaher/chart",
-    element: <AnderBaherChart />
-},
-{
+    element: <AnderBaherChart />,
+  },
+  {
     path: "/location/chart/list",
-    element: <LocationListChart />
-},
-{
+    element: <LocationListChart />,
+  },
+  {
     path: "/location/chart",
-    element: <LocationChart />
-},
+    element: <LocationChart />,
+  },
   {
     path: "/satta/matka",
     element: <Satta />,
@@ -120,7 +119,7 @@ export const routes = [
     path: "/qr-screen-usdt",
     element: <QRSCREENUSDT />,
   },
- 
+
   {
     path: "/supportPage",
     element: <SupportPage />,

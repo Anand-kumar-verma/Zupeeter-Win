@@ -14,21 +14,18 @@ const BreadCrumbs = ({ navItem, navLink, id }) => {
     navigate(breadCrumbs[index - 1]?.navLink);
   };
 
-  useEffect(
-    () => {
-      if (
-        breadCrumbs.length === 0 ||
-        breadCrumbs.filter((item) => item.id === id).length === 0
-      ) {
-        setBreadCrumbs([
-          ...breadCrumbs,
-          { id: id, navItem: navItem, navLink: navLink },
-        ]);
-      }
-    },
-    [id]
-  );
-  
+  useEffect(() => {
+    if (
+      breadCrumbs.length === 0 ||
+      breadCrumbs.filter((item) => item.id === id).length === 0
+    ) {
+      setBreadCrumbs([
+        ...breadCrumbs,
+        { id: id, navItem: navItem, navLink: navLink },
+      ]);
+    }
+  }, [id]);
+
   useEffect(() => {
     document.title = navItem;
   }, [navItem]);
