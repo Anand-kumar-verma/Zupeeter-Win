@@ -47,8 +47,8 @@ function Promotion() {
         <CustomCircularProgress isLoading={isLoading} />
         <Box sx={style.header}>
           <Typography variant="body1" color="initial"></Typography>
-          <Typography variant="body1" color="initial" className="!text-white">
-            Agency
+          <Typography variant="body1" color="initial" className="!text-white !text-sm ">
+            <span className="">{result?.username}  </span> / <span>{result?.full_name}</span>
           </Typography>
           <Box component={NavLink} to="/promotion/Subordinate/"></Box>
         </Box>
@@ -156,6 +156,22 @@ function Promotion() {
                     1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
+                <Box sx={style.subcordinatelist}>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-orange-400"
+                  >
+                    {Number(result?.total_direct_topup || 0)?.toFixed(2)}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-black"
+                  >
+                    Total Deposit Amount
+                  </Typography>
+                </Box>
               </Box>
 
               <Box sx={style.innerBoxStylestwo}>
@@ -211,6 +227,26 @@ function Promotion() {
                     1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
+                
+                <Box sx={style.subcordinatelist}>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-green-400"
+                  >
+
+                    {Number(Number(result?.total_direct_topup || 0)+ Number(result?.total_team_topup || 0))?.toFixed(2)}
+                  
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="initial"
+                    className="!text-black"
+                  >
+                    {" "}
+                   Total Deposit Amount
+                  </Typography>
+                </Box>
               </Box>
             </Box>
             <Box sx={style.subcordinateBox}>
@@ -240,6 +276,29 @@ function Promotion() {
                       )}
                     </Typography>
                     <Typography variant="body1">Total Withdrawal</Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Box sx={style.boxStyles}>
+                <Box sx={style.innerBoxStyles}>
+                  <Box sx={style.subcordinatelist}>
+                    <Typography variant="body1" className="">
+                      {Number(result?.today_betting_by_user || 0)?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                    <Typography variant="body1">Today Bet</Typography>
+                  </Box>
+                </Box>
+
+                <Box sx={style.innerBoxStylestwo}>
+                  <Box sx={style.subcordinatelist}>
+                    <Typography variant="body1" className="">
+                      {Number(result?.total_betting_by_user || 0)?.toFixed(
+                        2
+                      )}
+                    </Typography>
+                    <Typography variant="body1">Total Bet</Typography>
                   </Box>
                 </Box>
               </Box>
@@ -288,7 +347,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                    Subordinate Data
+                    Referral Data
                   </Typography>
                 </Stack>
                 <Stack direction="row">
@@ -327,7 +386,7 @@ function Promotion() {
                 <Stack direction="row">
                   <Box component="img" src={subcordinatedata}></Box>
                   <Typography variant="body1" color="initial">
-                    Subordinates Income
+                    Referral Income
                   </Typography>
                 </Stack>
                 <Stack direction="row">

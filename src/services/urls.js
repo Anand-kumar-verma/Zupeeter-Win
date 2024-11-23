@@ -1,15 +1,16 @@
 export const domain = "https://zupeeter-win-timer.onrender.com";
-// export const game_domain = "https://bet.zupeeter.com";
+export const game_domain = "https://bet.zupeeter.com";
 export const aviatordomain = "https://zupeeter-win-timer.onrender.com";
 
-export const game_domain = "http://192.168.18.183:9000";
+// export const game_domain = "http://192.168.18.183:9000";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
-export const front_end_domain = "https://play.zupeeter.com";
-export const download_app_url = "https://play.zupeeter.com/ZUPEETER.pdf";
-export const tokenContractAddress =
-  "0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
+export const front_end_domain = "https://zupeeter.com";
+export const download_app_url = "https://zupeeter.com/ZUPEETER.pdf";
+export const tokenContractAddress ="0x79E952d542D2BdD7eb77446ECaeFd8fe8eeEd6e2";
+
+
 
 export const endpoint = {
   login: `${game_domain}/api/v1/user_login`,
@@ -56,6 +57,7 @@ export const endpoint = {
   Zp_deposit_history: `${game_domain}/api/v1/zp-deposit-history`,
   zp_own_address: `${game_domain}/api/v1/zp-payin-ownr-address`,
   zp_paying: `${game_domain}/api/v1/zp-payin-request`,
+  zp_paying_dummy: `${game_domain}/api/v1/zp-payin-request_dummy_entry`,
   view_withdrwal_new_inr: `${game_domain}/api/v1/withdrawal-history-inr`,
   withdrwal_history: `${game_domain}/api/v1/withdrawal-history-inr`,
   wallet_withdrawl: `${game_domain}/api/v1/inr-payout-request`,

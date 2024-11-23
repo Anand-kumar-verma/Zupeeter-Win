@@ -153,6 +153,7 @@ function Zptokenadd() {
       setLoding(false);
       return toast("Enter Amount, Greater than 100");
     }
+    PayinZpDummy()
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     try {
@@ -249,6 +250,30 @@ function Zptokenadd() {
       console.log(e);
     }
     setLoding(false);
+  }
+
+  async function PayinZpDummy() {
+    const reqbody = {
+      req_amount: fk.values.inr_value,
+      u_user_wallet_address: walletAddress,
+      u_transaction_hash: "xxxxxxxxxx",
+      u_trans_status: 1,
+      currentBNB: bnb,
+      currentZP: no_of_Tokne,
+      gas_price: "",
+    };
+    try {
+      const res = await apiConnectorPOSTWithoutToken(
+        endpoint?.zp_paying_dummy,
+        {
+          payload: enCryptData(reqbody),
+        },
+        tokenParam
+      );
+
+    } catch (e) {
+      console.log(e);
+    }
   }
   return (
     <Container sx={{ background: "#F7F8FF" }}>

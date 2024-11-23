@@ -22,6 +22,12 @@ import theme from "../../utils/theme";
 export default function Tables() {
   const navigate = useNavigate();
   const [selectedLevel, setSelectedLevel] = React.useState(null);
+  const [expanded, setExpanded] = React.useState(null); // State to track expanded accordion
+
+  const handleChange = (levelId) => {
+    setExpanded(expanded === levelId ? null : levelId); // Toggle between expanded and closed
+  };
+
   const { isLoading, data } = useQuery(
     ["get_all_level"],
     () => apiConnectorGet(endpoint?.get_level),
@@ -34,7 +40,7 @@ export default function Tables() {
   const result = data?.data?.data;
 
   const { isLoading: levelloading, data: leveldata } = useQuery(
-    ["get_level", selectedLevel],
+    [`get_level_${selectedLevel || 1}`, selectedLevel],
     () => apiConnectorGet(endpoint?.get_level + `?level_id=${selectedLevel}`),
     {
       refetchOnMount: false,
@@ -97,6 +103,8 @@ export default function Tables() {
                 }}
               >
                 <Accordion
+                 expanded={expanded === i?.level_id} // Open this accordion if it's the selected one
+                 onChange={() => handleChange(i?.level_id)} // Toggle the accordion
                   className="!rounded-lg"
                   onClick={() => setSelectedLevel(i?.level_id?.split(" ")?.[1])}
                 >
@@ -113,7 +121,7 @@ export default function Tables() {
                       <p className="!text-center">{i?.level_id}</p>
                       <p className="!text-center">{i?.cnt}</p>
                       <p className="!text-center">
-                        {Number(i?.total_deposit)?.toFixed(4)}
+                        {Number(i?.total_deposit)?.toFixed(2)}
                       </p>
                       <p className="!text-center">
                         {Number(i?.total_bet)?.toFixed(0, 2)}
@@ -186,7 +194,7 @@ export default function Tables() {
                                 {item?.first_deposit_amnt === null ||
                                 item?.first_deposit_amnt === "0"
                                   ? "--"
-                                  : item?.first_deposit_amnt}
+                                  : Number(item?.first_deposit_amnt)?.toFixed(2)}
                               </span>
                              
                              

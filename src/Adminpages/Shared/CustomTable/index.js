@@ -13,7 +13,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import React from "react";
 
-const CustomTable = ({ tablehead, tablerow, className, isLoading }) => {
+const CustomTable = ({ tablehead, tablerow, className, isLoading , isTotal}) => {
   // console.log(tablerow)
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
@@ -102,7 +102,7 @@ const CustomTable = ({ tablehead, tablerow, className, isLoading }) => {
                       <StyledTableCell
                         component="th"
                         scope="row"
-                        className="capitalize !text-center !py-[10px]"
+                        className=" !text-center !py-[10px]"
                       >
                         {i}
                       </StyledTableCell>
@@ -114,6 +114,9 @@ const CustomTable = ({ tablehead, tablerow, className, isLoading }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      {
+        isTotal && isTotal
+      }
       <Box sx={{ background: "white", mt: 3 }}>
         <Stack spacing={2}>
           <TablePagination

@@ -10,6 +10,8 @@ import Coupon from "../Adminpages/Pages/Coupon/coupon";
 import DirectCoupon from "../Adminpages/Pages/Coupon/directCoupon";
 import Dashboard from "../Adminpages/Pages/dashboard/Dashboard";
 import DayBookReport from "../Adminpages/Pages/DayBookReport/daybookreport";
+import DebitFund from "../Adminpages/Pages/fund/Debitfund";
+import DebitFundHistory from "../Adminpages/Pages/fund/DebitFundhistory";
 import Fund from "../Adminpages/Pages/fund/Fund";
 import FundHistory from "../Adminpages/Pages/fund/FundHistory";
 import P2pHistory from "../Adminpages/Pages/fund/P2pHistory";
@@ -116,7 +118,7 @@ export const adminroutes = [
     id: 9,
     path: "/fund",
     component: <Fund/>,
-    navItem: "Fund",
+    navItem: "Credit Fund",
   },
   {
     id: 9,
@@ -230,7 +232,7 @@ export const adminroutes = [
     id: 26,
     path: "/fund/transfer-fund-history",
     component: <FundHistory/>,
-    navItem: "Transfer Fund History",
+    navItem: "Credit Fund Transfer History",
   },
   {
     id: 27,
@@ -339,6 +341,18 @@ export const adminroutes = [
     path: "/inr_Payout",
     component: <INRPayout/>,
     navItem: "INR Payout",
+  },
+  {
+    id: 44,
+    path: "/debit_fund",
+    component: <DebitFund/>,
+    navItem: "Debit Fund",
+  },
+  {
+    id: 45,
+    path: "/fund/debited-transfer-fund-history",
+    component: < DebitFundHistory/>,
+    navItem: "Debit Fund Transfer History",
   },
 ];
 

@@ -25,8 +25,10 @@ import {
 import { endpoint, front_end_domain } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
+import { deCryptData } from "../../../shared/secret";
 
 function Zp() {
+  const userData = deCryptData(localStorage.getItem("user_id"));
   const audioRefMusic = React.useRef(null);
   const Tokenadd = localStorage.getItem("token")
   const navigate = useNavigate();
@@ -257,7 +259,10 @@ function Zp() {
             Deposit amount
           </Typography>
         </Stack>
-        <Typography
+        {
+          userData.user_type === "Dummy User" ?
+          "You are Dummy User" :
+          <Typography
           sx={{}}
           onClick={() => {
 
@@ -268,7 +273,8 @@ function Zp() {
         >
           Copy Your Payment Link
           <p className="!text-[10px] flex items-center  pt-2 ">{`${front_end_domain}/zptokenadd/?token=${Tokenadd?.substring(0, 10) + "......."}`} <CopyAll /></p>
-        </Typography>
+        </Typography> }
+       
       </Box>
     </Container>
   );

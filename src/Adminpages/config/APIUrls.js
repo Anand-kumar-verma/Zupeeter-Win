@@ -14,10 +14,13 @@ export const API_URLS = {
     inr_payingdata: `/api/v1/gt-inr-fund-request-list`,
     inr_payoutdata: `/api/v1/gt-inr-payout-request-list`,
 
-    update_user_status: `/api/v1//update-user-status`,
+    update_user_name: `/api/v1/update-user-name`,
+    update_user_status: `/api/v1/update-user-status`,
     wingo_result_api: `/api/v1/update-wingo-result`,
     add_fund: `/api/v1/add-fund-to-user`,
+    debit_fund: `/api/v1/fund-debited-by-admin`,
     get_fund_history: `/api/v1/fund-transfer-history`,
+    debit_fund_history: `/api/v1/fund-debited-by-admin-history`,
     p2p_history: `/api/v1/p-2-p-list-admin`,
     get_aviator_report: `/api/v1/get-aviator-report`,
     get_trx_report: `/api/v1/get-trx-report`,
@@ -63,6 +66,7 @@ export const API_URLS = {
     rollet_result: `api/v1/update-roulette-result`,
     satka_matka_result: `api/v1/update-satta-matka-result`,
     comapany_promoter: `/api/v1/company-promoter-bonus-list-admin`,
+    approval_payin: `/api/v1/manual-approval-payin-by-admin`,
 
 
     //close

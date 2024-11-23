@@ -72,7 +72,7 @@ function BettingBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Referral Bonus /  Team Recharge Bonus</p>
+          <p>Referral /  Team Recharge Bonus</p>
         </Box>
         <div>
           <img className="" src={nodatafoundimage} />
@@ -96,7 +96,7 @@ function BettingBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Referral Bonus /  Team Recharge Bonus</p>
+          <p>Referral  /  Team Recharge Bonus</p>
         </Box>
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>
@@ -115,7 +115,7 @@ function BettingBonus() {
                   <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">
                     {moment(i?.l01_date).format("DD-MM-YYYY HH:mm:ss")}
                   </TableCell>
-                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">{i?.l01_amount}</TableCell>
+                  <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center  !border-b !border-white">{Number(i?.l01_amount)?.toFixed(2)}</TableCell>
                   <TableCell sx={{ color: 'white' }} className="!border !border-r !text-xs !text-center !border-b !border-white">{i?.l01_transection_type}</TableCell>
                 </TableRow>
               ))}

@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import actbanner2 from "../../assets/images/actbanner2.jpg";
+// import actbanner2 from "../../assets/images/actbanner2.jpg";
 import actbanner5 from "../../assets/images/actbanner5.jpg";
 import ava from "../../assets/images/aviator.jpg";
 import Layout from "../../component/layout/Layout";
@@ -105,11 +105,11 @@ function Activity() {
           </Typography>
         </Box> */}
         <Box sx={style.actimg2}>
-          <Box
+          {/* <Box
             component="img"
             sx={{ width: "100%", borderRadius: "10px 10px 0px 0px" }}
             src={actbanner2}
-          ></Box>
+          ></Box> */}
           {/* <Typography variant="body1" color="initial">
             ZUPEETER CREATIVE VIDEO CONTEST
           </Typography> */}

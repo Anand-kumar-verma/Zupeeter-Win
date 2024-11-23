@@ -106,13 +106,22 @@ function Wingo1Min() {
     }
   );
   React.useEffect(() => {
-    dispatch(
-      updateNextCounter(
-        game_history?.data?.result
-          ? Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1
-          : 1
-      )
-    );
+    const gamedata = game_history?.data?.result
+      ? String(Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1)
+      : '1';
+
+    const format = gamedata
+      ? gamedata.split('@')[0].substring(0, 3) + "**" + gamedata.split('@')[0].substring(gamedata.split('@')[0].length - 4)
+      : "**";
+    dispatch(updateNextCounter(format));
+    
+    // dispatch(
+    //   updateNextCounter(
+    //     game_history?.data?.result
+    //       ? Number(game_history?.data?.result?.[0]?.tr_transaction_id) + 1
+    //       : 1
+    //   )
+    // );
     const tr_digit =
       game_history?.data?.result && game_history?.data?.result?.[0]?.tr_digits;
     let array = [];

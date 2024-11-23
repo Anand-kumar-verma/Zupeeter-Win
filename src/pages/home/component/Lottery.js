@@ -115,66 +115,7 @@ function Lottery() {
           ></Box>
         </Box>
       </Box>
-      {/* <NavLink to='/k3'> */}
-      <NavLink to="/comingsoon">
-        <Box sx={style.winbox}>
-          <Box
-            component="img"
-            src={win2}
-            sx={{ width: "100%", height: "70%" }}
-          ></Box>
-          <Box sx={style.positiongame}>
-            <Typography variant="body1" color="initial" sx={style.gameheading}>
-              K3 Lotre{" "}
-            </Typography>
-            <Box sx={{ mt: "15px" }}>
-              <Typography variant="body1" color="initial">
-                Guess Number
-              </Typography>
-              <Typography variant="body1" color="initial ">
-                Big/Small/Odd/Even
-              </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
-            <Box
-              component="img"
-              src={lotterycategory2}
-              sx={{ width: "100px" }}
-            ></Box>
-          </Box>
-        </Box>
-      </NavLink>
-      {/* <NavLink to='/D5lotre'> */}
-      <NavLink to="/comingsoon">
-        <Box sx={style.winbox}>
-          <Box
-            component="img"
-            src={win3}
-            sx={{ width: "100%", height: "70%" }}
-          ></Box>
-          <Box sx={style.positiongame}>
-            <Typography variant="body1" color="initial" sx={style.gameheading}>
-              5D Lotre{" "}
-            </Typography>
-            <Box sx={{ mt: "15px" }}>
-              <Typography variant="body1" color="initial">
-                Guess Number
-              </Typography>
-              <Typography variant="body1" color="initial ">
-                Big/Small/Odd/Even
-              </Typography>
-            </Box>
-          </Box>
-          <Box sx={{ position: "absolute", top: "-20px", right: "5px" }}>
-            <Box
-              component="img"
-              src={lotterycategory3}
-              sx={{ width: "100px" }}
-            ></Box>
-          </Box>
-        </Box>
-      </NavLink>
+ 
       <Box sx={style.winbox} onClick={() => {
         if (status?.find((i) => i?.title === "trx_status")?.longtext !== 0) {
           navigate('/trx')

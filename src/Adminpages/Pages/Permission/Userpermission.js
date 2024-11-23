@@ -103,10 +103,10 @@ const client = useQueryClient()
               onChange={fk.handleChange}
             >
               <MenuItem value={4}>Dummy User</MenuItem>
-
               <MenuItem value={1}>User</MenuItem>
               <MenuItem value={2}>Admin</MenuItem>
               <MenuItem value={3}>Super Admin</MenuItem>
+              <MenuItem value={5}>Support Agent</MenuItem>
 
             </TextField>
           </div>

@@ -25,7 +25,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/betting-bonus",
-      name: "Referral Bonus / Team Recharge Bonus",
+      name: "Referral / Team Recharge Bonus",
       logo: (
         <AccountBalanceIcon
           className="!w-[40px] !h-[40px] !text-[#F48901]"

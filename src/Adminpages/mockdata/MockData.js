@@ -240,7 +240,17 @@ export const all_Data = [
       {
         id: 8.1,
         navLink: "/fund",
-        navItem: "Add Fund",
+        navItem: "Credit Fund",
+        navIcon: (
+          <span>
+            <MonetizationOn color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.5,
+        navLink: "/debit_fund",
+        navItem: "Debit Fund",
         navIcon: (
           <span>
             <MonetizationOn color="#15317E" fontSize="medium" />
@@ -250,7 +260,17 @@ export const all_Data = [
       {
         id: 8.2,
         navLink: "/fund/transfer-fund-history",
-        navItem: "Transfer Fund History",
+        navItem: "Credit Fund Transfer History",
+        navIcon: (
+          <span>
+            <Transcribe color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+      {
+        id: 8.2,
+        navLink: "/fund/debited-transfer-fund-history",
+        navItem: "Debit Fund Transfer History",
         navIcon: (
           <span>
             <Transcribe color="#15317E" fontSize="medium" />
@@ -267,6 +287,7 @@ export const all_Data = [
           </span>
         ),
       },
+
     ],
   },
 
