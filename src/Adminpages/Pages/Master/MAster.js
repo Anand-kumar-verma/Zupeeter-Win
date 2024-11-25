@@ -97,6 +97,22 @@ const Master = () => {
             name: "Approve For Login ",
         },
         {
+            id: 30,
+            name: "INR PAYIN",
+        },
+        {
+            id: 28,
+            name: "INR PAYOUT",
+        },
+        //  {
+        //     id: 31,
+        //     name: "ZP PAYIN",
+        // },
+        {
+            id: 29,
+            name: "ZP PAYOUT",
+        },
+        {
             id: 15,
             name: "TRX",
         },
