@@ -13,6 +13,9 @@ export const API_URLS = {
     token_zp_payout: `/api/v1/zp-token-payout-admin`,
     inr_payingdata: `/api/v1/gt-inr-fund-request-list`,
     inr_payoutdata: `/api/v1/gt-inr-payout-request-list`,
+    inr_manually: `/api/v1/get-withdrawal-list-more-than-ten-hund`,
+    inr_manually_Approve: `/api/v1/approve-withdrawal-more-than-ten-hund`,
+
 
     update_user_name: `/api/v1/update-user-name`,
     update_user_status: `/api/v1/update-user-status`,

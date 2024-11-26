@@ -113,6 +113,10 @@ const Master = () => {
             name: "ZP PAYOUT",
         },
         {
+            id: 32,
+            name: "P2P TRANSFER STATUS",
+        },
+        {
             id: 15,
             name: "TRX",
         },
@@ -196,33 +200,6 @@ const Master = () => {
                     />
                 )}
             </StyledTableCell>
-
-
-            {/* <StyledTableCell
-                component="th"
-                scope="row"
-                className="capitalize !text-center !py-[10px]">
-                {[23, 24, 25, 26].includes(item?.id) ? (
-                    <Switch
-                        checked={statta_matka_staus_result?.find((i) => i?.id === item?.id)?.longtext === "1" ? true : false}
-                        className="!text-green-600"
-                        onChange={() => MasterFunction(item?.id)}
-                    />
-                ) : (
-                    <Switch
-                        checked={status?.find((i) => i?.id === item?.id)?.longtext === "1" ? true : false}
-                        className="!text-green-600"
-                        onChange={() => MasterFunction(item?.id)}
-                    />
-                ):(
-                    ye tab hit jb id 1 ho 
-                    <Switch
-                        // checked={status?.find((i) => i?.id === item?.id)?.longtext === "1" ? true : false}
-                        className="!text-green-600"
-                        onChange={() => RefreshFunction(item?.id)}
-                    />
-                )}
-            </StyledTableCell> */}
         </StyledTableRow>
     ));
 

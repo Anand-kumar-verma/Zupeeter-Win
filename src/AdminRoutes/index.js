@@ -32,6 +32,10 @@ import WeeklyBonus from "../Adminpages/Pages/genealogy/WeeklyBonus";
 import WelcomeBonus from "../Adminpages/Pages/genealogy/Welcomebonus";
 import INRPaying from "../Adminpages/Pages/INRPayment/INRPaying";
 import INRPayout from "../Adminpages/Pages/INRPayment/INRPayout";
+import INRApprove from "../Adminpages/Pages/INRPaymentManually/INRApprove";
+import INRPending from "../Adminpages/Pages/INRPaymentManually/INRPending";
+import INRReject from "../Adminpages/Pages/INRPaymentManually/INRReject";
+import INRSuccess from "../Adminpages/Pages/INRPaymentManually/INRSuccess";
 import Master from "../Adminpages/Pages/Master/MAster";
 import UserPermission from "../Adminpages/Pages/Permission/Userpermission";
 import LogInApproval from "../Adminpages/Pages/player/LogInApproval";
@@ -341,6 +345,37 @@ export const adminroutes = [
     path: "/inr_Payout",
     component: <INRPayout/>,
     navItem: "INR Payout",
+  },
+
+  {
+    id: 422,
+    path: "/inr_Pending",
+    component: <INRPending/>,
+    navItem: "INR Pending",
+  },
+  {
+    id: 422,
+    path: "/inr_Success",
+    component: <INRSuccess/>,
+    navItem: "INR Success",
+  },
+  {
+    id: 423,
+    path: "/inr_Reject",
+    component: <INRReject/>,
+    navItem: "INR Reject",
+  },
+  {
+    id: 422,
+    path: "/inr_Approve",
+    component: <INRApprove/>,
+    navItem: "INR Approve",
+  },
+  {
+    id: 424,
+    path: "/inr_Reject",
+    component: <INRReject/>,
+    navItem: "INR Reject",
   },
   {
     id: 44,
