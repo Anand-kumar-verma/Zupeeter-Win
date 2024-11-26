@@ -246,7 +246,7 @@ function Withdraval() {
               BANK CARD
             </Typography>
           </Stack>
-          <Stack
+          {/* <Stack
             onClick={() => navigate("/zp-withdrawal")}
             className={"!cursor-pointer"}
             sx={{
@@ -277,7 +277,7 @@ function Withdraval() {
             >
               ZP
             </Typography>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Box>
 

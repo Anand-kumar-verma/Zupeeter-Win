@@ -1,6 +1,4 @@
-import { borderRadius } from "@mui/system";
 import rouletteBORD from "../../assets/images/thumbs_bgs.png";
-import zIndex from "@mui/material/styles/zIndex";
 
 export const style = {
   root: {
@@ -21,15 +19,15 @@ export const style = {
   },
   blue: {
     "&>p": {
-      background: '#5352FF',
+      background: "#5352FF",
       width: "100%",
-      height: '100%',
+      height: "100%",
       fontSize: "15px",
       fontWeight: 600,
       color: "white",
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
 
@@ -37,26 +35,26 @@ export const style = {
     "&>p": {
       background: "red",
       width: "100%",
-      height: '100%',
+      height: "100%",
       fontSize: "15px",
       fontWeight: 600,
       color: "white",
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
   black: {
     "&>p": {
       background: "black",
       width: "100%",
-      height: '100%',
+      height: "100%",
       fontSize: "15px",
       fontWeight: 600,
       color: "white",
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
   bettable: {
@@ -65,7 +63,7 @@ export const style = {
     position: "absolute",
     right: "19.5%",
     top: "14%",
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
     zIndex: 11,
   },
   btn1: {
@@ -88,8 +86,8 @@ export const style = {
     borderRadius: "0px",
     // height: "25%",
     transform: "rotate(-180deg)",
-    height: '100% !important',
-    overflow: 'hidden !important'
+    height: "100% !important",
+    overflow: "hidden !important",
   },
   btn3: {
     padding: 0,
@@ -118,9 +116,9 @@ export const style = {
     width: "20px",
     height: "20px",
     borderRadius: "50%",
-    display: 'flex',
-    alignItems: 'end',
-    marginTop: '5px'
+    display: "flex",
+    alignItems: "end",
+    marginTop: "5px",
   },
   rotatingElement: { animation: "$rotateInfinite 4s linear infinite" },
   "@keyframes rotateInfinite": {
@@ -128,15 +126,14 @@ export const style = {
     "100%": { transform: "rotate(360deg)" },
   },
   naiming: {
-    background:
-      "#6C10ED",
+    background: "#6C10ED",
     width: "110px",
     transform: "rotate(90deg)",
     position: "absolute",
     bottom: "35%",
     right: "-5.5%",
     borderRadius: "5px",
-    padding: '5px',
+    padding: "5px",
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
@@ -153,8 +150,8 @@ export const style = {
       margin: "auto",
       marginBottom: "2px",
       borderRadius: " 5px",
-      textAlign: 'center',
-      mt: '3px',
+      textAlign: "center",
+      mt: "3px",
     },
   },
 
@@ -165,7 +162,7 @@ export const style = {
     left: "6.5%",
     borderRadius: "5px",
     textAlign: "center",
-    border: '1px solid #CEAE5E',
+    border: "1px solid #CEAE5E",
     width: "90px",
     "&>p:nth-child(1)": {
       color: "black",
@@ -174,8 +171,8 @@ export const style = {
       padding: "4px",
       background: "#02FAFD",
       width: "100%",
-      textAlign: 'center',
-      lineHeight: '12px',
+      textAlign: "center",
+      lineHeight: "12px",
     },
   },
 
@@ -206,7 +203,7 @@ export const style = {
       marginBottom: "2px",
       borderRadius: "13px 13px 5px 5px",
       clipPath: "polygon(3% 0, 97% 0, 100% 100%, 0% 100%)",
-      textAlign: 'center',
+      textAlign: "center",
     },
   },
 
@@ -217,9 +214,9 @@ export const style = {
     left: "-7.5%",
     borderRadius: "5px",
     textAlign: "center",
-    border: '1px solid #CEAE5E',
+    border: "1px solid #CEAE5E",
     width: "90px",
-    opacity: '0',
+    opacity: "0",
     "&>p:nth-child(1)": {
       color: "black",
       fontSize: "10px",
@@ -227,8 +224,8 @@ export const style = {
       padding: "4px 10px",
       background: "#02FAFD",
       width: "100%",
-      textAlign: 'center',
-      lineHeight: '12px',
+      textAlign: "center",
+      lineHeight: "12px",
     },
   },
 
@@ -240,19 +237,19 @@ export const style = {
     bottom: "8.7%",
     left: "-6%",
     borderRadius: "2px",
-    padding: '5px 0px',
+    padding: "5px 0px",
     opacity: 0,
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
       background: "red",
       borderRadius: "2px",
-      textAlign: 'center;'
+      textAlign: "center;",
     },
   },
 
   naiming7: {
-    background: 'red',
+    background: "red",
     transform: "rotate(90deg)",
     position: "absolute",
     bottom: "57.5%",
@@ -268,7 +265,7 @@ export const style = {
   },
 
   naiming8: {
-    background: 'red',
+    background: "red",
     transform: "rotate(90deg)",
     position: "absolute",
     bottom: "39.5%",
@@ -284,23 +281,22 @@ export const style = {
   },
 
   naiming5: {
-    background: '#BA903B',
-    border: '1px solid white',
+    background: "#BA903B",
+    border: "1px solid white",
     position: "absolute",
     bottom: "10%",
     left: "1.5%",
     borderRadius: "5px",
-    width: '75px',
+    width: "75px",
     opacity: 1,
     "&>p:nth-child(1)": {
       color: "white",
       fontWeight: "600",
       textAlign: "center",
-      padding: '9px 5px !important',
-      width: '100%',
+      padding: "9px 5px !important",
+      width: "100%",
     },
   },
-
 
   countdownOuter: {
     position: "absolute",
@@ -313,7 +309,7 @@ export const style = {
     borderRadius: "10px",
     outline: "3px solid #BA903B",
     boxSizing: "border-box",
-    transform: 'rotate(-90deg)',
+    transform: "rotate(-90deg)",
   },
   winnerlooserouter: {
     padding: "2px",
@@ -324,11 +320,11 @@ export const style = {
     top: "12%",
     width: "115px",
     borderRadius: "5px",
-    background: 'black',
-    height: '100px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    background: "black",
+    height: "100px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   wunningamount: {
     padding: "10px",
@@ -341,11 +337,10 @@ export const style = {
     borderRadius: "5px",
   },
 
-
   flex: {
-    display: 'flex !important',
-    alignItems: 'center !important',
-    justifyContent: 'center !important',
+    display: "flex !important",
+    alignItems: "center !important",
+    justifyContent: "center !important",
   },
 
   winnerlooserouter3: {
@@ -382,11 +377,11 @@ export const style = {
     },
   },
   winnerlooserouter2: {
-    padding: ' 10px 5px',
-    position: 'absolute',
-    width: '96%',
-    borderRadius: '5px',
-    backgroundColor: '#0A001B',
+    padding: " 10px 5px",
+    position: "absolute",
+    width: "96%",
+    borderRadius: "5px",
+    backgroundColor: "#0A001B",
     bottom: 0,
   },
   winnerLooserList: {
@@ -395,19 +390,25 @@ export const style = {
       fontSize: "15px",
       fontWeight: "600",
       color: "white",
-      mb: '1px',
-      textAlign: 'center',
+      mb: "1px",
+      textAlign: "center",
       // transform: "rotate(90deg)",
     },
     "&>p:nth-child(2)": {
       fontSize: "15px",
       fontWeight: "600",
       color: "#F01111",
-      mb: '1px',
-      textAlign: 'center',
+      mb: "1px",
+      textAlign: "center",
       // transform: "rotate(90deg)",
     },
-    "&>p:nth-child(3)": { fontSize: "15px", fontWeight: "600", color: "#6C10ED", mb: '1px', textAlign: 'center', },
+    "&>p:nth-child(3)": {
+      fontSize: "15px",
+      fontWeight: "600",
+      color: "#6C10ED",
+      mb: "1px",
+      textAlign: "center",
+    },
   },
   winnerLooserList2: {
     width: "80%",
@@ -436,9 +437,9 @@ export const style = {
     },
   },
   flex: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   naiming10: {
@@ -449,7 +450,7 @@ export const style = {
 
     borderRadius: "5px",
     textAlign: "center",
-    border: '1px solid #CEAE5E',
+    border: "1px solid #CEAE5E",
     width: "60px",
 
     "&>p:nth-child(1)": {
@@ -459,8 +460,8 @@ export const style = {
       padding: "3px",
       background: "#02FAFD",
       width: "100%",
-      textAlign: 'center',
-      lineHeight: '12px',
+      textAlign: "center",
+      lineHeight: "12px",
     },
   },
 
@@ -471,7 +472,7 @@ export const style = {
     right: "3%",
     borderRadius: "5px",
     textAlign: "center",
-    border: '3px solid #CEAE5E',
+    border: "3px solid #CEAE5E",
     width: "60px",
     "&>p:nth-child(1)": {
       color: "black",
@@ -480,20 +481,20 @@ export const style = {
       padding: "5px",
       background: "#02FAFD",
       width: "100%",
-      textAlign: 'center',
-      lineHeight: '12px',
+      textAlign: "center",
+      lineHeight: "12px",
     },
   },
   naiming12: {
-    background: 'red',
-    border: '1px solid white',
+    background: "red",
+    border: "1px solid white",
     position: "absolute",
     bottom: "24%",
     left: "1.5%",
     borderRadius: "5px",
-    width: '75px',
+    width: "75px",
     opacity: 1,
-    padding: '8px 5px',
+    padding: "8px 5px",
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
@@ -502,35 +503,34 @@ export const style = {
     },
   },
   naiming13: {
-    background: 'red',
-    border: '1px solid white',
+    background: "red",
+    border: "1px solid white",
     position: "absolute",
     bottom: "17%",
     left: "1.5%",
     borderRadius: "5px",
-    width: '75px',
+    width: "75px",
     opacity: 1,
-    padding: '8px 5px',
+    padding: "8px 5px",
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
       fontWeight: "600",
       textAlign: "center",
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
   naiming100: {
-    background:
-      "#6C10ED",
+    background: "#6C10ED",
     width: "110px",
     transform: "rotate(90deg)",
     position: "absolute",
     bottom: "52%",
     right: "-5.5%",
     borderRadius: "5px",
-    padding: '5px',
+    padding: "5px",
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
@@ -547,20 +547,19 @@ export const style = {
       margin: "auto",
       marginBottom: "2px",
       borderRadius: " 5px",
-      textAlign: 'center',
-      mt: '3px',
+      textAlign: "center",
+      mt: "3px",
     },
   },
   naiming200: {
-    background:
-      "#6C10ED",
+    background: "#6C10ED",
     width: "110px",
     transform: "rotate(90deg)",
     position: "absolute",
     bottom: "52%",
     right: "8.5%",
     borderRadius: "5px",
-    padding: '5px',
+    padding: "5px",
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
@@ -577,20 +576,19 @@ export const style = {
       margin: "auto",
       marginBottom: "2px",
       borderRadius: " 5px",
-      textAlign: 'center',
-      mt: '3px',
+      textAlign: "center",
+      mt: "3px",
     },
   },
   naiming300: {
-    background:
-      "#6C10ED",
+    background: "#6C10ED",
     width: "110px",
     transform: "rotate(90deg)",
     position: "absolute",
     bottom: "35%",
     right: "8.5%",
     borderRadius: "5px",
-    padding: '5px',
+    padding: "5px",
     "&>p:nth-child(1)": {
       color: "white",
       fontSize: "10px",
@@ -607,39 +605,45 @@ export const style = {
       margin: "auto",
       marginBottom: "2px",
       borderRadius: " 5px",
-      textAlign: 'center',
-      mt: '3px',
+      textAlign: "center",
+      mt: "3px",
     },
   },
-  p13: { fontSize: '13px !important', fontWeight: '500 !important', color: 'white !important' },
-  p15: { fontSize: '13px !important', fontWeight: '500 !important', color: 'white !important' },
-
-
+  p13: {
+    fontSize: "13px !important",
+    fontWeight: "500 !important",
+    color: "white !important",
+  },
+  p15: {
+    fontSize: "13px !important",
+    fontWeight: "500 !important",
+    color: "white !important",
+  },
 
   btncss: {
-    position: 'relative',
-    padding: '10px 22px',
-    borderRadius: '6px',
-    border: 'none',
-    color: '#fff',
-    cursor: 'pointer',
-    backgroundColor: '#7d2ae8',
-    transition: 'all 0.2s ease',
-    '&:active': {
-      transform: 'scale(0.96)',
+    position: "relative",
+    padding: "10px 22px",
+    borderRadius: "6px",
+    border: "none",
+    color: "#fff",
+    cursor: "pointer",
+    backgroundColor: "#7d2ae8",
+    transition: "all 0.2s ease",
+    "&:active": {
+      transform: "scale(0.96)",
     },
-    '&:before, &:after': {
-      position: 'absolute',
+    "&:before, &:after": {
+      position: "absolute",
       content: '""',
-      width: '150%',
-      left: '50%',
-      height: '100%',
-      transform: 'translateX(-50%)',
+      width: "150%",
+      left: "50%",
+      height: "100%",
+      transform: "translateX(-50%)",
       zIndex: -1000,
-      backgroundRepeat: 'no-repeat',
+      backgroundRepeat: "no-repeat",
     },
-    '&:hover:before': {
-      top: '-70%',
+    "&:hover:before": {
+      top: "-70%",
       backgroundImage: `
       radial-gradient(circle, #7d2ae8 20%, transparent 20%),
       radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
@@ -655,11 +659,11 @@ export const style = {
       10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 
       10% 10%, 15% 15%, 10% 10%, 18% 18%
     `,
-      backgroundPosition: '50% 120%',
-      animation: 'greentopBubbles 0.6s ease',
+      backgroundPosition: "50% 120%",
+      animation: "greentopBubbles 0.6s ease",
     },
-    '&:hover:after': {
-      bottom: '-70%',
+    "&:hover:after": {
+      bottom: "-70%",
       backgroundImage: `
       radial-gradient(circle, #7d2ae8 20%, transparent 20%),
       radial-gradient(circle, #7d2ae8 20%, transparent 20%),
@@ -673,54 +677,50 @@ export const style = {
       15% 15%, 20% 20%, 18% 18%, 20% 20%, 
       15% 15%, 20% 20%, 18% 18%
     `,
-      backgroundPosition: '50% 0%',
-      animation: 'greenbottomBubbles 0.6s ease',
+      backgroundPosition: "50% 0%",
+      animation: "greenbottomBubbles 0.6s ease",
     },
-    '@keyframes greentopBubbles': {
-      '0%': {
+    "@keyframes greentopBubbles": {
+      "0%": {
         backgroundPosition: `
         5% 90%, 10% 90%, 10% 90%, 15% 90%, 
         25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%
       `,
       },
-      '50%': {
+      "50%": {
         backgroundPosition: `
         0% 80%, 0% 20%, 10% 40%, 20% 0%, 
         30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%
       `,
       },
-      '100%': {
+      "100%": {
         backgroundPosition: `
         0% 70%, 0% 10%, 10% 30%, 20% -10%, 
         30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%
       `,
-        backgroundSize: '0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%',
+        backgroundSize: "0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%",
       },
     },
-    '@keyframes greenbottomBubbles': {
-      '0%': {
+    "@keyframes greenbottomBubbles": {
+      "0%": {
         backgroundPosition: `
         10% -10%, 30% 10%, 55% -10%, 70% -10%, 
         85% -10%, 70% -10%, 70% 0%
       `,
       },
-      '50%': {
+      "50%": {
         backgroundPosition: `
         0% 80%, 20% 80%, 45% 60%, 60% 100%, 
         75% 70%, 95% 60%, 105% 0%
       `,
       },
-      '100%': {
+      "100%": {
         backgroundPosition: `
         0% 90%, 20% 90%, 45% 70%, 60% 110%, 
         75% 80%, 95% 70%, 110% 10%
       `,
-        backgroundSize: '0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%',
+        backgroundSize: "0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%",
       },
     },
-  }
+  },
 };
-
-
-
-

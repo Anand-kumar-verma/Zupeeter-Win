@@ -29,6 +29,7 @@ const Player = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("total_amount");
+  const [user_sub_data, setuser_sub_data] = React.useState({});
 
   const fk = useFormik({
     initialValues: {
@@ -48,6 +49,7 @@ const Player = () => {
         from_amount: from_amount,
       });
       setData(res?.data?.data || []);
+      setuser_sub_data(res?.data);
       if (res) {
         setTo_date("");
         setFrom_date("");
@@ -240,7 +242,6 @@ const Player = () => {
       </span>,
     ];
   });
-
   return (
     <div>
       <div className="flex px-2 gap-5 !justify-start py-2">
@@ -286,6 +287,21 @@ const Player = () => {
         tablehead={tablehead}
         tablerow={tablerow}
         isLoading={loding}
+        isTotal={
+          <div className="!w-full flex justify-between !bg-white !bg-opacity-30 !pt-1 !py-1 !px-2 !font-bold">
+            <p>
+              Winning Amnt:{" "}
+              {Number(user_sub_data?.total_winning_wallet || 0)?.toFixed(2)}
+            </p>
+            <p>
+              Wallet Amnt:{" "}
+              {Number(user_sub_data?.total_main_wallet || 0)?.toFixed(2)}
+            </p>
+            <p>
+              Sub Total: {Number(user_sub_data?.all_total || 0)?.toFixed(2)}
+            </p>
+          </div>
+        }
       />
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Edit Name</DialogTitle>

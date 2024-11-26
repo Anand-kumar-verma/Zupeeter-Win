@@ -24,20 +24,21 @@ import cip from "../../../assets/images/cip.png";
 import user from "../../../assets/images/instruction.png";
 import refresh from "../../../assets/images/refwhite.png";
 import zp from "../../../assets/images/zptoken.png";
-import { apiConnectorGet, apiConnectorPost } from "../../../services/apiconnector";
+import {
+  apiConnectorGet,
+  apiConnectorPost,
+} from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
 import theme from "../../../utils/theme";
 import QRScreen from "./QRScreen";
 import data from "../../../assets/images/payment.png";
 
-
 function Deposite() {
   const audioRefMusic = React.useRef(null);
   const [OrderData, setOrderData] = React.useState("");
   const [loding, setloding] = useState(false);
   const [deposit_req_data, setDeposit_req_data] = React.useState();
-
 
   const { isLoading, data: wallet_amount } = useQuery(
     ["wallet_amount"],
@@ -61,8 +62,8 @@ function Deposite() {
     onSubmit: () => {
       const reqbody = {
         u_req_amount: formik.values.amount,
-        u_gateway_type: "2"
-      }
+        u_gateway_type: "2",
+      };
       payment(reqbody);
     },
   });
@@ -73,11 +74,11 @@ function Deposite() {
       return;
     }
     const res = await apiConnectorPost(`${endpoint.payment_inr}`, reqbody);
-    const qr_url = (res?.data?.data && (res?.data?.data)?.payment_link) || "";
-    const orderdata = (res?.data?.order_id) || "";
+    const qr_url = (res?.data?.data && res?.data?.data?.payment_link) || "";
+    const orderdata = res?.data?.order_id || "";
     if (qr_url) {
       setDeposit_req_data(qr_url);
-      setOrderData(orderdata)
+      setOrderData(orderdata);
     } else {
       res?.data?.msg ? toast(res?.data?.msg) : toast("Something went wrong");
     }
@@ -87,7 +88,6 @@ function Deposite() {
   React.useEffect(() => {
     handlePlaySound();
   }, []);
-
 
   // if (deposit_req_data) {
   //   window.open(deposit_req_data);
@@ -116,14 +116,14 @@ function Deposite() {
 
   if (deposit_req_data) {
     return (
-      <QRScreen deposit_req_data={deposit_req_data} OrderData={OrderData}/>
+      <QRScreen deposit_req_data={deposit_req_data} OrderData={OrderData} />
     );
   }
 
   return (
     <Container sx={{ background: "#F7F8FF" }}>
       {audio}
-      <CustomCircularProgress isLoading={isLoading || loding } />
+      <CustomCircularProgress isLoading={isLoading || loding} />
       <Box
         sx={{
           background:
@@ -139,7 +139,12 @@ function Deposite() {
             position: "relative",
           }}
         >
-          <Box component="img" src={backbtn} width={25} onClick={() => navigate('/account')}></Box>
+          <Box
+            component="img"
+            src={backbtn}
+            width={25}
+            onClick={() => navigate("/account")}
+          ></Box>
 
           <Box sx={{ position: "absolute", left: "40%", top: "10%" }}>
             <Typography
@@ -186,7 +191,8 @@ function Deposite() {
               ₹
               {(
                 Number(
-                  Number(wallet_amount_data?.winning || 0) + Number(wallet_amount_data?.wallet || 0)
+                  Number(wallet_amount_data?.winning || 0) +
+                    Number(wallet_amount_data?.wallet || 0)
                 ) || 0
               )?.toFixed(2)}{" "}
             </Typography>
@@ -234,7 +240,7 @@ function Deposite() {
               BANK CARD
             </Typography>
           </Stack>
-          <Stack
+          {/* <Stack
             onClick={() => navigate("/zp")}
             sx={{
               width: "120px",
@@ -245,7 +251,8 @@ function Deposite() {
               boxShadow:
                 " rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
             }}
-            className={"!cursor-pointer"}>
+            className={"!cursor-pointer"}
+          >
             <Box
               component="img"
               src={zp}
@@ -264,7 +271,7 @@ function Deposite() {
             >
               ZP
             </Typography>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Box>
 
@@ -314,7 +321,7 @@ function Deposite() {
             sx={style.paytmbtn}
             onClick={() => {
               setDeposit_req_data(null);
-              formik.setFieldValue("amount", 1000)
+              formik.setFieldValue("amount", 1000);
             }}
           >
             ₹ 1K
@@ -372,7 +379,9 @@ function Deposite() {
         <Button
           sx={style.wdbtn}
           onClick={formik.handleSubmit}
-          className={`${formik.values.amount ? "!bg-[#F48901]" : "!bg-gray-400"}`}
+          className={`${
+            formik.values.amount ? "!bg-[#F48901]" : "!bg-gray-400"
+          }`}
         >
           Deposit
         </Button>
@@ -472,8 +481,6 @@ function Deposite() {
           </Stack>
         </Box>
       </Box>
-
-  
     </Container>
   );
 }
