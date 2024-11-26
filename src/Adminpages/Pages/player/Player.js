@@ -1,6 +1,7 @@
 import { Edit, FilterAlt } from "@mui/icons-material";
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
@@ -34,6 +35,8 @@ const Player = () => {
     initialValues: {
       user_name: "",
       user_id: "",
+      eligible_for_p2p: "",
+      eligible_for_more_than_five_hen: ""
     },
   });
 
@@ -62,7 +65,7 @@ const Player = () => {
     userListFunction();
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const changePlayerStatusFunction = async (id) => {
     try {
       const res = await axiosInstance.get(
@@ -80,6 +83,8 @@ const Player = () => {
       const req = {
         u_user_id: currentUser.id,
         u_user_name: fk.values.user_name,
+        eligible_for_p2p: String(fk.values.eligible_for_p2p),
+        eligible_for_more_than_five_hen: String(fk.values.eligible_for_more_than_five_hen),
       };
       const res = await axiosInstance.post(
         `${API_URLS?.update_user_name}`,
@@ -203,6 +208,8 @@ const Player = () => {
           onClick={() => {
             setCurrentUser(i);
             fk.setFieldValue("user_name", i.full_name);
+            fk.setFieldValue("eligible_for_more_than_five_hen", i.eligible_for_more_than_five_hen);
+            fk.setFieldValue("eligible_for_p2p", i.eligible_for_p2p);
             setOpen(true);
           }}
         />
@@ -288,7 +295,7 @@ const Player = () => {
         isLoading={loding}
       />
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Edit Name</DialogTitle>
+        <DialogTitle>Update</DialogTitle>
         <DialogContent>
           <TextField
             className="!mt-2"
@@ -297,16 +304,31 @@ const Player = () => {
             value={fk.values.user_name}
             onChange={(e) => fk.setFieldValue("user_name", e.target.value)}
           />
+          <p className="mt-1 mr-1">
+            <Checkbox
+              checked={fk.values.eligible_for_more_than_five_hen === 1}
+              onChange={(e) => fk.setFieldValue("eligible_for_more_than_five_hen", e.target.checked ? 1 : 0)}
+            />
+            Eligible for more than 500 INR
+          </p>
+          <p className="mr-1">
+            <Checkbox
+              checked={fk.values.eligible_for_p2p === 1}
+              onChange={(e) => fk.setFieldValue("eligible_for_p2p", e.target.checked ? 1 : 0)}
+            />
+            Eligible for P2P transfer
+          </p>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="primary">
             Cancel
           </Button>
           <Button onClick={UpdatePlayerFn} color="primary">
-            Update
+            Submit
           </Button>
         </DialogActions>
       </Dialog>
+
     </div>
   );
 };
