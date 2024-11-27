@@ -53,16 +53,7 @@ function MainPageOFIncome() {
         />
       ),
     },
-    {
-      to: "/account/income-main/referral-bonus",
-      name: "Weekly Loss Recovery Bonus",
-      logo: (
-        <RedeemIcon
-          className="!w-[40px] !h-[40px] !text-[#F48901]"
-          color="#8f5206"
-        />
-      ),
-    },
+  
     {
       to: "/account/income-main/team-salary-bonus",
       name: "Scrached Coupon Bonus",
@@ -115,7 +106,7 @@ function MainPageOFIncome() {
     },
     {
       to: "/account/income-main/loss_recovery",
-      name: "LR Bonus",
+      name: "Staking Bonus",
       logo: (
         <Diversity2
           className="!w-[40px] !h-[40px] !text-[#F48901]"
