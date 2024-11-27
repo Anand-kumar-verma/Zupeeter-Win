@@ -113,6 +113,16 @@ function MainPageOFIncome() {
         />
       ),
     },
+    {
+      to: "/account/income-main/loss_recovery",
+      name: "LR Bonus",
+      logo: (
+        <Diversity2
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
   ];
   return (
     <Layout>

@@ -199,7 +199,13 @@ function Withdraval() {
               variant="body1"
               sx={{ color: "white", fontSize: "24px", fontWeight: "500" }}
             >
-              ₹ {wallet_amount_data?.wallet || 0}
+              ₹
+              {(
+                Number(
+                  Number(wallet_amount_data?.winning || 0) +
+                    Number(wallet_amount_data?.wallet || 0)
+                ) || 0
+              )?.toFixed(2)}{" "}
             </Typography>
             <Box
               component="img"

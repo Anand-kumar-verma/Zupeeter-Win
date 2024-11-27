@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ProfileDataFunction } from "../../services/apiCallings";
 import { useQuery } from "react-query";
 import moment from "moment";
+import backbtn from "../../assets/images/backBtn.png";
+import { NavLink } from "react-router-dom";
+import { Box } from "@mui/material";
+import { apiConnectorGet } from "../../services/apiconnector";
+import { endpoint } from "../../services/urls";
 
 const CountdownTimer = ({ targetDate }) => {
   const [date, setDate] = useState(new Date(targetDate));
@@ -42,7 +47,7 @@ const CountdownTimer = ({ targetDate }) => {
 
   return (
     <div>
-      <div className="text-white flex justify-start gap-5">
+      <div className="text-white flex justify-center gap-5">
         {timeLeft && (
           <span>
             <span>{timeLeft.days}d</span> -{" "}
@@ -57,6 +62,19 @@ const CountdownTimer = ({ targetDate }) => {
 };
 
 const CustomDate = () => {
+
+  const { data: walletaddress } = useQuery(
+    ["address_own"],
+    () => apiConnectorGet(endpoint?.zp_own_address), {
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    retryOnMount: false,
+    refetchOnWindowFocus: false,
+  }
+  )
+  const ownaddress = walletaddress?.data?.data?.[0]
+
   const { data } = useQuery(["profile"], () => ProfileDataFunction(), {
     refetchOnMount: false,
     refetchOnReconnect: false,
@@ -68,13 +86,34 @@ const CustomDate = () => {
   const profile = data?.data?.data || [];
   const successDate = profile?.success_date;
   const targetDate = moment(successDate).add(1, 'years').format("YYYY-MM-DD");
-  
 
-  const targetDateObj = new Date(targetDate); 
+
+  const targetDateObj = new Date(targetDate);
   return (
-    <div className="App">
-      <CountdownTimer targetDate={targetDateObj} />
+    <div className="coming-soon-container">
+      <div className="background"></div>
+      <div className="content">
+        <NavLink to="/account/income-main">
+          <img src={backbtn} alt='' className='mr-5 pb-10' />
+        </NavLink>
+        <h1 className="heading"> {profile?.success_date &&
+              <Box >ZP : {Number(Number(profile?.tr15_amt || 0) / ownaddress?.token_amnt)?.toFixed(2)}  </Box>
+                }</h1>
+        <p className="subheading">    Loss Recovery Bonus
+       </p>
+       
+        <div className="countdown-box">
+          <p className="countdown-text"> 
+         </p>
+          <div className="timers"> 
+            <CountdownTimer targetDate={targetDateObj} /></div>
+           
+         
+        </div>
+
+      </div>
     </div>
+
   );
 };
 

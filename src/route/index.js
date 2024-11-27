@@ -64,6 +64,7 @@ import LocationListChart from "../pages/SattaMatka/game/LocationListChart";
 import CompanyPromoter from "../pages/income/incomeSubSection/CompanyPromoter";
 import WelcomeBonus from "../pages/income/incomeSubSection/Welcomebonus";
 import AddBankDetails from "../pages/bank/AddBankdetail";
+import CustomDate from "../shared/CustomiztionDate/CustomDate";
 
 export const routes = [
   {
@@ -333,5 +334,9 @@ export const routes = [
   {
     path: "/addbank",
     element: <AddBankDetails />,
+  },
+  {
+    path: "/account/income-main/loss_recovery",
+    element: <CustomDate />,
   },
 ];

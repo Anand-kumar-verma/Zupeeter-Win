@@ -51,17 +51,7 @@ function Account() {
   });
   const profile = data?.data?.data || [];
 
-  const { data: walletaddress } = useQuery(
-    ["address_own"],
-    () => apiConnectorGet(endpoint?.zp_own_address), {
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    retryOnMount: false,
-    refetchOnWindowFocus: false,
-  }
-  )
-  const ownaddress = walletaddress?.data?.data?.[0]
+
 
   const { data: wallet_amount } = useQuery(
     ["wallet_amount_amount"],
@@ -115,14 +105,7 @@ function Account() {
                 <Typography className="text-white !text-xs">{profile?.username} <CopyAll fontSize="small" /> </Typography>
               </Box>
               <Typography className="text-white !text-xs">{profile?.is_company_promotor === 1 ? <p>Company Promoter</p> : ""} </Typography>
-              {profile?.success_date &&
-                <>
-                  <Box className="text-white !text-xs">Loss Recovery Bonus :
-                    {Number(Number(profile?.tr15_amt || 0) / ownaddress?.token_amnt)?.toFixed(2)} ZP </Box>
-                  <CustomDate />
-                </>
-
-              }
+             
 
 
             </Box>
