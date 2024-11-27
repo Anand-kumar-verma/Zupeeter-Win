@@ -63,7 +63,6 @@ function MainPageOFIncome() {
     //     />
     //   ),
     // },
-  
     {
       to: "/account/income-main/team-salary-bonus",
       name: "Scrached Coupon Bonus",

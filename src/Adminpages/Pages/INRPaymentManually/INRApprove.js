@@ -11,7 +11,6 @@ import moment from "moment";
 const INRApprove = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  const [totalamount, setTotalamount] = useState([]);
   const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
   const [loding, setloding] = useState(false);
@@ -26,7 +25,6 @@ const INRApprove = () => {
         payout_type:4
       });
       setData(res?.data?.data || []);
-      setTotalamount(res?.data?.total)
       if (res) {
         setTo_date("");
         setFrom_date("");
@@ -61,7 +59,7 @@ const INRApprove = () => {
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{moment(i?.Approve_date)?.format("YYYY-MM-DD")}</span>,
+      <span className="">{moment.utc(i?.Approve_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
 
     ];
   });

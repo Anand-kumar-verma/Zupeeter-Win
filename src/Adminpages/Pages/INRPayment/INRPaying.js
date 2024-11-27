@@ -6,6 +6,7 @@ import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import moment from "moment";
+import SweetAlert from "sweetalert2";
 
 
 const INRPaying = () => {
@@ -49,7 +50,24 @@ const INRPaying = () => {
       console.log(e);
     }
   };
-
+  const handleSubmit = (id) => {
+    SweetAlert.fire({
+      title: 'Are you sure?',
+      text: "You want to Approve this Amount!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        confirmButton: 'custom-confirm', 
+        cancelButton: 'custom-cancel'    
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        changeStatusApprovedFunction(id);
+      }
+    });
+  };
   useEffect(() => {
     INRPayingFunction()
   }, [])
@@ -62,8 +80,8 @@ const INRPaying = () => {
     <span>Amount</span>,
     <span>Status</span>,
     <span>UTR Number</span>,
-    <span>Req Date</span>,
-    <span>Success Date</span>,
+    <span>Req Date / Time</span>,
+    <span>Success Date / Time</span>,
     <span >Action</span>,
 
   ];
@@ -77,15 +95,15 @@ const INRPaying = () => {
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{moment(i?.tr15_date)?.format("YYYY-MM-DD")}</span>,
-      <span className="">{i?.tr15_status === "Pending" ? "--" : moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
+      <span className="">{moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
+      <span className="">{i?.tr15_status === "Pending" ? "--" : moment.utc(i?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
 
       <span>
         {i?.tr15_status === "Pending" ?
           <Button
             variant="contained"
             className="!bg-[#198754]"
-            onClick={() => changeStatusApprovedFunction(i?.tr15_trans)}
+            onClick={() => handleSubmit(i?.tr15_trans)}
           >
             Approve
 

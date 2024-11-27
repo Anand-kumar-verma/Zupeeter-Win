@@ -6,12 +6,13 @@ import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import moment from "moment";
+import SweetAlert from "sweetalert2";
+
 
 
 const INRPending = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  const [totalamount, setTotalamount] = useState([]);
   const [from_date, setFrom_date] = useState("");
   const [to_date, setTo_date] = useState("");
   const [loding, setloding] = useState(false);
@@ -26,7 +27,6 @@ const INRPending = () => {
         payout_type:1
       });
       setData(res?.data?.data || []);
-      setTotalamount(res?.data?.total)
 
       if (res) {
         setTo_date("");
@@ -53,7 +53,24 @@ const INRPending = () => {
       console.log(e);
     }
   };
-
+  const handleSubmit = (id) => {
+    SweetAlert.fire({
+      title: 'Are you sure?',
+      text: "You want to Approve this Amount!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        confirmButton: 'custom-confirm', 
+        cancelButton: 'custom-cancel'    
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        changeStatusApprovedFunction(id);
+      }
+    });
+  };
   const changeStatusRejectFunction = async (id) => {
     try {
       const res = await axiosInstance.post(
@@ -70,6 +87,24 @@ const INRPending = () => {
     }
   };
 
+  const handleRejectSubmit = (id) => {
+    SweetAlert.fire({
+      title: 'Are you sure?',
+      text: "You want to Approve this Amount!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        confirmButton: 'custom-confirm', 
+        cancelButton: 'custom-cancel'    
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        changeStatusRejectFunction(id);
+      }
+    });
+  };
   useEffect(() => {
     INRPendingFunction()
   }, [])
@@ -97,7 +132,7 @@ const INRPending = () => {
       <span>{Number(i?.tr15_amt)?.toFixed(2)}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{moment(i?.tr15_date)?.format("YYYY-MM-DD")}</span>,
+      <span className="">{moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
       <span className="">{i?.tr15_status === "Pending" ? "--" : moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
 
       <span>
@@ -105,7 +140,7 @@ const INRPending = () => {
           <Button
             variant="contained"
             className="!bg-[#198754]"
-            onClick={() => changeStatusApprovedFunction(i?.tr15_id)}
+            onClick={() => handleSubmit(i?.tr15_id)}
           >
             Approve
 
@@ -115,7 +150,7 @@ const INRPending = () => {
           <Button
             variant="contained"
             className="!bg-[#e65b5b] !mt-1"
-            onClick={() => changeStatusRejectFunction(i?.tr15_id)}
+            onClick={() => handleRejectSubmit(i?.tr15_id)}
           >
             Reject
 
