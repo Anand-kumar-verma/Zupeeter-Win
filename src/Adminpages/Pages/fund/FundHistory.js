@@ -36,7 +36,7 @@ const FundHistory = () => {
     <span>Amount</span>,
     <span>Status</span>,
     <span>Transaction Id</span>,
-    <span>Date</span>,
+    <span>Date/Time</span>,
   ];
 
   const tablerow = data?.map((i, index) => {
