@@ -42,7 +42,7 @@ const Dashboard = () => {
     () => dashboard_counter_function(),
     {
       refetchOnMount: false,
-      refetchOnWindowFocus:false,
+      refetchOnWindowFocus: false,
       refetchOnReconnect: true,
     }
   );
@@ -53,7 +53,7 @@ const Dashboard = () => {
     () => registrationCahrt(),
     {
       refetchOnMount: false,
-      refetchOnWindowFocus:false,
+      refetchOnWindowFocus: false,
       refetchOnReconnect: true,
     }
   );
@@ -64,7 +64,7 @@ const Dashboard = () => {
     () => businessChart(),
     {
       refetchOnMount: false,
-      refetchOnWindowFocus:false,
+      refetchOnWindowFocus: false,
       refetchOnReconnect: true,
     }
   );
@@ -72,21 +72,21 @@ const Dashboard = () => {
 
   const { data: trx } = useQuery(["trxchart"], () => trxChart(), {
     refetchOnMount: false,
-    refetchOnWindowFocus:false,
+    refetchOnWindowFocus: false,
     refetchOnReconnect: true,
   });
   const trxnew_data = trx?.data?.data || [];
 
   const { data: wingo } = useQuery(["wingochart"], () => wingoChart(), {
     refetchOnMount: false,
-    refetchOnWindowFocus:false,
+    refetchOnWindowFocus: false,
     refetchOnReconnect: true,
   });
   const wingonew_data = wingo?.data?.data || [];
 
   const { data: aviator } = useQuery(["aviatorchart"], () => aviatorChart(), {
     refetchOnMount: false,
-    refetchOnWindowFocus:false,
+    refetchOnWindowFocus: false,
     refetchOnReconnect: true,
   });
   const aviatornew_data = aviator?.data?.data || [];
@@ -418,15 +418,15 @@ const Dashboard = () => {
     },
     {
       id: 13,
-      item: "Today Turnover",
+      item: "Total Withdrawal",
       icon: <GavelIcon className="!h-[5rem] !w-[5rem] !text-[#2a2785]" />,
-      count: Number(dashboard_new_data?.today_recharge)?.toFixed(2) || 0,
+      count: Number(dashboard_new_data?.total_payout)?.toFixed(2) || 0,
     },
     {
       id: 14,
-      item: "Total Turnover",
+      item: "Today Withdrawal",
       icon: <MoneyIcon className="!h-[5rem] !w-[5rem] !text-[#2a2785]" />,
-      count: Number(dashboard_new_data?.total_recharge)?.toFixed(2) || 0,
+      count: Number(dashboard_new_data?.today_payout)?.toFixed(2) || 0,
     },
     {
       id: 15,
@@ -464,7 +464,10 @@ const Dashboard = () => {
         />
       </div>
       <div className="grid lg:grid-cols-2 grid-cols-1 justify-center w-full  border-t border-gray-600 ">
-        <div id="chart" className=" lg:border-r border-gray-600 !bg-white !bg-opacity-50 !m-2">
+        <div
+          id="chart"
+          className=" lg:border-r border-gray-600 !bg-white !bg-opacity-50 !m-2"
+        >
           <ReactApexChart
             options={trxwingochart.options}
             series={trxwingochart.series}
@@ -482,7 +485,10 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="grid lg:grid-cols-2 grid-cols-1 justify-center w-full  border-t border-gray-600">
-        <div id="chart" className=" lg:border-r border-gray-600 !bg-white !bg-opacity-50 !m-2">
+        <div
+          id="chart"
+          className=" lg:border-r border-gray-600 !bg-white !bg-opacity-50 !m-2"
+        >
           <ReactApexChart
             options={dashboardcount2.options}
             series={dashboardcount2.series}
@@ -499,7 +505,10 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div id="chart" className="border-t border-gray-600 !bg-white !bg-opacity-50 !m-2">
+      <div
+        id="chart"
+        className="border-t border-gray-600 !bg-white !bg-opacity-50 !m-2"
+      >
         <ReactApexChart
           options={businesschartState.options}
           series={businesschartState.series}

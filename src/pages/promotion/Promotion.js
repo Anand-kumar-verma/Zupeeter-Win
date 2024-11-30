@@ -47,8 +47,13 @@ function Promotion() {
         <CustomCircularProgress isLoading={isLoading} />
         <Box sx={style.header}>
           <Typography variant="body1" color="initial"></Typography>
-          <Typography variant="body1" color="initial" className="!text-white !text-sm ">
-            <span className="">{result?.username}  </span> / <span>{result?.full_name}</span>
+          <Typography
+            variant="body1"
+            color="initial"
+            className="!text-white !text-sm "
+          >
+            <span className="">{result?.username} </span> /{" "}
+            <span>{result?.full_name}</span>
           </Typography>
           <Box component={NavLink} to="/promotion/Subordinate/"></Box>
         </Box>
@@ -227,16 +232,17 @@ function Promotion() {
                     1<sup>st</sup> Deposit Amount
                   </Typography>
                 </Box>
-                
+
                 <Box sx={style.subcordinatelist}>
                   <Typography
                     variant="body1"
                     color="initial"
                     className="!text-green-400"
                   >
-
-                    {Number(Number(result?.total_direct_topup || 0)+ Number(result?.total_team_topup || 0))?.toFixed(2)}
-                  
+                    {Number(
+                      Number(result?.total_direct_topup || 0) +
+                        Number(result?.total_team_topup || 0)
+                    )?.toFixed(2)}
                   </Typography>
                   <Typography
                     variant="body1"
@@ -244,7 +250,7 @@ function Promotion() {
                     className="!text-black"
                   >
                     {" "}
-                   Total Deposit Amount
+                    Total Deposit Amount
                   </Typography>
                 </Box>
               </Box>
@@ -283,9 +289,7 @@ function Promotion() {
                 <Box sx={style.innerBoxStyles}>
                   <Box sx={style.subcordinatelist}>
                     <Typography variant="body1" className="">
-                      {Number(result?.today_betting_by_user || 0)?.toFixed(
-                        2
-                      )}
+                      {Number(result?.today_betting_by_user || 0)?.toFixed(2)}
                     </Typography>
                     <Typography variant="body1">Today Bet</Typography>
                   </Box>
@@ -294,9 +298,7 @@ function Promotion() {
                 <Box sx={style.innerBoxStylestwo}>
                   <Box sx={style.subcordinatelist}>
                     <Typography variant="body1" className="">
-                      {Number(result?.total_betting_by_user || 0)?.toFixed(
-                        2
-                      )}
+                      {Number(result?.total_betting_by_user || 0)?.toFixed(2)}
                     </Typography>
                     <Typography variant="body1">Total Bet</Typography>
                   </Box>

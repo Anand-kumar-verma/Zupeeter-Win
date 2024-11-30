@@ -11,20 +11,18 @@ import { FilterAlt } from "@mui/icons-material";
 const DebitFundHistory = () => {
   const [loding, setloding] = useState(false);
   const [data, setData] = useState([]);
-   const [from_date, setFrom_date] = useState();
+  const [from_date, setFrom_date] = useState();
   const [to_date, setTo_date] = useState();
   const [search, setSearch] = useState("");
-
 
   const DebitFundHistoryRequestFunction = async () => {
     setloding(true);
     try {
-      const res = await axiosInstance.post(API_URLS?.debit_fund_history
-        , {
-            start_date: from_date,
-            end_date: to_date,
-            username: search,
-          });
+      const res = await axiosInstance.post(API_URLS?.debit_fund_history, {
+        start_date: from_date,
+        end_date: to_date,
+        username: search,
+      });
       setData(res?.data?.data || []);
     } catch (e) {
       console.log(e);
@@ -35,7 +33,6 @@ const DebitFundHistory = () => {
     DebitFundHistoryRequestFunction();
   }, []);
 
-
   const tablehead = [
     <span>S.No.</span>,
     <span>User Id</span>,
@@ -43,8 +40,6 @@ const DebitFundHistory = () => {
     <span>Mobile No.</span>,
     <span>Type</span>,
     <span>Amount</span>,
-    <span>Status</span>,
-    <span>Transaction Id</span>,
     <span>Date</span>,
   ];
 
@@ -54,49 +49,46 @@ const DebitFundHistory = () => {
       <span>{i?.username}</span>,
       <span>{i?.full_name}</span>,
       <span>{i?.mobile}</span>,
-      <span>{i?.Deposit_type}</span>,
-      <span>{Number(i?.tr15_amt)?.toFixed(2)}</span>,
-      <span className="text-green-800">{i?.tr15_status}</span>,
-      <span>{i?.tr15_trans}</span>,
-      <span>{moment(i?.tr15_date)?.format("YYYY-MM-DD")}</span>,
+      <span>{"Debited"}</span>,
+      <span>{Number(i?.l01_amount)?.toFixed(2)}</span>,
+      <span>{moment(i?.l01_date)?.format("YYYY-MM-DD HH:mm:ss")}</span>,
     ];
   });
 
   return (
     <div>
-     <div className="flex px-2 gap-5 !justify-start py-2">
-                <span className="font-bold">From:</span>
-                <TextField
-                    type="date"
-                    value={from_date}
-                    onChange={(e) => setFrom_date(e.target.value)}
-                />
-                <span className="font-bold">To:</span>
-                <TextField
-                    type="date"
-                    value={to_date}
-                    onChange={(e) => setTo_date(e.target.value)}
-                />
-                <TextField
-                    type="search"
-                    placeholder="Search by user id"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-                <Button
-                    onClick={() => DebitFundHistoryRequestFunction()}
-                    variant="contained"
-                    startIcon={<FilterAlt />}
-                >
-                    Filter
-                </Button>
-            </div>
+      <div className="flex px-2 gap-5 !justify-start py-2">
+        <span className="font-bold">From:</span>
+        <TextField
+          type="date"
+          value={from_date}
+          onChange={(e) => setFrom_date(e.target.value)}
+        />
+        <span className="font-bold">To:</span>
+        <TextField
+          type="date"
+          value={to_date}
+          onChange={(e) => setTo_date(e.target.value)}
+        />
+        <TextField
+          type="search"
+          placeholder="Search by user id"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button
+          onClick={() => DebitFundHistoryRequestFunction()}
+          variant="contained"
+          startIcon={<FilterAlt />}
+        >
+          Filter
+        </Button>
+      </div>
       <CustomTable
         tablehead={tablehead}
         tablerow={tablerow}
         isLoading={loding}
       />
-  
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { Edit, FilterAlt } from "@mui/icons-material";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import {
   Button,
   Checkbox,
@@ -13,11 +14,10 @@ import {
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { getComparator } from "../../../services/sortingFunctoins";
 import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { getComparator } from "../../../services/sortingFunctoins";
 const Player = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -37,7 +37,7 @@ const Player = () => {
       user_name: "",
       user_id: "",
       eligible_for_p2p: "",
-      eligible_for_more_than_five_hen: ""
+      eligible_for_more_than_five_hen: "",
     },
   });
 
@@ -67,7 +67,7 @@ const Player = () => {
     userListFunction();
   }, []);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   const changePlayerStatusFunction = async (id) => {
     try {
       const res = await axiosInstance.get(
@@ -86,7 +86,9 @@ const Player = () => {
         u_user_id: currentUser.id,
         u_user_name: fk.values.user_name,
         eligible_for_p2p: String(fk.values.eligible_for_p2p),
-        eligible_for_more_than_five_hen: String(fk.values.eligible_for_more_than_five_hen),
+        eligible_for_more_than_five_hen: String(
+          fk.values.eligible_for_more_than_five_hen
+        ),
       };
       const res = await axiosInstance.post(
         `${API_URLS?.update_user_name}`,
@@ -148,13 +150,21 @@ const Player = () => {
     <span>Active/Deactive</span>,
     <span>
       Total Deposit{" "}
-      <IconButton onClick={(event) => handleRequestSort(event, "total_payin")}>
+      <IconButton
+        onClick={(event) =>
+          handleRequestSort(event, "total_my_deposit_till_yest")
+        }
+      >
         <FilterAltIcon />
       </IconButton>
     </span>,
     <span>
       Total Withdrawal{" "}
-      <IconButton onClick={(event) => handleRequestSort(event, "total_payout")}>
+      <IconButton
+        onClick={(event) =>
+          handleRequestSort(event, "total_my_withdr_till_yest")
+        }
+      >
         <FilterAltIcon />
       </IconButton>
     </span>,
@@ -210,7 +220,10 @@ const Player = () => {
           onClick={() => {
             setCurrentUser(i);
             fk.setFieldValue("user_name", i.full_name);
-            fk.setFieldValue("eligible_for_more_than_five_hen", i.eligible_for_more_than_five_hen);
+            fk.setFieldValue(
+              "eligible_for_more_than_five_hen",
+              i.eligible_for_more_than_five_hen
+            );
             fk.setFieldValue("eligible_for_p2p", i.eligible_for_p2p);
             setOpen(true);
           }}
@@ -230,8 +243,8 @@ const Player = () => {
         )?.toFixed(2)}
       </span>,
       <span>{String(i?.status) === "1" ? "Active" : "Inactive"}</span>,
-      <span>{Number(i?.total_payin || 0)?.toFixed(2)}</span>,
-      <span>{Number(i?.total_payout || 0)?.toFixed(2)}</span>,
+      <span>{Number(i?.total_my_deposit_till_yest || 0)?.toFixed(2)}</span>,
+      <span>{Number(i?.total_my_withdr_till_yest || 0)?.toFixed(2)}</span>,
       <span>{i?.user_type}</span>,
       <span>{Number(i?.yesterday_income || 0)?.toFixed(2)}</span>,
       <span>{i?.direct_reg}</span>,
@@ -323,14 +336,21 @@ const Player = () => {
           <p className="mt-1 mr-1">
             <Checkbox
               checked={fk.values.eligible_for_more_than_five_hen === 1}
-              onChange={(e) => fk.setFieldValue("eligible_for_more_than_five_hen", e.target.checked ? 1 : 0)}
+              onChange={(e) =>
+                fk.setFieldValue(
+                  "eligible_for_more_than_five_hen",
+                  e.target.checked ? 1 : 0
+                )
+              }
             />
             Eligible for more than 500 INR
           </p>
           <p className="mr-1">
             <Checkbox
               checked={fk.values.eligible_for_p2p === 1}
-              onChange={(e) => fk.setFieldValue("eligible_for_p2p", e.target.checked ? 1 : 0)}
+              onChange={(e) =>
+                fk.setFieldValue("eligible_for_p2p", e.target.checked ? 1 : 0)
+              }
             />
             Eligible for P2P transfer
           </p>
@@ -344,7 +364,6 @@ const Player = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 };

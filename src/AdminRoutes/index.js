@@ -386,7 +386,7 @@ export const adminroutes = [
   {
     id: 45,
     path: "/fund/debited-transfer-fund-history",
-    component: < DebitFundHistory/>,
+    component: <DebitFundHistory/>,
     navItem: "Debit Fund Transfer History",
   },
 ];

@@ -1,20 +1,26 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box, Button, Container, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import moment from "moment";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { NavLink, useNavigate } from 'react-router-dom';
-import allinactive from '../../../assets/images/allactive.png';
-import allactive from '../../../assets/images/allinactive.png';
-import backbtn from '../../../assets/images/backBtn.png';
-import bankcardactive from '../../../assets/images/bankcardactive.png';
-import bankcardinactive from '../../../assets/images/bankcardinactive.png';
-import zp from '../../../assets/images/zptoken.png';
+import { NavLink, useNavigate } from "react-router-dom";
+import allinactive from "../../../assets/images/allactive.png";
+import allactive from "../../../assets/images/allinactive.png";
+import backbtn from "../../../assets/images/backBtn.png";
+import bankcardactive from "../../../assets/images/bankcardactive.png";
+import bankcardinactive from "../../../assets/images/bankcardinactive.png";
+import zp from "../../../assets/images/zptoken.png";
 import { apiConnectorGet } from "../../../services/apiconnector";
 import { endpoint } from "../../../services/urls";
 import CustomCircularProgress from "../../../shared/loder/CustomCircularProgress";
-import theme from '../../../utils/theme';
-
+import theme from "../../../utils/theme";
 
 function Depositehistory() {
   const [isAllValue, setIsAllValue] = useState(false);
@@ -26,9 +32,9 @@ function Depositehistory() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      retry:false,
-      retryOnMount:false,
-      refetchOnWindowFocus:false
+      retry: false,
+      retryOnMount: false,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -49,21 +55,36 @@ function Depositehistory() {
     setValue(newValue);
   };
 
-
   return (
-    <Container sx={{ background: '#F7F8FF' }}>
-    <CustomCircularProgress isLoading={isLoading}/>
-      <Box sx={{ background: 'linear-gradient(90deg, rgb(255, 153, 1) 0%, rgb(230, 115, 1) 100%)', padding: 1 }}>
-        <Stack direction='row' sx={{ alignItems: 'end', justifyContent: 'space-between', position: 'relative' }}>
+    <Container sx={{ background: "#F7F8FF" }}>
+      <CustomCircularProgress isLoading={isLoading} />
+      <Box
+        sx={{
+          background:
+            "linear-gradient(90deg, rgb(255, 153, 1) 0%, rgb(230, 115, 1) 100%)",
+          padding: 1,
+        }}
+      >
+        <Stack
+          direction="row"
+          sx={{
+            alignItems: "end",
+            justifyContent: "space-between",
+            position: "relative",
+          }}
+        >
           <NavLink onClick={goBack}>
-            <Box component='img' src={backbtn} width={25}>
-            </Box>
+            <Box component="img" src={backbtn} width={25}></Box>
           </NavLink>
-          <Box sx={{ position: 'absolute', left: '30%', top: '10%' }}>
-            <Typography variant="body1" sx={{ color: 'white', fontSize: '16px', fontWeight: '600' }}>Deposit history</Typography>
+          <Box sx={{ position: "absolute", left: "30%", top: "10%" }}>
+            <Typography
+              variant="body1"
+              sx={{ color: "white", fontSize: "16px", fontWeight: "600" }}
+            >
+              Deposit history
+            </Typography>
           </Box>
-          <NavLink >
-          </NavLink>
+          <NavLink></NavLink>
         </Stack>
       </Box>
       <Box sx={{ padding: 1 }}>
@@ -74,38 +95,45 @@ function Depositehistory() {
             }
             onClick={() => handleChange(1)}
           >
-            {value === 1 ?
-              <Box component='img' src={allactive} width={20} mr={1}></Box>
-              :
-              <Box component='img' src={allinactive} width={20} mr={1}></Box>
-            }
+            {value === 1 ? (
+              <Box component="img" src={allactive} width={20} mr={1}></Box>
+            ) : (
+              <Box component="img" src={allinactive} width={20} mr={1}></Box>
+            )}
             All
           </Button>
           <Button
             className={
               value === 2 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => {handleChange(2)
-              navigate('/depositehistory')
+            onClick={() => {
+              handleChange(2);
+              navigate("/depositehistory");
             }}
           >
-            {value === 2 ?
-              <Box component='img' src={bankcardinactive} width={20} mr={1}></Box>
-              :
-              <Box component='img' src={bankcardactive} width={20} mr={1}></Box>
-            }
+            {value === 2 ? (
+              <Box
+                component="img"
+                src={bankcardinactive}
+                width={20}
+                mr={1}
+              ></Box>
+            ) : (
+              <Box component="img" src={bankcardactive} width={20} mr={1}></Box>
+            )}
             BANK CARD
           </Button>
           <Button
             className={
               value === 3 ? " gametableactive gametable" : " gametable"
             }
-            onClick={() => {handleChange(3)
-              navigate('/zpdeposit')
+            onClick={() => {
+              handleChange(3);
+              navigate("/zpdeposit");
             }}
           >
-            <Box component='img' src={zp} width={20} mr={1} ></Box>
-               ZP  
+            <Box component="img" src={zp} width={20} mr={1}></Box>
+            ZP
           </Button>
         </Stack>
       </Box>
@@ -134,9 +162,7 @@ function Depositehistory() {
               }}
             >
               <Box>
-                <Typography
-                 className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center"
-                >
+                <Typography className="!bg-orange-400 !text-white rounded px-2 py-1 !flex justify-center">
                   Deposit
                 </Typography>
               </Box>
@@ -274,34 +300,40 @@ function Depositehistory() {
       >
         {isAllValue ? "Show Less" : " All history"}
       </Button>
-    </Container>);
+    </Container>
+  );
 }
 export default Depositehistory;
 
-
 const style = {
   paytmbtntwo: {
-    borderRadius: "20px", textTransform: "capitalize", mb: 2,
-    width: "92%", mt: 2, mx: 2, padding: "10px",
+    borderRadius: "20px",
+    textTransform: "capitalize",
+    mb: 2,
+    width: "92%",
+    mt: 2,
+    mx: 2,
+    padding: "10px",
     "&:hover": { border: "1px solid transparent" },
   },
   wdbtn: {
-    width: '95% !important',
-    boxShadow: '0 0.05333rem #b6bad0',
-    borderRadius: '20px',
-    border: 'none',
-    color: '#fff',
-    letterSpacing: '0.13333rem',
-    fontWeight: '700',
-    fontSize: '15px',
-    height: '0.93333rem',
-    width: '100%',
-    background: 'linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)',
-    backgroundSize: '100% 100%, 100% 100%',
-    backgroundPosition: 'center, center',
-    backgroundRepeat: 'no-repeat, no-repeat',
-    textShadow: '0 0.02667rem 0.01333rem #afb0be',
-    padding: '20px',
+    width: "95% !important",
+    boxShadow: "0 0.05333rem #b6bad0",
+    borderRadius: "20px",
+    border: "none",
+    color: "#fff",
+    letterSpacing: "0.13333rem",
+    fontWeight: "700",
+    fontSize: "15px",
+    height: "0.93333rem",
+    width: "100%",
+    background:
+      "linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%), linear-gradient(180deg, #cfd1de 0%, #c7c9d9 100%)",
+    backgroundSize: "100% 100%, 100% 100%",
+    backgroundPosition: "center, center",
+    backgroundRepeat: "no-repeat, no-repeat",
+    textShadow: "0 0.02667rem 0.01333rem #afb0be",
+    padding: "20px",
     mt: 3,
-  }
+  },
 };

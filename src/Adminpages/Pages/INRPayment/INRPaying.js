@@ -1,13 +1,12 @@
 import { FilterAlt, Lock } from "@mui/icons-material";
-import { Button, Switch, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import SweetAlert from "sweetalert2";
 import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
-import moment from "moment";
-import SweetAlert from "sweetalert2";
-
 
 const INRPaying = () => {
   const [search, setSearch] = useState("");
@@ -23,10 +22,10 @@ const INRPaying = () => {
       const res = await axiosInstance.post(API_URLS?.inr_payingdata, {
         start_date: from_date,
         end_date: to_date,
-        username: search
+        username: search,
       });
       setData(res?.data?.data || []);
-      setTotalamount(res?.data?.total)
+      setTotalamount(res?.data?.total);
 
       if (res) {
         setTo_date("");
@@ -52,16 +51,16 @@ const INRPaying = () => {
   };
   const handleSubmit = (id) => {
     SweetAlert.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You want to Approve this Amount!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Confirm',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
       customClass: {
-        confirmButton: 'custom-confirm', 
-        cancelButton: 'custom-cancel'    
-      }
+        confirmButton: "custom-confirm",
+        cancelButton: "custom-cancel",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         changeStatusApprovedFunction(id);
@@ -69,8 +68,8 @@ const INRPaying = () => {
     });
   };
   useEffect(() => {
-    INRPayingFunction()
-  }, [])
+    INRPayingFunction();
+  }, []);
 
   const tablehead = [
     <span>S.No</span>,
@@ -82,8 +81,7 @@ const INRPaying = () => {
     <span>UTR Number</span>,
     <span>Req Date / Time</span>,
     <span>Success Date / Time</span>,
-    <span >Action</span>,
-
+    <span>Action</span>,
   ];
 
   const tablerow = data?.map((i, index) => {
@@ -95,23 +93,28 @@ const INRPaying = () => {
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
-      <span className="">{i?.tr15_status === "Pending" ? "--" : moment.utc(i?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
+      <span className="">
+        {moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
+      </span>,
+      <span className="">
+        {i?.tr15_status === "Pending"
+          ? "--"
+          : moment.utc(i?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}
+      </span>,
 
       <span>
-        {i?.tr15_status === "Pending" ?
+        {i?.tr15_status === "Pending" ? (
           <Button
             variant="contained"
             className="!bg-[#198754]"
             onClick={() => handleSubmit(i?.tr15_trans)}
           >
             Approve
-
-          </Button> : <Lock />}
-
-      </span>
-
-
+          </Button>
+        ) : (
+          <Lock />
+        )}
+      </span>,
     ];
   });
 
@@ -145,7 +148,11 @@ const INRPaying = () => {
         </Button>
       </div>
       <CustomTable
-       isTotal ={<div className="bg-white my-2 p-2 px-5 !text-right">Total Amount : <span className="!font-bold">{totalamount}</span></div>}
+        isTotal={
+          <div className="bg-white my-2 p-2 px-5 !text-right">
+            Total Amount : <span className="!font-bold">{totalamount}</span>
+          </div>
+        }
         tablehead={tablehead}
         tablerow={tablerow}
         isLoading={loding}
