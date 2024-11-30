@@ -33,7 +33,6 @@ const FundHistory = () => {
     <span>User Id</span>,
     <span>Name</span>,
     <span>Mobile No.</span>,
-    <span>Type</span>,
     <span>Amount</span>,
     <span>Status</span>,
     <span>Transaction Id</span>,
@@ -46,11 +45,10 @@ const FundHistory = () => {
       <span>{i?.username}</span>,
       <span>{i?.full_name}</span>,
       <span>{i?.mobile}</span>,
-      <span>{i?.Deposit_type}</span>,
       <span>{Number(i?.tr15_amt)?.toFixed(2)}</span>,
       <span className="text-green-800">{i?.tr15_status}</span>,
       <span>{i?.tr15_trans}</span>,
-      <span>{moment(i?.tr15_date)?.format("YYYY-MM-DD")}</span>,
+      <span>{moment(i?.tr15_date)?.format("YYYY-MM-DD  HH:mm:ss")}</span>,
     ];
   });
 

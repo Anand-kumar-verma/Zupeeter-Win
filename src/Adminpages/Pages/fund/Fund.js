@@ -1,4 +1,4 @@
-import { Button, CircularProgress, MenuItem, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +13,8 @@ const Fund = () => {
     wallet_type: "Select Wallet Type",
     user_id_table: "",
     u_req_amount: "",
+    u_utr_no: "",
+    fund_type: "1",
   };
 
   const fk = useFormik({
@@ -30,6 +32,8 @@ const Fund = () => {
       user_id: reqBody?.user_id_table,
       u_req_amount: reqBody?.u_req_amount,
       wallet_type: reqBody?.wallet_type,
+      u_utr_no: reqBody?.u_utr_no,
+      fund_type: reqBody?.fund_type,
     };
     setloding(true);
     try {
@@ -64,11 +68,28 @@ const Fund = () => {
     );
   return (
     <div className="!flex justify-center items-center w-full">
-      <div className="p-5 lg:w-1/2 md:w-3/4 w-full bg-white !bg-opacity-30 !rounded-lg">
-        <p className="!text-center font-bold !py-4 text-lg">Credit Fund</p>
-        <div className="grid grid-cols-1 gap-[6%] gap-y-4">
+      <div className="p-5  w-full bg-white !bg-opacity-30 !rounded-lg">
+        <p className="!text-center font-bold !py-4  !mb-5 text-lg">Credit Fund</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[6%]  gap-y-4">
+        <div>
+           <p className="font-bold "> Type</p>
+                     <FormControl>
+                            <RadioGroup
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={fk.values.fund_type}
+                                onChange={(e) => fk.setFieldValue("fund_type", e.target.value)}
+                            >
+                                  <Box display="flex" flexDirection="row" gap={2}>
+                                  <FormControlLabel value="1" control={<Radio />}  label="Manually" />
+                                  <FormControlLabel value="2" control={<Radio />} label="Gateway" />
+                                  </Box>
+                              
+                            </RadioGroup>
+                        </FormControl>
+                    </div>
           <div>
-            <p className="font-bold ">User ID </p>
+            <p className="font-bold  ">User ID </p>
             <TextField
               fullWidth
               id="user_id"
@@ -92,7 +113,10 @@ const Fund = () => {
                 <div className="error">Invalid Referral Id</div>
               )
             ) : null}
-            <p className="font-bold mt-5">Wallet Type</p>
+          
+          </div>
+          <div>
+          <p className="font-bold">Wallet Type</p>
             <TextField
               fullWidth
               select
@@ -121,6 +145,18 @@ const Fund = () => {
               onChange={fk.handleChange}
             />
           </div>
+          {fk.values.fund_type==="2" &&  <div>
+            <p className=" font-bold">UTR NO</p>
+            <TextField
+              fullWidth
+              id="u_utr_no"
+              name="u_utr_no"
+              placeholder="UTR No"
+              value={fk.values.u_utr_no}
+              onChange={fk.handleChange}
+            />
+          </div>}
+         
         </div>
         <div className="flex justify-end gap-3 !mt-5">
           <Button
