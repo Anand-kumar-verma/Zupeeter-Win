@@ -39,6 +39,7 @@ const Company = () => {
         <span>Email</span>,
         <span>Mobile</span>,
         <span>Percent</span>,
+        <span>Level</span>,
         <span>Action</span>,
     ];
 
@@ -50,6 +51,7 @@ const Company = () => {
             <span>{i?.email}</span>,
             <span>{i?.mobile}</span>,
             <span>{Number(i?.x_percent_from_downline)?.toFixed(2)}</span>,
+            <span>{Number(i?.company_promotor_level)?.toFixed(0,2)}</span>,
             <span>
                 <Switch
                     checked={true}
