@@ -15,14 +15,15 @@ const AddCompany = () => {
   const initialValue = {
     user_id_table: "",
     set_prcnt: "",
+    set_per: "",
   };
 
   const fk = useFormik({
     initialValues: initialValue,
     enableReinitialize: true,
     onSubmit: () => {
-      if (!fk.values.set_prcnt)
-        return toast("Enter Percentage");
+      if (!fk.values.set_prcnt || !fk.values.set_per || !fk.values.u_id )
+        return toast("Enter All Fields");
       CompanyAdd(fk.values);
     },
   });
@@ -31,6 +32,7 @@ const AddCompany = () => {
     const req = {
          u_id: reqBody?.user_id_table,
         set_prcnt: reqBody?.set_prcnt,
+        set_per: reqBody?.set_per,
     };
     setloding(true);
     try {
@@ -93,11 +95,24 @@ const AddCompany = () => {
           <div>
             <p className=" font-bold">Percent</p>
             <TextField
+            type="number"
               fullWidth
               id="set_prcnt"
               name="set_prcnt"
               placeholder="Percent"
               value={fk.values.set_prcnt}
+              onChange={fk.handleChange}
+            />
+          </div>
+          <div>
+            <p className=" font-bold">Level</p>
+            <TextField
+            type="number"
+              fullWidth
+              id="set_per"
+              name="set_per"
+              placeholder="Level"
+              value={fk.values.set_per}
               onChange={fk.handleChange}
             />
           </div>
