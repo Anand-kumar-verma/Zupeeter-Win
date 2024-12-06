@@ -66,7 +66,10 @@ const ZpTokenPayout = () => {
       <span>{i?.tr15_status}</span>,
       <span className="!text-[10px]">{i?.transaction_hash}</span>,
       <span className="">{i?.Deposit_type}</span>,
-      <span className="">{moment(i?.success_date)?.format("YYYY-MM-DD")}</span>,
+      <span className=""> {moment(i?.success_date)
+        .add(5, 'hours') // Add 5 hours
+        .add(30, 'minutes') // Add 30 minutes
+        .format("DD-MM-YYYY HH:mm:ss")}</span>,
 
     ];
   });

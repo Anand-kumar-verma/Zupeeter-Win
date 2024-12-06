@@ -99,7 +99,7 @@ const CustomDate = () => {
         <h1 className="heading"> {profile?.success_date &&
               <Box >ZP : {Number(Number(profile?.tr15_amt || 0) / ownaddress?.token_amnt)?.toFixed(2)}  </Box>
                 }</h1>
-        <p className="subheading">    Loss Recovery Bonus
+        <p className="subheading">    Staking Bonus
        </p>
        
         <div className="countdown-box">

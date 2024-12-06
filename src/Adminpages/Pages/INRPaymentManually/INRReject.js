@@ -59,7 +59,10 @@ const INRReject = () => {
       <span>{Number(i?.tr15_amt)?.toFixed(2)}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{moment.utc(i?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
+      <span className=""> {moment(i?.success_date)
+        .add(5, 'hours') // Add 5 hours
+        .add(30, 'minutes') // Add 30 minutes
+        .format("DD-MM-YYYY HH:mm:ss")}</span>,
 
     ];
   });
