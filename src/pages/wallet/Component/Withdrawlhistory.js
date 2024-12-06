@@ -241,29 +241,29 @@ function Withdrawlhistory() {
               </Typography>
             </Stack>
             <Stack
-                direction="row"
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  "&>p": {
-                    color: "#888",
-                    fontSize: "13px",
-                    fontWeight: "600",
-                    py: 1,
-                  },
-                }}
+              direction="row"
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                "&>p": {
+                  color: "#888",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                  py: 1,
+                },
+              }}
+            >
+              <Typography variant="body1" color="initial">
+                Date/Time
+              </Typography>
+              <Typography
+                variant="body1"
+                color="initial"
+                className="!text-green-500"
               >
-                <Typography variant="body1" color="initial">
-                 Date/Time
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="initial"
-                  className="!text-green-500"
-                >
-                  {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
-                </Typography>
-              </Stack>
+                {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
+              </Typography>
+            </Stack>
             {i?.tr15_status === "Pending" ? "" :
               <Stack
                 direction="row"
@@ -279,7 +279,7 @@ function Withdrawlhistory() {
                 }}
               >
                 <Typography variant="body1" color="initial">
-                Success Date/Time
+                  Success Date/Time
                 </Typography>
                 <Typography
                   variant="body1"
@@ -287,9 +287,9 @@ function Withdrawlhistory() {
                   className="!text-green-500"
                 >
                   {moment(i?.success_date)
-          .add(5, 'hours') // Add 5 hours
-          .add(30, 'minutes') // Add 30 minutes
-          .format("DD-MM-YYYY HH:mm:ss")}
+                    .add(5, 'hours') // Add 5 hours
+                    .add(30, 'minutes') // Add 30 minutes
+                    .format("DD-MM-YYYY HH:mm:ss")}
                 </Typography>
               </Stack>
             }
