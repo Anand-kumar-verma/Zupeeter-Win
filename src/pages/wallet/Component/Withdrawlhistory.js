@@ -261,7 +261,7 @@ function Withdrawlhistory() {
                 color="initial"
                 className="!text-green-500"
               >
-                {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
+                {moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
               </Typography>
             </Stack>
             {i?.tr15_status === "Pending" ? "" :
@@ -286,9 +286,7 @@ function Withdrawlhistory() {
                   color="initial"
                   className="!text-green-500"
                 >
-                  {moment(i?.success_date)
-                    .add(5, 'hours') // Add 5 hours
-                    .add(30, 'minutes') // Add 30 minutes
+                  {moment.utc(i?.success_date)
                     .format("DD-MM-YYYY HH:mm:ss")}
                 </Typography>
               </Stack>

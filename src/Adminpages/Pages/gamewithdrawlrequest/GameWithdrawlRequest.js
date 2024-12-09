@@ -94,7 +94,7 @@ const GameWithdrawlRequest = () => {
       }`}>
         {i?.tr15_status}
       </span>,
-      <span>{moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
+      <span>{moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
     
       <div className="flex flex-col gap-1">
         <Button

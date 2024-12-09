@@ -218,7 +218,7 @@ function Depositehistory() {
                 Type
               </Typography>
               <Typography variant="body1" color="initial">
-                {i?.Deposit_type}
+                {i?.Deposit_type === "1" ? "INR" : i?.Deposit_type}
               </Typography>
             </Stack>
             <Stack
@@ -242,7 +242,7 @@ function Depositehistory() {
                 color="initial"
                 className="!text-green-500"
               >
-                {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
+                {moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
               </Typography>
             </Stack>
             <Stack

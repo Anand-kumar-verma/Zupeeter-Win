@@ -217,7 +217,7 @@ function Zpdeposithistory() {
                 color="initial"
                 className="!text-green-500"
               >
-                {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
+                {moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
               </Typography>
             </Stack>
             <Stack

@@ -48,7 +48,7 @@ const FundHistory = () => {
       <span>{Number(i?.tr15_amt)?.toFixed(2)}</span>,
       <span className="text-green-800">{i?.tr15_status}</span>,
       <span>{i?.tr15_trans}</span>,
-      <span>{moment(i?.tr15_date)?.format("YYYY-MM-DD  HH:mm:ss")}</span>,
+      <span>{moment.utc(i?.tr15_date)?.format("YYYY-MM-DD  HH:mm:ss")}</span>,
     ];
   });
 

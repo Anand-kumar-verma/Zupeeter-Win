@@ -59,9 +59,7 @@ const INRSuccess = () => {
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className=""> {moment(i?.success_date)
-        .add(5, 'hours') // Add 5 hours
-        .add(30, 'minutes') // Add 30 minutes
+      <span className=""> {moment.utc(i?.success_date)
         .format("DD-MM-YYYY HH:mm:ss")}</span>,
 
     ];

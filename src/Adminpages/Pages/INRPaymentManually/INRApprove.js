@@ -59,7 +59,7 @@ const INRApprove = () => {
       <span>{i?.tr15_amt}</span>,
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
-      <span className="">{moment.utc(i?.Approve_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
+      <span className="">{moment(i?.Approve_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>,
 
     ];
   });

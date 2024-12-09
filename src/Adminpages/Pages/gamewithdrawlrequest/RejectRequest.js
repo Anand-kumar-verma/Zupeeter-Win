@@ -61,7 +61,7 @@ const RejectRequest = () => {
       <span className="text-red-800">
         {i?.tr15_status}
       </span>,
-      <span>{moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>
+      <span>{moment.utc(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</span>
     ];
   });
 
