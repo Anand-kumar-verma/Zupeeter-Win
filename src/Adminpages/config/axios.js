@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { baseUrl } from "../../URls";
+import { front_end_domain } from "../../services/urls";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
@@ -25,12 +26,22 @@ const errorHandler = (error) => {
   // return Promise.reject(error);
 };
 
+
 axiosInstance.interceptors.response.use(
-  function (response) {
+  (response) => {
+    if (response?.data?.msg === "Invalid Token.") {
+      toast("Logged in on another device.", { id: 1 });
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = `${front_end_domain}`;
+      return Promise.reject(new Error("Invalid Token."));
+    }
     return response;
   },
-  function (error) {
-    return errorHandler(error);
+  (error) => {
+    return Promise.reject({
+      msg: error?.message || "Unknown error occurred.",
+    });
   }
 );
 

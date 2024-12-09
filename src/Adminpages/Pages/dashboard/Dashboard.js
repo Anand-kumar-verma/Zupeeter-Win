@@ -457,8 +457,8 @@ const Dashboard = () => {
     <>
       <div id="chart" className="!bg-white !bg-opacity-50 !m-2">
         <ReactApexChart
-          options={chartState.options}
-          series={chartState.series}
+          options={chartState?.options}
+          series={chartState?.series}
           type="bar"
           height={350}
         />
@@ -469,16 +469,16 @@ const Dashboard = () => {
           className=" lg:border-r border-gray-600 !bg-white !bg-opacity-50 !m-2"
         >
           <ReactApexChart
-            options={trxwingochart.options}
-            series={trxwingochart.series}
+            options={trxwingochart?.options}
+            series={trxwingochart?.series}
             type="area"
             height={350}
           />
         </div>
         <div id="chart" className="!bg-white !bg-opacity-50 !m-2">
           <ReactApexChart
-            options={dashboardcount1.options}
-            series={dashboardcount1.series}
+            options={dashboardcount1?.options}
+            series={dashboardcount1?.series}
             type="radialBar"
             height={400}
           />
@@ -490,16 +490,16 @@ const Dashboard = () => {
           className=" lg:border-r border-gray-600 !bg-white !bg-opacity-50 !m-2"
         >
           <ReactApexChart
-            options={dashboardcount2.options}
-            series={dashboardcount2.series}
+            options={dashboardcount2?.options}
+            series={dashboardcount2?.series}
             type="radialBar"
             height={400}
           />
         </div>
         <div id="chart" className="!bg-white !bg-opacity-50 !m-2 ">
           <ReactApexChart
-            options={aviatorchart.options}
-            series={aviatorchart.series}
+            options={aviatorchart?.options}
+            series={aviatorchart?.series}
             type="area"
             height={350}
           />
@@ -510,8 +510,8 @@ const Dashboard = () => {
         className="border-t border-gray-600 !bg-white !bg-opacity-50 !m-2"
       >
         <ReactApexChart
-          options={businesschartState.options}
-          series={businesschartState.series}
+          options={businesschartState?.options}
+          series={businesschartState?.series}
           type="bar"
           height={350}
         />
