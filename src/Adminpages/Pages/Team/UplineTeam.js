@@ -10,11 +10,15 @@ const UplineTeam = () => {
     const [search, setSearch] = useState("");
     const [downlinedata, setdownlinedata] = useState([]);
     const [loding, setloding] = useState(false);
+    const [user_sub_data, setuser_sub_data] = React.useState({});
+
     const getUplineTeamfunction = async (value) => {
         setloding(true)
         try {
             await getUplineTeam({ username: value }).then((result) => {
                 setdownlinedata(result?.data?.data)
+                setuser_sub_data(result?.data);
+
             }).catch((e) => {
                toast("Something went wrong")
             })
@@ -35,6 +39,8 @@ const UplineTeam = () => {
         <span>User Id</span>,
         <span>Name</span>,
         <span>Mobile</span>,
+        <span>Deposit</span>,
+        <span>Withdrawal</span>,
         <span>Password</span>,
         <span>Type</span>
     ];
@@ -45,6 +51,8 @@ const UplineTeam = () => {
         <span>{i?.username}</span>,
         <span>{i?.full_name}</span>,
         <span>{i?.mobile}</span>,
+        <span>{Number(i?.total_my_deposit_till_yest)?.toFixed(2)}</span>,
+        <span>{Number(i?.total_my_withdr_till_yest)?.toFixed(2)}</span>,
         <span>{i?.password}</span>,
         <span>{i?.user_type}</span>
     ]);
@@ -78,6 +86,19 @@ const UplineTeam = () => {
                 tablehead={tablehead}
                 tablerow={tablerow}
                 isLoading={loding}
+                isTotal={
+                    <div className="!w-full flex justify-between !bg-white !bg-opacity-30 !pt-1 !py-1 !px-2 !font-bold">
+                      <p>
+                        Total Deposit:{" "}
+                        {Number(user_sub_data?.total_deposit || 0)?.toFixed(2)}
+                      </p>
+                      <p>
+                       Total Withdrawal:{" "}
+                        {Number(user_sub_data?.total_withdrawal || 0)?.toFixed(2)}
+                      </p>
+                     
+                    </div>
+                  }
             />
          
         </div>
