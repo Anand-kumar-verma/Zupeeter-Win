@@ -26,7 +26,6 @@ const errorHandler = (error) => {
   // return Promise.reject(error);
 };
 
-
 axiosInstance.interceptors.response.use(
   (response) => {
     if (response?.data?.msg === "Invalid Token.") {

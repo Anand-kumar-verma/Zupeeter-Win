@@ -24,11 +24,10 @@ function Promotion() {
     {
       refetchOnMount: false,
       refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
     }
   );
   const result = data?.data?.data || [];
-
   const functionTOCopy = (value) => {
     copy(value);
     toast.success("Copied to clipboard!");
@@ -44,7 +43,9 @@ function Promotion() {
   return (
     <Layout header={false}>
       <Container>
-        <CustomCircularProgress isLoading={isLoading} />
+        <CustomCircularProgress
+          isLoading={isLoading || result?.username === null || result === ""}
+        />
         <Box sx={style.header}>
           <Typography variant="body1" color="initial"></Typography>
           <Typography
@@ -82,7 +83,7 @@ function Promotion() {
                 color="initial"
                 className="!text-white"
               >
-                yesterday Income
+                Yesterday Income
               </Typography>
             </Box>
           </Box>
