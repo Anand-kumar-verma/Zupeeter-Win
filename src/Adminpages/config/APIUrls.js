@@ -22,6 +22,8 @@ export const API_URLS = {
     wingo_result_api: `/api/v1/update-wingo-result`,
     add_fund: `/api/v1/add-fund-to-user`,
     debit_fund: `/api/v1/fund-debited-by-admin`,
+    update_bank: `/api/v1/update-bank-details-by-admin`,
+    get_bank_data: `/api/v1/get-bank-details-by-admin`,
     get_fund_history: `/api/v1/fund-transfer-history`,
     debit_fund_history: `/api/v1/fund-debited-by-admin-history`,
     p2p_history: `/api/v1/p-2-p-list-admin`,

@@ -1,5 +1,6 @@
 
 import Signup from "../Adminpages/Authentication/Signup";
+import BankList from "../Adminpages/Pages/Bank/Banklist";
 import Changepassword from "../Adminpages/Pages/changepassword/Changepassword";
 import ColorPrediction1Min from "../Adminpages/Pages/colorprediction/ColorPrediction1Min";
 import ColorPrediction2Min from "../Adminpages/Pages/colorprediction/ColorPrediction2Min";
@@ -360,11 +361,12 @@ export const adminroutes = [
     navItem: "INR Success",
   },
   {
-    id: 423,
-    path: "/inr_Reject",
-    component: <INRReject/>,
-    navItem: "INR Reject",
+    id: 4423,
+    path: "/bankdata",
+    component: <BankList/>,
+    navItem: "Bank",
   },
+ 
   {
     id: 422,
     path: "/inr_Approve",

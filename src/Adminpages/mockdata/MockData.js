@@ -516,7 +516,31 @@ export const all_Data = [
 
     ],
   },
+  {
+    id: 11,
+    navLink: "/bankdata",
+    navItem: "Bank",
+    navIcon: (
+      <span>
+        <Games color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [
+      {
+        id: 111.1,
+        navLink: "/bankdata",
+        navItem: "Bank",
+        navIcon: (
+          <span>
+            <PlayCircleFilledSharp color="#15317E" fontSize="medium" />
+          </span>
+        ),
+      },
+     
+   
 
+    ],
+  },
   {
     id: 22,
     navLink: "/upline_team",

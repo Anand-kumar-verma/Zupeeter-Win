@@ -1,8 +1,8 @@
 export const domain = "https://zupeeter-win-timer.onrender.com";
-export const game_domain = "https://bet.zupeeter.com";
+// export const game_domain = "https://bet.zupeeter.com";
 export const aviatordomain = "https://zupeeter-win-timer.onrender.com";
 
-// export const game_domain = "http://192.168.18.183:9009";
+export const game_domain = "http://192.168.18.183:9009";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
