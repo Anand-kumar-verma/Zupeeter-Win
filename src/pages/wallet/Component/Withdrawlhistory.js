@@ -279,7 +279,8 @@ function Withdrawlhistory() {
                 }}
               >
                 <Typography variant="body1" color="initial">
-                  Success Date/Time
+                  {i?.tr15_status==="Success" ? "Success Date/Time" : i?.tr15_status==="Pending" ? "" :  "Failed Date/Time"}
+                 
                 </Typography>
                 <Typography
                   variant="body1"
