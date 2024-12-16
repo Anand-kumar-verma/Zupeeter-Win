@@ -114,7 +114,6 @@ function MainPageOFIncome() {
     },
   ];
 
-  // Conditionally adding the Staking Bonus item to the array
   if (profile?.success_date) {
     data_array?.push({
       to: "/account/income-main/loss_recovery",
