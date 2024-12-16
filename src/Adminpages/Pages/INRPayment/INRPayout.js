@@ -50,7 +50,8 @@ const INRPayout = () => {
     <span>Status</span>,
     <span>UTR No.</span>,
     <span>Deposit Type</span>,
-    <span>Date</span>,
+    <span>Req. Date</span>,
+    <span>Success Date</span>,
   ];
 
   const tablerow = data?.map((i, index) => {
@@ -64,6 +65,8 @@ const INRPayout = () => {
       <span>{i?.tr15_status}</span>,
       <span className="">{i?.tr15_trans}</span>,
       <span className="">{i?.Deposit_type}</span>,
+      <span className="">{moment.utc(i?.tr15_date)
+        .format("DD-MM-YYYY HH:mm:ss")}</span>,
       <span className="">{moment.utc(i?.success_date)
         .format("DD-MM-YYYY HH:mm:ss")}</span>,
 

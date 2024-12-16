@@ -18,6 +18,7 @@ import { getComparator } from "../../../services/sortingFunctoins";
 import CustomTable from "../../Shared/CustomTable";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
+import moment from "moment";
 const Player = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -127,6 +128,8 @@ const Player = () => {
     <span>Mobile</span>,
     <span>Email</span>,
     <span>Password</span>,
+    <span>Joining Date</span>,
+    <span>Topup Date</span>,
     <span>
       Wallet{" "}
       <IconButton onClick={(event) => handleRequestSort(event, "wallet")}>
@@ -235,6 +238,8 @@ const Player = () => {
       <span>{i?.mobile}</span>,
       <span>{i?.email}</span>,
       <span>{i?.password}</span>,
+      <span>{moment.utc(i?.created_at)?.format("YYYY-MM-DD")}</span>,
+      <span>{i?.updated_at? moment.utc(i?.updated_at)?.format("YYYY-MM-DD") : "--"}</span>,
       <span>{Number(i?.wallet || 0)?.toFixed(2)}</span>,
       <span>{Number(i?.winning_wallet || 0)?.toFixed(2)}</span>,
       <span>
