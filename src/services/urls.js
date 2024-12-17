@@ -1,8 +1,8 @@
 export const domain = "https://zupeeter-win-timer.onrender.com";
-export const game_domain = "https://bet.zupeeter.com";
+// export const game_domain = "https://bet.zupeeter.com";
 export const aviatordomain = "https://zupeeter-win-timer.onrender.com";
 
-// export const game_domain = "http://192.168.18.183:9009";
+export const game_domain = "http://192.168.18.183:9009";
 
 export const rupees = "₹";
 export const zubgback = "#F48901";
@@ -32,6 +32,7 @@ export const endpoint = {
   deposit_bonus: `${game_domain}/api/v1/get-deposit-bonus-income/`,
   vip_income: `${game_domain}/api/v1/vip-bonus`,
   incom_gift: `${game_domain}/api/v1/gift-bonus-list`,
+  generate_gift: `${game_domain}/api/v1/generate-coupon-by-user-by-couponcode`,
   recharge_income: `${game_domain}/api/v1/team-recharge-bonus`,
   company_promoter_income: `${game_domain}/api/v1/company-promoter-bonus`,
   welcomebonus_income: `${game_domain}/api/v1/welcome-bonus-list`,

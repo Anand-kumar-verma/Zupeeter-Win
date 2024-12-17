@@ -117,7 +117,7 @@ function TeamSalaryBonus() {
             <Box component={NavLink} onClick={goBack}>
               <KeyboardArrowLeftOutlinedIcon />
             </Box>
-            <p>Scrached Coupon</p>
+            <p>Scratched Coupon</p>
           </Box>
           <div>
             <img className="" src={nodatafoundimage} />
@@ -141,7 +141,7 @@ function TeamSalaryBonus() {
           <Box component={NavLink} onClick={goBack}>
             <KeyboardArrowLeftOutlinedIcon />
           </Box>
-          <p>Scrached Coupon</p>
+          <p>Scratched Coupon</p>
         </Box>
         <div className="!overflow-x-auto" style={{ width: "95%", marginLeft: '2.5%', marginTop: '16px', }}>
           <Table sx={{ background: "#F48901", boxShadow: "#fff" }}>
@@ -170,7 +170,7 @@ function TeamSalaryBonus() {
                         </Button> : "Achived"}</span></TableCell>
                   <TableCell sx={{ color: 'white', padding: '10px !important' }} className="!border !border-r !text-xs !text-center !border-b !border-white" >  {i?.is_screached === 0
                     ?
-                    "Pending" : <span>{i?.coupon_amount}</span>} </TableCell>
+                    "Pending" : <span> {Number(i?.coupon_amount)?.toFixed(2)}</span>} </TableCell>
                   <TableCell  sx={{ color: 'white', padding: '10px !important' }} className="!border !border-r !text-xs !text-center !border-b !border-white">{i?.coupon_code}</TableCell>
                 </TableRow>
               ))}
@@ -184,7 +184,7 @@ function TeamSalaryBonus() {
                         imageSrc={scratch}
                         onScratch={handleScratch}
                         message={<div>🎁 Congratulations! You  <br/>
-                       have 🎉 won <br/>{amount}</div>}
+                       have 🎉 won  <br/> ₹ {Number(amount)?.toFixed(2)}</div>}
                       />
                       <Close onClick={() => setOpenGift(false)}/>
                     </div>

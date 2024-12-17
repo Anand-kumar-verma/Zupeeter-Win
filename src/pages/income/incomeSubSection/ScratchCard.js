@@ -79,7 +79,7 @@ const ScratchCard = ({ width, height, imageSrc, onScratch, message }) => {
   return (
     <div className='relative'>
       <canvas ref={canvasRef} width={width} height={height}  />
-      {messageVisible && <div className="absolute top-12 left-5 !font-bold !text-blue-700" style={{ marginTop: '10px', fontSize: '20px', textAlign: 'center' }}>{message} </div>}
+      {messageVisible && <div className="absolute top-12 left-5  !font-bold !text-blue-700" style={{ marginTop: '10px', fontSize: '20px', textAlign: 'center' }}>{message} </div>}
     </div>
   );
 };

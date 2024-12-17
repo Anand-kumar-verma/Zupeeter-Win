@@ -112,6 +112,16 @@ function MainPageOFIncome() {
         />
       ),
     },
+    {
+      to: "/gift",
+      name: "Generate Bonus",
+      logo: (
+        <Diversity2
+          className="!w-[40px] !h-[40px] !text-[#F48901]"
+          color="#8f5206"
+        />
+      ),
+    },
   ];
 
   if (profile?.success_date) {
