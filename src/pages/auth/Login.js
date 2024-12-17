@@ -45,7 +45,7 @@ function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [loding, setloding] = useState(false);
-
+  const [mobileError, setMobileError] = useState("");
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -55,6 +55,14 @@ function Login() {
 
   const handleChangesetCountry = (event) => {
     setCountry(event.target.value);
+  };
+  const handleMobileChange = (event) => {
+    const inputMobile = event.target.value;
+    if (inputMobile?.length > 10) {
+      setMobileError("Invalid mobile number. It must be a 10-digit number");
+    } else {
+      setMobileError("");
+    }
   };
 
   const initialValue = {
@@ -291,14 +299,18 @@ function Login() {
                   <TextField
                     id="mobile"
                     name="mobile"
-                    onChange={fk.handleChange}
+                    onChange={(e) => {
+                      fk.handleChange(e);
+                      handleMobileChange(e);
+                    }}
                     value={fk.values.mobile}
                     label=""
-                    placeholder=" Enter number"
+                    placeholder="Enter number"
                     fullWidth
                     type="number"
                   />
                 </FormControl>
+                   {mobileError && <Typography color="warning">{mobileError}</Typography>}
               </Box>
             </Stack>
 

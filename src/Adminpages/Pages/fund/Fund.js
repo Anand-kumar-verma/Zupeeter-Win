@@ -6,9 +6,14 @@ import { useQuery } from "react-query";
 import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import { candidateName } from "../../Services";
+import { FilterAlt } from "@mui/icons-material";
 
 const Fund = () => {
   const [loding, setloding] = useState(false);
+  const [dataa, setData] = useState([]);
+  const [search, setSearch] = useState("");
+
+
   const initialValue = {
     wallet_type: "Select Wallet Type",
     user_id_table: "",
@@ -47,13 +52,31 @@ const Fund = () => {
     }
     setloding(false);
   }
+  const INRPayingFunction = async () => {
+    setloding(true);
+    try {
+      const res = await axiosInstance.post(API_URLS?.inr_payingdata, {
+        start_date: "",
+        end_date: "",
+        username: search,
+      });
+      setData(res?.data?.data?.[0] || []);
+
+      if (res) {
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setloding(false);
+  };
+
   const { data } = useQuery(
     ["getname", fk.values.user_id],
     () => candidateName({ userid: fk.values.user_id }),
     {
       refetchOnMount: false,
       refetchOnReconnect: true,
-      refetchOnWindowFocus:false
+      refetchOnWindowFocus: false
     }
   );
   const result = data?.data?.data;
@@ -67,27 +90,52 @@ const Fund = () => {
       </div>
     );
   return (
+  <>
+    <div className="flex px-2 gap-5 !justify-start py-2">
+    <TextField
+      type="search"
+      placeholder="Search by user id"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+    />
+    <Button
+      onClick={() => INRPayingFunction()}
+      variant="contained"
+      startIcon={<FilterAlt />}
+    >
+      Filter
+    </Button>
+  </div>
+  {dataa && dataa?.full_name && (
+        <div className="px-5">
+          <p className="">Name: {dataa?.full_name}</p>
+          <p>UserId: {dataa?.username}</p>
+          <p>Mobile No: {dataa?.mobile}</p>
+          <p>Amount: ₹ {Number(dataa?.tr15_amt)?.toFixed(2)}</p>
+        </div>
+      )}
     <div className="!flex justify-center items-center w-full">
-      <div className="p-5  w-full bg-white !bg-opacity-30 !rounded-lg">
-        <p className="!text-center font-bold !py-4  !mb-5 text-lg">Credit Fund</p>
+     <div className="px-5  w-full bg-white !bg-opacity-30 !rounded-lg">
+        <p className="!text-center font-bold !py-4  text-lg">Credit Fund</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[6%]  gap-y-4">
-        <div>
-           <p className="font-bold "> Type</p>
-                     <FormControl>
-                            <RadioGroup
-                                aria-labelledby="demo-controlled-radio-buttons-group"
-                                name="controlled-radio-buttons-group"
-                                value={fk.values.fund_type}
-                                onChange={(e) => fk.setFieldValue("fund_type", e.target.value)}
-                            >
-                                  <Box display="flex" flexDirection="row" gap={2}>
-                                  <FormControlLabel value="1" control={<Radio />}  label="Manually" />
-                                  <FormControlLabel value="2" control={<Radio />} label="Gateway" />
-                                  </Box>
-                              
-                            </RadioGroup>
-                        </FormControl>
-                    </div>
+        
+          <div>
+            <p className="font-bold "> Type</p>
+            <FormControl>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={fk.values.fund_type}
+                onChange={(e) => fk.setFieldValue("fund_type", e.target.value)}
+              >
+                <Box display="flex" flexDirection="row" gap={2}>
+                  <FormControlLabel value="1" control={<Radio />} label="Manually" />
+                  <FormControlLabel value="2" control={<Radio />} label="Gateway" />
+                </Box>
+
+              </RadioGroup>
+            </FormControl>
+          </div>
           <div>
             <p className="font-bold  ">User ID </p>
             <TextField
@@ -113,10 +161,10 @@ const Fund = () => {
                 <div className="error">Invalid Referral Id</div>
               )
             ) : null}
-          
+
           </div>
           <div>
-          <p className="font-bold">Wallet Type</p>
+            <p className="font-bold">Wallet Type</p>
             <TextField
               fullWidth
               select
@@ -145,7 +193,7 @@ const Fund = () => {
               onChange={fk.handleChange}
             />
           </div>
-          {fk.values.fund_type==="2" &&  <div>
+          {fk.values.fund_type === "2" && <div>
             <p className=" font-bold">UTR NO</p>
             <TextField
               fullWidth
@@ -156,8 +204,9 @@ const Fund = () => {
               onChange={fk.handleChange}
             />
           </div>}
-         
+
         </div>
+       
         <div className="flex justify-end gap-3 !mt-5">
           <Button
             onClick={() => fk.handleReset()}
@@ -176,6 +225,7 @@ const Fund = () => {
         </div>
       </div>
     </div>
+  </>
   );
 };
 
