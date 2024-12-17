@@ -91,23 +91,23 @@ const Fund = () => {
       </div>
     );
   return (
-  <>
-    <div className="flex px-2 gap-5 !justify-start py-2">
-    <TextField
-      type="search"
-      placeholder="Search by user id"
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-    />
-    <Button
-      onClick={() => INRPayingFunction()}
-      variant="contained"
-      startIcon={<FilterAlt />}
-    >
-      Filter
-    </Button>
-  </div>
-  {dataa && dataa?.full_name && (
+    <>
+      <div className="flex px-2 gap-5 !justify-start py-2">
+        <TextField
+          type="search"
+          placeholder="Search by user id"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button
+          onClick={() => INRPayingFunction()}
+          variant="contained"
+          startIcon={<FilterAlt />}
+        >
+          Filter
+        </Button>
+      </div>
+      {dataa && dataa?.full_name && (
         <div className="px-5">
           <p className="">Name : {dataa?.full_name}</p>
           <p>UserId : {dataa?.username}</p>
@@ -117,118 +117,116 @@ const Fund = () => {
           <p>Suc. Date : {moment(dataa?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}</p>
         </div>
       )}
-    <div className="!flex justify-center items-center w-full">
-     <div className="px-5  w-full bg-white !bg-opacity-30 !rounded-lg">
-        <p className="!text-center font-bold !py-4  text-lg">Credit Fund</p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[6%]  gap-y-4">
-        
-          <div>
-            <p className="font-bold "> Type</p>
-            <FormControl>
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                value={fk.values.fund_type}
-                onChange={(e) => fk.setFieldValue("fund_type", e.target.value)}
+      <div className="!flex justify-center items-center w-full">
+        <div className="px-5  w-full bg-white !bg-opacity-30 !rounded-lg">
+          <p className="!text-center font-bold !py-4  text-lg">Credit Fund</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[6%]  gap-y-4">
+            <div>
+              <p className="font-bold "> Type</p>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={fk.values.fund_type}
+                  onChange={(e) => fk.setFieldValue("fund_type", e.target.value)}
+                >
+                  <Box display="flex" flexDirection="row" gap={2}>
+                    <FormControlLabel value="1" control={<Radio />} label="Manually" />
+                    <FormControlLabel value="2" control={<Radio />} label="Gateway" />
+                  </Box>
+                </RadioGroup>
+              </FormControl>
+            </div>
+            <div>
+              <p className="font-bold  ">User ID </p>
+              <TextField
+                fullWidth
+                id="user_id"
+                name="user_id"
+                placeholder="User ID"
+                value={fk.values.user_id}
+                onChange={fk.handleChange}
+              />{" "}
+              {fk.values.user_id ? (
+                result ? (
+                  <div className="no-error flex justify-between">
+                    <span> Referral From: {result?.full_name}</span>
+                    {(String(fk.values.wallet_type) === "2" && (
+                      <span> Winning Wallet: {result?.winning_wallet}</span>
+                    )) ||
+                      (String(fk.values.wallet_type) === "1" && (
+                        <span> Main Wallet: {result?.wallet}</span>
+                      ))}
+                  </div>
+                ) : (
+                  <div className="error">Invalid Referral Id</div>
+                )
+              ) : null}
+
+            </div>
+            <div>
+              <p className="font-bold">Wallet Type</p>
+              <TextField
+                fullWidth
+                select
+                size="small"
+                id="wallet_type"
+                name="wallet_type"
+                placeholder="Wallet Type"
+                value={fk.values.wallet_type}
+                onChange={fk.handleChange}
               >
-                <Box display="flex" flexDirection="row" gap={2}>
-                  <FormControlLabel value="1" control={<Radio />} label="Manually" />
-                  <FormControlLabel value="2" control={<Radio />} label="Gateway" />
-                </Box>
-
-              </RadioGroup>
-            </FormControl>
-          </div>
-          <div>
-            <p className="font-bold  ">User ID </p>
-            <TextField
-              fullWidth
-              id="user_id"
-              name="user_id"
-              placeholder="User ID"
-              value={fk.values.user_id}
-              onChange={fk.handleChange}
-            />{" "}
-            {fk.values.user_id ? (
-              result ? (
-                <div className="no-error flex justify-between">
-                  <span> Referral From: {result?.full_name}</span>
-                  {(String(fk.values.wallet_type) === "2" && (
-                    <span> Winning Wallet: {result?.winning_wallet}</span>
-                  )) ||
-                    (String(fk.values.wallet_type) === "1" && (
-                      <span> Main Wallet: {result?.wallet}</span>
-                    ))}
-                </div>
-              ) : (
-                <div className="error">Invalid Referral Id</div>
-              )
-            ) : null}
+                <MenuItem value={"Select Wallet Type"}>
+                  Select Wallet Type
+                </MenuItem>
+                <MenuItem value={1}>Main Wallet</MenuItem>
+                <MenuItem value={2}>Winning Wallet</MenuItem>
+              </TextField>
+            </div>
+            <div>
+              <p className=" font-bold">Amount</p>
+              <TextField
+                fullWidth
+                id="u_req_amount"
+                name="u_req_amount"
+                placeholder="Amount"
+                value={fk.values.u_req_amount}
+                onChange={fk.handleChange}
+              />
+            </div>
+            {fk.values.fund_type === "2" && <div>
+              <p className=" font-bold">UTR NO</p>
+              <TextField
+                fullWidth
+                id="u_utr_no"
+                name="u_utr_no"
+                placeholder="UTR No"
+                value={fk.values.u_utr_no}
+                onChange={fk.handleChange}
+              />
+            </div>}
 
           </div>
-          <div>
-            <p className="font-bold">Wallet Type</p>
-            <TextField
-              fullWidth
-              select
-              size="small"
-              id="wallet_type"
-              name="wallet_type"
-              placeholder="Wallet Type"
-              value={fk.values.wallet_type}
-              onChange={fk.handleChange}
+
+          <div className="flex justify-end gap-3 !mt-5">
+            <Button
+              onClick={() => fk.handleReset()}
+              variant="contained"
+              className="!bg-[#E74C3C]"
             >
-              <MenuItem value={"Select Wallet Type"}>
-                Select Wallet Type
-              </MenuItem>
-              <MenuItem value={1}>Main Wallet</MenuItem>
-              <MenuItem value={2}>Winning Wallet</MenuItem>
-            </TextField>
+              Clear
+            </Button>
+            <Button
+              onClick={() => fk.handleSubmit()}
+              variant="contained"
+              className="!bg-[#07BC0C]"
+            >
+              Submit
+            </Button>
           </div>
-          <div>
-            <p className=" font-bold">Amount</p>
-            <TextField
-              fullWidth
-              id="u_req_amount"
-              name="u_req_amount"
-              placeholder="Amount"
-              value={fk.values.u_req_amount}
-              onChange={fk.handleChange}
-            />
-          </div>
-          {fk.values.fund_type === "2" && <div>
-            <p className=" font-bold">UTR NO</p>
-            <TextField
-              fullWidth
-              id="u_utr_no"
-              name="u_utr_no"
-              placeholder="UTR No"
-              value={fk.values.u_utr_no}
-              onChange={fk.handleChange}
-            />
-          </div>}
-
-        </div>
-       
-        <div className="flex justify-end gap-3 !mt-5">
-          <Button
-            onClick={() => fk.handleReset()}
-            variant="contained"
-            className="!bg-[#E74C3C]"
-          >
-            Clear
-          </Button>
-          <Button
-            onClick={() => fk.handleSubmit()}
-            variant="contained"
-            className="!bg-[#07BC0C]"
-          >
-            Submit
-          </Button>
         </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 
