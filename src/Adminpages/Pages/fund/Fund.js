@@ -7,6 +7,7 @@ import { API_URLS } from "../../config/APIUrls";
 import axiosInstance from "../../config/axios";
 import { candidateName } from "../../Services";
 import { FilterAlt } from "@mui/icons-material";
+import moment from "moment";
 
 const Fund = () => {
   const [loding, setloding] = useState(false);
@@ -108,10 +109,12 @@ const Fund = () => {
   </div>
   {dataa && dataa?.full_name && (
         <div className="px-5">
-          <p className="">Name: {dataa?.full_name}</p>
-          <p>UserId: {dataa?.username}</p>
-          <p>Mobile No: {dataa?.mobile}</p>
-          <p>Amount: ₹ {Number(dataa?.tr15_amt)?.toFixed(2)}</p>
+          <p className="">Name : {dataa?.full_name}</p>
+          <p>UserId : {dataa?.username}</p>
+          <p>Mobile No : {dataa?.mobile}</p>
+          <p>Amount : ₹{Number(dataa?.tr15_amt)?.toFixed(2)}</p>
+          <p>Req. Date : {moment.utc(dataa?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}</p>
+          <p>Suc. Date : {moment(dataa?.success_date)?.format("DD-MM-YYYY HH:mm:ss")}</p>
         </div>
       )}
     <div className="!flex justify-center items-center w-full">
