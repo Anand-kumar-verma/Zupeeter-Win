@@ -39,6 +39,7 @@ const Player = () => {
       user_id: "",
       eligible_for_p2p: "",
       eligible_for_more_than_five_hen: "",
+      eligible_pi_re_depo: "",
     },
   });
 
@@ -87,9 +88,8 @@ const Player = () => {
         u_user_id: currentUser.id,
         u_user_name: fk.values.user_name,
         eligible_for_p2p: String(fk.values.eligible_for_p2p),
-        eligible_for_more_than_five_hen: String(
-          fk.values.eligible_for_more_than_five_hen
-        ),
+        eligible_for_more_than_five_hen: String(fk.values.eligible_for_more_than_five_hen),
+        eligible_pi_re_depo: String(fk.values.eligible_pi_re_depo),
       };
       const res = await axiosInstance.post(
         `${API_URLS?.update_user_name}`,
@@ -358,6 +358,15 @@ const Player = () => {
               }
             />
             Eligible for P2P transfer
+          </p>
+          <p className="mr-1">
+            <Checkbox
+              checked={fk.values.eligible_pi_re_depo === 1}
+              onChange={(e) =>
+                fk.setFieldValue("eligible_pi_re_depo", e.target.checked ? 1 : 0)
+              }
+            />
+           Active PI At Re-Deposit
           </p>
         </DialogContent>
         <DialogActions>
