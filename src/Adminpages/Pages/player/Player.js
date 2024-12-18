@@ -228,6 +228,7 @@ const Player = () => {
               i.eligible_for_more_than_five_hen
             );
             fk.setFieldValue("eligible_for_p2p", i.eligible_for_p2p);
+            fk.setFieldValue("eligible_pi_re_depo", i.eligible_pi_re_depo);
             setOpen(true);
           }}
         />
@@ -361,7 +362,7 @@ const Player = () => {
           </p>
           <p className="mr-1">
             <Checkbox
-              checked={fk.values.eligible_pi_re_depo === 1}
+              checked={(fk.values.eligible_pi_re_depo) === 1}
               onChange={(e) =>
                 fk.setFieldValue("eligible_pi_re_depo", e.target.checked ? 1 : 0)
               }
