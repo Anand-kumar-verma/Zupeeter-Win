@@ -39,7 +39,9 @@ const Player = () => {
       user_id: "",
       eligible_for_p2p: "",
       eligible_for_more_than_five_hen: "",
-      eligible_pi_re_depo: "",
+      eligible_pi_re_depo: "",      
+      is_visible_eligible_pi_re_depo: "",
+
     },
   });
 
@@ -90,6 +92,7 @@ const Player = () => {
         eligible_for_p2p: String(fk.values.eligible_for_p2p),
         eligible_for_more_than_five_hen: String(fk.values.eligible_for_more_than_five_hen),
         eligible_pi_re_depo: String(fk.values.eligible_pi_re_depo),
+
       };
       const res = await axiosInstance.post(
         `${API_URLS?.update_user_name}`,
@@ -229,6 +232,7 @@ const Player = () => {
             );
             fk.setFieldValue("eligible_for_p2p", i.eligible_for_p2p);
             fk.setFieldValue("eligible_pi_re_depo", i.eligible_pi_re_depo);
+            fk.setFieldValue("is_visible_eligible_pi_re_depo", i.is_company_promotor);
             setOpen(true);
           }}
         />
@@ -360,15 +364,17 @@ const Player = () => {
             />
             Eligible for P2P transfer
           </p>
-          <p className="mr-1">
+          {Number(fk.values?.is_visible_eligible_pi_re_depo) === 1 && 
+            <p className="mr-1">
             <Checkbox
-              checked={(fk.values.eligible_pi_re_depo) === 1}
+              checked={(fk.values.is_visible_eligible_pi_re_depo) === 1}
               onChange={(e) =>
                 fk.setFieldValue("eligible_pi_re_depo", e.target.checked ? 1 : 0)
               }
             />
            Active PI At Re-Deposit
-          </p>
+          </p>}
+        
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="primary">
